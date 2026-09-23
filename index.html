@@ -719,8 +719,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>RSVP</h2>
         </div>
 
-        <form action="https://formsubmit.co/creativemoodon11@gmail.com" method="POST">
-
+        <form id="rsvpForm" action="https://formsubmit.co/creativemoodon11@gmail.com" method="POST">
             <input type="hidden" name="_subject" value="New Wedding RSVP - Pratika & Deepanshu">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_captcha" value="false">
@@ -870,37 +869,69 @@ document.querySelectorAll(".guest-button").forEach(button => {
   });
 });
 
-/* RSVP email */
-document.getElementById("rsvpForm").addEventListener("submit", function(e){
-  e.preventDefault();
+/* FINAL RSVP CENTER FIX */
 
-  const name = document.getElementById("name").value.trim() || "Guest";
-  const email = document.getElementById("email").value.trim();
-  const guests = document.getElementById("guests").value;
+.rsvp {
+    width: 100%;
+    text-align: center;
+}
 
-  const events = [];
-  if(document.getElementById("sangeet").checked) events.push("Sangeet (Glam Gala)");
-  if(document.getElementById("wedding").checked) events.push("Wedding (The Sacred Knot)");
+.rsvp-container {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
-  const advice = document.getElementById("advice").value.trim() || "—";
-  const notes = document.getElementById("notes").value.trim() || "—";
+.rsvp-container form {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 
-  const subject = "RSVP — " + name;
-  const body =
-    "Guest(s) Name: " + name + "\n" +
-    "Number of Guests: " + guests + "\n" +
-    "Email: " + email + "\n" +
-    "Attending: " + (events.join(", ") || "None selected") + "\n\n" +
-    "Survival Advice:\n" + advice + "\n\n" +
-    "Message / Dietary Notes:\n" + notes;
+.rsvp-container .form-group {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-  window.location.href =
-    "mailto:creativemoodon11@gmail.com?subject=" +
-    encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+.rsvp-container .form-group > label {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
 
-  document.getElementById("rsvpFormWrap").innerHTML =
-    '<div class="thank-you"><h3 class="display" style="font-size:28px;color:var(--gold);margin-top:0">Thank You</h3><p>We can\'t wait to celebrate with you.</p></div>';
-});
+.rsvp-container input[type="text"],
+.rsvp-container input[type="email"],
+.rsvp-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rsvp-container .guest-options,
+.rsvp-container .function-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.rsvp-container .guest-options label,
+.rsvp-container .function-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.rsvp-container .rsvp-button {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
 </script>
 <script>
 const music = document.getElementById("weddingMusic");
