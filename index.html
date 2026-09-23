@@ -7,6 +7,61 @@
 
 	
 <style>
+	.scratch-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--gold-light);
+    background: var(--card);
+    text-align: center;
+    padding: 55px 20px;
+    min-height: 180px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.scratch-content {
+    position: relative;
+    z-index: 1;
+}
+
+#scratchCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.scratch-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    z-index: 3;
+    color: rgba(255,255,255,0.9);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    pointer-events: none;
+}
+
+.scratch-card.revealed .scratch-content {
+    animation: revealDate 0.8s ease;
+}
+
+@keyframes revealDate {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 .petal-field { 
     position: fixed;
     top: 0;
@@ -695,21 +750,33 @@ for (var i = 0; i < 25; i++) {
   </div>
 </section>
 
-<section class="save-date fade-in">
-  <div class="save-inner text-center">
-    <div class="upper gold">A Little Surprise</div>
-    <h2 class="section-title display" style="color: goldenrod;">Save The Date</h2>
-    <p style="font-size:12px;color:#777168;font-style:italic">Click the golden panel to uncover our date.</p>
+<div id="scratchCard" class="scratch-card">
 
-    <div id="scratchCard" class="scratch-card">
-      <div class="scratch-cover">Click to Reveal</div>
-      <div class="upper" style="color:var(--emerald);margin-bottom:16px">Save The Date</div>
-      <div class="date">21 . 11 . 2026</div>
-      <div style="margin-top:20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase">BAPS Hindu Mandir, Abu Dhabi</div>
-      <div style="margin-top:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#777168">3:00 PM Onwards</div>
+    <div class="scratch-content">
+        <div class="upper" style="color:var(--emerald);margin-bottom:16px;">
+            Save The Date
+        </div>
+
+        <div class="date">
+            21 . 11 . 2026
+        </div>
+
+        <div style="margin-top:20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;">
+            BAPS Hindu Mandir, Abu Dhabi
+        </div>
+
+        <div style="margin-top:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#777168;">
+            3:00 PM Onwards
+        </div>
     </div>
-  </div>
-</section>
+
+    <canvas id="scratchCanvas"></canvas>
+
+    <span class="scratch-label">
+        Scratch to Reveal
+    </span>
+
+</div>
 
 <section id="events" class="events">
   <div class="events-header">
@@ -1100,10 +1167,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 
-/* Save-the-date reveal */
-document.getElementById("scratchCard").addEventListener("click", function(){
-  this.classList.add("revealed");
-});
 
 /* Memories carousel */
 const slides = Array.from(document.querySelectorAll(".memory-slide"));
@@ -1201,6 +1264,142 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+    var card = document.getElementById("scratchCard");
+    var canvas = document.getElementById("scratchCanvas");
+
+    if (!card || !canvas) return;
+
+    var ctx = canvas.getContext("2d");
+    var isScratching = false;
+
+    function setupCanvas() {
+
+        var rect = card.getBoundingClientRect();
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        /* Golden scratch cover */
+        var gradient = ctx.createLinearGradient(
+            0, 0,
+            rect.width,
+            rect.height
+        );
+
+        gradient.addColorStop(0, "#c8a66a");
+        gradient.addColorStop(0.45, "#e1c486");
+        gradient.addColorStop(1, "#9b743a");
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        /* Small texture */
+        ctx.globalAlpha = 0.15;
+        ctx.fillStyle = "#6d522b";
+
+        for (var i = 0; i < 180; i++) {
+            var x = Math.random() * rect.width;
+            var y = Math.random() * rect.height;
+
+            ctx.fillRect(x, y, 1.5, 1.5);
+        }
+
+        ctx.globalAlpha = 1;
+    }
+
+    function scratch(x, y) {
+
+        var rect = card.getBoundingClientRect();
+
+        ctx.globalCompositeOperation = "destination-out";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x - rect.left,
+            y - rect.top,
+            28,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+    }
+
+    function checkScratchProgress() {
+
+        var imageData = ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        var pixels = imageData.data;
+        var transparent = 0;
+        var total = 0;
+
+        for (var i = 3; i < pixels.length; i += 40) {
+
+            total++;
+
+            if (pixels[i] === 0) {
+                transparent++;
+            }
+        }
+
+        var percentage = transparent / total;
+
+        if (percentage > 0.45) {
+
+            card.classList.add("revealed");
+
+            canvas.style.pointerEvents = "none";
+
+            document.querySelector(".scratch-label").style.display = "none";
+        }
+    }
+
+    canvas.addEventListener("pointerdown", function (e) {
+
+        isScratching = true;
+
+        canvas.setPointerCapture(e.pointerId);
+
+        scratch(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener("pointermove", function (e) {
+
+        if (!isScratching) return;
+
+        scratch(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener("pointerup", function () {
+
+        isScratching = false;
+
+        checkScratchProgress();
+    });
+
+    canvas.addEventListener("pointercancel", function () {
+
+        isScratching = false;
+    });
+
+    setupCanvas();
+
+});
+</script>
 </body>
 </html>
