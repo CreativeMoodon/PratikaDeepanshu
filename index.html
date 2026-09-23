@@ -4,28 +4,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
 <meta name="description" content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
-<style>
-	/* ==============================
-   RSVP CENTER ALIGNMENT
-   ============================== */
 
-.rsvp-section {
+	<style>
+
+/* =========================================
+   RSVP SECTION — CENTERED
+   ========================================= */
+
+.rsvp {
     width: 100%;
     padding: 80px 20px;
     box-sizing: border-box;
+    text-align: center;
 }
 
+/* Main RSVP container */
 .rsvp-container {
     width: 100%;
     max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
+/* RSVP heading */
 .rsvp-heading {
+    width: 100%;
     text-align: center;
-    margin-bottom: 40px;
+    margin: 0 auto 40px;
 }
 
 .rsvp-heading span {
@@ -34,66 +39,96 @@
 }
 
 .rsvp-heading h2 {
-    text-align: center;
     margin: 0;
+    text-align: center;
 }
 
-/* Form itself */
-#rsvpForm {
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.rsvp-container form {
+    display: block;
     width: 100%;
     max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Individual fields */
-#rsvpForm .form-group {
-    width: 100%;
-    margin-bottom: 28px;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-/* Labels */
-#rsvpForm .form-group > label {
+
+/* =========================================
+   FORM GROUPS
+   ========================================= */
+
+.rsvp-container .form-group {
     display: block;
     width: 100%;
+    margin: 0 auto 28px;
+    box-sizing: border-box;
     text-align: center;
-    margin-bottom: 10px;
 }
 
-/* Text inputs */
-#rsvpForm input[type="text"],
-#rsvpForm input[type="email"],
-#rsvpForm textarea {
+
+/* Labels */
+.rsvp-container .form-group > label {
+    display: block;
+    width: 100%;
+    margin: 0 auto 10px;
+    text-align: center;
+}
+
+
+/* =========================================
+   TEXT INPUTS
+   ========================================= */
+
+.rsvp-container input[type="text"],
+.rsvp-container input[type="email"],
+.rsvp-container textarea {
     display: block;
     width: 100%;
     max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-/* Guest 1 / 2 */
-#rsvpForm .guest-options {
+
+/* =========================================
+   NUMBER OF GUESTS — 1 / 2
+   ========================================= */
+
+.rsvp-container .guest-options {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 35px;
     width: 100%;
+    gap: 35px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
 }
 
-/* Sangeet / Wedding */
-#rsvpForm .function-options {
+
+/* =========================================
+   FUNCTIONS — SANGEET / WEDDING
+   ========================================= */
+
+.rsvp-container .function-options {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 35px;
     width: 100%;
+    gap: 35px;
+    margin: 0 auto;
+    flex-wrap: nowrap;
 }
 
-/* Radio & checkbox labels */
-#rsvpForm .guest-options label,
-#rsvpForm .function-options label {
+
+/* Radio / checkbox labels */
+.rsvp-container .guest-options label,
+.rsvp-container .function-options label {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -102,56 +137,18 @@
     cursor: pointer;
 }
 
-/* Submit button */
-#rsvpForm .rsvp-button {
+
+/* =========================================
+   SUBMIT BUTTON
+   ========================================= */
+
+.rsvp-container .rsvp-button {
     display: block;
     width: 100%;
     max-width: 520px;
     margin: 15px auto 0;
-    box-sizing: border-box;
-    text-align: center;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-
-    .rsvp-section {
-        padding: 60px 20px;
-    }
-
-    .rsvp-container,
-    #rsvpForm {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    #rsvpForm .guest-options,
-    #rsvpForm .function-options {
-        gap: 25px;
-    }
-}
-
-.guest-options,
-.function-options {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-    flex-wrap: nowrap;
-}
-
-.guest-options label,
-.function-options label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-}
-.rsvp-button {
-    width: 100%;
     padding: 16px;
+    box-sizing: border-box;
 
     background: #b08a3c;
     color: white;
@@ -162,17 +159,46 @@
     letter-spacing: 0.4em;
     text-transform: uppercase;
 
+    text-align: center;
     cursor: pointer;
 
     transition: 0.3s ease;
 }
 
-.rsvp-button:hover {
+.rsvp-container .rsvp-button:hover {
     background: #96732f;
 }
 
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .rsvp {
+        padding: 60px 20px;
+    }
+
+    .rsvp-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .rsvp-container form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .rsvp-container .guest-options,
+    .rsvp-container .function-options {
+        gap: 25px;
+    }
+
+}
+
 </style>
-	<style>
+<style>
 .petal-field {
     position: fixed;
     top: 0;
