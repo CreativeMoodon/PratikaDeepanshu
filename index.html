@@ -293,68 +293,176 @@ footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(
         box-shadow: 0 0 0 0 rgba(176, 138, 60, 0);
     }
 }
-		/* FINAL RSVP CENTER FIX */
+	/* ==============================
+   RSVP CENTER ALIGNMENT
+   ============================== */
 
-.rsvp {
+.rsvp-section {
     width: 100%;
-    text-align: center;
+    padding: 80px 20px;
+    box-sizing: border-box;
 }
 
 .rsvp-container {
     width: 100%;
     max-width: 520px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.rsvp-container form {
-    width: 100%;
-    max-width: 520px;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-.rsvp-container .form-group {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.rsvp-container .form-group > label {
-    display: block;
-    width: 100%;
-    text-align: center;
-}
-
-.rsvp-container input[type="text"],
-.rsvp-container input[type="email"],
-.rsvp-container textarea {
-    width: 100%;
+    margin: 0 auto;
     box-sizing: border-box;
 }
 
-.rsvp-container .guest-options,
-.rsvp-container .function-options {
+.rsvp-heading {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto 40px;
+}
+
+.rsvp-heading span {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.rsvp-heading h2 {
+    margin: 0;
+    text-align: center;
+}
+
+
+/* FORM */
+
+#rsvpForm {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+/* FORM GROUP */
+
+#rsvpForm .form-group {
+    width: 100%;
+    margin: 0 auto 28px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+/* LABELS */
+
+#rsvpForm .form-group > label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+/* TEXT INPUT */
+
+#rsvpForm input[type="email"],
+#rsvpForm input[type="text"],
+#rsvpForm textarea,
+#rsvpForm select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+
+/* SELECT */
+
+#rsvpForm select {
+    padding: 12px 10px;
+}
+
+
+/* GUEST OPTIONS */
+
+#rsvpForm .guest-options {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 35px;
     width: 100%;
+    margin: 0 auto;
 }
 
-.rsvp-container .guest-options label,
-.rsvp-container .function-options label {
+
+/* FUNCTION OPTIONS */
+
+#rsvpForm .function-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/* RADIO / CHECKBOX LABELS */
+
+#rsvpForm .guest-options label,
+#rsvpForm .function-options label {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 7px;
     white-space: nowrap;
+    cursor: pointer;
 }
 
-.rsvp-container .rsvp-button {
+
+/* SUBMIT BUTTON */
+
+#rsvpForm .rsvp-button {
     display: block;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 15px auto 0;
+    padding: 16px;
+    box-sizing: border-box;
+
+    background: #b08a3c;
+    color: white;
+
+    border: none;
+
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+
+    text-align: center;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+#rsvpForm .rsvp-button:hover {
+    background: #96732f;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .rsvp-section {
+        padding: 60px 20px;
+    }
+
+    .rsvp-container,
+    #rsvpForm {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #rsvpForm .guest-options,
+    #rsvpForm .function-options {
+        gap: 25px;
+    }
+
 }
 </style>
 </head>
@@ -402,67 +510,6 @@ for (var i = 0; i < 25; i++) {
 
     field.appendChild(petal);
 }
-</script>
-	
-	<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    var form = document.getElementById("rsvpForm");
-
-    if (!form) {
-        console.log("RSVP form not found.");
-        return;
-    }
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        var name = document.getElementById("name").value.trim();
-        var email = document.getElementById("email").value.trim();
-        var advice = document.getElementById("advice").value.trim();
-        var notes = document.getElementById("notes").value.trim();
-
-        var guestOption = document.querySelector(
-            'input[name="guests"]:checked'
-        );
-
-        var guests = guestOption ? guestOption.value : "1";
-
-        var events = [];
-
-        if (document.getElementById("sangeet").checked) {
-            events.push("Sangeet");
-        }
-
-        if (document.getElementById("wedding").checked) {
-            events.push("Wedding");
-        }
-
-        if (events.length === 0) {
-            events.push("None selected");
-        }
-
-        var subject = "RSVP - " + (name || "Guest");
-
-        var body =
-            "Guest(s) Name: " + name + "\n\n" +
-            "Number of Guests: " + guests + "\n\n" +
-            "Email: " + email + "\n\n" +
-            "Attending Functions: " + events.join(", ") + "\n\n" +
-            "Survival Advice:\n" +
-            (advice || "-") + "\n\n" +
-            "Message / Dietary Notes:\n" +
-            (notes || "-");
-
-        var mailto =
-            "mailto:creativemoodon11@gmail.com" +
-            "?subject=" + encodeURIComponent(subject) +
-            "&body=" + encodeURIComponent(body);
-
-        window.location.href = mailto;
-    });
-
-});
 </script>
 
 <nav id="nav">
@@ -641,74 +688,188 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 </section>
 
-<section class="rsvp">
+<section id="rsvp" class="rsvp-section">
 
     <div class="rsvp-container">
 
         <div class="rsvp-heading">
-            <span>The Celebration</span>
-            <h2>RSVP</h2>
+            <span>Kindly Respond</span>
+            <h2 class="section-title display" style="color: goldenrod;">
+                Will You Join Us?
+            </h2>
         </div>
 
-        <form id="rsvpForm" action="https://formsubmit.co/creativemoodon11@gmail.com" method="POST">
- <div class="form-group">
-          <label for="guestSelect">Your name:</label>
-<select name="guestName" id="guestSelect">
-  <option value="" disabled selected>Select a name</option>
-  <option value="john_doe">John Doe</option>
-  <option value="jane_smith">Jane Smith</option>
-  <option value="alex_jones">Alex Jones</option>
-</select>
-        </div>
+        <form
+            id="rsvpForm"
+            action="https://formsubmit.co/creativemoodon11@gmail.com"
+            method="POST"
+        >
 
+            <!-- FormSubmit Settings -->
+            <input
+                type="hidden"
+                name="_subject"
+                value="New Wedding RSVP - Pratika & Deepanshu"
+            >
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table"
+            >
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false"
+            >
+
+            <!-- Guest Name -->
             <div class="form-group">
-                <label>Number of Guests</label>
+
+                <label for="guestSelect">
+                    Your name:
+                </label>
+
+                <select
+                    name="guestName"
+                    id="guestSelect"
+                    required
+                >
+                    <option value="" disabled selected>
+                        Select a name
+                    </option>
+
+                    <option value="John Doe">John Doe</option>
+                    <option value="Jane Smith">Jane Smith</option>
+                    <option value="Alex Jones">Alex Jones</option>
+                </select>
+
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="form-group">
+
+                <label>
+                    Number of Guests attending the event
+                </label>
 
                 <div class="guest-options">
+
                     <label>
-                        <input type="radio" name="Number of Guests" value="1" required>
+                        <input
+                            type="radio"
+                            name="guestCount"
+                            value="1"
+                            checked
+                        >
                         1
                     </label>
 
                     <label>
-                        <input type="radio" name="Number of Guests" value="2">
+                        <input
+                            type="radio"
+                            name="guestCount"
+                            value="2"
+                        >
                         2
                     </label>
+
                 </div>
+
             </div>
 
+            <!-- Email -->
             <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="Email" placeholder="Enter your email" required>
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    maxlength="120"
+                    placeholder="you@example.com"
+                >
+
             </div>
 
+            <!-- Functions -->
             <div class="form-group">
-                <label>Attending Functions</label>
+
+                <label>
+                    Attending Functions
+                </label>
 
                 <div class="function-options">
+
                     <label>
-                        <input type="checkbox" name="Sangeet" value="Yes">
+                        <input
+                            type="checkbox"
+                            name="sangeet"
+                            value="Yes"
+                        >
                         Sangeet
                     </label>
 
                     <label>
-                        <input type="checkbox" name="Wedding" value="Yes">
+                        <input
+                            type="checkbox"
+                            name="wedding"
+                            value="Yes"
+                            checked
+                        >
                         Wedding
                     </label>
+
                 </div>
+
             </div>
 
+            <!-- Advice -->
             <div class="form-group">
-                <label>Survival Advice for Pratika & Deepanshu</label>
-                <textarea name="Survival Advice" rows="3" placeholder="Share your advice..."></textarea>
+
+                <label for="advice">
+                    Any tips, tricks or survival advice for
+                    Pratika &amp; Deepanshu before they officially
+                    become Mr. &amp; Mrs.? 😂♥️
+                </label>
+
+                <textarea
+                    id="advice"
+                    name="survivalAdvice"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Share your best advice..."
+                ></textarea>
+
             </div>
 
+            <!-- Notes -->
             <div class="form-group">
-                <label>Message / Dietary Notes</label>
-                <textarea name="Message / Dietary Notes" rows="3" placeholder="Anything we should know?"></textarea>
+
+                <label for="notes">
+                    Message / Dietary Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="dietaryNotes"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Anything we should know?"
+                ></textarea>
+
             </div>
 
-            <button type="submit" class="rsvp-button">
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="rsvp-button"
+            >
                 Submit RSVP
             </button>
 
@@ -717,7 +878,6 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
 </section>
-
    
 
 <footer>
