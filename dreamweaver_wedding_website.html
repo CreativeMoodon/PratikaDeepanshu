@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
+<meta name="description" content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
+<style>
+
+.guest-options,
+.function-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.guest-options label,
+.function-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+.rsvp-button {
+    width: 100%;
+    padding: 16px;
+
+    background: #b08a3c;
+    color: white;
+
+    border: none;
+
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.rsvp-button:hover {
+    background: #96732f;
+}
+
+</style>
+	<style>
+.petal-field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.petal {
+    position: absolute;
+    top: -40px;
+    display: block;
+    width: 14px;
+    height: 20px;
+    background: #e8a0aa;
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.7;
+
+    animation-name: petalFall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translate3d(0, -40px, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate3d(var(--drift), 50vh, 0)
+                   rotate(180deg);
+    }
+
+    100% {
+        transform: translate3d(calc(var(--drift) * -1), 110vh, 0)
+                   rotate(360deg);
+    }
+}
+</style>
+<style>
+:root{
+  --background:#fbf8f2;
+  --foreground:#302b25;
+  --gold:#b58a45;
+  --gold-light:rgba(181,138,69,.15);
+  --emerald:#567866;
+  --sand:#eee5d6;
+  --card:#fffdf9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--background);
+  color:var(--foreground);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{width:min(100% - 32px,900px);margin:auto}
+.display{
+  font-family:Georgia,"Times New Roman",serif;
+  font-style:italic;
+}
+.gold{color:var(--gold)}
+.text-center{text-align:center}
+.upper{
+  text-transform:uppercase;
+  letter-spacing:.25em;
+  font-size:10px;
+}
+section{scroll-margin-top:70px}
+
+/* Navigation */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:64px;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:.3s;
+}
+nav.scrolled{
+  background:rgba(251,248,242,.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--gold-light);
+}
+.nav-logo{width:40px;height:40px;object-fit:contain}
+.nav-links{display:flex;gap:24px;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:#625d55}
+.nav-links a:hover{color:var(--gold)}
+@media(max-width:650px){
+  .nav-links{gap:10px;font-size:8px;letter-spacing:.12em}
+  nav{padding:0 14px}
+}
+
+/* Ganesh */
+.ganesh-banner{text-align:center;padding:80px 20px 20px}
+.ganesh-icon{width:48px;height:48px;margin:0 auto 8px;object-fit:contain}
+
+/* Hero */
+.hero{
+  position:relative;min-height:82vh;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:48px 24px 30px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:.2;z-index:0;
+}
+.vignette-top,.vignette-bottom{position:absolute;left:0;right:0;z-index:1}
+.vignette-top{top:0;height:35%;background:linear-gradient(to bottom,rgba(251,248,242,.55),transparent)}
+.vignette-bottom{bottom:0;height:28%;background:linear-gradient(to top,rgba(251,248,242,.8),transparent)}
+.hero-content{position:relative;z-index:2;text-align:center}
+.hero-logo{width:min(380px,80vw);margin:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,.25))}
+
+/* Headings */
+.couple-heading{padding:48px 24px;text-align:center}
+.couple-heading h1{font-size:clamp(42px,8vw,64px);margin:0}
+.couple-heading span{display:block;font-size:clamp(26px,5vw,40px);margin-top:12px}
+
+/* General sections */
+.invitation,.countdown,.save-date,.memories,.rsvp{padding:90px 24px}
+.invitation-inner,.countdown-box,.save-inner,.memory-inner,.rsvp-inner{
+  width:min(100%,600px);margin:auto;
+}
+.rule{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px}
+.rule:before,.rule:after{content:"";height:1px;width:40px;background:rgba(181,138,69,.4)}
+.invitation h2,.section-title{font-size:32px;margin:0 0 28px}
+.invitation p{font-size:14px;color:rgba(48,43,37,.7);line-height:1.9}
+
+/* Countdown */
+.countdown-box{
+  border:1px solid var(--gold-light);
+  background:rgba(255,253,249,.6);
+  padding:32px;
+  text-align:center;
+}
+.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.count-number{font-family:Georgia,serif;font-size:36px}
+.count-label{font-size:9px;text-transform:uppercase;letter-spacing:.18em;color:#777168}
+
+/* Save the date */
+.save-date{background:rgba(238,229,214,.25)}
+.scratch-card{
+  border:1px solid var(--gold-light);
+  background:var(--card);
+  text-align:center;
+  padding:55px 20px;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+}
+.scratch-cover{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#c8a66a,#9b743a);
+  color:white;letter-spacing:.25em;text-transform:uppercase;font-size:11px;
+  transition:.5s;
+}
+.scratch-card.revealed .scratch-cover{transform:translateY(-100%)}
+.date{font-family:Georgia,serif;font-style:italic;font-size:48px;line-height:1}
+
+/* Events */
+.events{padding:20px 16px 90px}
+.events-header{text-align:center;margin-bottom:32px}
+.event-card{
+  margin:0 auto 32px;
+  width:min(100%,600px);
+  border:1px solid var(--gold-light);
+  background:var(--card);
+}
+.event-card.emerald{border-color:rgba(86,120,102,.2)}
+.event-image{
+  width:100%;aspect-ratio:9/16;object-fit:cover;
+  background:#eee5d6;
+}
+.event-body{padding:32px}
+.event-index{display:block;margin-bottom:8px}
+.event-title{font-family:Georgia,serif;font-style:italic;font-size:28px;margin:0 0 16px}
+.event-details{font-size:14px;color:rgba(48,43,37,.8)}
+.event-note{font-size:14px;color:rgba(48,43,37,.6);font-style:italic;margin:20px 0}
+.divider{height:1px;background:var(--gold-light)}
+
+/* Venue */
+.venue{padding:80px 24px}
+.venue-inner{width:min(100%,600px);margin:auto}
+.venue-block{text-align:center;margin-bottom:80px}
+.venue-title{font-family:Georgia,serif;font-style:italic;font-size:32px;margin:0 0 16px}
+.venue-address{font-size:14px;color:rgba(48,43,37,.7);margin-bottom:30px}
+.venue-image{width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:30px}
+.venue-description{font-size:14px;color:rgba(48,43,37,.7);line-height:1.8;margin-bottom:28px}
+.map-button,.submit-button{
+  display:block;width:100%;padding:16px;
+  border:1px solid rgba(181,138,69,.4);
+  background:transparent;
+  text-align:center;
+  text-transform:uppercase;
+  letter-spacing:.25em;
+  font-size:10px;
+  cursor:pointer;
+}
+.map-button:hover{background:rgba(181,138,69,.08)}
+
+/* Memories */
+.memory-frame{overflow:hidden;border:1px solid var(--gold-light)}
+.memory-slide{display:none;position:relative}
+.memory-slide.active{display:block}
+.memory-slide img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.caption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:48px 20px 16px;
+  background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
+  color:white;font-size:10px;text-transform:uppercase;letter-spacing:.2em;
+}
+.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.slider-button{
+  width:42px;height:42px;border:1px solid rgba(181,138,69,.3);
+  border-radius:50%;background:var(--background);cursor:pointer;font-size:18px;
+}
+.dots{display:flex;gap:8px}
+.dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(181,138,69,.25);cursor:pointer}
+.dot.active{background:var(--gold)}
+
+/* RSVP */
+.rsvp{background:rgba(238,229,214,.3)}
+	.rsvp-container {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.form-group{margin-bottom:28px}
+label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#777168;margin-bottom:8px}
+input,textarea{
+  width:100%;border:0;border-bottom:1px solid rgba(181,138,69,.3);
+  background:transparent;padding:12px 0;font-size:14px;outline:none;color:var(--foreground);
+}
+input:focus,textarea:focus{border-color:var(--gold)}
+.guest-grid,.attending-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.guest-button{
+  padding:12px;border:1px solid rgba(181,138,69,.3);
+  background:transparent;cursor:pointer;
+}
+.guest-button.selected{border-color:var(--gold);background:rgba(181,138,69,.1);color:var(--gold)}
+.checkbox{display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer}
+.checkbox input{width:auto}
+.submit-button{background:var(--gold);color:white;border:0}
+.thank-you{text-align:center;border:1px solid var(--gold-light);padding:48px 20px}
+
+/* Footer */
+footer{padding:55px 20px;text-align:center;border-top:1px solid var(--gold-light)}
+.footer-logo{width:96px;margin:0 auto 12px}
+footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(48,43,37,.4)}
+
+.fade-in{opacity:0;transform:translateY(18px);transition:.7s ease}
+.fade-in.visible{opacity:1;transform:none}
+</style>
+	<style>
+.music-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(180, 150, 80, 0.5);
+
+    background: rgba(255, 255, 255, 0.85);
+
+    color: #b08a3c;
+    font-size: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+
+    z-index: 9999;
+
+    transition: all 0.3s ease;
+}
+
+.music-button:hover {
+    transform: scale(1.08);
+    background: white;
+}
+
+.music-button.playing {
+    animation: musicPulse 1.5s infinite;
+}
+
+@keyframes musicPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(176, 138, 60, 0.25);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(176, 138, 60, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(176, 138, 60, 0);
+    }
+}
+</style>
+</head>
+
+<body>
+	
+	<audio id="weddingMusic" loop>
+    <source src="Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg">
+    &lt;audio id="weddingMusic" loop&gt;     &lt;source src="Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg"&gt; &lt;/audio&gt;    Your browser does not support the audio element.
+</audio>
+
+<button id="musicButton" class="music-button" aria-label="Play music">
+    ▶
+</button>
+	
+<div class="petal-field" id="petalField"></div>
+	<script>
+function seeded(i, salt) {
+    var x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453;
+    return x - Math.floor(x);
+}
+
+var field = document.getElementById("petalField");
+
+for (var i = 0; i < 25; i++) {
+
+    var petal = document.createElement("span");
+
+    petal.className = "petal";
+
+    var left = seeded(i, 1) * 100;
+    var delay = seeded(i, 2) * 12;
+    var duration = 8 + seeded(i, 3) * 8;
+    var size = 10 + seeded(i, 4) * 12;
+    var drift = (seeded(i, 5) - 0.5) * 200;
+    var opacity = 0.4 + seeded(i, 6) * 0.5;
+
+    petal.style.left = left + "%";
+    petal.style.width = size + "px";
+    petal.style.height = (size * 1.3) + "px";
+    petal.style.opacity = opacity;
+    petal.style.animationDelay = "-" + delay + "s";
+    petal.style.animationDuration = duration + "s";
+    petal.style.setProperty("--drift", drift + "px");
+
+    field.appendChild(petal);
+}
+</script>
+	
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    var form = document.getElementById("rsvpForm");
+
+    if (!form) {
+        console.log("RSVP form not found.");
+        return;
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        var name = document.getElementById("name").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var advice = document.getElementById("advice").value.trim();
+        var notes = document.getElementById("notes").value.trim();
+
+        var guestOption = document.querySelector(
+            'input[name="guests"]:checked'
+        );
+
+        var guests = guestOption ? guestOption.value : "1";
+
+        var events = [];
+
+        if (document.getElementById("sangeet").checked) {
+            events.push("Sangeet");
+        }
+
+        if (document.getElementById("wedding").checked) {
+            events.push("Wedding");
+        }
+
+        if (events.length === 0) {
+            events.push("None selected");
+        }
+
+        var subject = "RSVP - " + (name || "Guest");
+
+        var body =
+            "Guest(s) Name: " + name + "\n\n" +
+            "Number of Guests: " + guests + "\n\n" +
+            "Email: " + email + "\n\n" +
+            "Attending Functions: " + events.join(", ") + "\n\n" +
+            "Survival Advice:\n" +
+            (advice || "-") + "\n\n" +
+            "Message / Dietary Notes:\n" +
+            (notes || "-");
+
+        var mailto =
+            "mailto:creativemoodon11@gmail.com" +
+            "?subject=" + encodeURIComponent(subject) +
+            "&body=" + encodeURIComponent(body);
+
+        window.location.href = mailto;
+    });
+
+});
+</script>
+
+<nav id="nav">
+  <a href="#top"><img class="nav-logo" src="PratikaWebsite/dp-logo-mark.png" alt="Pratika & Deepanshu monogram"></a>
+  <div class="nav-links">
+    <a href="#events">Events</a>
+    <a href="#memories">Memories</a>
+    <a href="#venue">Venue</a>
+    <a href="#rsvp">RSVP</a>
+  </div>
+</nav>
+
+<div class="ganesh-banner">
+  <img class="ganesh-icon" src="PratikaWebsite/ganesh-icon.png" alt="Lord Ganesha">
+  <div class="upper gold">|| Om Ganeshaya Namah ||</div>
+</div>
+
+<header id="top" class="hero">
+  <img class="hero-bg" src="PratikaWebsite/dubai-wallpaper.png" alt="Illustrated Dubai skyline">
+  <div class="vignette-top"></div>
+  <div class="vignette-bottom"></div>
+  <div class="hero-content">
+    <img class="hero-logo" src="PratikaWebsite/DP_LogoNoBG.png" alt="Pratika & Deepanshu wedding logo">
+  </div>
+</header>
+
+<section class="couple-heading">
+  <h1 class="display" style="color: goldenrod;">Pratika &amp; Deepanshu</h1>
+<span class="display">Are Getting Married</span>
+</section>
+
+<section class="invitation fade-in">
+  <div class="invitation-inner text-center">
+    <div class="rule"><span class="upper gold">The Invitation</span></div>
+    <h2 classname="font-display text-3xl sm:text-4xl mb-8" class="upper gold"> Our Union in the City of Gold </h2>
+<p className="text-foreground/70 leading-relaxed text-pretty text-sm">
+          Deeply rooted in tradition and surrounded by the shifting sands of
+          Dubai, we invite you to witness our vows at the BAPS Hindu Mandir.
+          Two days of joy, ceremony, and celebration — we would be honoured to
+          have you with us.
+    </p>
+  </div>
+</section>
+
+<section class="countdown fade-in">
+  <div class="countdown-box">
+    <div class="upper gold" style="margin-bottom:20px">Counting Down to the Sacred Knot</div>
+    <div class="countdown-grid">
+      <div><div id="days" class="count-number">--</div><div class="count-label">Days</div></div>
+      <div><div id="hours" class="count-number">--</div><div class="count-label">Hours</div></div>
+      <div><div id="minutes" class="count-number">--</div><div class="count-label">Minutes</div></div>
+      <div><div id="seconds" class="count-number">--</div><div class="count-label">Seconds</div></div>
+    </div>
+    <div style="margin-top:24px;font-size:12px;color:#777168;font-style:italic">
+      21 November 2026 &bull; 3:00 PM
+    </div>
+  </div>
+</section>
+
+<section class="save-date fade-in">
+  <div class="save-inner text-center">
+    <div class="upper gold">A Little Surprise</div>
+    <h2 class="section-title display" style="color: goldenrod;">Save The Date</h2>
+    <p style="font-size:12px;color:#777168;font-style:italic">Click the golden panel to uncover our date.</p>
+
+    <div id="scratchCard" class="scratch-card">
+      <div class="scratch-cover">Click to Reveal</div>
+      <div class="upper" style="color:var(--emerald);margin-bottom:16px">Save The Date</div>
+      <div class="date">21 . 11 . 2026</div>
+      <div style="margin-top:20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase">BAPS Hindu Mandir, Abu Dhabi</div>
+      <div style="margin-top:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#777168">3:00 PM Onwards</div>
+    </div>
+  </div>
+</section>
+
+<section id="events" class="events">
+  <div class="events-header">
+    <div class="upper gold">The Celebrations</div>
+    <h2 class="section-title display" style="color: goldenrod;">Two Days of Joy</h2>
+  </div>
+
+  <article class="event-card fade-in">
+    <img class="event-image" src="PratikaWebsite/sangeet-final1.png" alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
+    <div class="event-body">
+      <span class="upper gold event-index">Function One</span>
+      <h3 class="event-title" style="color: goldenrod;">Glam Gala</h3>
+      <div class="event-details">
+        <p>Thu, 19th Nov &bull; 6:00 PM</p>
+        <p>Millenium Lakeview Hotel, Dubai Investment Park</p>
+        <p><strong>Attire:</strong> Glitter and Glam</p>
+      </div>
+      <p class="event-note">An evening of music, dance, and revelry beneath the Dubai skyline.</p>
+      <div class="divider"></div>
+    </div>
+  </article>
+
+  <article class="event-card emerald fade-in">
+    <img class="event-image" src="PratikaWebsite/wedding-final1.png" alt="Illustration of Pratika & Deepanshu in wedding attire">
+    <div class="event-body">
+      <span class="upper" style="color:var(--emerald)">Function Two</span>
+      <h3 class="event-title" style="color: goldenrod;">The Sacred Knot</h3>
+      <div class="event-details">
+        <p>Sat, 21st Nov &bull; 3:00 PM</p>
+        <p>BAPS Hindu Mandir, Abu Dhabi</p>
+        <p><strong>Attire:</strong> Pastel &amp; Jewel Harmony</p>
+      </div>
+      <p class="event-note">Seven sacred vows around the holy fire at the Mandir — the heart of our celebration.</p>
+      <div class="divider"></div>
+    </div>
+  </article>
+</section>
+
+<section id="memories" class="memories fade-in">
+  <div class="memory-inner">
+    <div class="text-center" style="margin-bottom:28px">
+      <div class="upper gold">Our Memories</div>
+      <h2 class="section-title display" style="color: goldenrod;">Moments Along the Way</h2>
+    </div>
+
+    <div class="memory-frame">
+      <figure class="memory-slide active">
+        <img src="PratikaWebsite/memory-proposal.jpeg" alt="Pratika and Deepanshu beneath a red rose heart">
+        <figcaption class="caption">Where Forever Began</figcaption>
+      </figure>
+      <figure class="memory-slide">
+        <img src="PratikaWebsite/memory-festive-red.jpeg" alt="Pratika and Deepanshu dressed in red">
+        <figcaption class="caption">Festive Moments</figcaption>
+      </figure>
+      <figure class="memory-slide">
+        <img src="PratikaWebsite/memory-museum-future.jpeg" alt="Pratika and Deepanshu at Dubai's Museum of the Future">
+        <figcaption class="caption">Dubai Days</figcaption>
+      </figure>
+      <figure class="memory-slide">
+        <img src="PratikaWebsite/memory-traditional.jpeg" alt="Pratika and Deepanshu in traditional Indian attire">
+        <figcaption class="caption">Together in Tradition</figcaption>
+      </figure>
+    </div>
+
+    <div class="slider-controls">
+      <button class="slider-button" id="prev" aria-label="Previous memory">&#10094;</button>
+      <div class="dots" id="dots"></div>
+      <button class="slider-button" id="next" aria-label="Next memory">&#10095;</button>
+    </div>
+  </div>
+</section>
+	
+
+<section id="venue" class="venue">
+  <div class="venue-inner">
+
+    <div class="venue-block fade-in">
+      <div class="upper gold">Glam Gala Venue</div>
+      <h2 class="venue-title" style="color: goldenrod;">Millenium Lakeview Hotel</h2>
+      <p class="venue-address">Millenium Lakeview Hotel<br>Dubai Investment Park, Dubai, UAE</p>
+      <img class="venue-image" src="PratikaWebsite/millennium-lakeview-hotel.jpeg" alt="Millenium Lakeview Hotel beside the lake">
+      <p class="venue-description">
+        Where the Glam Gala comes alive — an evening of music, dance, and celebration under the lights of the Dubai skyline.
+      </p>
+      <a class="map-button" target="_blank" rel="noopener noreferrer"
+         href="https://www.google.com/maps/search/?api=1&query=Millenium+Lakeview+Hotel+Dubai+Investment+Park">View on Map</a>
+    </div>
+
+    <div class="venue-block fade-in">
+      <div class="upper gold">The Sacred Knot Venue</div>
+      <h2 class="venue-title" style="color: goldenrod;">The BAPS Mandir</h2>
+      <p class="venue-address">BAPS Hindu Mandir, Abu Dhabi - Dubai Highway, UAE</p>
+      <img class="venue-image" src="PratikaWebsite/baps-hindu-mandir.jpeg" alt="BAPS Hindu Mandir in Abu Dhabi">
+      <p class="venue-description">
+        The first traditional Hindu stone temple in the Middle East — a sanctuary of hand-carved sandstone where our vows will be exchanged.
+        Please observe modest attire within the temple premises.
+      </p>
+      <a class="map-button" target="_blank" rel="noopener noreferrer"
+         href="https://www.google.com/maps/search/?api=1&query=BAPS+Hindu+Mandir+Abu+Dhabi">View on Map</a>
+    </div>
+
+  </div>
+</section>
+	
+	<section id="rsvp" class="rsvp-section" align="center">
+
+    <div class="rsvp-container">
+
+        <div class="rsvp-heading">
+            <span>Kindly Respond</span>
+            <h2 class="section-title display" style="color: goldenrod;">Will You Join Us?</h2>
+        </div>
+
+        <form id="rsvpForm">
+
+            <div class="form-group">
+          <label for="guestSelect">Your name:</label>
+<select name="guestName" id="guestSelect">
+  <option value="" disabled selected>Select a name</option>
+  <option value="john_doe">John Doe</option>
+  <option value="jane_smith">Jane Smith</option>
+  <option value="alex_jones">Alex Jones</option>
+</select>
+        </div>
+
+            <!-- Number of Guests -->
+            <div class="form-group">
+
+                <label>Number of Guests attending the event</label>
+
+                <div class="guest-options">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="guests"
+                            value="1"
+                            checked
+                        >
+                        1
+                    </label>
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="guests"
+                            value="2"
+                        >
+                        2
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- Email -->
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    required
+                    maxlength="120"
+                    placeholder="you@example.com"
+                >
+
+            </div>
+
+
+            <!-- Functions -->
+            <div class="form-group">
+
+                <label>Attending Functions</label>
+
+                <div class="function-options">
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="sangeet"
+                        >
+                        Sangeet
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="wedding"
+                            checked
+                        >
+                        Wedding
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- Advice -->
+            <div class="form-group">
+
+                <label>
+                    Any tips, tricks or survival advice for Pratika &amp;
+                    Deepanshu before they officially become Mr. &amp; Mrs.? 😂♥️
+                </label>
+
+                <textarea
+                    id="advice"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Share your best advice..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Notes -->
+            <div class="form-group">
+
+                <label>Message / Dietary Notes</label>
+
+                <textarea
+                    id="notes"
+                    rows="3"
+                    maxlength="1000"
+                    placeholder="Anything we should know?"
+                ></textarea>
+
+            </div>
+
+
+            <!-- Submit -->
+            <button type="submit" class="rsvp-button">
+    Submit RSVP
+</button>
+        </form>
+
+    </div>
+
+</section>
+
+
+<footer>
+  <img class="footer-logo" src="PratikaWebsite/dp-logo-footer.png" alt="Pratika & Deepanshu monogram">
+  <p>19 &amp; 21 November 2026</p>
+  <p>#DeepkePratipyaar</p>
+</footer>
+
+<script>
+/* Countdown */
+const weddingDate = new Date("2026-11-21T15:00:00+04:00");
+
+function updateCountdown(){
+  const diff = Math.max(0, weddingDate.getTime() - Date.now());
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff / 3600000) % 24);
+  const minutes = Math.floor((diff / 60000) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = String(days).padStart(2,"0");
+  document.getElementById("hours").textContent = String(hours).padStart(2,"0");
+  document.getElementById("minutes").textContent = String(minutes).padStart(2,"0");
+  document.getElementById("seconds").textContent = String(seconds).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+/* Sticky navigation */
+const nav = document.getElementById("nav");
+window.addEventListener("scroll", () => {
+  nav.classList.toggle("scrolled", window.scrollY > 40);
+},{passive:true});
+
+/* Reveal animations */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.15});
+
+document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+/* Save-the-date reveal */
+document.getElementById("scratchCard").addEventListener("click", function(){
+  this.classList.add("revealed");
+});
+
+/* Memories carousel */
+const slides = Array.from(document.querySelectorAll(".memory-slide"));
+const dotsContainer = document.getElementById("dots");
+let currentSlide = 0;
+
+slides.forEach((_, index) => {
+  const dot = document.createElement("button");
+  dot.className = "dot" + (index === 0 ? " active" : "");
+  dot.setAttribute("aria-label","View photo " + (index + 1));
+  dot.addEventListener("click",() => showSlide(index));
+  dotsContainer.appendChild(dot);
+});
+
+function showSlide(index){
+  currentSlide = (index + slides.length) % slides.length;
+  slides.forEach((slide,i) => slide.classList.toggle("active",i === currentSlide));
+  document.querySelectorAll(".dot").forEach((dot,i) => dot.classList.toggle("active",i === currentSlide));
+}
+
+document.getElementById("prev").addEventListener("click",() => showSlide(currentSlide - 1));
+document.getElementById("next").addEventListener("click",() => showSlide(currentSlide + 1));
+	
+	
+
+/* Guest count */
+document.querySelectorAll(".guest-button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".guest-button").forEach(b => b.classList.remove("selected"));
+    button.classList.add("selected");
+    document.getElementById("guests").value = button.dataset.guests;
+  });
+});
+
+/* RSVP email */
+document.getElementById("rsvpForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim() || "Guest";
+  const email = document.getElementById("email").value.trim();
+  const guests = document.getElementById("guests").value;
+
+  const events = [];
+  if(document.getElementById("sangeet").checked) events.push("Sangeet (Glam Gala)");
+  if(document.getElementById("wedding").checked) events.push("Wedding (The Sacred Knot)");
+
+  const advice = document.getElementById("advice").value.trim() || "—";
+  const notes = document.getElementById("notes").value.trim() || "—";
+
+  const subject = "RSVP — " + name;
+  const body =
+    "Guest(s) Name: " + name + "\n" +
+    "Number of Guests: " + guests + "\n" +
+    "Email: " + email + "\n" +
+    "Attending: " + (events.join(", ") || "None selected") + "\n\n" +
+    "Survival Advice:\n" + advice + "\n\n" +
+    "Message / Dietary Notes:\n" + notes;
+
+  window.location.href =
+    "mailto:creativemoodon11@gmail.com?subject=" +
+    encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+  document.getElementById("rsvpFormWrap").innerHTML =
+    '<div class="thank-you"><h3 class="display" style="font-size:28px;color:var(--gold);margin-top:0">Thank You</h3><p>We can\'t wait to celebrate with you.</p></div>';
+});
+</script>
+<script>
+const music = document.getElementById("weddingMusic");
+const musicButton = document.getElementById("musicButton");
+
+music.volume = 0.5;
+
+musicButton.addEventListener("click", function () {
+
+    if (music.paused) {
+
+        music.play()
+            .then(function () {
+                musicButton.innerHTML = "❚❚";
+                musicButton.classList.add("playing");
+                musicButton.setAttribute("aria-label", "Pause music");
+            })
+            .catch(function (error) {
+                console.log("Music could not be played:", error);
+            });
+
+    } else {
+
+        music.pause();
+
+        musicButton.innerHTML = "▶";
+        musicButton.classList.remove("playing");
+        musicButton.setAttribute("aria-label", "Play music");
+    }
+
+});
+</script>
+
+</body>
+</html>
