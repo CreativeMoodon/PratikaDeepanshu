@@ -647,96 +647,112 @@ document.addEventListener("DOMContentLoaded", function () {
 
   </div>
 </section>
-	<form id="rsvpForm" class="rsvp-form">
+<form action="https://formsubmit.co/creativemoodon11@gmail.com" method="POST">
 
+    <!-- FormSubmit settings -->
+    <input type="hidden" name="_subject" value="New Wedding RSVP - Pratika & Deepanshu">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_url" value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+    <!-- Guest Name -->
     <div class="form-group">
         <label for="guestName">Guest(s) Name</label>
         <input
             type="text"
             id="guestName"
-            name="name"
+            name="Guest Name"
+            placeholder="Enter your name"
             required
-            maxlength="120"
-            placeholder="Guest(s) Name"
         >
     </div>
 
-    <div class="form-group center-group">
-        <label>Number of Guests attending the event</label>
+    <!-- Number of Guests -->
+    <div class="form-group">
+        <label>Number of Guests</label>
 
         <div class="guest-options">
-            <label class="option-label">
-                <input type="radio" name="guests" value="1" checked>
-                <span>1</span>
+            <label>
+                <input type="radio" name="Number of Guests" value="1" required>
+                1
             </label>
 
-            <label class="option-label">
-                <input type="radio" name="guests" value="2">
-                <span>2</span>
+            <label>
+                <input type="radio" name="Number of Guests" value="2">
+                2
             </label>
         </div>
     </div>
 
+    <!-- Email -->
     <div class="form-group">
         <label for="guestEmail">Email</label>
         <input
             type="email"
             id="guestEmail"
-            name="email"
+            name="Email"
+            placeholder="Enter your email"
             required
-            maxlength="120"
-            placeholder="you@example.com"
         >
     </div>
 
-    <div class="form-group center-group">
+    <!-- Functions -->
+    <div class="form-group">
         <label>Attending Functions</label>
 
         <div class="function-options">
-            <label class="option-label">
-                <input type="checkbox" name="sangeet" value="Sangeet">
-                <span>Sangeet</span>
+            <label>
+                <input
+                    type="checkbox"
+                    name="Attending Function"
+                    value="Sangeet"
+                >
+                Sangeet
             </label>
 
-            <label class="option-label">
-                <input type="checkbox" name="wedding" value="Wedding" checked>
-                <span>Wedding</span>
+            <label>
+                <input
+                    type="checkbox"
+                    name="Attending Function"
+                    value="Wedding"
+                >
+                Wedding
             </label>
         </div>
     </div>
 
+    <!-- Advice -->
     <div class="form-group">
         <label for="advice">
-            Any tips, tricks or survival advice for Pratika &amp;
-            Deepanshu before they officially become Mr. &amp; Mrs.? 😂♥️
+            Survival advice for Pratika & Deepanshu
         </label>
 
         <textarea
             id="advice"
-            name="advice"
+            name="Survival Advice"
             rows="3"
-            maxlength="1000"
-            placeholder="Share your best advice..."
+            placeholder="Share your advice..."
         ></textarea>
     </div>
 
+    <!-- Message -->
     <div class="form-group">
-        <label for="notes">Message / Dietary Notes</label>
+        <label for="message">
+            Message / Dietary Notes
+        </label>
 
         <textarea
-            id="notes"
-            name="notes"
+            id="message"
+            name="Message / Dietary Notes"
             rows="3"
-            maxlength="1000"
             placeholder="Anything we should know?"
         ></textarea>
     </div>
 
-    <button type="submit" id="rsvpButton" class="rsvp-button">
+    <!-- Submit -->
+    <button type="submit" class="rsvp-button">
         Submit RSVP
     </button>
-
-    <p id="rsvpMessage" class="rsvp-message"></p>
 
 </form>
 
@@ -885,78 +901,6 @@ musicButton.addEventListener("click", function () {
 
 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    var form = document.getElementById("rsvpForm");
-    var button = document.getElementById("rsvpButton");
-    var message = document.getElementById("rsvpMessage");
-
-    if (!form) {
-        console.log("RSVP form not found.");
-        return;
-    }
-
-    form.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        button.disabled = true;
-        button.innerHTML = "Submitting...";
-
-        var formData = new FormData(form);
-
-        formData.append("_subject", "New RSVP — Pratika & Deepanshu");
-        formData.append("_template", "table");
-        formData.append("_captcha", "false");
-
-        fetch("https://formsubmit.co/ajax/creativemoodon11@gmail.com", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json"
-            },
-            body: formData
-        })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-
-            if (data.success === true || data.success === "true") {
-
-                form.reset();
-
-                message.innerHTML =
-                    "Thank you! ❤️ Your RSVP has been submitted.";
-
-                message.style.display = "block";
-
-                button.innerHTML = "RSVP Submitted ✓";
-
-            } else {
-
-                throw new Error("Submission failed");
-
-            }
-
-        })
-        .catch(function (error) {
-
-            console.log("RSVP Error:", error);
-
-            message.innerHTML =
-                "Something went wrong. Please try again.";
-
-            message.style.display = "block";
-
-            button.disabled = false;
-            button.innerHTML = "Submit RSVP";
-
-        });
-
-    });
-
-});
-</script>
 </body>
 </html>
