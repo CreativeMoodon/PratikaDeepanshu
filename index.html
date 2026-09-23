@@ -232,139 +232,7 @@ nav.scrolled{
 .dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(181,138,69,.25);cursor:pointer}
 .dot.active{background:var(--gold)}
 
-/* =========================
-   RSVP CENTERED
-   ========================= */
 
-.rsvp {
-    width: 100%;
-    padding: 80px 20px;
-    box-sizing: border-box;
-}
-
-.rsvp-container {
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-.rsvp-heading {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.rsvp-heading span {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.rsvp-heading h2 {
-    margin: 0;
-    text-align: center;
-}
-
-.rsvp-container form {
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-}
-
-.rsvp-container .form-group {
-    width: 100%;
-    margin: 0 0 28px 0;
-    text-align: center;
-}
-
-.rsvp-container .form-group > label {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.rsvp-container input[type="text"],
-.rsvp-container input[type="email"],
-.rsvp-container textarea {
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-/* 1 / 2 */
-.rsvp-container .guest-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 35px;
-    width: 100%;
-}
-
-/* Sangeet / Wedding */
-.rsvp-container .function-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 35px;
-    width: 100%;
-}
-
-/* Option labels */
-.rsvp-container .guest-options label,
-.rsvp-container .function-options label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-/* Button */
-.rsvp-container .rsvp-button {
-    display: block;
-    width: 100%;
-    margin: 15px auto 0;
-    padding: 16px;
-    box-sizing: border-box;
-
-    background: #b08a3c;
-    color: white;
-    border: none;
-
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    text-align: center;
-
-    cursor: pointer;
-}
-
-.rsvp-container .rsvp-button:hover {
-    background: #96732f;
-}
-
-@media (max-width: 600px) {
-
-    .rsvp {
-        padding: 60px 20px;
-    }
-
-    .rsvp-container {
-        max-width: 100%;
-    }
-
-    .rsvp-container form {
-        max-width: 100%;
-    }
-
-    .rsvp-container .guest-options,
-    .rsvp-container .function-options {
-        gap: 25px;
-    }
-}
 /* Footer */
 footer{padding:55px 20px;text-align:center;border-top:1px solid var(--gold-light)}
 .footer-logo{width:96px;margin:0 auto 12px}
@@ -424,6 +292,69 @@ footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(
     100% {
         box-shadow: 0 0 0 0 rgba(176, 138, 60, 0);
     }
+}
+		/* FINAL RSVP CENTER FIX */
+
+.rsvp {
+    width: 100%;
+    text-align: center;
+}
+
+.rsvp-container {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.rsvp-container form {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.rsvp-container .form-group {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rsvp-container .form-group > label {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.rsvp-container input[type="text"],
+.rsvp-container input[type="email"],
+.rsvp-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rsvp-container .guest-options,
+.rsvp-container .function-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.rsvp-container .guest-options label,
+.rsvp-container .function-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.rsvp-container .rsvp-button {
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 </style>
 </head>
