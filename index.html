@@ -650,12 +650,12 @@ footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(
 
 <body>
 	
-	<audio id="weddingMusic" loop>
+	<<audio id="weddingMusic" loop preload="auto">
     <source src="Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg">
-    &lt;audio id="weddingMusic" loop&gt;     &lt;source src="Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg"&gt; &lt;/audio&gt;    Your browser does not support the audio element.
+    Your browser does not support the audio element.
 </audio>
 
-<button id="musicButton" class="music-button" aria-label="Play music">
+<button id="musicButton" class="music-button" type="button" aria-label="Play music">
     ▶
 </button>
 	
@@ -1189,35 +1189,43 @@ function showSlide(index){
 
 document.getElementById("prev").addEventListener("click",() => showSlide(currentSlide - 1));
 document.getElementById("next").addEventListener("click",() => showSlide(currentSlide + 1));
-
+</script>
 <script>
-const music = document.getElementById("weddingMusic");
-const musicButton = document.getElementById("musicButton");
+document.addEventListener("DOMContentLoaded", function () {
 
-music.volume = 0.5;
+    var music = document.getElementById("weddingMusic");
+    var musicButton = document.getElementById("musicButton");
 
-musicButton.addEventListener("click", function () {
+    if (!music || !musicButton) return;
 
-    if (music.paused) {
+    music.volume = 0.5;
 
-        music.play()
-            .then(function () {
+    musicButton.addEventListener("click", function () {
+
+        if (music.paused) {
+
+            music.play().then(function () {
+
                 musicButton.innerHTML = "❚❚";
                 musicButton.classList.add("playing");
                 musicButton.setAttribute("aria-label", "Pause music");
-            })
-            .catch(function (error) {
-                console.log("Music could not be played:", error);
+
+            }).catch(function (error) {
+
+                console.log("Music error:", error);
+
             });
 
-    } else {
+        } else {
 
-        music.pause();
+            music.pause();
 
-        musicButton.innerHTML = "▶";
-        musicButton.classList.remove("playing");
-        musicButton.setAttribute("aria-label", "Play music");
-    }
+            musicButton.innerHTML = "▶";
+            musicButton.classList.remove("playing");
+            musicButton.setAttribute("aria-label", "Play music");
+        }
+
+    });
 
 });
 </script>
