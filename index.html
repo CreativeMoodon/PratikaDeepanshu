@@ -5,6 +5,131 @@
 <title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
 <meta name="description" content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
 <style>
+	/* ==============================
+   RSVP CENTER ALIGNMENT
+   ============================== */
+
+.rsvp-section {
+    width: 100%;
+    padding: 80px 20px;
+    box-sizing: border-box;
+}
+
+.rsvp-container {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.rsvp-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.rsvp-heading span {
+    display: block;
+    text-align: center;
+}
+
+.rsvp-heading h2 {
+    text-align: center;
+    margin: 0;
+}
+
+/* Form itself */
+#rsvpForm {
+    width: 100%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Individual fields */
+#rsvpForm .form-group {
+    width: 100%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+}
+
+/* Labels */
+#rsvpForm .form-group > label {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Text inputs */
+#rsvpForm input[type="text"],
+#rsvpForm input[type="email"],
+#rsvpForm textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+/* Guest 1 / 2 */
+#rsvpForm .guest-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    width: 100%;
+}
+
+/* Sangeet / Wedding */
+#rsvpForm .function-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    width: 100%;
+}
+
+/* Radio & checkbox labels */
+#rsvpForm .guest-options label,
+#rsvpForm .function-options label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Submit button */
+#rsvpForm .rsvp-button {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: 15px auto 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .rsvp-section {
+        padding: 60px 20px;
+    }
+
+    .rsvp-container,
+    #rsvpForm {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #rsvpForm .guest-options,
+    #rsvpForm .function-options {
+        gap: 25px;
+    }
+}
 .rsvp-message {
     display: none;
     text-align: center;
