@@ -650,10 +650,19 @@ footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(
 
 <body>
 	
-	<audio id="weddingMusic" loop preload="auto">
-   <source src="PratikaDeepanshu/PratikaWebsite/Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+	<audio id="weddingMusic" loop preload="metadata" playsinline>
+    <source src="PratikaDeepanshu
+/PratikaWebsite/Aaj Sajeya - Goldie Sohel.mp3" type="audio/mpeg">
 </audio>
+
+<button
+    id="musicButton"
+    class="music-button"
+    type="button"
+    aria-label="Play wedding music"
+>
+    ▶
+</button>
 
 <button id="musicButton" class="music-button" type="button">
     ▶
@@ -1191,45 +1200,62 @@ document.getElementById("prev").addEventListener("click",() => showSlide(current
 document.getElementById("next").addEventListener("click",() => showSlide(currentSlide + 1));
 </script>
 
-	<script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    var music = document.getElementById("weddingMusic");
-    var musicButton = document.getElementById("musicButton");
+    const music = document.getElementById("weddingMusic");
+    const button = document.getElementById("musicButton");
 
-    if (!music || !musicButton) {
-        console.log("Music player not found.");
+    if (!music || !button) {
+        console.log("Music player elements not found.");
         return;
     }
 
-    music.volume = 0.5;
+    music.volume = 0.7;
 
-    musicButton.addEventListener("click", function () {
+    button.addEventListener("click", async function () {
 
-        if (music.paused) {
+        try {
 
-            music.play()
-                .then(function () {
+            if (music.paused) {
 
-                    musicButton.innerHTML = "❚❚";
-                    musicButton.classList.add("playing");
+                await music.play();
 
-                })
-                .catch(function (error) {
+                button.innerHTML = "❚❚";
+                button.classList.add("playing");
+                button.setAttribute("aria-label", "Pause wedding music");
 
-                    console.log("Music could not play:", error);
+            } else {
 
-                });
+                music.pause();
 
-        } else {
+                button.innerHTML = "▶";
+                button.classList.remove("playing");
+                button.setAttribute("aria-label", "Play wedding music");
 
-            music.pause();
+            }
 
-            musicButton.innerHTML = "▶";
-            musicButton.classList.remove("playing");
+        } catch (error) {
 
+            console.log("Music playback error:", error);
+
+            button.innerHTML = "▶";
+
+            alert(
+                "Music could not be played. Please check the music file."
+            );
         }
 
+    });
+
+    music.addEventListener("pause", function () {
+        button.innerHTML = "▶";
+        button.classList.remove("playing");
+    });
+
+    music.addEventListener("play", function () {
+        button.innerHTML = "❚❚";
+        button.classList.add("playing");
     });
 
 });
