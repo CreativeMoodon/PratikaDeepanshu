@@ -130,46 +130,163 @@ nav.scrolled{
 .couple-heading span{display:block;font-size:clamp(26px,5vw,40px);margin-top:12px}
 
 /* General sections */
-.invitation,.countdown,.save-date,.memories,.rsvp{padding:90px 24px}
-.invitation-inner,.countdown-box,.save-inner,.memory-inner,.rsvp-inner{
-  width:min(100%,600px);margin:auto;
+.invitation,
+.countdown,
+.save-date,
+.memories,
+.rsvp {
+    padding: 90px 24px;
+    width: 100%;
+    box-sizing: border-box;
 }
-.rule{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px}
-.rule:before,.rule:after{content:"";height:1px;width:40px;background:rgba(181,138,69,.4)}
-.invitation h2,.section-title{font-size:32px;margin:0 0 28px}
-.invitation p{font-size:14px;color:rgba(48,43,37,.7);line-height:1.9}
+
+.invitation-inner,
+.countdown-box,
+.save-inner,
+.memory-inner,
+.rsvp-inner {
+    width: min(100%, 600px);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.rule:before,
+.rule:after {
+    content: "";
+    height: 1px;
+    width: 40px;
+    background: rgba(181,138,69,.4);
+}
+
+.invitation h2,
+.section-title {
+    font-size: 32px;
+    margin: 0 0 28px;
+}
+
+.invitation p {
+    font-size: 14px;
+    color: rgba(48,43,37,.7);
+    line-height: 1.9;
+}
+
+/* Make sure fade-in sections are visible */
+.fade-in {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
 
 /* Countdown */
-.countdown-box{
-  border:1px solid var(--gold-light);
-  background:rgba(255,253,249,.6);
-  padding:32px;
-  text-align:center;
+.countdown-box {
+    border: 1px solid var(--gold-light);
+    background: rgba(255,253,249,.6);
+    padding: 32px;
+    text-align: center;
 }
-.countdown-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.count-number{font-family:Georgia,serif;font-size:36px}
-.count-label{font-size:9px;text-transform:uppercase;letter-spacing:.18em;color:#777168}
 
-/* Save the date */
-.save-date{background:rgba(238,229,214,.25)}
-.scratch-card{
-  border:1px solid var(--gold-light);
-  background:var(--card);
-  text-align:center;
-  padding:55px 20px;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
+.countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 8px;
 }
-.scratch-cover{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#c8a66a,#9b743a);
-  color:white;letter-spacing:.25em;text-transform:uppercase;font-size:11px;
-  transition:.5s;
+
+.count-number {
+    font-family: Georgia, serif;
+    font-size: 36px;
 }
-.scratch-card.revealed .scratch-cover{transform:translateY(-100%)}
-.date{font-family:Georgia,serif;font-style:italic;font-size:48px;line-height:1}
+
+.count-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: #777168;
+}
+
+
+/* Save the Date */
+.save-date {
+    background: rgba(238,229,214,.25);
+}
+
+.save-inner {
+    text-align: center;
+}
+
+.scratch-card {
+    border: 1px solid var(--gold-light);
+    background: var(--card);
+    text-align: center;
+    padding: 55px 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    box-sizing: border-box;
+}
+
+.scratch-cover {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,#c8a66a,#9b743a);
+    color: white;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    font-size: 11px;
+    transition: .5s;
+    z-index: 2;
+}
+
+.scratch-card.revealed .scratch-cover {
+    transform: translateY(-100%);
+}
+
+.date {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 48px;
+    line-height: 1;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .invitation,
+    .countdown,
+    .save-date {
+        padding: 60px 20px;
+    }
+
+    .invitation h2,
+    .section-title {
+        font-size: 27px;
+    }
+
+    .countdown-box {
+        padding: 24px 15px;
+    }
+
+    .count-number {
+        font-size: 28px;
+    }
+
+    .date {
+        font-size: 36px;
+    }
+}
 
 /* Events */
 .events{padding:20px 16px 90px}
@@ -1013,6 +1130,23 @@ musicButton.addEventListener("click", function () {
 
 });
 </script>
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    var scratchCard = document.getElementById("scratchCard");
+
+    if (scratchCard) {
+        scratchCard.addEventListener("click", function () {
+            scratchCard.classList.toggle("revealed");
+        });
+    }
+
+});
+</script>
+	<div id="days">--</div>
+<div id="hours">--</div>
+<div id="minutes">--</div>
+<div id="seconds">--</div>
 
 </body>
 </html>
