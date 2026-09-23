@@ -1098,23 +1098,49 @@ musicButton.addEventListener("click", function () {
 
 });
 </script>
+	
 	<script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    var scratchCard = document.getElementById("scratchCard");
+    var weddingDate = new Date("November 21, 2026 15:00:00").getTime();
 
-    if (scratchCard) {
-        scratchCard.addEventListener("click", function () {
-            scratchCard.classList.toggle("revealed");
-        });
+    function updateCountdown() {
+
+        var now = new Date().getTime();
+        var distance = weddingDate - now;
+
+        if (distance <= 0) {
+            document.getElementById("days").textContent = "0";
+            document.getElementById("hours").textContent = "0";
+            document.getElementById("minutes").textContent = "0";
+            document.getElementById("seconds").textContent = "0";
+            return;
+        }
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
+        var minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+        var seconds = Math.floor(
+            (distance % (1000 * 60)) / 1000
+        );
+
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
     }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
 });
 </script>
-	<div id="days">--</div>
-<div id="hours">--</div>
-<div id="minutes">--</div>
-<div id="seconds">--</div>
 
 </body>
 </html>
