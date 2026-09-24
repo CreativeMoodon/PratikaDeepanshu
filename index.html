@@ -799,6 +799,165 @@ nav.scrolled{
     margin: 0 auto 20px;
     border-radius: 4px;
 }
+	
+/* =========================
+   RSVP FIELDS
+   ========================= */
+
+.rsvp-field {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.rsvp-field label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #5d4b2a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.rsvp-field input[type="text"],
+.rsvp-field input[type="email"],
+.rsvp-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d8c9a5;
+    border-radius: 8px;
+
+    background: #fff;
+    color: #333;
+
+    font-family: inherit;
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.rsvp-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.rsvp-field input:focus,
+.rsvp-field textarea:focus {
+    border-color: goldenrod;
+
+    box-shadow:
+        0 0 0 3px rgba(218, 165, 32, 0.12);
+}
+
+
+/* =========================
+   EVENT OPTIONS
+   ========================= */
+
+.event-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.event-option {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    border: 1px solid #d8c9a5;
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #6d5425 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    cursor: pointer;
+}
+
+.event-option input {
+    margin: 0;
+    accent-color: goldenrod;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+   ========================= */
+
+.rsvp-submit {
+    display: block;
+
+    width: 100%;
+    margin-top: 10px;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: goldenrod;
+    color: #fff;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.rsvp-submit:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(180, 140, 40, 0.25);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .event-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .event-option {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .rsvp-field label {
+        font-size: 13px;
+    }
+
+    .rsvp-field input[type="email"],
+    .rsvp-field textarea {
+        font-size: 14px;
+    }
+}
+
 /* Footer */
 footer{padding:55px 20px;text-align:center;border-top:1px solid var(--gold-light)}
 .footer-logo{width:96px;margin:0 auto 12px}
@@ -861,177 +1020,8 @@ footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(
         box-shadow: 0 0 0 0 rgba(176, 138, 60, 0);
     }
 }
-	/* ==============================
-   RSVP CENTER ALIGNMENT
-   ============================== */
-
-.rsvp-section {
-    width: 100%;
-    padding: 80px 20px;
-    box-sizing: border-box;
-}
-
-.rsvp-container {
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-.rsvp-heading {
-    width: 100%;
-    text-align: center;
-    margin: 0 auto 40px;
-}
-
-.rsvp-heading span {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.rsvp-heading h2 {
-    margin: 0;
-    text-align: center;
-}
 
 
-/* FORM */
-
-#rsvpForm {
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-
-/* FORM GROUP */
-
-#rsvpForm .form-group {
-    width: 100%;
-    margin: 0 auto 28px;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-
-/* LABELS */
-
-#rsvpForm .form-group > label {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-
-/* TEXT INPUT */
-
-#rsvpForm input[type="email"],
-#rsvpForm input[type="text"],
-#rsvpForm textarea,
-#rsvpForm select {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
-
-/* SELECT */
-
-#rsvpForm select {
-    padding: 12px 10px;
-}
-
-
-/* GUEST OPTIONS */
-
-#rsvpForm .guest-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 35px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-
-/* FUNCTION OPTIONS */
-
-#rsvpForm .function-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 35px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-
-/* RADIO / CHECKBOX LABELS */
-
-#rsvpForm .guest-options label,
-#rsvpForm .function-options label {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-
-/* SUBMIT BUTTON */
-
-#rsvpForm .rsvp-button {
-    display: block;
-    width: 100%;
-    margin: 15px auto 0;
-    padding: 16px;
-    box-sizing: border-box;
-
-    background: #b08a3c;
-    color: white;
-
-    border: none;
-
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-
-    text-align: center;
-    cursor: pointer;
-
-    transition: 0.3s ease;
-}
-
-#rsvpForm .rsvp-button:hover {
-    background: #96732f;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-
-    .rsvp-section {
-        padding: 60px 20px;
-    }
-
-    .rsvp-container,
-    #rsvpForm {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    #rsvpForm .guest-options,
-    #rsvpForm .function-options {
-        gap: 25px;
-    }
-
-}
 </style>
 </head>
 
@@ -1315,7 +1305,7 @@ for (var i = 0; i < 25; i++) {
 
 </section>
 
-```html
+
 <section id="guest-invitation" class="guest-lookup">
 
     <div class="guest-lookup-card">
@@ -1504,208 +1494,95 @@ for (var i = 0; i < 25; i++) {
 
     </div>
 
-</section>
-```
+	```html
+<!-- EVENTS -->
 
+<div class="rsvp-field">
+    <label>Events</label>
 
-<section id="rsvp" class="rsvp-section">
+    <div class="event-options">
 
-<div class="rsvp-container">
+        <label class="event-option">
+            <input
+                type="checkbox"
+                name="events"
+                value="Sangeet"
+                id="sangeet"
+            >
+            <span>Sangeet (Glam Gala)</span>
+        </label>
 
-    <div class="rsvp-heading">
-        <span>Kindly Respond</span>
+        <label class="event-option">
+            <input
+                type="checkbox"
+                name="events"
+                value="Wedding"
+                id="wedding"
+            >
+            <span>Wedding (The Sacred Knot)</span>
+        </label>
 
-        <h2 class="section-title display" style="color: goldenrod;">
-            Will You Join Us?
-        </h2>
     </div>
-
-    <form
-        id="rsvpForm"
-        action="https://formsubmit.co/creativemoodon11@gmail.com"
-        method="POST"
-    >
-
-        <!-- FormSubmit Settings -->
-        <input
-            type="hidden"
-            name="_subject"
-            value="New Wedding RSVP - Pratika & Deepanshu"
-        >
-
-        <input
-            type="hidden"
-            name="_template"
-            value="table"
-        >
-
-        <input
-            type="hidden"
-            name="_captcha"
-            value="false"
-        >
-
-        <input
-            type="hidden"
-            name="_next"
-            value="https://creativemoodon.github.io/PratikaDeepanshu/"
-        >
-
-
-        <!-- Guest Name -->
-        <div class="form-group">
-
-            <label for="rsvpName">
-                Name
-            </label>
-
-            <input
-                type="text"
-                id="rsvpName"
-                name="Name"
-                required
-                maxlength="100"
-                placeholder="Your name"
-            >
-
-        </div>
-
-
-        <!-- Number of Guests -->
-        <div class="form-group">
-
-            <label>
-                Number of Guests attending the event
-            </label>
-
-            <div class="guest-options">
-
-                <label>
-                    <input
-                        type="radio"
-                        name="Guest Count"
-                        value="1"
-                        checked
-                    >
-                    1
-                </label>
-
-                <label>
-                    <input
-                        type="radio"
-                        name="Guest Count"
-                        value="2"
-                    >
-                    2
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <!-- Email -->
-        <div class="form-group">
-
-            <label for="rsvpEmail">
-                Email
-            </label>
-
-            <input
-                type="email"
-                id="rsvpEmail"
-                name="Email"
-                required
-                maxlength="120"
-                placeholder="you@example.com"
-            >
-
-        </div>
-
-
-        <!-- Functions -->
-        <div class="form-group">
-
-            <label>
-                Attending Functions
-            </label>
-
-            <div class="function-options">
-
-                <label>
-                    <input
-                        type="checkbox"
-                        name="Sangeet"
-                        value="Yes"
-                    >
-                    Sangeet
-                </label>
-
-                <label>
-                    <input
-                        type="checkbox"
-                        name="Wedding"
-                        value="Yes"
-                        checked
-                    >
-                    Wedding
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <!-- Advice -->
-        <div class="form-group">
-
-            <label for="advice">
-                Any tips, tricks or survival advice for
-                Pratika &amp; Deepanshu before they officially
-                become Mr. &amp; Mrs.? 😂♥️
-            </label>
-
-            <textarea
-                id="advice"
-                name="Survival Advice"
-                rows="3"
-                maxlength="1000"
-                placeholder="Share your best advice..."
-            ></textarea>
-
-        </div>
-
-
-        <!-- Notes -->
-        <div class="form-group">
-
-            <label for="notes">
-                Message / Dietary Notes
-            </label>
-
-            <textarea
-                id="notes"
-                name="Dietary Notes"
-                rows="3"
-                maxlength="1000"
-                placeholder="Anything we should know?"
-            ></textarea>
-
-        </div>
-
-
-        <!-- Submit -->
-        <button
-            type="submit"
-            class="rsvp-button"
-        >
-            Submit RSVP
-        </button>
-
-    </form>
-
 </div>
 
+
+<!-- EMAIL -->
+
+<div class="rsvp-field">
+    <label for="email">
+        Email ID
+    </label>
+
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter your email address"
+        required
+    >
+</div>
+
+
+<!-- ADVICE -->
+
+<div class="rsvp-field">
+    <label for="advice">
+        Any tips, tricks or survival advice for Pratika &amp; Deepanshu before they officially become Mr. &amp; Mrs.? 😂♥️
+    </label>
+
+    <textarea
+        id="advice"
+        name="advice"
+        rows="4"
+        placeholder="Share your wisdom, advice or a funny message..."
+    ></textarea>
+</div>
+
+
+<!-- DIETARY NOTES -->
+
+<div class="rsvp-field">
+    <label for="notes">
+        Message / Dietary Notes
+    </label>
+
+    <textarea
+        id="notes"
+        name="notes"
+        rows="4"
+        placeholder="Any message, dietary requirements or special notes?"
+    ></textarea>
+</div>
+
+
+<!-- SUBMIT -->
+
+<button
+    type="submit"
+    class="rsvp-submit"
+>
+    Submit RSVP
+</button>
 </section>
 
 
