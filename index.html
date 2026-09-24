@@ -4169,5 +4169,83 @@ window.addEventListener("scroll", function () {
 
 </script>
 
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const guestList = [
+        {
+            firstName: "Rahul",
+            lastName: "Sharma",
+            guests: 2,
+            events: ["Sangeet", "Wedding"]
+        },
+        {
+            firstName: "Priya",
+            lastName: "Sharma",
+            guests: 1,
+            events: ["Wedding"]
+        },
+        {
+            firstName: "Amit",
+            lastName: "Mehta",
+            guests: 2,
+            events: ["Sangeet", "Wedding"]
+        }
+    ];
+
+    const lookupForm = document.getElementById("guestLookupForm");
+
+    if (!lookupForm) {
+        console.error("guestLookupForm not found");
+        return;
+    }
+
+    lookupForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const firstName = document
+            .getElementById("lookupFirstName")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const lastName = document
+            .getElementById("lookupLastName")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const guest = guestList.find(function (person) {
+            return (
+                person.firstName.toLowerCase() === firstName &&
+                person.lastName.toLowerCase() === lastName
+            );
+        });
+
+        if (!guest) {
+            alert("Sorry, we couldn't find your invitation. Please check your name and try again.");
+            return;
+        }
+
+        document.getElementById("guestFullName").textContent =
+            guest.firstName + " " + guest.lastName;
+
+        document.getElementById("rsvpGuestNameDisplay").value =
+            guest.firstName + " " + guest.lastName;
+
+        if (guest.guests === 2) {
+            document.getElementById("lookupGuests2").checked = true;
+            document.getElementById("rsvpGuests2").checked = true;
+        } else {
+            document.getElementById("lookupGuests1").checked = true;
+            document.getElementById("rsvpGuests1").checked = true;
+        }
+
+        document.getElementById("guestResult").style.display = "block";
+    });
+
+});
+</script>
+
 </body>
 </html>
