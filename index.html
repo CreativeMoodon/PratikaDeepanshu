@@ -2608,6 +2608,18 @@ footer p {
                 type="hidden"
                 name="_next"
                 value="https://creativemoodon.github.io/PratikaDeepanshu/">
+       
+<input
+    type="hidden"
+    id="rsvpGuestName"
+    name="Guest Name">
+
+<input
+    type="hidden"
+    id="rsvpGuestCount"
+    name="Number of Guests">
+
+
 
 
             <div class="rsvp-field">
@@ -3505,339 +3517,374 @@ document.addEventListener(
 
 </script>
 
+document.addEventListener("DOMContentLoaded", function () {
 
-<!-- =========================================
-     GUEST INVITATION LOOKUP JAVASCRIPT
-========================================= -->
+    const guestForm = document.getElementById("guestLookupForm");
+    const guestError = document.getElementById("guestError");
+    const guestResult = document.getElementById("guestResult");
+    const guestFullName = document.getElementById("guestFullName");
 
-<script>
+    const rsvpForm = document.getElementById("rsvpForm");
 
-const guestList = [
+    const rsvpGuestName = document.getElementById("rsvpGuestName");
+    const rsvpGuestCount = document.getElementById("rsvpGuestCount");
 
-    {
-        firstName: "Rahul",
-
-        lastName: "Sharma",
-
-        guests: 2,
-
-        events: [
-
-            {
-                name: "Sangeet (Glam Gala)",
-
-                date:
-                    "Thursday, 19 November 2026 • 6:00 PM",
-
-                venue:
-                    "Millennium Lakeview Hotel, Dubai Investment Park"
-            },
-
-            {
-                name:
-                    "Wedding (The Sacred Knot)",
-
-                date:
-                    "Saturday, 21 November 2026 • 3:00 PM",
-
-                venue:
-                    "BAPS Hindu Mandir, Abu Dhabi"
-            }
-
-        ]
-
-    },
+    const rsvpSangeet = document.getElementById("rsvpSangeet");
+    const rsvpWedding = document.getElementById("rsvpWedding");
 
 
-    {
-        firstName: "Priya",
+    /* =========================
+       GUEST LIST
+    ========================= */
 
-        lastName: "Sharma",
+    const guestList = [
 
-        guests: 1,
+        {
+            firstName: "Rahul",
+            lastName: "Sharma",
+            guests: 2,
 
-        events: [
+            events: [
+                "Sangeet",
+                "Wedding"
+            ]
+        },
 
-            {
-                name:
-                    "Wedding (The Sacred Knot)",
+        {
+            firstName: "Priya",
+            lastName: "Sharma",
+            guests: 1,
 
-                date:
-                    "Saturday, 21 November 2026 • 3:00 PM",
+            events: [
+                "Wedding"
+            ]
+        },
 
-                venue:
-                    "BAPS Hindu Mandir, Abu Dhabi"
-            }
+        {
+            firstName: "Amit",
+            lastName: "Mehta",
+            guests: 2,
 
-        ]
+            events: [
+                "Sangeet",
+                "Wedding"
+            ]
+        }
 
-    },
-
-
-    {
-        firstName: "Amit",
-
-        lastName: "Mehta",
-
-        guests: 2,
-
-        events: [
-
-            {
-                name:
-                    "Sangeet (Glam Gala)",
-
-                date:
-                    "Thursday, 19 November 2026 • 6:00 PM",
-
-                venue:
-                    "Millennium Lakeview Hotel, Dubai Investment Park"
-            },
-
-            {
-                name:
-                    "Wedding (The Sacred Knot)",
-
-                date:
-                    "Saturday, 21 November 2026 • 3:00 PM",
-
-                venue:
-                    "BAPS Hindu Mandir, Abu Dhabi"
-            }
-
-        ]
-
-    }
-
-];
+    ];
 
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+    /* =========================
+       FIND INVITATION
+    ========================= */
+
+    guestForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        guestError.textContent = "";
+        guestResult.style.display = "none";
 
 
-        const guestForm =
-            document.getElementById(
-                "guestLookupForm"
+        const firstName =
+            document.getElementById("firstName")
+                .value
+                .trim()
+                .toLowerCase();
+
+        const lastName =
+            document.getElementById("lastName")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const guest = guestList.find(function (person) {
+
+            return (
+                person.firstName.toLowerCase() === firstName &&
+                person.lastName.toLowerCase() === lastName
             );
 
+        });
 
-        if (!guestForm) {
+
+        /* =========================
+           GUEST NOT FOUND
+        ========================= */
+
+        if (!guest) {
+
+            guestError.textContent =
+                "We couldn't find your invitation. Please check your name or ask the host.";
+
             return;
         }
 
 
-        guestForm.addEventListener(
-            "submit",
-            function (event) {
+        /* =========================
+           DISPLAY GUEST
+        ========================= */
 
-                event.preventDefault();
+        const fullName =
+            guest.firstName + " " + guest.lastName;
 
+        guestFullName.textContent = fullName;
 
-                const firstName =
-                    document.getElementById(
-                        "firstName"
-                    )
-                    .value
-                    .trim()
-                    .toLowerCase();
 
+        /* =========================
+           SEND GUEST NAME TO RSVP
+        ========================= */
 
-                const lastName =
-                    document.getElementById(
-                        "lastName"
-                    )
-                    .value
-                    .trim()
-                    .toLowerCase();
+        rsvpGuestName.value = fullName;
 
 
-                const errorBox =
-                    document.getElementById(
-                        "guestError"
-                    );
+        /* =========================
+           NUMBER OF GUESTS
+        ========================= */
 
+        const lookupGuestOptions =
+            document.querySelectorAll(
+                'input[name="lookupGuests"]'
+            );
 
-                const resultBox =
-                    document.getElementById(
-                        "guestResult"
-                    );
+        lookupGuestOptions.forEach(function (radio) {
 
+            radio.checked =
+                Number(radio.value) === Number(guest.guests);
 
-                errorBox.style.display =
-                    "none";
+        });
 
 
-                resultBox.style.display =
-                    "none";
+        rsvpGuestCount.value = guest.guests;
 
 
-                const guest =
-                    guestList.find(
-                        function (person) {
+        /* =========================
+           EVENT SELECTION
+        ========================= */
 
-                            return (
+        const lookupEvents =
+            document.querySelectorAll(
+                'input[name="lookupEvents"]'
+            );
 
-                                person.firstName
-                                    .toLowerCase() ===
-                                firstName
 
-                                &&
+        lookupEvents.forEach(function (checkbox) {
 
-                                person.lastName
-                                    .toLowerCase() ===
-                                lastName
+            const eventAllowed =
+                guest.events.some(function (eventName) {
 
-                            );
+                    return eventName.toLowerCase() ===
+                           checkbox.value.toLowerCase();
 
-                        }
-                    );
+                });
 
 
-                /* GUEST FOUND */
+            checkbox.checked = false;
+            checkbox.disabled = !eventAllowed;
 
-                if (guest) {
 
+            const eventLabel =
+                checkbox.closest(".event-choice");
 
-                    document.getElementById(
-                        "guestFullName"
-                    ).textContent =
 
-                        guest.firstName +
-                        " " +
-                        guest.lastName;
+            if (eventLabel) {
 
-
-                    /* NUMBER OF GUESTS */
-
-                    const guestOptions =
-                        document.querySelectorAll(
-                            'input[name="lookupGuests"]'
-                        );
-
-
-                    guestOptions.forEach(
-                        function (radio) {
-
-                            radio.checked =
-                                Number(
-                                    radio.value
-                                ) ===
-                                Number(
-                                    guest.guests
-                                );
-
-                        }
-                    );
-
-
-                    /*
-                       EVENT SELECTION
-
-                       Only events included
-                       in this guest's
-                       invitation remain visible.
-                    */
-
-                    const eventOptions =
-                        document.querySelectorAll(
-                            'input[name="lookupEvents"]'
-                        );
-
-
-                    eventOptions.forEach(
-                        function (checkbox) {
-
-
-                            const allowedEvent =
-                                guest.events.some(
-                                    function (eventItem) {
-
-                                        return eventItem.name
-                                            .toLowerCase()
-                                            .includes(
-                                                checkbox.value
-                                                    .toLowerCase()
-                                            );
-
-                                    }
-                                );
-
-
-                            checkbox.checked =
-                                false;
-
-
-                            checkbox.disabled =
-                                !allowedEvent;
-
-
-                            const eventLabel =
-                                checkbox.closest(
-                                    ".event-choice"
-                                );
-
-
-                            if (eventLabel) {
-
-                                eventLabel.style.display =
-                                    allowedEvent
-                                    ? "flex"
-                                    : "none";
-
-                            }
-
-                        }
-                    );
-
-
-                    /* SHOW RESULT */
-
-                    resultBox.style.display =
-                        "block";
-
-
-                    /* SCROLL */
-
-                    setTimeout(
-                        function () {
-
-                            resultBox.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center"
-                            });
-
-                        },
-                        100
-                    );
-
-
-                }
-
-                /* GUEST NOT FOUND */
-
-                else {
-
-
-                    errorBox.textContent =
-                        "We couldn't find an invitation " +
-                        "with that name. Please check " +
-                        "your spelling or ask the host.";
-
-
-                    errorBox.style.display =
-                        "block";
-
-                }
+                eventLabel.style.display =
+                    eventAllowed ? "flex" : "none";
 
             }
-        );
 
-    }
-);
+        });
 
-</script>
+
+        /* =========================
+           RESET RSVP EVENTS
+        ========================= */
+
+        rsvpSangeet.checked = false;
+        rsvpWedding.checked = false;
+
+
+        rsvpSangeet.disabled =
+            !guest.events.includes("Sangeet");
+
+        rsvpWedding.disabled =
+            !guest.events.includes("Wedding");
+
+
+        const rsvpSangeetLabel =
+            rsvpSangeet.closest(".rsvp-event-option");
+
+        const rsvpWeddingLabel =
+            rsvpWedding.closest(".rsvp-event-option");
+
+
+        if (rsvpSangeetLabel) {
+
+            rsvpSangeetLabel.style.display =
+                guest.events.includes("Sangeet")
+                ? "flex"
+                : "none";
+
+        }
+
+
+        if (rsvpWeddingLabel) {
+
+            rsvpWeddingLabel.style.display =
+                guest.events.includes("Wedding")
+                ? "flex"
+                : "none";
+
+        }
+
+
+        /* =========================
+           SHOW RESULT
+        ========================= */
+
+        guestResult.style.display = "block";
+
+
+        setTimeout(function () {
+
+            guestResult.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 100);
+
+    });
+
+
+    /* =========================
+       SYNC NUMBER OF GUESTS
+    ========================= */
+
+    document
+        .querySelectorAll('input[name="lookupGuests"]')
+        .forEach(function (radio) {
+
+            radio.addEventListener("change", function () {
+
+                rsvpGuestCount.value = this.value;
+
+            });
+
+        });
+
+
+    /* =========================
+       SYNC EVENT SELECTION
+    ========================= */
+
+    document
+        .querySelectorAll('input[name="lookupEvents"]')
+        .forEach(function (checkbox) {
+
+            checkbox.addEventListener("change", function () {
+
+                if (this.value === "Sangeet") {
+
+                    rsvpSangeet.checked =
+                        this.checked;
+
+                }
+
+                if (this.value === "Wedding") {
+
+                    rsvpWedding.checked =
+                        this.checked;
+
+                }
+
+            });
+
+        });
+
+
+    /* =========================
+       SYNC RSVP → LOOKUP
+    ========================= */
+
+    rsvpSangeet.addEventListener("change", function () {
+
+        const lookup =
+            document.querySelector(
+                'input[name="lookupEvents"][value="Sangeet"]'
+            );
+
+        if (lookup) {
+            lookup.checked = this.checked;
+        }
+
+    });
+
+
+    rsvpWedding.addEventListener("change", function () {
+
+        const lookup =
+            document.querySelector(
+                'input[name="lookupEvents"][value="Wedding"]'
+            );
+
+        if (lookup) {
+            lookup.checked = this.checked;
+        }
+
+    });
+
+
+    /* =========================
+       RSVP SUBMIT VALIDATION
+    ========================= */
+
+    rsvpForm.addEventListener("submit", function (e) {
+
+        const selectedEvents =
+            rsvpForm.querySelectorAll(
+                'input[name="events"]:checked'
+            );
+
+
+        if (selectedEvents.length === 0) {
+
+            e.preventDefault();
+
+            const rsvpError =
+                document.getElementById("rsvpError");
+
+            rsvpError.textContent =
+                "Please select at least one event before submitting your RSVP.";
+
+            return;
+        }
+
+
+        /* Make sure guest count is included */
+
+        const selectedGuests =
+            document.querySelector(
+                'input[name="lookupGuests"]:checked'
+            );
+
+
+        if (selectedGuests) {
+
+            rsvpGuestCount.value =
+                selectedGuests.value;
+
+        }
+
+    });
+
+});
+
+
+
+
 
 
 </body>
