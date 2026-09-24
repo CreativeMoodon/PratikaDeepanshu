@@ -7,6 +7,282 @@
 
 	
 <style>
+	```css
+/* =================================
+   GUEST INVITATION LOOKUP
+================================= */
+
+.guest-lookup {
+    width: 100%;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.guest-lookup-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 45px 40px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(180, 150, 80, 0.35);
+    border-radius: 18px;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
+    box-sizing: border-box;
+}
+
+.guest-lookup-icon {
+    font-size: 24px;
+    color: #b89545;
+    margin-bottom: 12px;
+}
+
+.guest-lookup-card h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #4a4032;
+}
+
+.guest-subtitle {
+    margin: 12px 0 8px;
+    color: #777;
+    font-size: 15px;
+}
+
+.ask-host {
+    display: inline-block;
+    margin-bottom: 32px;
+    color: #a07b32;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.guest-field {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.guest-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #51483c;
+}
+
+.guest-field input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+
+    border: 1px solid #d8cfbf;
+    border-radius: 8px;
+
+    background: #fff;
+    color: #3f3a33;
+
+    font-size: 15px;
+    font-family: inherit;
+
+    outline: none;
+    box-sizing: border-box;
+
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.guest-field input:focus {
+    border-color: #b89545;
+    box-shadow: 0 0 0 3px rgba(184, 149, 69, 0.12);
+}
+
+.guest-field input::placeholder {
+    color: #aaa;
+}
+
+.find-invitation-btn {
+    width: 100%;
+    height: 52px;
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #b89545;
+    color: white;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.find-invitation-btn:hover {
+    background: #9e7c35;
+    transform: translateY(-1px);
+}
+
+.guest-error {
+    display: none;
+
+    margin-top: 20px;
+    padding: 14px;
+
+    border-radius: 8px;
+
+    background: #fff4f1;
+    color: #a34d3e;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.guest-result {
+    display: none;
+    margin-top: 25px;
+}
+
+.result-divider {
+    width: 60px;
+    height: 1px;
+    margin: 25px auto;
+
+    background: #b89545;
+}
+
+.welcome-text {
+    margin: 0 0 5px;
+    color: #b89545;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.guest-result h3 {
+    margin: 0 0 12px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: 500;
+
+    color: #4a4032;
+}
+
+.guest-welcome {
+    margin: 0 auto 25px;
+    max-width: 400px;
+
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.guest-details {
+    margin: 20px 0;
+    padding: 15px;
+
+    border-radius: 8px;
+    background: #faf8f3;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    font-size: 14px;
+}
+
+.detail-label {
+    color: #777;
+}
+
+#guestCount {
+    color: #4a4032;
+    font-weight: 600;
+}
+
+.guest-result h4 {
+    margin: 30px 0 15px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: 500;
+
+    color: #4a4032;
+}
+
+.event-card {
+    margin-bottom: 12px;
+    padding: 18px;
+
+    text-align: left;
+
+    background: #faf8f3;
+    border-left: 3px solid #b89545;
+    border-radius: 8px;
+}
+
+.event-card .event-name {
+    margin: 0 0 5px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+
+    color: #4a4032;
+}
+
+.event-card .event-date,
+.event-card .event-venue {
+    margin: 4px 0;
+
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 600px) {
+
+    .guest-lookup {
+        padding: 50px 15px;
+    }
+
+    .guest-lookup-card {
+        padding: 35px 22px;
+        border-radius: 14px;
+    }
+
+    .guest-lookup-card h2 {
+        font-size: 27px;
+    }
+
+    .guest-result h3 {
+        font-size: 24px;
+    }
+
+    .guest-field input,
+    .find-invitation-btn {
+        height: 50px;
+    }
+}
+
+
 	.scratch-card {
     position: relative;
     overflow: hidden;
@@ -967,28 +1243,96 @@ for (var i = 0; i < 25; i++) {
     value="https://creativemoodon.github.io/PratikaDeepanshu/"
 >
 
-            <!-- Guest Name -->
-            <div class="form-group">
+           
+```html
+<!-- ================================
+     GUEST INVITATION LOOKUP
+================================ -->
 
-                <label for="guestSelect">
-                    Your name:
-                </label>
+<section class="guest-lookup" id="guestLookup">
 
-                <select
-                    name="guestName"
-                    id="guestSelect"
+    <div class="guest-lookup-card">
+
+        <div class="guest-lookup-icon">✦</div>
+
+        <h2>Let's Find Your Invitation</h2>
+
+        <p class="guest-subtitle">
+            Enter your name to get your event schedule.
+        </p>
+
+        <a href="#host" class="ask-host">
+            Need help? Ask the Host
+        </a>
+
+        <form id="guestLookupForm">
+
+            <div class="guest-field">
+                <label for="firstName">First Name</label>
+                <input
+                    type="text"
+                    id="firstName"
+                    placeholder="e.g. Rahul"
+                    autocomplete="given-name"
                     required
                 >
-                    <option value="" disabled selected>
-                        Select a name
-                    </option>
+            </div>
 
-                    <option value="John Doe">John Doe</option>
-                    <option value="Jane Smith">Jane Smith</option>
-                    <option value="Alex Jones">Alex Jones</option>
-                </select>
+            <div class="guest-field">
+                <label for="lastName">Last Name</label>
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="e.g. Sharma"
+                    autocomplete="family-name"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="find-invitation-btn">
+                Find Invitation
+            </button>
+
+        </form>
+
+        <!-- Error message -->
+        <div id="guestError" class="guest-error">
+            We couldn't find an invitation with that name.
+            Please check the spelling or ask the host.
+        </div>
+
+        <!-- Guest result -->
+        <div id="guestResult" class="guest-result">
+
+            <div class="result-divider"></div>
+
+            <p class="welcome-text">Welcome</p>
+
+            <h3 id="guestFullName"></h3>
+
+            <p class="guest-welcome">
+                We are delighted to celebrate these special moments with you.
+            </p>
+
+            <div class="guest-details">
+
+                <div class="detail-row">
+                    <span class="detail-label">Number of Guests</span>
+                    <span id="guestCount"></span>
+                </div>
 
             </div>
+
+            <h4>Your Event Schedule</h4>
+
+            <div id="eventSchedule"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
             <!-- Number of Guests -->
             <div class="form-group">
@@ -1430,5 +1774,190 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
+
+			```html
+<script>
+
+/* =================================
+   PRE-POPULATED GUEST LIST
+================================= */
+
+const guestList = [
+
+    {
+        firstName: "Rahul",
+        lastName: "Sharma",
+        guests: 2,
+        events: [
+            {
+                name: "Sangeet (Glam Gala)",
+                date: "Friday, 20 November 2026",
+                venue: "Millennium Lakeview Hotel, Dubai"
+            },
+            {
+                name: "Wedding (The Sacred Knot)",
+                date: "Saturday, 21 November 2026",
+                venue: "BAPS Hindu Mandir, Dubai"
+            }
+        ]
+    },
+
+    {
+        firstName: "Priya",
+        lastName: "Sharma",
+        guests: 1,
+        events: [
+            {
+                name: "Wedding (The Sacred Knot)",
+                date: "Saturday, 21 November 2026",
+                venue: "BAPS Hindu Mandir, Dubai"
+            }
+        ]
+    },
+
+    {
+        firstName: "Amit",
+        lastName: "Mehta",
+        guests: 2,
+        events: [
+            {
+                name: "Sangeet (Glam Gala)",
+                date: "Friday, 20 November 2026",
+                venue: "Millennium Lakeview Hotel, Dubai"
+            },
+            {
+                name: "Wedding (The Sacred Knot)",
+                date: "Saturday, 21 November 2026",
+                venue: "BAPS Hindu Mandir, Dubai"
+            }
+        ]
+    }
+
+];
+
+
+/* =================================
+   FORM
+================================= */
+
+const guestForm = document.getElementById("guestLookupForm");
+
+guestForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const firstName =
+        document.getElementById("firstName").value.trim().toLowerCase();
+
+    const lastName =
+        document.getElementById("lastName").value.trim().toLowerCase();
+
+    const errorBox =
+        document.getElementById("guestError");
+
+    const resultBox =
+        document.getElementById("guestResult");
+
+
+    /* Hide previous results */
+
+    errorBox.style.display = "none";
+    resultBox.style.display = "none";
+
+
+    /* Find guest */
+
+    const guest = guestList.find(function(person) {
+
+        return (
+            person.firstName.toLowerCase() === firstName &&
+            person.lastName.toLowerCase() === lastName
+        );
+
+    });
+
+
+    /* =================================
+       GUEST FOUND
+    ================================= */
+
+    if (guest) {
+
+        document.getElementById("guestFullName").textContent =
+            guest.firstName + " " + guest.lastName;
+
+        document.getElementById("guestCount").textContent =
+            guest.guests + (guest.guests === 1 ? " Guest" : " Guests");
+
+
+        /* Create event schedule */
+
+        const schedule =
+            document.getElementById("eventSchedule");
+
+        schedule.innerHTML = "";
+
+
+        guest.events.forEach(function(eventItem) {
+
+            const eventCard = document.createElement("div");
+
+            eventCard.className = "event-card";
+
+            eventCard.innerHTML = `
+
+                <p class="event-name">
+                    ${eventItem.name}
+                </p>
+
+                <p class="event-date">
+                    📅 ${eventItem.date}
+                </p>
+
+                <p class="event-venue">
+                    📍 ${eventItem.venue}
+                </p>
+
+            `;
+
+            schedule.appendChild(eventCard);
+
+        });
+
+
+        /* Show result */
+
+        resultBox.style.display = "block";
+
+
+        /* Smooth scroll to result */
+
+        setTimeout(function() {
+
+            resultBox.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest"
+            });
+
+        }, 100);
+
+    }
+
+
+    /* =================================
+       GUEST NOT FOUND
+    ================================= */
+
+    else {
+
+        errorBox.style.display = "block";
+
+    }
+
+});
+
+</script>
+
+
 </body>
 </html>
