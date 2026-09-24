@@ -2601,154 +2601,260 @@ footer p {
 
 </section>
 
+
 <!-- =========================================
      RSVP
 ========================================= -->
 
-<section
-    id="rsvp"
-    class="rsvp fade-in">
+<section id="rsvp" class="rsvp fade-in">
 
+    <div class="rsvp-inner">
 
-<div class="rsvp-inner">
+        <div class="text-center" style="margin-bottom:30px;">
 
+            <div class="upper gold">
+                Kindly Respond
+            </div>
 
-    <div
-        class="text-center"
-        style="margin-bottom:30px;">
+            <h2
+                class="section-title display"
+                style="color:goldenrod;">
+                Would You Join Us?
+            </h2>
 
-        <div class="upper gold">
-            Kindly Respond
         </div>
 
-        <h2
-            class="section-title display"
-            style="color:goldenrod;">
 
-             Would You Join Us?
+        <!-- =====================================
+             FORMSUBMIT RSVP FORM
+        ====================================== -->
 
-        </h2>
+        <form
+            id="rsvpForm"
+            action="https://formsubmit.co/pratika.d55@gmail.com"
+            method="POST">
+
+            <!-- FORMSUBMIT SETTINGS -->
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="New Wedding RSVP - Pratika &amp; Deepanshu">
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table">
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false">
+
+            <input
+                type="hidden"
+                name="_cc"
+                value="deepanshu94@hotmail.com">
+
+            <input
+                type="hidden"
+                name="_next"
+                value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+
+
+            <!-- GUEST NAME -->
+
+            <div class="rsvp-field">
+
+                <label for="rsvpGuestNameDisplay">
+                    Guest Name
+                </label>
+
+                <input
+                    type="text"
+                    id="rsvpGuestNameDisplay"
+                    name="Guest Name"
+                    placeholder="Find your invitation first"
+                    readonly
+                    required>
+
+            </div>
+
+
+
+            <!-- NUMBER OF GUESTS -->
+
+            <div class="rsvp-field">
+
+                <label>
+                    Number of Guests
+                </label>
+
+                <div class="rsvp-guest-options">
+
+                    <label class="rsvp-guest-option">
+
+                        <input
+                            type="radio"
+                            id="rsvpGuests1"
+                            name="Number of Guests"
+                            value="1"
+                            required>
+
+                        <span>1 Guest</span>
+
+                    </label>
+
+
+                    <label class="rsvp-guest-option">
+
+                        <input
+                            type="radio"
+                            id="rsvpGuests2"
+                            name="Number of Guests"
+                            value="2">
+
+                        <span>2 Guests</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EVENTS -->
+
+            <div class="rsvp-field">
+
+                <label>
+                    Event Schedule
+                </label>
+
+                <div class="rsvp-event-options">
+
+                    <label
+                        id="rsvpSangeetLabel"
+                        class="rsvp-event-option">
+
+                        <input
+                            type="checkbox"
+                            id="rsvpSangeet"
+                            name="Events"
+                            value="Sangeet (Glam Gala)">
+
+                        <span>
+                            Sangeet (Glam Gala)
+                        </span>
+
+                    </label>
+
+
+                    <label
+                        id="rsvpWeddingLabel"
+                        class="rsvp-event-option">
+
+                        <input
+                            type="checkbox"
+                            id="rsvpWedding"
+                            name="Events"
+                            value="Wedding (The Sacred Knot)">
+
+                        <span>
+                            Wedding (The Sacred Knot)
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="rsvp-field">
+
+                <label for="rsvpEmail">
+                    Email ID
+                </label>
+
+                <input
+                    type="email"
+                    id="rsvpEmail"
+                    name="Email"
+                    placeholder="Enter your email address"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+
+
+            <!-- ADVICE -->
+
+            <div class="rsvp-field">
+
+                <label for="advice">
+                    Any tips, tricks or survival advice
+                    for Pratika &amp; Deepanshu before they
+                    officially become Mr. &amp; Mrs.? 😂♥️
+                </label>
+
+                <textarea
+                    id="advice"
+                    name="Advice"
+                    rows="4"
+                    placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
+
+            </div>
+
+
+
+            <!-- MESSAGE / DIETARY NOTES -->
+
+            <div class="rsvp-field">
+
+                <label for="notes">
+                    Message / Dietary Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="Message / Dietary Notes"
+                    rows="4"
+                    placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="rsvp-submit">
+
+                Submit RSVP
+
+            </button>
+
+
+            <p
+                id="rsvpError"
+                class="rsvp-error"
+                role="alert">
+            </p>
+
+        </form>
 
     </div>
-
-
-<!-- =====================================
-     FORMSUBMIT RSVP FORM
-====================================== -->
-
-<form
-    id="rsvpForm"
-    action="https://formsubmit.co/pratika.d55@gmail.com"
-    method="POST">
-
-    <!-- FORMSUBMIT SETTINGS -->
-
-    <input
-        type="hidden"
-        name="_subject"
-        value="New Wedding RSVP - Pratika &amp; Deepanshu">
-
-    <input
-        type="hidden"
-        name="_template"
-        value="table">
-
-    <input
-        type="hidden"
-        name="_captcha"
-        value="false">
-
-    <!-- Send a copy to Deepanshu -->
-    <input
-        type="hidden"
-        name="_cc"
-        value="deepanshu94@hotmail.com">
-
-    <!-- Return guest to wedding website after submission -->
-    <input
-        type="hidden"
-        name="_next"
-        value="https://creativemoodon.github.io/PratikaDeepanshu/">
-
-    <!-- EMAIL -->
-
-    <div class="rsvp-field">
-
-        <label for="rsvpEmail">
-            Email ID
-        </label>
-
-        <input
-            type="email"
-            id="rsvpEmail"
-            name="Email"
-            placeholder="Enter your email address"
-            autocomplete="email"
-            required>
-
-    </div>
-
-
-    <!-- ADVICE -->
-
-    <div class="rsvp-field">
-
-        <label for="advice">
-            Any tips, tricks or survival advice
-            for Pratika &amp; Deepanshu before they
-            officially become Mr. &amp; Mrs.? 😂♥️
-        </label>
-
-        <textarea
-            id="advice"
-            name="Advice"
-            rows="4"
-            placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
-
-    </div>
-
-
-    <!-- MESSAGE / DIETARY NOTES -->
-
-    <div class="rsvp-field">
-
-        <label for="notes">
-            Message / Dietary Notes
-        </label>
-
-        <textarea
-            id="notes"
-            name="Message / Dietary Notes"
-            rows="4"
-            placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
-
-    </div>
-
-
-    <!-- SUBMIT -->
-
-    <button
-        type="submit"
-        class="rsvp-submit">
-
-        Submit RSVP
-
-    </button>
-
-
-    <p
-        id="rsvpError"
-        class="rsvp-error"
-        role="alert">
-    </p>
-
-</form>
-
-
-</div>
-
 
 </section>
+
 
 <!-- =========================================
      FOOTER
@@ -3661,46 +3767,37 @@ document.addEventListener("DOMContentLoaded", function () {
                GUEST NOT FOUND
             ================================= */
 
-            if (!guest) {
+           
+if (!guest) {
 
-                guestError.textContent =
-                    "We couldn't find your invitation. Please check your name or ask the host.";
+    guestError.textContent =
+        "We couldn't find your invitation. Please check your name or ask the host.";
 
-                guestError.style.display =
-                    "block";
+    guestError.style.display = "block";
 
+    // Hide previous invitation result
+    guestResult.style.display = "none";
 
-                rsvpGuestName.value =
-                    "";
+    // Clear RSVP guest name
+    rsvpGuestName.value = "";
 
-                rsvpGuests1.checked =
-                    false;
+    // Clear guest count
+    rsvpGuests1.checked = false;
+    rsvpGuests2.checked = false;
 
-                rsvpGuests2.checked =
-                    false;
+    // Clear and disable events
+    rsvpSangeet.checked = false;
+    rsvpWedding.checked = false;
 
-                rsvpSangeet.checked =
-                    false;
+    rsvpSangeet.disabled = true;
+    rsvpWedding.disabled = true;
 
-                rsvpWedding.checked =
-                    false;
+    // Disable event labels visually
+    rsvpSangeetLabel.classList.add("disabled");
+    rsvpWeddingLabel.classList.add("disabled");
 
-                rsvpSangeet.disabled =
-                    false;
-
-                rsvpWedding.disabled =
-                    false;
-
-                rsvpSangeetLabel.classList.remove(
-                    "disabled"
-                );
-
-                rsvpWeddingLabel.classList.remove(
-                    "disabled"
-                );
-
-                return;
-            }
+    return;
+}
 
 
             /* =================================
@@ -4169,83 +4266,7 @@ window.addEventListener("scroll", function () {
 
 </script>
 
-   <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const guestList = [
-        {
-            firstName: "Rahul",
-            lastName: "Sharma",
-            guests: 2,
-            events: ["Sangeet", "Wedding"]
-        },
-        {
-            firstName: "Priya",
-            lastName: "Sharma",
-            guests: 1,
-            events: ["Wedding"]
-        },
-        {
-            firstName: "Amit",
-            lastName: "Mehta",
-            guests: 2,
-            events: ["Sangeet", "Wedding"]
-        }
-    ];
-
-    const lookupForm = document.getElementById("guestLookupForm");
-
-    if (!lookupForm) {
-        console.error("guestLookupForm not found");
-        return;
-    }
-
-    lookupForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const firstName = document
-            .getElementById("lookupFirstName")
-            .value
-            .trim()
-            .toLowerCase();
-
-        const lastName = document
-            .getElementById("lookupLastName")
-            .value
-            .trim()
-            .toLowerCase();
-
-        const guest = guestList.find(function (person) {
-            return (
-                person.firstName.toLowerCase() === firstName &&
-                person.lastName.toLowerCase() === lastName
-            );
-        });
-
-        if (!guest) {
-            alert("Sorry, we couldn't find your invitation. Please check your name and try again.");
-            return;
-        }
-
-        document.getElementById("guestFullName").textContent =
-            guest.firstName + " " + guest.lastName;
-
-        document.getElementById("rsvpGuestNameDisplay").value =
-            guest.firstName + " " + guest.lastName;
-
-        if (guest.guests === 2) {
-            document.getElementById("lookupGuests2").checked = true;
-            document.getElementById("rsvpGuests2").checked = true;
-        } else {
-            document.getElementById("lookupGuests1").checked = true;
-            document.getElementById("rsvpGuests1").checked = true;
-        }
-
-        document.getElementById("guestResult").style.display = "block";
-    });
-
-});
-</script>
+ 
 
 </body>
 </html>
