@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -6,13 +7,12 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+   content="width=device-width, initial-scale=1.0">
 
 <title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
 
 <meta name="description"
-      content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
-
+   content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
 
 <style>
 
@@ -1203,16 +1203,74 @@ nav.scrolled {
     cursor: not-allowed;
 }
 
-.event-choice:has(input:disabled) {
-    opacity: .45;
 
-    cursor: not-allowed;
+/* =========================================
+   RSVP
+========================================= */
+
+.rsvp {
+    width: 100%;
+    padding: 80px 20px;
+    box-sizing: border-box;
+}
+
+.rsvp-inner {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.rsvp-field {
+    margin-bottom: 24px;
+}
+
+.rsvp-field > label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6d5425;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 
-/* =========================================
-   RSVP GUEST COUNT
-========================================= */
+/* RSVP TEXT INPUT */
+
+.rsvp-field input[type="text"],
+.rsvp-field input[type="email"],
+.rsvp-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 1px solid rgba(180,150,80,.45);
+    border-radius: 10px;
+    background: rgba(255,255,255,.85);
+    color: #4d3b28;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.rsvp-field input[type="text"]:focus,
+.rsvp-field input[type="email"]:focus,
+.rsvp-field textarea:focus {
+    border-color: goldenrod;
+    box-shadow: 0 0 0 3px rgba(218,165,32,.12);
+}
+
+.rsvp-field input[readonly] {
+    background: #f8f4eb;
+    color: #6d5425;
+    cursor: not-allowed;
+}
+
+.rsvp-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+
+/* RSVP GUEST COUNT */
 
 .rsvp-guest-options {
     display: flex;
@@ -1222,14 +1280,17 @@ nav.scrolled {
 
 .rsvp-guest-option {
     flex: 1;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 8px;
 
     padding: 13px 16px;
 
     border: 1px solid rgba(180,150,80,.4);
+
     border-radius: 10px;
 
     background: rgba(255,255,255,.8);
@@ -1256,55 +1317,100 @@ nav.scrolled {
 }
 
 
-/* RSVP text input */
+/* RSVP EVENTS */
 
-.rsvp-field input[type="text"] {
-    width: 100%;
-    box-sizing: border-box;
+.rsvp-event-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rsvp-event-option {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
 
     padding: 14px 16px;
 
-    border: 1px solid rgba(180,150,80,.45);
+    border: 1px solid rgba(180,150,80,.35);
+
     border-radius: 10px;
 
-    background: rgba(255,255,255,.85);
+    background: rgba(255,255,255,.7);
 
-    color: #4d3b28;
+    cursor: pointer;
 
-    font-family: inherit;
-    font-size: 15px;
-
-    outline: none;
+    transition: all .25s ease;
 }
 
-.rsvp-field input[type="text"]:focus {
+.rsvp-event-option:hover {
     border-color: goldenrod;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(218,165,32,.12);
+    background: #fffdf8;
 }
 
+.rsvp-event-option input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: goldenrod;
+    flex-shrink: 0;
+}
 
-/* Disabled RSVP event */
+.rsvp-event-option span {
+    color: #5b4730;
+    font-size: 14px;
+}
 
 .rsvp-event-option.disabled {
     display: none !important;
 }
 
 
-@media(max-width:600px) {
+/* SUBMIT BUTTON */
 
-    .rsvp-guest-options {
-        gap: 8px;
-    }
+.rsvp-submit {
+    width: 100%;
 
-    .rsvp-guest-option {
-        padding: 12px 10px;
-        font-size: 13px;
-    }
+    padding: 15px 24px;
 
+    border: none;
+
+    border-radius: 30px;
+
+    background: goldenrod;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
 }
+
+.rsvp-submit:hover {
+    transform: translateY(-2px);
+    opacity: .92;
+}
+
+
+/* RSVP ERROR */
+
+.rsvp-error {
+    margin-top: 12px;
+
+    text-align: center;
+
+    color: #a33;
+
+    font-size: 14px;
+}
+
 
 /* =========================================
    MUSIC BUTTON
@@ -1321,11 +1427,9 @@ nav.scrolled {
 
     border-radius: 50%;
 
-    border: 1px solid
-        rgba(180,150,80,.5);
+    border: 1px solid rgba(180,150,80,.5);
 
-    background:
-        rgba(255,255,255,.85);
+    background: rgba(255,255,255,.85);
 
     color: #b08a3c;
 
@@ -1339,9 +1443,7 @@ nav.scrolled {
 
     cursor: pointer;
 
-    box-shadow:
-        0 4px 15px
-        rgba(0,0,0,.12);
+    box-shadow: 0 4px 15px rgba(0,0,0,.12);
 
     z-index: 9999;
 
@@ -1350,8 +1452,6 @@ nav.scrolled {
 
 .music-button:hover {
     transform: scale(1.08);
-
-    background: white;
 }
 
 .music-button.playing {
@@ -1412,8 +1512,7 @@ nav.scrolled {
 
     background: #e8a0aa;
 
-    border-radius:
-        50% 0 50% 50%;
+    border-radius: 50% 0 50% 50%;
 
     opacity: .7;
 
@@ -1428,31 +1527,19 @@ nav.scrolled {
 
     0% {
         transform:
-            translate3d(
-                0,
-                -40px,
-                0
-            )
+            translate3d(0,-40px,0)
             rotate(0deg);
     }
 
     50% {
         transform:
-            translate3d(
-                var(--drift),
-                50vh,
-                0
-            )
+            translate3d(var(--drift),50vh,0)
             rotate(180deg);
     }
 
     100% {
         transform:
-            translate3d(
-                calc(var(--drift) * -1),
-                110vh,
-                0
-            )
+            translate3d(calc(var(--drift) * -1),110vh,0)
             rotate(360deg);
     }
 }
@@ -1467,8 +1554,7 @@ footer {
 
     text-align: center;
 
-    border-top:
-        1px solid var(--gold-light);
+    border-top: 1px solid var(--gold-light);
 }
 
 .footer-logo {
@@ -1524,7 +1610,6 @@ footer p {
 
     .guest-lookup-card {
         padding: 35px 20px;
-
         border-radius: 16px;
     }
 
@@ -1546,7 +1631,6 @@ footer p {
 
     .event-choice {
         padding: 14px;
-
         gap: 10px;
     }
 
@@ -1558,8 +1642,13 @@ footer p {
         font-size: 11px;
     }
 
-    .event-option {
-        padding: 12px;
+    .rsvp-guest-options {
+        gap: 8px;
+    }
+
+    .rsvp-guest-option {
+        padding: 12px 10px;
+        font-size: 13px;
     }
 
     .rsvp-field > label {
@@ -1571,43 +1660,49 @@ footer p {
     .rsvp-field textarea {
         font-size: 14px;
     }
+
 }
+
+
+/* =========================================
+   NAV SCROLL
+========================================= */
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <!-- =========================================
      BACKGROUND MUSIC
 ========================================= -->
 
 <audio
-    id="weddingMusic"
-    loop
-    preload="metadata"
-    playsinline>
+ id="weddingMusic"
+ loop
+ preload="metadata"
+ playsinline>
 
-    <source
-        src="aaj-sajeya.mp3"
-        type="audio/mpeg">
+```
+<source
+    src="aaj-sajeya.mp3"
+    type="audio/mpeg">
+```
 
 </audio>
 
-
 <button
-    id="musicButton"
-    class="music-button"
-    type="button"
-    aria-label="Play wedding music">
+ id="musicButton"
+ class="music-button"
+ type="button"
+ aria-label="Play wedding music">
 
-    ▶
+```
+▶
+```
 
 </button>
-
 
 <!-- =========================================
      ROSE PETALS
@@ -1618,49 +1713,49 @@ footer p {
     id="petalField">
 </div>
 
-
 <!-- =========================================
      NAVIGATION
 ========================================= -->
 
 <nav id="nav">
 
-    <a href="#top">
+```
+<a href="#top">
 
-        <img
-            class="nav-logo"
-            src="PratikaWebsite/dp-logo-mark.png"
-            alt="Pratika & Deepanshu monogram">
+    <img
+        class="nav-logo"
+        src="PratikaWebsite/dp-logo-mark.png"
+        alt="Pratika & Deepanshu monogram">
 
+</a>
+
+
+<div class="nav-links">
+
+    <a href="#events">
+        Events
     </a>
 
+    <a href="#memories">
+        Memories
+    </a>
 
-    <div class="nav-links">
+    <a href="#venue">
+        Venue
+    </a>
 
-        <a href="#events">
-            Events
-        </a>
+    <a href="#guest-invitation">
+        Invitation
+    </a>
 
-        <a href="#memories">
-            Memories
-        </a>
+    <a href="#rsvp">
+        RSVP
+    </a>
 
-        <a href="#venue">
-            Venue
-        </a>
-
-        <a href="#guest-invitation">
-            Invitation
-        </a>
-
-        <a href="#rsvp">
-            RSVP
-        </a>
-
-    </div>
+</div>
+```
 
 </nav>
-
 
 <!-- =========================================
      GANESH
@@ -1668,17 +1763,18 @@ footer p {
 
 <div class="ganesh-banner">
 
-    <img
-        class="ganesh-icon"
-        src="PratikaWebsite/ganesh-icon.png"
-        alt="Lord Ganesha">
+```
+<img
+    class="ganesh-icon"
+    src="PratikaWebsite/ganesh-icon.png"
+    alt="Lord Ganesha">
 
-    <div class="upper gold">
-        || Om Ganeshaya Namah ||
-    </div>
+<div class="upper gold">
+    || Om Ganeshaya Namah ||
+</div>
+```
 
 </div>
-
 
 <!-- =========================================
      HERO
@@ -1688,26 +1784,27 @@ footer p {
     id="top"
     class="hero">
 
+```
+<img
+    class="hero-bg"
+    src="PratikaWebsite/dubai-wallpaper.png"
+    alt="Illustrated Dubai skyline">
+
+<div class="vignette-top"></div>
+
+<div class="vignette-bottom"></div>
+
+<div class="hero-content">
+
     <img
-        class="hero-bg"
-        src="PratikaWebsite/dubai-wallpaper.png"
-        alt="Illustrated Dubai skyline">
+        class="hero-logo"
+        src="PratikaWebsite/DP_LogoNoBG.png"
+        alt="Pratika & Deepanshu wedding logo">
 
-    <div class="vignette-top"></div>
-
-    <div class="vignette-bottom"></div>
-
-    <div class="hero-content">
-
-        <img
-            class="hero-logo"
-            src="PratikaWebsite/DP_LogoNoBG.png"
-            alt="Pratika & Deepanshu wedding logo">
-
-    </div>
+</div>
+```
 
 </header>
-
 
 <!-- =========================================
      COUPLE
@@ -1715,23 +1812,24 @@ footer p {
 
 <section class="couple-heading">
 
-    <h1
-        class="display"
-        style="color: goldenrod;">
+```
+<h1
+    class="display"
+    style="color: goldenrod;">
 
-        Pratika &amp; Deepanshu
+    Pratika &amp; Deepanshu
 
-    </h1>
+</h1>
 
 
-    <span class="display">
+<span class="display">
 
-        Are Getting Married
+    Are Getting Married
 
-    </span>
+</span>
+```
 
 </section>
-
 
 <!-- =========================================
      INVITATION
@@ -1739,39 +1837,40 @@ footer p {
 
 <section class="invitation fade-in">
 
-    <div class="invitation-inner text-center">
+```
+<div class="invitation-inner text-center">
 
-        <div class="rule">
+    <div class="rule">
 
-            <span class="upper gold">
-                The Invitation
-            </span>
-
-        </div>
-
-
-        <h2 class="upper gold">
-
-            Our Union in the City of Gold
-
-        </h2>
-
-
-        <p>
-
-            Deeply rooted in tradition and surrounded
-            by the shifting sands of Dubai, we invite
-            you to witness our vows at the BAPS Hindu
-            Mandir. Two days of joy, ceremony, and
-            celebration — we would be honoured to
-            have you with us.
-
-        </p>
+        <span class="upper gold">
+            The Invitation
+        </span>
 
     </div>
 
-</section>
 
+    <h2 class="upper gold">
+
+        Our Union in the City of Gold
+
+    </h2>
+
+
+    <p>
+
+        Deeply rooted in tradition and surrounded
+        by the shifting sands of Dubai, we invite
+        you to witness our vows at the BAPS Hindu
+        Mandir. Two days of joy, ceremony, and
+        celebration — we would be honoured to
+        have you with us.
+
+    </p>
+
+</div>
+```
+
+</section>
 
 <!-- =========================================
      COUNTDOWN
@@ -1779,104 +1878,73 @@ footer p {
 
 <section class="countdown fade-in">
 
-    <div class="countdown-box">
+```
+<div class="countdown-box">
 
-        <div
-            class="upper gold"
-            style="margin-bottom:20px">
+    <div
+        class="upper gold"
+        style="margin-bottom:20px">
 
-            Counting Down to the Sacred Knot
+        Counting Down to the Sacred Knot
 
-        </div>
-
-
-        <div class="countdown-grid">
-
-            <div>
-
-                <div
-                    id="days"
-                    class="count-number">
-
-                    --
-
-                </div>
-
-                <div class="count-label">
-                    Days
-                </div>
-
-            </div>
+    </div>
 
 
-            <div>
+    <div class="countdown-grid">
 
-                <div
-                    id="hours"
-                    class="count-number">
+        <div>
 
-                    --
+            <div id="days" class="count-number">--</div>
 
-                </div>
-
-                <div class="count-label">
-                    Hours
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    id="minutes"
-                    class="count-number">
-
-                    --
-
-                </div>
-
-                <div class="count-label">
-                    Minutes
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <div
-                    id="seconds"
-                    class="count-number">
-
-                    --
-
-                </div>
-
-                <div class="count-label">
-                    Seconds
-                </div>
-
-            </div>
+            <div class="count-label">Days</div>
 
         </div>
 
 
-        <div
-            style="
-            margin-top:24px;
-            font-size:12px;
-            color:#777168;
-            font-style:italic">
+        <div>
 
-            21 November 2026 &bull; 3:00 PM
+            <div id="hours" class="count-number">--</div>
+
+            <div class="count-label">Hours</div>
+
+        </div>
+
+
+        <div>
+
+            <div id="minutes" class="count-number">--</div>
+
+            <div class="count-label">Minutes</div>
+
+        </div>
+
+
+        <div>
+
+            <div id="seconds" class="count-number">--</div>
+
+            <div class="count-label">Seconds</div>
 
         </div>
 
     </div>
 
-</section>
 
+    <div
+        style="
+        margin-top:24px;
+        font-size:12px;
+        color:#777168;
+        font-style:italic">
+
+        21 November 2026 &bull; 3:00 PM
+
+    </div>
+
+</div>
+```
+
+</section>
 
 <!-- =========================================
      SAVE THE DATE
@@ -1884,789 +1952,969 @@ footer p {
 
 <section class="save-date">
 
-    <div class="save-inner">
+```
+<div class="save-inner">
 
-        <div
-            id="scratchCard"
-            class="scratch-card">
+    <div
+        id="scratchCard"
+        class="scratch-card">
 
+        <div class="scratch-content">
 
-            <div class="scratch-content">
+            <div
+                class="upper"
+                style="
+                color:var(--emerald);
+                margin-bottom:16px;">
 
-                <div
-                    class="upper"
-                    style="
-                    color:var(--emerald);
-                    margin-bottom:16px;">
-
-                    Save The Date
-
-                </div>
-
-
-                <div class="date">
-
-                    21 . 11 . 2026
-
-                </div>
-
-
-                <div
-                    style="
-                    margin-top:20px;
-                    font-size:12px;
-                    letter-spacing:.2em;
-                    text-transform:uppercase;">
-
-                    BAPS Hindu Mandir,
-                    Abu Dhabi
-
-                </div>
-
-
-                <div
-                    style="
-                    margin-top:8px;
-                    font-size:11px;
-                    letter-spacing:.15em;
-                    text-transform:uppercase;
-                    color:#777168;">
-
-                    3:00 PM Onwards
-
-                </div>
+                Save The Date
 
             </div>
 
 
-            <canvas id="scratchCanvas"></canvas>
+            <div class="date">
+
+                21 . 11 . 2026
+
+            </div>
 
 
-            <span class="scratch-label">
+            <div
+                style="
+                margin-top:20px;
+                font-size:12px;
+                letter-spacing:.2em;
+                text-transform:uppercase;">
 
-                Scratch to Reveal
+                BAPS Hindu Mandir,
+                Abu Dhabi
 
-            </span>
+            </div>
+
+
+            <div
+                style="
+                margin-top:8px;
+                font-size:11px;
+                letter-spacing:.15em;
+                text-transform:uppercase;
+                color:#777168;">
+
+                3:00 PM Onwards
+
+            </div>
 
         </div>
 
+        <canvas id="scratchCanvas"></canvas>
+
+        <span class="scratch-label">
+            Scratch to Reveal
+        </span>
+
     </div>
 
-</section>
+</div>
+```
 
+</section>
 
 <!-- =========================================
      EVENTS
 ========================================= -->
 
-<section
-    id="events"
-    class="events">
+<section id="events" class="events">
+
+```
+<div class="events-header">
+
+    <div class="upper gold">
+        The Celebrations
+    </div>
+
+    <h2
+        class="section-title display"
+        style="color: goldenrod;">
+
+        Two Days of Joy
+
+    </h2>
+
+</div>
 
 
-    <div class="events-header">
+<!-- SANGEET -->
 
-        <div class="upper gold">
+<article class="event-card fade-in">
 
-            The Celebrations
+    <img
+        class="event-image"
+        src="PratikaWebsite/sangeet-final1.png"
+        alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
+
+    <div class="event-body">
+
+        <span class="upper gold event-index">
+            Function One
+        </span>
+
+        <h3
+            class="event-title"
+            style="color: goldenrod;">
+
+            Glam Gala
+
+        </h3>
+
+        <div class="event-details">
+
+            <p>
+                Thu, 19th Nov &bull; 6:00 PM
+            </p>
+
+            <p>
+                Millennium Lakeview Hotel,
+                Dubai Investment Park
+            </p>
+
+            <p>
+                <strong>Attire:</strong>
+                Glitter and Glam
+            </p>
 
         </div>
 
+        <p class="event-note">
 
-        <h2
-            class="section-title display"
-            style="color: goldenrod;">
+            An evening of music, dance,
+            and revelry beneath the Dubai skyline.
 
-            Two Days of Joy
+        </p>
 
-        </h2>
+        <div class="divider"></div>
 
     </div>
 
-
-    <!-- SANGEET -->
-
-    <article class="event-card fade-in">
-
-        <img
-            class="event-image"
-            src="PratikaWebsite/sangeet-final1.png"
-            alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
+</article>
 
 
-        <div class="event-body">
+<!-- WEDDING -->
 
-            <span class="upper gold event-index">
+<article class="event-card emerald fade-in">
 
-                Function One
+    <img
+        class="event-image"
+        src="PratikaWebsite/wedding-final1.png"
+        alt="Illustration of Pratika & Deepanshu in wedding attire">
 
-            </span>
+    <div class="event-body">
 
+        <span
+            class="upper"
+            style="color:var(--emerald)">
 
-            <h3
-                class="event-title"
-                style="color: goldenrod;">
+            Function Two
 
-                Glam Gala
+        </span>
 
-            </h3>
+        <h3
+            class="event-title"
+            style="color: goldenrod;">
 
+            The Sacred Knot
 
-            <div class="event-details">
+        </h3>
 
-                <p>
-                    Thu, 19th Nov &bull; 6:00 PM
-                </p>
+        <div class="event-details">
 
-                <p>
-                    Millennium Lakeview Hotel,
-                    Dubai Investment Park
-                </p>
-
-                <p>
-                    <strong>Attire:</strong>
-                    Glitter and Glam
-                </p>
-
-            </div>
-
-
-            <p class="event-note">
-
-                An evening of music, dance,
-                and revelry beneath the Dubai skyline.
-
+            <p>
+                Sat, 21st Nov &bull; 3:00 PM
             </p>
 
+            <p>
+                BAPS Hindu Mandir,
+                Abu Dhabi
+            </p>
 
-            <div class="divider"></div>
+            <p>
+                <strong>Attire:</strong>
+                Pastel &amp; Jewel Harmony
+            </p>
 
         </div>
 
-    </article>
+        <p class="event-note">
 
+            Seven sacred vows around the holy fire
+            at the Mandir — the heart of our celebration.
 
-    <!-- WEDDING -->
+        </p>
 
-    <article
-        class="event-card emerald fade-in">
+        <div class="divider"></div>
 
-        <img
-            class="event-image"
-            src="PratikaWebsite/wedding-final1.png"
-            alt="Illustration of Pratika & Deepanshu in wedding attire">
+    </div>
 
-
-        <div class="event-body">
-
-            <span
-                class="upper"
-                style="color:var(--emerald)">
-
-                Function Two
-
-            </span>
-
-
-            <h3
-                class="event-title"
-                style="color: goldenrod;">
-
-                The Sacred Knot
-
-            </h3>
-
-
-            <div class="event-details">
-
-                <p>
-                    Sat, 21st Nov &bull; 3:00 PM
-                </p>
-
-                <p>
-                    BAPS Hindu Mandir,
-                    Abu Dhabi
-                </p>
-
-                <p>
-                    <strong>Attire:</strong>
-                    Pastel &amp; Jewel Harmony
-                </p>
-
-            </div>
-
-
-            <p class="event-note">
-
-                Seven sacred vows around the holy fire
-                at the Mandir — the heart of our celebration.
-
-            </p>
-
-
-            <div class="divider"></div>
-
-        </div>
-
-    </article>
+</article>
+```
 
 </section>
-
 
 <!-- =========================================
      MEMORIES
 ========================================= -->
 
-<section
-    id="memories"
-    class="memories fade-in">
+<section id="memories" class="memories fade-in">
 
+```
+<div class="memory-inner">
 
-    <div class="memory-inner">
+    <div
+        class="text-center"
+        style="margin-bottom:28px">
 
-        <div
-            class="text-center"
-            style="margin-bottom:28px">
-
-            <div class="upper gold">
-
-                Our Memories
-
-            </div>
-
-
-            <h2
-                class="section-title display"
-                style="color: goldenrod;">
-
-                Moments Along the Way
-
-            </h2>
-
+        <div class="upper gold">
+            Our Memories
         </div>
 
+        <h2
+            class="section-title display"
+            style="color: goldenrod;">
 
-        <div class="memory-frame">
+            Moments Along the Way
 
-
-            <figure class="memory-slide active">
-
-                <img
-                    src="PratikaWebsite/memory-proposal.jpeg"
-                    alt="Pratika and Deepanshu beneath a red rose heart">
-
-                <figcaption class="caption">
-
-                    Where Forever Began
-
-                </figcaption>
-
-            </figure>
-
-
-            <figure class="memory-slide">
-
-                <img
-                    src="PratikaWebsite/memory-festive-red.jpeg"
-                    alt="Pratika and Deepanshu dressed in red">
-
-                <figcaption class="caption">
-
-                    Festive Moments
-
-                </figcaption>
-
-            </figure>
-
-
-            <figure class="memory-slide">
-
-                <img
-                    src="PratikaWebsite/memory-museum-future.jpeg"
-                    alt="Pratika and Deepanshu at Dubai's Museum of the Future">
-
-                <figcaption class="caption">
-
-                    Dubai Days
-
-                </figcaption>
-
-            </figure>
-
-
-            <figure class="memory-slide">
-
-                <img
-                    src="PratikaWebsite/memory-traditional.jpeg"
-                    alt="Pratika and Deepanshu in traditional Indian attire">
-
-                <figcaption class="caption">
-
-                    Together in Tradition
-
-                </figcaption>
-
-            </figure>
-
-        </div>
-
-
-        <div class="slider-controls">
-
-            <button
-                class="slider-button"
-                id="prev"
-                aria-label="Previous memory">
-
-                &#10094;
-
-            </button>
-
-
-            <div
-                class="dots"
-                id="dots">
-            </div>
-
-
-            <button
-                class="slider-button"
-                id="next"
-                aria-label="Next memory">
-
-                &#10095;
-
-            </button>
-
-        </div>
+        </h2>
 
     </div>
 
-</section>
 
+    <div class="memory-frame">
+
+        <figure class="memory-slide active">
+
+            <img
+                src="PratikaWebsite/memory-proposal.jpeg"
+                alt="Pratika and Deepanshu beneath a red rose heart">
+
+            <figcaption class="caption">
+                Where Forever Began
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="memory-slide">
+
+            <img
+                src="PratikaWebsite/memory-festive-red.jpeg"
+                alt="Pratika and Deepanshu dressed in red">
+
+            <figcaption class="caption">
+                Festive Moments
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="memory-slide">
+
+            <img
+                src="PratikaWebsite/memory-museum-future.jpeg"
+                alt="Pratika and Deepanshu at Dubai's Museum of the Future">
+
+            <figcaption class="caption">
+                Dubai Days
+            </figcaption>
+
+        </figure>
+
+
+        <figure class="memory-slide">
+
+            <img
+                src="PratikaWebsite/memory-traditional.jpeg"
+                alt="Pratika and Deepanshu in traditional Indian attire">
+
+            <figcaption class="caption">
+                Together in Tradition
+            </figcaption>
+
+        </figure>
+
+    </div>
+
+
+    <div class="slider-controls">
+
+        <button
+            class="slider-button"
+            id="prev"
+            type="button"
+            aria-label="Previous memory">
+
+            &#10094;
+
+        </button>
+
+
+        <div
+            class="dots"
+            id="dots">
+        </div>
+
+
+        <button
+            class="slider-button"
+            id="next"
+            type="button"
+            aria-label="Next memory">
+
+            &#10095;
+
+        </button>
+
+    </div>
+
+</div>
+```
+
+</section>
 
 <!-- =========================================
      VENUES
 ========================================= -->
 
-<section
-    id="venue"
-    class="venue">
+<section id="venue" class="venue">
 
+```
+<div class="venue-block fade-in">
 
-    <!-- GLAM GALA VENUE -->
-
-    <div class="venue-block fade-in">
-
-        <div class="upper gold">
-
-            Glam Gala Venue
-
-        </div>
-
-
-        <h2
-            class="venue-title"
-            style="color: goldenrod;">
-
-            Millennium Lakeview Hotel
-
-        </h2>
-
-
-        <p class="venue-address">
-
-            Millennium Lakeview Hotel<br>
-
-            Dubai Investment Park,
-            Dubai, UAE
-
-        </p>
-
-
-        <img
-            class="venue-image"
-            src="PratikaWebsite/millennium-lakeview-hotel.jpeg"
-            alt="Millennium Lakeview Hotel beside the lake">
-
-
-        <p class="venue-description">
-
-            Where the Glam Gala comes alive —
-            an evening of music, dance, and celebration
-            under the lights of the Dubai skyline.
-
-        </p>
-
-
-        <a
-            class="map-button"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.google.com/maps/search/?api=1&query=Millennium+Lakeview+Hotel%2C+Dubai+Investment+Park%2C+Dubai">
-
-            View on Map
-
-        </a>
-
+    <div class="upper gold">
+        Glam Gala Venue
     </div>
 
+    <h2
+        class="venue-title"
+        style="color: goldenrod;">
 
-    <!-- SACRED KNOT VENUE -->
+        Millennium Lakeview Hotel
 
-    <div class="venue-block fade-in">
+    </h2>
 
-        <div class="upper gold">
+    <p class="venue-address">
 
-            The Sacred Knot Venue
+        Millennium Lakeview Hotel<br>
+        Dubai Investment Park,
+        Dubai, UAE
 
-        </div>
+    </p>
 
+    <img
+        class="venue-image"
+        src="PratikaWebsite/millennium-lakeview-hotel.jpeg"
+        alt="Millennium Lakeview Hotel beside the lake">
 
-        <h2
-            class="venue-title"
-            style="color: goldenrod;">
+    <p class="venue-description">
 
-            The BAPS Mandir
+        Where the Glam Gala comes alive —
+        an evening of music, dance, and celebration
+        under the lights of the Dubai skyline.
 
-        </h2>
+    </p>
 
+    <a
+        class="map-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.google.com/maps/search/?api=1&query=Millennium+Lakeview+Hotel%2C+Dubai+Investment+Park%2C+Dubai">
 
-        <p class="venue-address">
+        View on Map
 
-            BAPS Hindu Mandir,
-            Abu Dhabi - Dubai Highway, UAE
+    </a>
 
-        </p>
-
-
-        <img
-            class="venue-image"
-            src="PratikaWebsite/baps-hindu-mandir.jpeg"
-            alt="BAPS Hindu Mandir in Abu Dhabi">
-
-
-        <p class="venue-description">
-
-            The first traditional Hindu stone temple
-            in the Middle East — a sanctuary of
-            hand-carved sandstone where our vows
-            will be exchanged.
-
-            <br>
-
-            Please observe modest attire within
-            the temple premises.
-
-        </p>
+</div>
 
 
-        <a
-            class="map-button"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.google.com/maps/search/?api=1&query=BAPS+Hindu+Mandir%2C+Abu+Dhabi%2C+UAE">
+<div class="venue-block fade-in">
 
-            View on Map
-
-        </a>
-
+    <div class="upper gold">
+        The Sacred Knot Venue
     </div>
+
+    <h2
+        class="venue-title"
+        style="color: goldenrod;">
+
+        The BAPS Mandir
+
+    </h2>
+
+    <p class="venue-address">
+
+        BAPS Hindu Mandir,
+        Abu Dhabi - Dubai Highway, UAE
+
+    </p>
+
+    <img
+        class="venue-image"
+        src="PratikaWebsite/baps-hindu-mandir.jpeg"
+        alt="BAPS Hindu Mandir in Abu Dhabi">
+
+    <p class="venue-description">
+
+        The first traditional Hindu stone temple
+        in the Middle East — a sanctuary of
+        hand-carved sandstone where our vows
+        will be exchanged.
+
+        <br>
+
+        Please observe modest attire within
+        the temple premises.
+
+    </p>
+
+    <a
+        class="map-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.google.com/maps/search/?api=1&query=BAPS+Hindu+Mandir%2C+Abu+Dhabi%2C+UAE">
+
+        View on Map
+
+    </a>
+
+</div>
+```
 
 </section>
 
-
-<!-- GUEST INVITATION LOOKUP -->
+<!-- =========================================
+     GUEST INVITATION LOOKUP
+========================================= -->
 
 <section id="guest-invitation" class="guest-lookup">
 
-    <div class="guest-lookup-card">
+```
+<div class="guest-lookup-card">
 
-        <div class="guest-lookup-icon">✦</div>
+    <div class="guest-lookup-icon">✦</div>
 
-        <h2>Let's Find Your Invitation</h2>
+    <h2>Let's Find Your Invitation</h2>
 
-        <p class="guest-subtitle">
-            Enter your name to get your event schedule.
+    <p class="guest-subtitle">
+        Enter your name to get your event schedule.
+    </p>
+
+    <a href="#rsvp" class="ask-host">
+        Need help? Ask the Host
+    </a>
+
+
+    <form id="guestLookupForm">
+
+        <div class="guest-field">
+
+            <label for="firstName">
+                First Name
+            </label>
+
+            <input
+                type="text"
+                id="firstName"
+                placeholder="e.g. Rahul"
+                autocomplete="given-name"
+                required>
+
+        </div>
+
+
+        <div class="guest-field">
+
+            <label for="lastName">
+                Last Name
+            </label>
+
+            <input
+                type="text"
+                id="lastName"
+                placeholder="e.g. Sharma"
+                autocomplete="family-name"
+                required>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="find-invitation-btn">
+
+            Find Invitation
+
+        </button>
+
+    </form>
+
+
+    <div
+        id="guestError"
+        class="guest-error">
+    </div>
+
+
+    <div
+        id="guestResult"
+        class="guest-result">
+
+        <div class="result-divider"></div>
+
+        <p class="welcome-text">
+            Welcome
         </p>
 
-        <a href="#rsvp" class="ask-host">
-            Need help? Ask the Host
-        </a>
+        <h3 id="guestFullName"></h3>
 
-        <form id="guestLookupForm">
+        <p class="guest-welcome">
 
-            <div class="guest-field">
-                <label for="firstName">First Name</label>
+            We are delighted to celebrate these
+            special moments with you.
 
-                <input
-                    type="text"
-                    id="firstName"
-                    placeholder="e.g. Rahul"
-                    autocomplete="given-name"
-                    required>
-            </div>
+        </p>
 
-            <div class="guest-field">
-                <label for="lastName">Last Name</label>
 
-                <input
-                    type="text"
-                    id="lastName"
-                    placeholder="e.g. Sharma"
-                    autocomplete="family-name"
-                    required>
-            </div>
+        <div class="guest-details">
 
-            <button type="submit" class="find-invitation-btn">
-                Find Invitation
-            </button>
+            <div class="detail-section">
 
-        </form>
+                <span class="detail-label">
+                    Number of Guests
+                </span>
 
-        <div id="guestError" class="guest-error"></div>
 
-        <div id="guestResult" class="guest-result">
+                <div class="guest-choice-options">
 
-            <div class="result-divider"></div>
+                    <label>
 
-            <p class="welcome-text">Welcome</p>
+                        <input
+                            type="radio"
+                            name="lookupGuests"
+                            value="1">
 
-            <h3 id="guestFullName"></h3>
+                        <span>1 Guest</span>
 
-            <p class="guest-welcome">
-                We are delighted to celebrate these special moments with you.
-            </p>
+                    </label>
 
-            <div class="guest-details">
 
-                <div class="detail-section">
+                    <label>
 
-                    <span class="detail-label">
-                        Number of Guests
-                    </span>
+                        <input
+                            type="radio"
+                            name="lookupGuests"
+                            value="2">
 
-                    <div class="guest-choice-options">
+                        <span>2 Guests</span>
 
-                        <label>
-                            <input
-                                type="radio"
-                                name="lookupGuests"
-                                value="1">
-                            <span>1 Guest</span>
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="lookupGuests"
-                                value="2">
-                            <span>2 Guests</span>
-                        </label>
-
-                    </div>
+                    </label>
 
                 </div>
 
             </div>
 
-            <h4 style="margin:30px 0 15px;color:#6d5425;font-size:20px;font-weight:500;">
-                Your Event Schedule
-            </h4>
+        </div>
 
-            <div class="event-selection">
 
-                <label class="event-choice">
+        <h4
+            style="
+            margin:30px 0 15px;
+            color:#6d5425;
+            font-size:20px;
+            font-weight:500;">
 
-                    <input
-                        type="checkbox"
-                        name="lookupEvents"
-                        value="Sangeet">
+            Your Event Schedule
 
-                    <span>
-                        <strong>Sangeet (Glam Gala)</strong>
+        </h4>
 
-                        <small>
-                            Thursday, 19 November 2026 • 6:00 PM
-                            <br>
-                            Millennium Lakeview Hotel, Dubai Investment Park
-                        </small>
-                    </span>
 
-                </label>
+        <div class="event-selection">
 
-                <label class="event-choice">
 
-                    <input
-                        type="checkbox"
-                        name="lookupEvents"
-                        value="Wedding">
+            <label class="event-choice">
 
-                    <span>
-                        <strong>Wedding (The Sacred Knot)</strong>
+                <input
+                    type="checkbox"
+                    name="lookupEvents"
+                    value="Sangeet">
 
-                        <small>
-                            Saturday, 21 November 2026 • 3:00 PM
-                            <br>
-                            BAPS Hindu Mandir, Abu Dhabi
-                        </small>
-                    </span>
+                <span>
 
-                </label>
+                    <strong>
+                        Sangeet (Glam Gala)
+                    </strong>
 
-            </div>
+                    <small>
+
+                        Thursday, 19 November 2026 • 6:00 PM
+                        <br>
+                        Millennium Lakeview Hotel,
+                        Dubai Investment Park
+
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <label class="event-choice">
+
+                <input
+                    type="checkbox"
+                    name="lookupEvents"
+                    value="Wedding">
+
+                <span>
+
+                    <strong>
+                        Wedding (The Sacred Knot)
+                    </strong>
+
+                    <small>
+
+                        Saturday, 21 November 2026 • 3:00 PM
+                        <br>
+                        BAPS Hindu Mandir,
+                        Abu Dhabi
+
+                    </small>
+
+                </span>
+
+            </label>
+
 
         </div>
 
     </div>
 
+</div>
+```
+
 </section>
 
-
-<!-- RSVP -->
+<!-- =========================================
+     RSVP
+========================================= -->
 
 <section id="rsvp" class="rsvp fade-in">
 
-    <div class="rsvp-inner">
+```
+<div class="rsvp-inner">
 
-        <div class="text-center" style="margin-bottom:30px;">
 
-            <div class="upper gold">
-                Kindly Respond
-            </div>
+    <div
+        class="text-center"
+        style="margin-bottom:30px;">
 
-            <h2 class="section-title display" style="color:goldenrod;">
-                Will You Join Us?
-            </h2>
-
+        <div class="upper gold">
+            Kindly Respond
         </div>
 
-        <form
-            id="rsvpForm"
-            action="https://formsubmit.co/creativemoodon11@gmail.com"
-            method="POST">
+        <h2
+            class="section-title display"
+            style="color:goldenrod;">
 
-            <input
-                type="hidden"
-                name="_subject"
-                value="New Wedding RSVP - Pratika & Deepanshu">
+            Will You Join Us?
 
-            <input
-                type="hidden"
-                name="_template"
-                value="table">
-
-            <input
-                type="hidden"
-                name="_captcha"
-                value="false">
-
-            <input
-                type="hidden"
-                name="_next"
-                value="https://creativemoodon.github.io/PratikaDeepanshu/">
-       
-<input
-    type="hidden"
-    id="rsvpGuestName"
-    name="Guest Name">
-
-<input
-    type="hidden"
-    id="rsvpGuestCount"
-    name="Number of Guests">
-
-
-
-
-            <div class="rsvp-field">
-
-                <label for="rsvpEmail">
-                    Email ID
-                </label>
-
-                <input
-                    type="email"
-                    id="rsvpEmail"
-                    name="email"
-                    placeholder="Enter your email address"
-                    required>
-
-            </div>
-
-
-            <div class="rsvp-field">
-
-                <label for="advice">
-                    Any tips, tricks or survival advice for Pratika & Deepanshu before they officially become Mr. & Mrs.? 😂♥️
-                </label>
-
-                <textarea
-                    id="advice"
-                    name="advice"
-                    rows="4"
-                    placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
-
-            </div>
-
-
-            <div class="rsvp-field">
-
-                <label for="notes">
-                    Message / Dietary Notes
-                </label>
-
-                <textarea
-                    id="notes"
-                    name="notes"
-                    rows="4"
-                    placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="rsvp-submit">
-                Submit RSVP
-            </button>
-
-            <p
-                id="rsvpError"
-                class="rsvp-error"
-                role="alert">
-            </p>
-
-        </form>
+        </h2>
 
     </div>
 
+
+    <!-- =====================================
+         IMPORTANT:
+         EVERYTHING INSIDE THIS FORM IS SENT
+         TO FORMSUBMIT
+    ====================================== -->
+
+    <form
+        id="rsvpForm"
+        action="https://formsubmit.co/creativemoodon11@gmail.com"
+        method="POST">
+
+
+        <!-- FORMSUBMIT SETTINGS -->
+
+        <input
+            type="hidden"
+            name="_subject"
+            value="New Wedding RSVP - Pratika & Deepanshu">
+
+
+        <input
+            type="hidden"
+            name="_template"
+            value="table">
+
+
+        <input
+            type="hidden"
+            name="_captcha"
+            value="false">
+
+
+        <input
+            type="hidden"
+            name="_next"
+            value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+
+
+        <!-- =====================================
+             GUEST NAME
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label for="rsvpGuestNameDisplay">
+                Guest Name
+            </label>
+
+            <input
+                type="text"
+                id="rsvpGuestNameDisplay"
+                name="Guest Name"
+                placeholder="Find your invitation first"
+                readonly
+                required>
+
+        </div>
+
+
+
+        <!-- =====================================
+             NUMBER OF GUESTS
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label>
+                Number of Guests
+            </label>
+
+
+            <div class="rsvp-guest-options">
+
+
+                <label class="rsvp-guest-option">
+
+                    <input
+                        type="radio"
+                        id="rsvpGuests1"
+                        name="Number of Guests"
+                        value="1"
+                        required>
+
+                    <span>
+                        1 Guest
+                    </span>
+
+                </label>
+
+
+                <label class="rsvp-guest-option">
+
+                    <input
+                        type="radio"
+                        id="rsvpGuests2"
+                        name="Number of Guests"
+                        value="2">
+
+                    <span>
+                        2 Guests
+                    </span>
+
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             EVENTS
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label>
+                Events
+            </label>
+
+
+            <div class="rsvp-event-options">
+
+
+                <label
+                    class="rsvp-event-option"
+                    id="rsvpSangeetLabel">
+
+                    <input
+                        type="checkbox"
+                        id="rsvpSangeet"
+                        name="Events"
+                        value="Sangeet (Glam Gala)">
+
+                    <span>
+                        Sangeet (Glam Gala)
+                    </span>
+
+                </label>
+
+
+                <label
+                    class="rsvp-event-option"
+                    id="rsvpWeddingLabel">
+
+                    <input
+                        type="checkbox"
+                        id="rsvpWedding"
+                        name="Events"
+                        value="Wedding (The Sacred Knot)">
+
+                    <span>
+                        Wedding (The Sacred Knot)
+                    </span>
+
+                </label>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================
+             EMAIL
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label for="rsvpEmail">
+                Email ID
+            </label>
+
+            <input
+                type="email"
+                id="rsvpEmail"
+                name="Email"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                required>
+
+        </div>
+
+
+
+        <!-- =====================================
+             ADVICE
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label for="advice">
+
+                Any tips, tricks or survival advice
+                for Pratika &amp; Deepanshu before they
+                officially become Mr. &amp; Mrs.? 😂♥️
+
+            </label>
+
+
+            <textarea
+                id="advice"
+                name="Advice"
+                rows="4"
+                placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
+
+        </div>
+
+
+
+        <!-- =====================================
+             MESSAGE / DIETARY NOTES
+        ====================================== -->
+
+        <div class="rsvp-field">
+
+            <label for="notes">
+                Message / Dietary Notes
+            </label>
+
+
+            <textarea
+                id="notes"
+                name="Message / Dietary Notes"
+                rows="4"
+                placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
+
+        </div>
+
+
+
+        <!-- =====================================
+             SUBMIT RSVP
+        ====================================== -->
+
+        <button
+            type="submit"
+            class="rsvp-submit">
+
+            Submit RSVP
+
+        </button>
+
+
+        <p
+            id="rsvpError"
+            class="rsvp-error"
+            role="alert">
+        </p>
+
+
+    </form>
+
+</div>
+```
+
 </section>
 
-      
 <!-- =========================================
      FOOTER
 ========================================= -->
 
 <footer>
 
-    <img
-        class="footer-logo"
-        src="PratikaWebsite/dp-logo-footer.png"
-        alt="Pratika & Deepanshu monogram">
+```
+<img
+    class="footer-logo"
+    src="PratikaWebsite/dp-logo-footer.png"
+    alt="Pratika & Deepanshu monogram">
 
 
-    <p>
-        19 &amp; 21 November 2026
-    </p>
+<p>
+    19 &amp; 21 November 2026
+</p>
 
 
-    <p>
-        #DeepkePratipyaar
-    </p>
+<p>
+    #DeepkePratipyaar
+</p>
+```
 
 </footer>
-
 
 <!-- =========================================
      ROSE PETALS JAVASCRIPT
@@ -2695,29 +2943,23 @@ for (var i = 0; i < 25; i++) {
     var petal =
         document.createElement("span");
 
-
     petal.className = "petal";
 
 
     var left =
         seeded(i, 1) * 100;
 
-
     var delay =
         seeded(i, 2) * 12;
-
 
     var duration =
         8 + seeded(i, 3) * 8;
 
-
     var size =
         10 + seeded(i, 4) * 12;
 
-
     var drift =
         (seeded(i, 5) - .5) * 200;
-
 
     var opacity =
         .4 + seeded(i, 6) * .5;
@@ -2726,26 +2968,20 @@ for (var i = 0; i < 25; i++) {
     petal.style.left =
         left + "%";
 
-
     petal.style.width =
         size + "px";
-
 
     petal.style.height =
         (size * 1.3) + "px";
 
-
     petal.style.opacity =
         opacity;
-
 
     petal.style.animationDelay =
         "-" + delay + "s";
 
-
     petal.style.animationDuration =
         duration + "s";
-
 
     petal.style.setProperty(
         "--drift",
@@ -2758,7 +2994,6 @@ for (var i = 0; i < 25; i++) {
 }
 
 </script>
-
 
 <!-- =========================================
      MUSIC JAVASCRIPT
@@ -2774,7 +3009,6 @@ document.addEventListener(
             document.getElementById(
                 "weddingMusic"
             );
-
 
         const button =
             document.getElementById(
@@ -2800,15 +3034,9 @@ document.addEventListener(
 
                         await music.play();
 
+                        button.innerHTML = "❚❚";
 
-                        button.innerHTML =
-                            "❚❚";
-
-
-                        button.classList.add(
-                            "playing"
-                        );
-
+                        button.classList.add("playing");
 
                         button.setAttribute(
                             "aria-label",
@@ -2819,15 +3047,9 @@ document.addEventListener(
 
                         music.pause();
 
+                        button.innerHTML = "▶";
 
-                        button.innerHTML =
-                            "▶";
-
-
-                        button.classList.remove(
-                            "playing"
-                        );
-
+                        button.classList.remove("playing");
 
                         button.setAttribute(
                             "aria-label",
@@ -2843,14 +3065,11 @@ document.addEventListener(
                         error
                     );
 
-
-                    button.innerHTML =
-                        "▶";
-
+                    button.innerHTML = "▶";
 
                     alert(
                         "Music could not be played. " +
-                        "Please check that aaj-sajeya.mp3 " +
+                        "Please make sure aaj-sajeya.mp3 " +
                         "is uploaded in the same folder as index.html."
                     );
 
@@ -2864,12 +3083,9 @@ document.addEventListener(
             "pause",
             function () {
 
-                button.innerHTML =
-                    "▶";
+                button.innerHTML = "▶";
 
-                button.classList.remove(
-                    "playing"
-                );
+                button.classList.remove("playing");
 
             }
         );
@@ -2879,12 +3095,9 @@ document.addEventListener(
             "play",
             function () {
 
-                button.innerHTML =
-                    "❚❚";
+                button.innerHTML = "❚❚";
 
-                button.classList.add(
-                    "playing"
-                );
+                button.classList.add("playing");
 
             }
         );
@@ -2893,7 +3106,6 @@ document.addEventListener(
 );
 
 </script>
-
 
 <!-- =========================================
      SCRATCH CARD JAVASCRIPT
@@ -2910,7 +3122,6 @@ document.addEventListener(
                 "scratchCard"
             );
 
-
         var canvas =
             document.getElementById(
                 "scratchCanvas"
@@ -2925,16 +3136,13 @@ document.addEventListener(
         var ctx =
             canvas.getContext("2d");
 
-
-        var isScratching =
-            false;
+        var isScratching = false;
 
 
         function setupCanvas() {
 
             var rect =
                 card.getBoundingClientRect();
-
 
             var dpr =
                 Math.min(
@@ -2946,14 +3154,11 @@ document.addEventListener(
             canvas.width =
                 rect.width * dpr;
 
-
             canvas.height =
                 rect.height * dpr;
 
-
             canvas.style.width =
                 rect.width + "px";
-
 
             canvas.style.height =
                 rect.height + "px";
@@ -2983,12 +3188,10 @@ document.addEventListener(
                 "#c8a66a"
             );
 
-
             gradient.addColorStop(
                 .45,
                 "#e1c486"
             );
-
 
             gradient.addColorStop(
                 1,
@@ -2996,9 +3199,7 @@ document.addEventListener(
             );
 
 
-            ctx.fillStyle =
-                gradient;
-
+            ctx.fillStyle = gradient;
 
             ctx.fillRect(
                 0,
@@ -3010,9 +3211,7 @@ document.addEventListener(
 
             ctx.globalAlpha = .15;
 
-
-            ctx.fillStyle =
-                "#6d522b";
+            ctx.fillStyle = "#6d522b";
 
 
             for (
@@ -3024,7 +3223,6 @@ document.addEventListener(
                 var x =
                     Math.random() *
                     rect.width;
-
 
                 var y =
                     Math.random() *
@@ -3087,9 +3285,7 @@ document.addEventListener(
             var pixels =
                 imageData.data;
 
-
             var transparent = 0;
-
             var total = 0;
 
 
@@ -3100,7 +3296,6 @@ document.addEventListener(
             ) {
 
                 total++;
-
 
                 if (pixels[i] === 0) {
                     transparent++;
@@ -3115,10 +3310,7 @@ document.addEventListener(
 
             if (percentage > .45) {
 
-                card.classList.add(
-                    "revealed"
-                );
-
+                card.classList.add("revealed");
 
                 canvas.style.pointerEvents =
                     "none";
@@ -3146,11 +3338,9 @@ document.addEventListener(
 
                 isScratching = true;
 
-
                 canvas.setPointerCapture(
                     e.pointerId
                 );
-
 
                 scratch(
                     e.clientX,
@@ -3168,7 +3358,6 @@ document.addEventListener(
                 if (!isScratching) {
                     return;
                 }
-
 
                 scratch(
                     e.clientX,
@@ -3207,7 +3396,6 @@ document.addEventListener(
 );
 
 </script>
-
 
 <!-- =========================================
      MEMORY SLIDER JAVASCRIPT
@@ -3263,8 +3451,9 @@ document.addEventListener(
                     );
 
 
-                dot.className =
-                    "dot";
+                dot.className = "dot";
+
+                dot.type = "button";
 
 
                 dot.setAttribute(
@@ -3286,18 +3475,14 @@ document.addEventListener(
                 );
 
 
-                dotsContainer.appendChild(
-                    dot
-                );
+                dotsContainer.appendChild(dot);
 
             }
         );
 
 
         const dots =
-            dotsContainer.querySelectorAll(
-                ".dot"
-            );
+            dotsContainer.querySelectorAll(".dot");
 
 
         function showSlide() {
@@ -3372,7 +3557,6 @@ document.addEventListener(
 
 </script>
 
-
 <!-- =========================================
      COUNTDOWN JAVASCRIPT
 ========================================= -->
@@ -3435,27 +3619,19 @@ document.addEventListener(
                 );
 
 
-            document.getElementById(
-                "days"
-            ).textContent =
+            document.getElementById("days").textContent =
                 String(days).padStart(2,"0");
 
 
-            document.getElementById(
-                "hours"
-            ).textContent =
+            document.getElementById("hours").textContent =
                 String(hours).padStart(2,"0");
 
 
-            document.getElementById(
-                "minutes"
-            ).textContent =
+            document.getElementById("minutes").textContent =
                 String(minutes).padStart(2,"0");
 
 
-            document.getElementById(
-                "seconds"
-            ).textContent =
+            document.getElementById("seconds").textContent =
                 String(seconds).padStart(2,"0");
 
         }
@@ -3474,472 +3650,705 @@ document.addEventListener(
 
 </script>
 
+<!-- =========================================
+     GUEST LOOKUP + RSVP JAVASCRIPT
+========================================= -->
+
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    /* =========================================
-       ELEMENTS
-    ========================================= */
-
-    const guestForm =
-        document.getElementById("guestLookupForm");
-
-    const guestError =
-        document.getElementById("guestError");
-
-    const guestResult =
-        document.getElementById("guestResult");
-
-    const guestFullName =
-        document.getElementById("guestFullName");
-
-
-    const rsvpForm =
-        document.getElementById("rsvpForm");
-
-    const rsvpGuestName =
-        document.getElementById("rsvpGuestNameDisplay");
-
-    const rsvpGuests1 =
-        document.getElementById("rsvpGuests1");
-
-    const rsvpGuests2 =
-        document.getElementById("rsvpGuests2");
-
-    const rsvpSangeet =
-        document.getElementById("rsvpSangeet");
-
-    const rsvpWedding =
-        document.getElementById("rsvpWedding");
-
-    const rsvpSangeetLabel =
-        document.getElementById("rsvpSangeetLabel");
-
-    const rsvpWeddingLabel =
-        document.getElementById("rsvpWeddingLabel");
-
-    const rsvpError =
-        document.getElementById("rsvpError");
-
-
-
-    /* =========================================
-       GUEST LIST
-    ========================================= */
-
-    const guestList = [
-
-        {
-            firstName: "Rahul",
-            lastName: "Sharma",
-            guests: 2,
-            events: [
-                "Sangeet",
-                "Wedding"
-            ]
-        },
-
-        {
-            firstName: "Priya",
-            lastName: "Sharma",
-            guests: 1,
-            events: [
-                "Wedding"
-            ]
-        },
-
-        {
-            firstName: "Amit",
-            lastName: "Mehta",
-            guests: 2,
-            events: [
-                "Sangeet",
-                "Wedding"
-            ]
-        }
-
-    ];
-
-
-
-    /* =========================================
-       FIND INVITATION
-    ========================================= */
-
-    guestForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-
-        guestError.style.display = "none";
-        guestError.textContent = "";
-
-        guestResult.style.display = "none";
-
-
-        const firstName =
-            document.getElementById("firstName")
-                .value
-                .trim()
-                .toLowerCase();
-
-
-        const lastName =
-            document.getElementById("lastName")
-                .value
-                .trim()
-                .toLowerCase();
-
-
-        const guest =
-            guestList.find(function (person) {
-
-                return (
-                    person.firstName.toLowerCase() === firstName &&
-                    person.lastName.toLowerCase() === lastName
-                );
-
-            });
-
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
         /* =====================================
-           GUEST NOT FOUND
-        ====================================== */
+           ELEMENTS
+        ===================================== */
 
-        if (!guest) {
+        const guestForm =
+            document.getElementById(
+                "guestLookupForm"
+            );
 
-            guestError.textContent =
-                "We couldn't find your invitation. Please check your name or ask the host.";
 
-            guestError.style.display = "block";
+        const guestError =
+            document.getElementById(
+                "guestError"
+            );
 
+
+        const guestResult =
+            document.getElementById(
+                "guestResult"
+            );
+
+
+        const guestFullName =
+            document.getElementById(
+                "guestFullName"
+            );
+
+
+        const rsvpForm =
+            document.getElementById(
+                "rsvpForm"
+            );
+
+
+        const rsvpGuestName =
+            document.getElementById(
+                "rsvpGuestNameDisplay"
+            );
+
+
+        const rsvpGuests1 =
+            document.getElementById(
+                "rsvpGuests1"
+            );
+
+
+        const rsvpGuests2 =
+            document.getElementById(
+                "rsvpGuests2"
+            );
+
+
+        const rsvpSangeet =
+            document.getElementById(
+                "rsvpSangeet"
+            );
+
+
+        const rsvpWedding =
+            document.getElementById(
+                "rsvpWedding"
+            );
+
+
+        const rsvpSangeetLabel =
+            document.getElementById(
+                "rsvpSangeetLabel"
+            );
+
+
+        const rsvpWeddingLabel =
+            document.getElementById(
+                "rsvpWeddingLabel"
+            );
+
+
+        const rsvpError =
+            document.getElementById(
+                "rsvpError"
+            );
+
+
+        if (
+            !guestForm ||
+            !guestResult ||
+            !rsvpForm
+        ) {
             return;
         }
 
 
 
         /* =====================================
-           GUEST FOUND
-        ====================================== */
+           GUEST LIST
+        ===================================== */
 
-        const fullName =
-            guest.firstName + " " + guest.lastName;
+        const guestList = [
+
+            {
+                firstName: "Rahul",
+                lastName: "Sharma",
+                guests: 2,
+
+                events: [
+                    "Sangeet",
+                    "Wedding"
+                ]
+            },
 
 
-        guestFullName.textContent =
-            fullName;
+            {
+                firstName: "Priya",
+                lastName: "Sharma",
+                guests: 1,
+
+                events: [
+                    "Wedding"
+                ]
+            },
+
+
+            {
+                firstName: "Amit",
+                lastName: "Mehta",
+                guests: 2,
+
+                events: [
+                    "Sangeet",
+                    "Wedding"
+                ]
+            }
+
+        ];
+
 
 
         /* =====================================
-           SEND GUEST NAME TO RSVP
-        ====================================== */
+           FIND INVITATION
+        ===================================== */
 
-        rsvpGuestName.value =
-            fullName;
+        guestForm.addEventListener(
+            "submit",
+            function (e) {
+
+                e.preventDefault();
+
+
+                guestError.style.display =
+                    "none";
+
+                guestError.textContent =
+                    "";
+
+                guestResult.style.display =
+                    "none";
+
+
+                const firstName =
+                    document
+                        .getElementById("firstName")
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                const lastName =
+                    document
+                        .getElementById("lastName")
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                const guest =
+                    guestList.find(
+                        function (person) {
+
+                            return (
+                                person.firstName
+                                    .toLowerCase() ===
+                                firstName &&
+
+                                person.lastName
+                                    .toLowerCase() ===
+                                lastName
+                            );
+
+                        }
+                    );
+
+
+
+                /* =================================
+                   GUEST NOT FOUND
+                ================================= */
+
+                if (!guest) {
+
+                    guestError.textContent =
+                        "We couldn't find your invitation. Please check your name or ask the host.";
+
+                    guestError.style.display =
+                        "block";
+
+                    return;
+                }
+
+
+
+                /* =================================
+                   GUEST FOUND
+                ================================= */
+
+                const fullName =
+                    guest.firstName +
+                    " " +
+                    guest.lastName;
+
+
+                guestFullName.textContent =
+                    fullName;
+
+
+                /*
+                 * PUT GUEST NAME INTO RSVP
+                 */
+
+                rsvpGuestName.value =
+                    fullName;
+
+
+
+                /* =================================
+                   NUMBER OF GUESTS
+                ================================= */
+
+                rsvpGuests1.checked =
+                    Number(guest.guests) === 1;
+
+
+                rsvpGuests2.checked =
+                    Number(guest.guests) === 2;
+
+
+
+                /*
+                 * Also sync the lookup radios
+                 */
+
+                document
+                    .querySelectorAll(
+                        'input[name="lookupGuests"]'
+                    )
+                    .forEach(
+                        function (radio) {
+
+                            radio.checked =
+                                Number(radio.value) ===
+                                Number(guest.guests);
+
+                        }
+                    );
+
+
+
+                /* =================================
+                   EVENT PERMISSIONS
+                ================================= */
+
+                const lookupEvents =
+                    document.querySelectorAll(
+                        'input[name="lookupEvents"]'
+                    );
+
+
+                lookupEvents.forEach(
+                    function (checkbox) {
+
+                        const allowed =
+                            guest.events.includes(
+                                checkbox.value
+                            );
+
+
+                        checkbox.checked = false;
+
+                        checkbox.disabled =
+                            !allowed;
+
+
+                        const label =
+                            checkbox.closest(
+                                ".event-choice"
+                            );
+
+
+                        if (label) {
+
+                            label.style.display =
+                                allowed
+                                ? "flex"
+                                : "none";
+
+                        }
+
+                    }
+                );
+
+
+
+                /* =================================
+                   RESET RSVP EVENT CHECKBOXES
+                ================================= */
+
+                rsvpSangeet.checked = false;
+                rsvpWedding.checked = false;
+
+
+                const allowSangeet =
+                    guest.events.includes(
+                        "Sangeet"
+                    );
+
+
+                const allowWedding =
+                    guest.events.includes(
+                        "Wedding"
+                    );
+
+
+                rsvpSangeet.disabled =
+                    !allowSangeet;
+
+
+                rsvpWedding.disabled =
+                    !allowWedding;
+
+
+                rsvpSangeetLabel.classList.toggle(
+                    "disabled",
+                    !allowSangeet
+                );
+
+
+                rsvpWeddingLabel.classList.toggle(
+                    "disabled",
+                    !allowWedding
+                );
+
+
+
+                /* =================================
+                   SHOW RESULT
+                ================================= */
+
+                guestResult.style.display =
+                    "block";
+
+
+                setTimeout(
+                    function () {
+
+                        guestResult.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+
+                    },
+                    100
+                );
+
+            }
+        );
 
 
 
         /* =====================================
-           NUMBER OF GUESTS
-        ====================================== */
+           LOOKUP GUEST COUNT → RSVP
+        ===================================== */
 
-        rsvpGuests1.checked =
-            Number(guest.guests) === 1;
+        document
+            .querySelectorAll(
+                'input[name="lookupGuests"]'
+            )
+            .forEach(
+                function (radio) {
+
+                    radio.addEventListener(
+                        "change",
+                        function () {
+
+                            if (
+                                this.value === "1"
+                            ) {
+
+                                rsvpGuests1.checked =
+                                    true;
+
+                            }
 
 
-        rsvpGuests2.checked =
-            Number(guest.guests) === 2;
+                            if (
+                                this.value === "2"
+                            ) {
+
+                                rsvpGuests2.checked =
+                                    true;
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
 
 
 
         /* =====================================
-           LOOKUP EVENT CHECKBOXES
-        ====================================== */
+           LOOKUP EVENTS → RSVP
+        ===================================== */
 
-        const lookupEvents =
-            document.querySelectorAll(
+        document
+            .querySelectorAll(
                 'input[name="lookupEvents"]'
-            );
+            )
+            .forEach(
+                function (checkbox) {
+
+                    checkbox.addEventListener(
+                        "change",
+                        function () {
 
 
-        lookupEvents.forEach(function (checkbox) {
+                            if (
+                                this.value ===
+                                "Sangeet"
+                            ) {
 
-            const allowed =
-                guest.events.includes(
-                    checkbox.value
-                );
+                                rsvpSangeet.checked =
+                                    this.checked;
 
-
-            checkbox.checked = false;
-
-            checkbox.disabled =
-                !allowed;
+                            }
 
 
-            const label =
-                checkbox.closest(".event-choice");
+                            if (
+                                this.value ===
+                                "Wedding"
+                            ) {
 
+                                rsvpWedding.checked =
+                                    this.checked;
 
-            if (label) {
+                            }
 
-                label.style.display =
-                    allowed ? "flex" : "none";
-
-            }
-
-        });
-
-
-
-        /* =====================================
-           RSVP EVENTS
-        ====================================== */
-
-        const allowSangeet =
-            guest.events.includes("Sangeet");
-
-        const allowWedding =
-            guest.events.includes("Wedding");
-
-
-        rsvpSangeet.checked = false;
-        rsvpWedding.checked = false;
-
-
-        rsvpSangeet.disabled =
-            !allowSangeet;
-
-        rsvpWedding.disabled =
-            !allowWedding;
-
-
-        rsvpSangeetLabel.classList.toggle(
-            "disabled",
-            !allowSangeet
-        );
-
-        rsvpWeddingLabel.classList.toggle(
-            "disabled",
-            !allowWedding
-        );
-
-
-
-        /* =====================================
-           SHOW RESULT
-        ====================================== */
-
-        guestResult.style.display =
-            "block";
-
-
-        setTimeout(function () {
-
-            guestResult.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 100);
-
-    });
-
-
-
-    /* =========================================
-       LOOKUP GUEST COUNT → RSVP
-    ========================================= */
-
-    document
-        .querySelectorAll(
-            'input[name="lookupGuests"]'
-        )
-        .forEach(function (radio) {
-
-            radio.addEventListener(
-                "change",
-                function () {
-
-                    if (this.value === "1") {
-                        rsvpGuests1.checked = true;
-                    }
-
-                    if (this.value === "2") {
-                        rsvpGuests2.checked = true;
-                    }
+                        }
+                    );
 
                 }
             );
 
-        });
 
 
+        /* =====================================
+           RSVP EVENTS → LOOKUP
+        ===================================== */
 
-    /* =========================================
-       LOOKUP EVENTS → RSVP
-    ========================================= */
+        rsvpSangeet.addEventListener(
+            "change",
+            function () {
 
-    document
-        .querySelectorAll(
-            'input[name="lookupEvents"]'
-        )
-        .forEach(function (checkbox) {
-
-            checkbox.addEventListener(
-                "change",
-                function () {
-
-                    if (this.value === "Sangeet") {
-
-                        rsvpSangeet.checked =
-                            this.checked;
-
-                    }
+                const lookup =
+                    document.querySelector(
+                        'input[name="lookupEvents"][value="Sangeet"]'
+                    );
 
 
-                    if (this.value === "Wedding") {
+                if (
+                    lookup &&
+                    !lookup.disabled
+                ) {
 
-                        rsvpWedding.checked =
-                            this.checked;
-
-                    }
+                    lookup.checked =
+                        this.checked;
 
                 }
-            );
-
-        });
-
-
-
-    /* =========================================
-       RSVP EVENTS → LOOKUP
-    ========================================= */
-
-    rsvpSangeet.addEventListener(
-        "change",
-        function () {
-
-            const lookup =
-                document.querySelector(
-                    'input[name="lookupEvents"][value="Sangeet"]'
-                );
-
-
-            if (lookup && !lookup.disabled) {
-
-                lookup.checked =
-                    this.checked;
 
             }
-
-        }
-    );
+        );
 
 
-    rsvpWedding.addEventListener(
-        "change",
-        function () {
+        rsvpWedding.addEventListener(
+            "change",
+            function () {
 
-            const lookup =
-                document.querySelector(
-                    'input[name="lookupEvents"][value="Wedding"]'
-                );
+                const lookup =
+                    document.querySelector(
+                        'input[name="lookupEvents"][value="Wedding"]'
+                    );
 
 
-            if (lookup && !lookup.disabled) {
+                if (
+                    lookup &&
+                    !lookup.disabled
+                ) {
 
-                lookup.checked =
-                    this.checked;
+                    lookup.checked =
+                        this.checked;
+
+                }
 
             }
-
-        }
-    );
+        );
 
 
 
-    /* =========================================
-       RSVP SUBMIT
-    ========================================= */
+        /* =====================================
+           RSVP GUEST COUNT → LOOKUP
+        ===================================== */
 
-    rsvpForm.addEventListener(
-        "submit",
-        function (e) {
+        rsvpGuests1.addEventListener(
+            "change",
+            function () {
+
+                const lookup =
+                    document.querySelector(
+                        'input[name="lookupGuests"][value="1"]'
+                    );
 
 
-            rsvpError.textContent = "";
+                if (lookup) {
+                    lookup.checked = true;
+                }
+
+            }
+        );
 
 
-            /* Guest name */
+        rsvpGuests2.addEventListener(
+            "change",
+            function () {
 
-            if (!rsvpGuestName.value.trim()) {
+                const lookup =
+                    document.querySelector(
+                        'input[name="lookupGuests"][value="2"]'
+                    );
 
-                e.preventDefault();
+
+                if (lookup) {
+                    lookup.checked = true;
+                }
+
+            }
+        );
+
+
+
+        /* =====================================
+           RSVP SUBMIT
+        ===================================== */
+
+        rsvpForm.addEventListener(
+            "submit",
+            function (e) {
 
                 rsvpError.textContent =
-                    "Please find your invitation first.";
+                    "";
 
-                return;
+
+                /*
+                 * Guest must be found first
+                 */
+
+                if (
+                    !rsvpGuestName.value.trim()
+                ) {
+
+                    e.preventDefault();
+
+                    rsvpError.textContent =
+                        "Please find your invitation first.";
+
+                    document
+                        .getElementById(
+                            "guest-invitation"
+                        )
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+
+                    return;
+                }
+
+
+
+                /*
+                 * Number of guests
+                 */
+
+                if (
+                    !rsvpGuests1.checked &&
+                    !rsvpGuests2.checked
+                ) {
+
+                    e.preventDefault();
+
+                    rsvpError.textContent =
+                        "Please select the number of guests.";
+
+                    return;
+                }
+
+
+
+                /*
+                 * Events
+                 *
+                 * IMPORTANT:
+                 * The actual FormSubmit field
+                 * is name="Events"
+                 */
+
+                const selectedEvents =
+                    rsvpForm.querySelectorAll(
+                        'input[name="Events"]:checked'
+                    );
+
+
+                if (
+                    selectedEvents.length === 0
+                ) {
+
+                    e.preventDefault();
+
+                    rsvpError.textContent =
+                        "Please select at least one event.";
+
+                    return;
+                }
+
+
+
+                /*
+                 * Email
+                 */
+
+                const email =
+                    document
+                        .getElementById(
+                            "rsvpEmail"
+                        )
+                        .value
+                        .trim();
+
+
+                if (!email) {
+
+                    e.preventDefault();
+
+                    rsvpError.textContent =
+                        "Please enter your email address.";
+
+                    return;
+                }
+
+
+
+                /*
+                 * Do NOT prevent submission here.
+                 *
+                 * FormSubmit now receives:
+                 *
+                 * Guest Name
+                 * Number of Guests
+                 * Events
+                 * Email
+                 * Advice
+                 * Message / Dietary Notes
+                 */
+
             }
+        );
 
-
-
-            /* Guest count */
-
-            if (
-                !rsvpGuests1.checked &&
-                !rsvpGuests2.checked
-            ) {
-
-                e.preventDefault();
-
-                rsvpError.textContent =
-                    "Please select the number of guests.";
-
-                return;
-            }
-
-
-
-            /* Events */
-
-            if (
-                !rsvpSangeet.checked &&
-                !rsvpWedding.checked
-            ) {
-
-                e.preventDefault();
-
-                rsvpError.textContent =
-                    "Please select at least one event.";
-
-                return;
-            }
-
-
-
-            /*
-             * FormSubmit will now receive:
-             *
-             * Guest Name
-             * Number of Guests
-             * Events
-             * Email
-             * Advice
-             * Message / Dietary Notes
-             *
-             */
-
-        }
-    );
-
-});
+    }
+);
 
 </script>
-
-
 
 </body>
 
