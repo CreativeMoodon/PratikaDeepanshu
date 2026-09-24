@@ -1209,142 +1209,99 @@ nav.scrolled {
     cursor: not-allowed;
 }
 
-/* =========================
-   RSVP SECTION
-========================= */
 
-.rsvp {
-    width: 100%;
-    padding: 80px 20px;
-    box-sizing: border-box;
-}
+/* =========================================
+   RSVP GUEST COUNT
+========================================= */
 
-.rsvp-inner {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.rsvp-field {
-    margin-bottom: 24px;
-}
-
-.rsvp-field label {
-    display: block;
-    margin-bottom: 8px;
-    color: #6d5425;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.rsvp-field input[type="email"],
-.rsvp-field textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px 16px;
-    border: 1px solid rgba(180, 150, 80, 0.45);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.85);
-    color: #4d3b28;
-    font-family: inherit;
-    font-size: 15px;
-    outline: none;
-}
-
-.rsvp-field input[type="email"]:focus,
-.rsvp-field textarea:focus {
-    border-color: goldenrod;
-    box-shadow: 0 0 0 3px rgba(218,165,32,0.12);
-}
-
-.rsvp-field textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-
-/* EVENT OPTIONS */
-
-.rsvp-event-options {
+.rsvp-guest-options {
     display: flex;
-    flex-direction: column;
     gap: 12px;
+    width: 100%;
 }
 
-.rsvp-event-option {
+.rsvp-guest-option {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    border: 1px solid rgba(180, 150, 80, 0.35);
+    justify-content: center;
+    gap: 8px;
+
+    padding: 13px 16px;
+
+    border: 1px solid rgba(180,150,80,.4);
     border-radius: 10px;
-    background: rgba(255,255,255,0.7);
+
+    background: rgba(255,255,255,.8);
+
+    color: #5b4730;
+
+    font-size: 14px;
+
     cursor: pointer;
+
+    transition: all .25s ease;
 }
 
-.rsvp-event-option input {
+.rsvp-guest-option:hover {
+    border-color: goldenrod;
+    background: #fffdf8;
+}
+
+.rsvp-guest-option input {
     width: 18px;
     height: 18px;
+    margin: 0;
     accent-color: goldenrod;
 }
 
-.rsvp-event-option span {
-    color: #5b4730;
-    font-size: 14px;
-}
 
+/* RSVP text input */
 
-/* SUBMIT BUTTON */
-
-.rsvp-submit {
+.rsvp-field input[type="text"] {
     width: 100%;
-    padding: 15px 24px;
-    border: none;
-    border-radius: 30px;
-    background: goldenrod;
-    color: white;
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid rgba(180,150,80,.45);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.85);
+
+    color: #4d3b28;
+
     font-family: inherit;
     font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.25s ease;
+
+    outline: none;
 }
 
-.rsvp-submit:hover {
-    transform: translateY(-2px);
-    opacity: 0.92;
-}
+.rsvp-field input[type="text"]:focus {
+    border-color: goldenrod;
 
-
-/* ERROR MESSAGE */
-
-.rsvp-error {
-    margin-top: 12px;
-    text-align: center;
-    color: #a33;
-    font-size: 14px;
+    box-shadow:
+        0 0 0 3px
+        rgba(218,165,32,.12);
 }
 
 
-/* MOBILE */
+/* Disabled RSVP event */
 
-@media (max-width: 600px) {
+.rsvp-event-option.disabled {
+    display: none !important;
+}
 
-    .rsvp {
-        padding: 60px 16px;
+
+@media(max-width:600px) {
+
+    .rsvp-guest-options {
+        gap: 8px;
     }
 
-    .rsvp-inner {
-        max-width: 100%;
-    }
-
-    .rsvp-field label {
-        font-size: 14px;
-    }
-
-    .rsvp-event-option {
-        padding: 13px 14px;
+    .rsvp-guest-option {
+        padding: 12px 10px;
+        font-size: 13px;
     }
 
 }
@@ -3517,25 +3474,59 @@ document.addEventListener(
 
 </script>
 
+<script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const guestForm = document.getElementById("guestLookupForm");
-    const guestError = document.getElementById("guestError");
-    const guestResult = document.getElementById("guestResult");
-    const guestFullName = document.getElementById("guestFullName");
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-    const rsvpForm = document.getElementById("rsvpForm");
+    const guestForm =
+        document.getElementById("guestLookupForm");
 
-    const rsvpGuestName = document.getElementById("rsvpGuestName");
-    const rsvpGuestCount = document.getElementById("rsvpGuestCount");
+    const guestError =
+        document.getElementById("guestError");
 
-    const rsvpSangeet = document.getElementById("rsvpSangeet");
-    const rsvpWedding = document.getElementById("rsvpWedding");
+    const guestResult =
+        document.getElementById("guestResult");
+
+    const guestFullName =
+        document.getElementById("guestFullName");
 
 
-    /* =========================
+    const rsvpForm =
+        document.getElementById("rsvpForm");
+
+    const rsvpGuestName =
+        document.getElementById("rsvpGuestNameDisplay");
+
+    const rsvpGuests1 =
+        document.getElementById("rsvpGuests1");
+
+    const rsvpGuests2 =
+        document.getElementById("rsvpGuests2");
+
+    const rsvpSangeet =
+        document.getElementById("rsvpSangeet");
+
+    const rsvpWedding =
+        document.getElementById("rsvpWedding");
+
+    const rsvpSangeetLabel =
+        document.getElementById("rsvpSangeetLabel");
+
+    const rsvpWeddingLabel =
+        document.getElementById("rsvpWeddingLabel");
+
+    const rsvpError =
+        document.getElementById("rsvpError");
+
+
+
+    /* =========================================
        GUEST LIST
-    ========================= */
+    ========================================= */
 
     const guestList = [
 
@@ -3543,7 +3534,6 @@ document.addEventListener("DOMContentLoaded", function () {
             firstName: "Rahul",
             lastName: "Sharma",
             guests: 2,
-
             events: [
                 "Sangeet",
                 "Wedding"
@@ -3554,7 +3544,6 @@ document.addEventListener("DOMContentLoaded", function () {
             firstName: "Priya",
             lastName: "Sharma",
             guests: 1,
-
             events: [
                 "Wedding"
             ]
@@ -3564,7 +3553,6 @@ document.addEventListener("DOMContentLoaded", function () {
             firstName: "Amit",
             lastName: "Mehta",
             guests: 2,
-
             events: [
                 "Sangeet",
                 "Wedding"
@@ -3574,15 +3562,19 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
 
-    /* =========================
+
+    /* =========================================
        FIND INVITATION
-    ========================= */
+    ========================================= */
 
     guestForm.addEventListener("submit", function (e) {
 
         e.preventDefault();
 
+
+        guestError.style.display = "none";
         guestError.textContent = "";
+
         guestResult.style.display = "none";
 
 
@@ -3592,6 +3584,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .trim()
                 .toLowerCase();
 
+
         const lastName =
             document.getElementById("lastName")
                 .value
@@ -3599,69 +3592,71 @@ document.addEventListener("DOMContentLoaded", function () {
                 .toLowerCase();
 
 
-        const guest = guestList.find(function (person) {
+        const guest =
+            guestList.find(function (person) {
 
-            return (
-                person.firstName.toLowerCase() === firstName &&
-                person.lastName.toLowerCase() === lastName
-            );
+                return (
+                    person.firstName.toLowerCase() === firstName &&
+                    person.lastName.toLowerCase() === lastName
+                );
 
-        });
+            });
 
 
-        /* =========================
+
+        /* =====================================
            GUEST NOT FOUND
-        ========================= */
+        ====================================== */
 
         if (!guest) {
 
             guestError.textContent =
                 "We couldn't find your invitation. Please check your name or ask the host.";
 
+            guestError.style.display = "block";
+
             return;
         }
 
 
-        /* =========================
-           DISPLAY GUEST
-        ========================= */
+
+        /* =====================================
+           GUEST FOUND
+        ====================================== */
 
         const fullName =
             guest.firstName + " " + guest.lastName;
 
-        guestFullName.textContent = fullName;
+
+        guestFullName.textContent =
+            fullName;
 
 
-        /* =========================
+        /* =====================================
            SEND GUEST NAME TO RSVP
-        ========================= */
+        ====================================== */
 
-        rsvpGuestName.value = fullName;
+        rsvpGuestName.value =
+            fullName;
 
 
-        /* =========================
+
+        /* =====================================
            NUMBER OF GUESTS
-        ========================= */
+        ====================================== */
 
-        const lookupGuestOptions =
-            document.querySelectorAll(
-                'input[name="lookupGuests"]'
-            );
-
-        lookupGuestOptions.forEach(function (radio) {
-
-            radio.checked =
-                Number(radio.value) === Number(guest.guests);
-
-        });
+        rsvpGuests1.checked =
+            Number(guest.guests) === 1;
 
 
-        rsvpGuestCount.value = guest.guests;
+        rsvpGuests2.checked =
+            Number(guest.guests) === 2;
 
 
-        /* =========================
-           EVENT SELECTION
-        ========================= */
+
+        /* =====================================
+           LOOKUP EVENT CHECKBOXES
+        ====================================== */
 
         const lookupEvents =
             document.querySelectorAll(
@@ -3671,80 +3666,73 @@ document.addEventListener("DOMContentLoaded", function () {
 
         lookupEvents.forEach(function (checkbox) {
 
-            const eventAllowed =
-                guest.events.some(function (eventName) {
-
-                    return eventName.toLowerCase() ===
-                           checkbox.value.toLowerCase();
-
-                });
+            const allowed =
+                guest.events.includes(
+                    checkbox.value
+                );
 
 
             checkbox.checked = false;
-            checkbox.disabled = !eventAllowed;
+
+            checkbox.disabled =
+                !allowed;
 
 
-            const eventLabel =
+            const label =
                 checkbox.closest(".event-choice");
 
 
-            if (eventLabel) {
+            if (label) {
 
-                eventLabel.style.display =
-                    eventAllowed ? "flex" : "none";
+                label.style.display =
+                    allowed ? "flex" : "none";
 
             }
 
         });
 
 
-        /* =========================
-           RESET RSVP EVENTS
-        ========================= */
+
+        /* =====================================
+           RSVP EVENTS
+        ====================================== */
+
+        const allowSangeet =
+            guest.events.includes("Sangeet");
+
+        const allowWedding =
+            guest.events.includes("Wedding");
+
 
         rsvpSangeet.checked = false;
         rsvpWedding.checked = false;
 
 
         rsvpSangeet.disabled =
-            !guest.events.includes("Sangeet");
+            !allowSangeet;
 
         rsvpWedding.disabled =
-            !guest.events.includes("Wedding");
+            !allowWedding;
 
 
-        const rsvpSangeetLabel =
-            rsvpSangeet.closest(".rsvp-event-option");
+        rsvpSangeetLabel.classList.toggle(
+            "disabled",
+            !allowSangeet
+        );
 
-        const rsvpWeddingLabel =
-            rsvpWedding.closest(".rsvp-event-option");
-
-
-        if (rsvpSangeetLabel) {
-
-            rsvpSangeetLabel.style.display =
-                guest.events.includes("Sangeet")
-                ? "flex"
-                : "none";
-
-        }
+        rsvpWeddingLabel.classList.toggle(
+            "disabled",
+            !allowWedding
+        );
 
 
-        if (rsvpWeddingLabel) {
 
-            rsvpWeddingLabel.style.display =
-                guest.events.includes("Wedding")
-                ? "flex"
-                : "none";
-
-        }
-
-
-        /* =========================
+        /* =====================================
            SHOW RESULT
-        ========================= */
+        ====================================== */
 
-        guestResult.style.display = "block";
+        guestResult.style.display =
+            "block";
 
 
         setTimeout(function () {
@@ -3759,131 +3747,197 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =========================
-       SYNC NUMBER OF GUESTS
-    ========================= */
+
+    /* =========================================
+       LOOKUP GUEST COUNT → RSVP
+    ========================================= */
 
     document
-        .querySelectorAll('input[name="lookupGuests"]')
+        .querySelectorAll(
+            'input[name="lookupGuests"]'
+        )
         .forEach(function (radio) {
 
-            radio.addEventListener("change", function () {
+            radio.addEventListener(
+                "change",
+                function () {
 
-                rsvpGuestCount.value = this.value;
+                    if (this.value === "1") {
+                        rsvpGuests1.checked = true;
+                    }
 
-            });
+                    if (this.value === "2") {
+                        rsvpGuests2.checked = true;
+                    }
+
+                }
+            );
 
         });
 
 
-    /* =========================
-       SYNC EVENT SELECTION
-    ========================= */
+
+    /* =========================================
+       LOOKUP EVENTS → RSVP
+    ========================================= */
 
     document
-        .querySelectorAll('input[name="lookupEvents"]')
+        .querySelectorAll(
+            'input[name="lookupEvents"]'
+        )
         .forEach(function (checkbox) {
 
-            checkbox.addEventListener("change", function () {
+            checkbox.addEventListener(
+                "change",
+                function () {
 
-                if (this.value === "Sangeet") {
+                    if (this.value === "Sangeet") {
 
-                    rsvpSangeet.checked =
-                        this.checked;
+                        rsvpSangeet.checked =
+                            this.checked;
+
+                    }
+
+
+                    if (this.value === "Wedding") {
+
+                        rsvpWedding.checked =
+                            this.checked;
+
+                    }
 
                 }
-
-                if (this.value === "Wedding") {
-
-                    rsvpWedding.checked =
-                        this.checked;
-
-                }
-
-            });
+            );
 
         });
 
 
-    /* =========================
-       SYNC RSVP → LOOKUP
-    ========================= */
 
-    rsvpSangeet.addEventListener("change", function () {
+    /* =========================================
+       RSVP EVENTS → LOOKUP
+    ========================================= */
 
-        const lookup =
-            document.querySelector(
-                'input[name="lookupEvents"][value="Sangeet"]'
-            );
+    rsvpSangeet.addEventListener(
+        "change",
+        function () {
 
-        if (lookup) {
-            lookup.checked = this.checked;
-        }
-
-    });
+            const lookup =
+                document.querySelector(
+                    'input[name="lookupEvents"][value="Sangeet"]'
+                );
 
 
-    rsvpWedding.addEventListener("change", function () {
+            if (lookup && !lookup.disabled) {
 
-        const lookup =
-            document.querySelector(
-                'input[name="lookupEvents"][value="Wedding"]'
-            );
+                lookup.checked =
+                    this.checked;
 
-        if (lookup) {
-            lookup.checked = this.checked;
-        }
-
-    });
-
-
-    /* =========================
-       RSVP SUBMIT VALIDATION
-    ========================= */
-
-    rsvpForm.addEventListener("submit", function (e) {
-
-        const selectedEvents =
-            rsvpForm.querySelectorAll(
-                'input[name="events"]:checked'
-            );
-
-
-        if (selectedEvents.length === 0) {
-
-            e.preventDefault();
-
-            const rsvpError =
-                document.getElementById("rsvpError");
-
-            rsvpError.textContent =
-                "Please select at least one event before submitting your RSVP.";
-
-            return;
-        }
-
-
-        /* Make sure guest count is included */
-
-        const selectedGuests =
-            document.querySelector(
-                'input[name="lookupGuests"]:checked'
-            );
-
-
-        if (selectedGuests) {
-
-            rsvpGuestCount.value =
-                selectedGuests.value;
+            }
 
         }
+    );
 
-    });
+
+    rsvpWedding.addEventListener(
+        "change",
+        function () {
+
+            const lookup =
+                document.querySelector(
+                    'input[name="lookupEvents"][value="Wedding"]'
+                );
+
+
+            if (lookup && !lookup.disabled) {
+
+                lookup.checked =
+                    this.checked;
+
+            }
+
+        }
+    );
+
+
+
+    /* =========================================
+       RSVP SUBMIT
+    ========================================= */
+
+    rsvpForm.addEventListener(
+        "submit",
+        function (e) {
+
+
+            rsvpError.textContent = "";
+
+
+            /* Guest name */
+
+            if (!rsvpGuestName.value.trim()) {
+
+                e.preventDefault();
+
+                rsvpError.textContent =
+                    "Please find your invitation first.";
+
+                return;
+            }
+
+
+
+            /* Guest count */
+
+            if (
+                !rsvpGuests1.checked &&
+                !rsvpGuests2.checked
+            ) {
+
+                e.preventDefault();
+
+                rsvpError.textContent =
+                    "Please select the number of guests.";
+
+                return;
+            }
+
+
+
+            /* Events */
+
+            if (
+                !rsvpSangeet.checked &&
+                !rsvpWedding.checked
+            ) {
+
+                e.preventDefault();
+
+                rsvpError.textContent =
+                    "Please select at least one event.";
+
+                return;
+            }
+
+
+
+            /*
+             * FormSubmit will now receive:
+             *
+             * Guest Name
+             * Number of Guests
+             * Events
+             * Email
+             * Advice
+             * Message / Dietary Notes
+             *
+             */
+
+        }
+    );
 
 });
 
-
-
+</script>
 
 
 
