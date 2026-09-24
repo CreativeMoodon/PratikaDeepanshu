@@ -1,583 +1,282 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
-<meta name="description" content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
+<html lang="en">
 
-	
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
+
+<meta name="description"
+      content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
+
+
 <style>
 
-
 /* =========================================
-   GUEST INVITATION LOOKUP
+   ROOT
 ========================================= */
 
-.guest-lookup {
-    width: 100%;
-    padding: 80px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+:root {
+    --background: #fbf8f2;
+    --foreground: #302b25;
+    --gold: #b58a45;
+    --gold-light: rgba(181,138,69,.15);
+    --emerald: #567866;
+    --sand: #eee5d6;
+    --card: #fffdf9;
 }
 
-.guest-lookup-card {
-    width: 100%;
-    max-width: 560px;
-    padding: 45px 35px;
-    text-align: center;
-
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(180, 150, 80, 0.35);
-    border-radius: 20px;
-
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.10);
-}
-
-.guest-lookup-icon {
-    font-size: 28px;
-    color: goldenrod;
-    margin-bottom: 10px;
-}
-
-.guest-lookup-card h2 {
-    margin: 0 0 10px;
-    font-size: 32px;
-    font-weight: 500;
-    color: #6d5425;
-}
-
-.guest-subtitle {
-    margin: 0 auto 10px;
-    color: #777;
-    font-size: 15px;
-}
-
-.ask-host {
-    display: inline-block;
-    margin-bottom: 30px;
-    color: goldenrod;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.ask-host:hover {
-    text-decoration: underline;
-}
-
-
-/* Form */
-
-#guestLookupForm {
-    width: 100%;
-    max-width: 430px;
-    margin: 0 auto;
-}
-
-.guest-field {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.guest-field label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #5d4b2a;
-}
-
-.guest-field input {
-    width: 100%;
+* {
     box-sizing: border-box;
-
-    padding: 13px 15px;
-
-    border: 1px solid #d8c9a5;
-    border-radius: 8px;
-
-    background: #fff;
-    color: #333;
-
-    font-family: inherit;
-    font-size: 15px;
-
-    outline: none;
-    transition: border-color 0.3s ease,
-                box-shadow 0.3s ease;
 }
 
-.guest-field input:focus {
-    border-color: goldenrod;
-    box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.12);
+html {
+    scroll-behavior: smooth;
 }
 
-
-/* Find Invitation Button */
-
-.find-invitation-btn {
-    width: 100%;
-    padding: 14px 20px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: goldenrod;
-    color: white;
-
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: transform 0.2s ease,
-                opacity 0.2s ease,
-                box-shadow 0.2s ease;
-}
-
-.find-invitation-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(180, 140, 40, 0.25);
-}
-
-
-/* Error Message */
-
-.guest-error {
-    display: none;
-
-    margin: 20px auto 0;
-    padding: 12px 15px;
-
-    max-width: 430px;
-
-    border-radius: 8px;
-    background: #fff1f1;
-    border: 1px solid #e5baba;
-
-    color: #a33;
-    font-size: 14px;
-}
-
-
-/* Guest Result */
-
-.guest-result {
-    display: none;
-
-    margin-top: 35px;
-    padding-top: 5px;
-}
-
-.result-divider {
-    width: 70px;
-    height: 1px;
-    margin: 0 auto 25px;
-
-    background: goldenrod;
-}
-
-.welcome-text {
-    margin: 0 0 5px;
-    color: goldenrod;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-#guestFullName {
-    margin: 0 0 12px;
-    color: #6d5425;
-    font-size: 28px;
-    font-weight: 500;
-}
-
-.guest-welcome {
-    margin: 0 auto 25px;
-    max-width: 430px;
-
-    color: #777;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-/* ==============================
-   GUEST DETAILS / SELECTION
-   ============================== */
-
-.guest-details {
-    margin: 25px 0;
-    padding: 20px 0;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-}
-
-.detail-section {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.detail-section:last-child {
-    margin-bottom: 0;
-}
-
-.detail-label {
-    display: block;
-    margin-bottom: 14px;
-    color: #777;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-
-/* ==============================
-   NUMBER OF GUESTS
-   ============================== */
-
-.guest-choice-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.guest-choice-options label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-
-    padding: 10px 20px;
-
-    border: 1px solid #d8c9a5;
-    border-radius: 8px;
-
-    background: #fff;
-    color: #6d5425;
-
-    font-size: 14px;
-    cursor: pointer;
-
-    transition: all 0.25s ease;
-}
-
-.guest-choice-options label:hover {
-    border-color: goldenrod;
-    background: #faf8f2;
-}
-
-.guest-choice-options input {
+body {
     margin: 0;
-    accent-color: goldenrod;
-}
-
-
-/* ==============================
-   EVENT SELECTION
-   ============================== */
-
-.event-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-.event-choice {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-
-    padding: 16px;
-
-    text-align: left;
-
-    background: #faf8f2;
-    border: 1px solid #e5d9bd;
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    transition:
-        border-color 0.25s ease,
-        background 0.25s ease;
-}
-
-.event-choice:hover {
-    border-color: goldenrod;
-    background: #fffdf8;
-}
-
-.event-choice input {
-    width: 18px;
-    height: 18px;
-
-    margin-top: 3px;
-
-    accent-color: goldenrod;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-
-.event-choice span {
-    display: block;
-    flex: 1;
-}
-
-.event-choice strong {
-    display: block;
-
-    margin-bottom: 5px;
-
-    color: #6d5425;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.event-choice small {
-    display: block;
-
-    color: #777;
-    font-size: 12px;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
 
-
-/* ==============================
-   DISABLED EVENT
-   ============================== */
-
-.event-choice input:disabled {
-    cursor: not-allowed;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.event-choice:has(input:disabled) {
-    opacity: 0.45;
-    cursor: not-allowed;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-
-/* ==============================
-   MOBILE
-   ============================== */
-
-@media (max-width: 600px) {
-
-    .guest-details {
-        padding: 18px 0;
-    }
-
-    .guest-choice-options {
-        gap: 10px;
-    }
-
-    .guest-choice-options label {
-        padding: 9px 16px;
-        font-size: 13px;
-    }
-
-    .event-choice {
-        padding: 14px;
-        gap: 10px;
-    }
-
-    .event-choice strong {
-        font-size: 14px;
-    }
-
-    .event-choice small {
-        font-size: 11px;
-    }
+.container {
+    width: min(100% - 32px, 900px);
+    margin: auto;
 }
 
+.display {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+}
 
-	.scratch-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--gold-light);
-    background: var(--card);
+.gold {
+    color: var(--gold);
+}
+
+.text-center {
     text-align: center;
-    padding: 55px 20px;
-    min-height: 180px;
-    box-sizing: border-box;
-    user-select: none;
 }
 
-.scratch-content {
-    position: relative;
-    z-index: 1;
-}
-
-#scratchCanvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    cursor: crosshair;
-    touch-action: none;
-}
-
-.scratch-label {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 20px;
-    z-index: 3;
-    color: rgba(255,255,255,0.9);
-    font-size: 10px;
+.upper {
     text-transform: uppercase;
-    letter-spacing: 0.3em;
-    pointer-events: none;
+    letter-spacing: .25em;
+    font-size: 10px;
 }
 
-.scratch-card.revealed .scratch-content {
-    animation: revealDate 0.8s ease;
+section {
+    scroll-margin-top: 70px;
 }
 
-@keyframes revealDate {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-.petal-field { 
+/* =========================================
+   NAVIGATION
+========================================= */
+
+nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100vh;
-    pointer-events: none;
+    right: 0;
+    z-index: 100;
+
+    height: 64px;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    transition: .3s;
+}
+
+nav.scrolled {
+    background: rgba(251,248,242,.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gold-light);
+}
+
+.nav-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+
+    color: #625d55;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+}
+
+@media(max-width:650px) {
+
+    .nav-links {
+        gap: 10px;
+        font-size: 8px;
+        letter-spacing: .12em;
+    }
+
+    nav {
+        padding: 0 14px;
+    }
+}
+
+
+/* =========================================
+   GANESH
+========================================= */
+
+.ganesh-banner {
+    text-align: center;
+    padding: 80px 20px 20px;
+}
+
+.ganesh-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 8px;
+    object-fit: contain;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    position: relative;
+    min-height: 82vh;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    padding: 48px 24px 30px;
+
     overflow: hidden;
-    z-index: 9999;
 }
 
-.petal {
+.hero-bg {
     position: absolute;
-    top: -40px;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    opacity: .2;
+
+    z-index: 0;
+}
+
+.vignette-top,
+.vignette-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.vignette-top {
+    top: 0;
+    height: 35%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(251,248,242,.55),
+            transparent
+        );
+}
+
+.vignette-bottom {
+    bottom: 0;
+    height: 28%;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(251,248,242,.8),
+            transparent
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-logo {
+    width: min(380px,80vw);
+    margin: auto;
+
+    filter:
+        drop-shadow(
+            0 4px 24px rgba(0,0,0,.25)
+        );
+}
+
+
+/* =========================================
+   COUPLE HEADING
+========================================= */
+
+.couple-heading {
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.couple-heading h1 {
+    font-size: clamp(42px,8vw,64px);
+    margin: 0;
+}
+
+.couple-heading span {
     display: block;
-    width: 14px;
-    height: 20px;
-    background: #e8a0aa;
-    border-radius: 50% 0 50% 50%;
-    opacity: 0.7;
 
-    animation-name: petalFall;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    font-size: clamp(26px,5vw,40px);
+
+    margin-top: 12px;
 }
 
-@keyframes petalFall {
-    0% {
-        transform: translate3d(0, -40px, 0) rotate(0deg);
-    }
 
-    50% {
-        transform: translate3d(var(--drift), 50vh, 0)
-                   rotate(180deg);
-    }
+/* =========================================
+   GENERAL SECTIONS
+========================================= */
 
-    100% {
-        transform: translate3d(calc(var(--drift) * -1), 110vh, 0)
-                   rotate(360deg);
-    }
-}
-</style>
-<style>
-:root{
-  --background:#fbf8f2;
-  --foreground:#302b25;
-  --gold:#b58a45;
-  --gold-light:rgba(181,138,69,.15);
-  --emerald:#567866;
-  --sand:#eee5d6;
-  --card:#fffdf9;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:var(--background);
-  color:var(--foreground);
-  font-family:Arial,Helvetica,sans-serif;
-  line-height:1.6;
-}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.container{width:min(100% - 32px,900px);margin:auto}
-.display{
-  font-family:Georgia,"Times New Roman",serif;
-  font-style:italic;
-}
-.gold{color:var(--gold)}
-.text-center{text-align:center}
-.upper{
-  text-transform:uppercase;
-  letter-spacing:.25em;
-  font-size:10px;
-}
-section{scroll-margin-top:70px}
-
-/* Navigation */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  height:64px;padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  transition:.3s;
-}
-nav.scrolled{
-  background:rgba(251,248,242,.9);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--gold-light);
-}
-.nav-logo{width:40px;height:40px;object-fit:contain}
-.nav-links{display:flex;gap:24px;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:#625d55}
-.nav-links a:hover{color:var(--gold)}
-@media(max-width:650px){
-  .nav-links{gap:10px;font-size:8px;letter-spacing:.12em}
-  nav{padding:0 14px}
-}
-
-/* Ganesh */
-.ganesh-banner{text-align:center;padding:80px 20px 20px}
-.ganesh-icon{width:48px;height:48px;margin:0 auto 8px;object-fit:contain}
-
-/* Hero */
-.hero{
-  position:relative;min-height:82vh;
-  display:flex;align-items:flex-start;justify-content:center;
-  padding:48px 24px 30px;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;opacity:.2;z-index:0;
-}
-.vignette-top,.vignette-bottom{position:absolute;left:0;right:0;z-index:1}
-.vignette-top{top:0;height:35%;background:linear-gradient(to bottom,rgba(251,248,242,.55),transparent)}
-.vignette-bottom{bottom:0;height:28%;background:linear-gradient(to top,rgba(251,248,242,.8),transparent)}
-.hero-content{position:relative;z-index:2;text-align:center}
-.hero-logo{width:min(380px,80vw);margin:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,.25))}
-
-/* Headings */
-.couple-heading{padding:48px 24px;text-align:center}
-.couple-heading h1{font-size:clamp(42px,8vw,64px);margin:0}
-.couple-heading span{display:block;font-size:clamp(26px,5vw,40px);margin-top:12px}
-
-/* General sections */
 .invitation,
 .countdown,
 .save-date,
 .memories,
 .rsvp {
     padding: 90px 24px;
+
     width: 100%;
     box-sizing: border-box;
 }
@@ -587,7 +286,7 @@ nav.scrolled{
 .save-inner,
 .memory-inner,
 .rsvp-inner {
-    width: min(100%, 600px);
+    width: min(100%,600px);
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -596,15 +295,19 @@ nav.scrolled{
     display: flex;
     align-items: center;
     justify-content: center;
+
     gap: 12px;
+
     margin-bottom: 28px;
 }
 
 .rule:before,
 .rule:after {
     content: "";
+
     height: 1px;
     width: 40px;
+
     background: rgba(181,138,69,.4);
 }
 
@@ -616,11 +319,17 @@ nav.scrolled{
 
 .invitation p {
     font-size: 14px;
+
     color: rgba(48,43,37,.7);
+
     line-height: 1.9;
 }
 
-/* Make sure fade-in sections are visible */
+
+/* =========================================
+   FADE IN
+========================================= */
+
 .fade-in {
     opacity: 1;
     visibility: visible;
@@ -628,17 +337,26 @@ nav.scrolled{
 }
 
 
-/* Countdown */
+/* =========================================
+   COUNTDOWN
+========================================= */
+
 .countdown-box {
     border: 1px solid var(--gold-light);
+
     background: rgba(255,253,249,.6);
+
     padding: 32px;
+
     text-align: center;
 }
 
 .countdown-grid {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap: 8px;
 }
 
@@ -649,45 +367,125 @@ nav.scrolled{
 
 .count-label {
     font-size: 9px;
+
     text-transform: uppercase;
+
     letter-spacing: .18em;
+
     color: #777168;
 }
 
 
-/* Save the Date */
-.save-date {
-    background: rgba(238,229,214,.25);
-}
-
-.save-inner {
-    text-align: center;
-}
+/* =========================================
+   SCRATCH CARD
+========================================= */
 
 .scratch-card {
-    border: 1px solid var(--gold-light);
-    background: var(--card);
-    text-align: center;
-    padding: 55px 20px;
-    cursor: pointer;
     position: relative;
+
     overflow: hidden;
+
+    border: 1px solid var(--gold-light);
+
+    background: var(--card);
+
+    text-align: center;
+
+    padding: 55px 20px;
+
     min-height: 180px;
+
     box-sizing: border-box;
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.scratch-content {
+    position: relative;
+    z-index: 1;
+}
+
+#scratchCanvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+
+    cursor: crosshair;
+
+    touch-action: none;
+}
+
+.scratch-label {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 20px;
+
+    z-index: 3;
+
+    color: rgba(255,255,255,.9);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .3em;
+
+    pointer-events: none;
+}
+
+.scratch-card.revealed .scratch-content {
+    animation: revealDate .8s ease;
+}
+
+@keyframes revealDate {
+
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .scratch-cover {
     position: absolute;
+
     inset: 0;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg,#c8a66a,#9b743a);
+
+    background:
+        linear-gradient(
+            135deg,
+            #c8a66a,
+            #9b743a
+        );
+
     color: white;
+
     letter-spacing: .25em;
+
     text-transform: uppercase;
+
     font-size: 11px;
+
     transition: .5s;
+
     z-index: 2;
 }
 
@@ -697,18 +495,1148 @@ nav.scrolled{
 
 .date {
     font-family: Georgia, serif;
+
     font-style: italic;
+
     font-size: 48px;
+
     line-height: 1;
 }
 
 
-/* Mobile */
-@media (max-width: 600px) {
+/* =========================================
+   EVENTS
+========================================= */
+
+.events {
+    padding: 20px 16px 90px;
+}
+
+.events-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.event-card {
+    margin: 0 auto 32px;
+
+    width: min(100%,600px);
+
+    border: 1px solid var(--gold-light);
+
+    background: var(--card);
+}
+
+.event-card.emerald {
+    border-color: rgba(86,120,102,.2);
+}
+
+.event-image {
+    width: 100%;
+
+    aspect-ratio: 9/16;
+
+    object-fit: cover;
+
+    background: #eee5d6;
+}
+
+.event-body {
+    padding: 32px;
+}
+
+.event-index {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.event-title {
+    font-family: Georgia, serif;
+
+    font-style: italic;
+
+    font-size: 28px;
+
+    margin: 0 0 16px;
+}
+
+.event-details {
+    font-size: 14px;
+
+    color: rgba(48,43,37,.8);
+}
+
+.event-note {
+    font-size: 14px;
+
+    color: rgba(48,43,37,.6);
+
+    font-style: italic;
+
+    margin: 20px 0;
+}
+
+.divider {
+    height: 1px;
+    background: var(--gold-light);
+}
+
+
+/* =========================================
+   VENUE
+========================================= */
+
+.venue {
+    padding: 80px 24px;
+}
+
+.venue-inner {
+    width: min(100%,600px);
+    margin: auto;
+}
+
+.venue-block {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.venue-title {
+    font-family: Georgia, serif;
+
+    font-style: italic;
+
+    font-size: 32px;
+
+    margin: 0 0 16px;
+}
+
+.venue-address {
+    font-size: 14px;
+
+    color: rgba(48,43,37,.7);
+
+    margin-bottom: 30px;
+}
+
+.venue-image {
+    display: block;
+
+    width: 70%;
+    max-width: 400px;
+
+    height: auto;
+
+    margin: 0 auto 20px;
+
+    border-radius: 4px;
+}
+
+.venue-description {
+    font-size: 14px;
+
+    color: rgba(48,43,37,.7);
+
+    line-height: 1.8;
+
+    margin-bottom: 28px;
+}
+
+.map-button {
+    display: block;
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: 1px solid rgba(181,138,69,.4);
+
+    background: transparent;
+
+    text-align: center;
+
+    text-transform: uppercase;
+
+    letter-spacing: .25em;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.map-button:hover {
+    background: rgba(181,138,69,.08);
+}
+
+
+/* =========================================
+   MEMORIES
+========================================= */
+
+.memory-frame {
+    overflow: hidden;
+
+    border: 1px solid var(--gold-light);
+}
+
+.memory-slide {
+    display: none;
+
+    position: relative;
+}
+
+.memory-slide.active {
+    display: block;
+}
+
+.memory-slide img {
+    width: 100%;
+
+    aspect-ratio: 4/5;
+
+    object-fit: cover;
+}
+
+.caption {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 48px 20px 16px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.75),
+            transparent
+        );
+
+    color: white;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .2em;
+}
+
+.slider-controls {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-top: 18px;
+}
+
+.slider-button {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(181,138,69,.3);
+
+    border-radius: 50%;
+
+    background: var(--background);
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: rgba(181,138,69,.25);
+
+    cursor: pointer;
+}
+
+.dot.active {
+    background: var(--gold);
+}
+
+
+/* =========================================
+   GUEST INVITATION LOOKUP
+========================================= */
+
+.guest-lookup {
+    width: 100%;
+
+    padding: 80px 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+.guest-lookup-card {
+    width: 100%;
+
+    max-width: 560px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    background: rgba(255,255,255,.96);
+
+    border: 1px solid rgba(180,150,80,.35);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.10);
+}
+
+.guest-lookup-icon {
+    font-size: 28px;
+
+    color: goldenrod;
+
+    margin-bottom: 10px;
+}
+
+.guest-lookup-card h2 {
+    margin: 0 0 10px;
+
+    font-size: 32px;
+
+    font-weight: 500;
+
+    color: #6d5425;
+}
+
+.guest-subtitle {
+    margin: 0 auto 10px;
+
+    color: #777;
+
+    font-size: 15px;
+}
+
+.ask-host {
+    display: inline-block;
+
+    margin-bottom: 30px;
+
+    color: goldenrod;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+.ask-host:hover {
+    text-decoration: underline;
+}
+
+
+/* Guest search form */
+
+#guestLookupForm {
+    width: 100%;
+
+    max-width: 430px;
+
+    margin: 0 auto;
+}
+
+.guest-field {
+    margin-bottom: 20px;
+
+    text-align: left;
+}
+
+.guest-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #5d4b2a;
+}
+
+.guest-field input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d8c9a5;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.guest-field input:focus {
+    border-color: goldenrod;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(218,165,32,.12);
+}
+
+
+/* Find invitation */
+
+.find-invitation-btn {
+    width: 100%;
+
+    padding: 14px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: goldenrod;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease,
+        box-shadow .2s ease;
+}
+
+.find-invitation-btn:hover {
+    opacity: .9;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(180,140,40,.25);
+}
+
+
+/* Guest error */
+
+.guest-error {
+    display: none;
+
+    margin: 20px auto 0;
+
+    padding: 12px 15px;
+
+    max-width: 430px;
+
+    border-radius: 8px;
+
+    background: #fff1f1;
+
+    border: 1px solid #e5baba;
+
+    color: #a33;
+
+    font-size: 14px;
+}
+
+
+/* Guest result */
+
+.guest-result {
+    display: none;
+
+    margin-top: 35px;
+
+    padding-top: 5px;
+}
+
+.result-divider {
+    width: 70px;
+
+    height: 1px;
+
+    margin: 0 auto 25px;
+
+    background: goldenrod;
+}
+
+.welcome-text {
+    margin: 0 0 5px;
+
+    color: goldenrod;
+
+    font-size: 14px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+#guestFullName {
+    margin: 0 0 12px;
+
+    color: #6d5425;
+
+    font-size: 28px;
+
+    font-weight: 500;
+}
+
+.guest-welcome {
+    margin: 0 auto 25px;
+
+    max-width: 430px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* Guest details */
+
+.guest-details {
+    margin: 25px 0;
+
+    padding: 20px 0;
+
+    border-top: 1px solid #eee;
+
+    border-bottom: 1px solid #eee;
+}
+
+.detail-section {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
+}
+
+.detail-label {
+    display: block;
+
+    margin-bottom: 14px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+/* Guest count */
+
+.guest-choice-options {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.guest-choice-options label {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 20px;
+
+    border: 1px solid #d8c9a5;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #6d5425;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: all .25s ease;
+}
+
+.guest-choice-options label:hover {
+    border-color: goldenrod;
+
+    background: #faf8f2;
+}
+
+.guest-choice-options input {
+    margin: 0;
+
+    accent-color: goldenrod;
+}
+
+
+/* Guest events */
+
+.event-selection {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+.event-choice {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    text-align: left;
+
+    background: #faf8f2;
+
+    border: 1px solid #e5d9bd;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        border-color .25s ease,
+        background .25s ease;
+}
+
+.event-choice:hover {
+    border-color: goldenrod;
+
+    background: #fffdf8;
+}
+
+.event-choice input {
+    width: 18px;
+    height: 18px;
+
+    margin-top: 3px;
+
+    accent-color: goldenrod;
+
+    flex-shrink: 0;
+
+    cursor: pointer;
+}
+
+.event-choice span {
+    display: block;
+
+    flex: 1;
+}
+
+.event-choice strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #6d5425;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+.event-choice small {
+    display: block;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.event-choice input:disabled {
+    cursor: not-allowed;
+}
+
+.event-choice:has(input:disabled) {
+    opacity: .45;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   RSVP
+========================================= */
+
+.rsvp {
+    padding: 90px 24px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+.rsvp-inner {
+    width: min(100%,600px);
+
+    margin: 0 auto;
+}
+
+#rsvpForm {
+    width: 100%;
+
+    max-width: 520px;
+
+    margin: 0 auto;
+}
+
+
+/* RSVP fields */
+
+.rsvp-field {
+    width: 100%;
+
+    margin-bottom: 22px;
+
+    text-align: left;
+}
+
+.rsvp-field > label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #5d4b2a;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+.rsvp-field input[type="text"],
+.rsvp-field input[type="email"],
+.rsvp-field textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d8c9a5;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #333;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.rsvp-field textarea {
+    min-height: 105px;
+
+    resize: vertical;
+}
+
+.rsvp-field input:focus,
+.rsvp-field textarea:focus {
+    border-color: goldenrod;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(218,165,32,.12);
+}
+
+
+/* RSVP guest number */
+
+.guest-number-options {
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+.guest-number-option {
+    display: inline-flex !important;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 100px;
+
+    padding: 10px 16px;
+
+    border: 1px solid #d8c9a5;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #6d5425 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 500 !important;
+
+    cursor: pointer;
+}
+
+.guest-number-option input {
+    margin: 0;
+
+    accent-color: goldenrod;
+}
+
+
+/* RSVP event options */
+
+.event-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.event-option {
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d8c9a5;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    color: #6d5425 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 500 !important;
+
+    cursor: pointer;
+}
+
+.event-option input {
+    width: 17px;
+
+    height: 17px;
+
+    margin: 0;
+
+    accent-color: goldenrod;
+
+    flex-shrink: 0;
+}
+
+
+/* RSVP submit */
+
+.rsvp-submit {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: goldenrod;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.rsvp-submit:hover {
+    opacity: .9;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px
+        rgba(180,140,40,.25);
+}
+
+
+/* =========================================
+   MUSIC BUTTON
+========================================= */
+
+.music-button {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    border: 1px solid
+        rgba(180,150,80,.5);
+
+    background:
+        rgba(255,255,255,.85);
+
+    color: #b08a3c;
+
+    font-size: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.12);
+
+    z-index: 9999;
+
+    transition: all .3s ease;
+}
+
+.music-button:hover {
+    transform: scale(1.08);
+
+    background: white;
+}
+
+.music-button.playing {
+    animation: musicPulse 1.5s infinite;
+}
+
+@keyframes musicPulse {
+
+    0% {
+        box-shadow:
+            0 0 0 0
+            rgba(176,138,60,.25);
+    }
+
+    70% {
+        box-shadow:
+            0 0 0 10px
+            rgba(176,138,60,0);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0
+            rgba(176,138,60,0);
+    }
+}
+
+
+/* =========================================
+   ROSE PETALS
+========================================= */
+
+.petal-field {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 9999;
+}
+
+.petal {
+    position: absolute;
+
+    top: -40px;
+
+    display: block;
+
+    width: 14px;
+    height: 20px;
+
+    background: #e8a0aa;
+
+    border-radius:
+        50% 0 50% 50%;
+
+    opacity: .7;
+
+    animation-name: petalFall;
+
+    animation-timing-function: linear;
+
+    animation-iteration-count: infinite;
+}
+
+@keyframes petalFall {
+
+    0% {
+        transform:
+            translate3d(
+                0,
+                -40px,
+                0
+            )
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translate3d(
+                var(--drift),
+                50vh,
+                0
+            )
+            rotate(180deg);
+    }
+
+    100% {
+        transform:
+            translate3d(
+                calc(var(--drift) * -1),
+                110vh,
+                0
+            )
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    padding: 55px 20px;
+
+    text-align: center;
+
+    border-top:
+        1px solid var(--gold-light);
+}
+
+.footer-logo {
+    width: 96px;
+
+    margin: 0 auto 12px;
+}
+
+footer p {
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .2em;
+
+    color: rgba(48,43,37,.4);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px) {
 
     .invitation,
     .countdown,
-    .save-date {
+    .save-date,
+    .rsvp {
         padding: 60px 20px;
     }
 
@@ -728,577 +1656,858 @@ nav.scrolled{
     .date {
         font-size: 36px;
     }
-}
 
-/* Events */
-.events{padding:20px 16px 90px}
-.events-header{text-align:center;margin-bottom:32px}
-.event-card{
-  margin:0 auto 32px;
-  width:min(100%,600px);
-  border:1px solid var(--gold-light);
-  background:var(--card);
-}
-.event-card.emerald{border-color:rgba(86,120,102,.2)}
-.event-image{
-  width:100%;aspect-ratio:9/16;object-fit:cover;
-  background:#eee5d6;
-}
-.event-body{padding:32px}
-.event-index{display:block;margin-bottom:8px}
-.event-title{font-family:Georgia,serif;font-style:italic;font-size:28px;margin:0 0 16px}
-.event-details{font-size:14px;color:rgba(48,43,37,.8)}
-.event-note{font-size:14px;color:rgba(48,43,37,.6);font-style:italic;margin:20px 0}
-.divider{height:1px;background:var(--gold-light)}
+    .guest-lookup {
+        padding: 60px 15px;
+    }
 
-/* Venue */
-.venue{padding:80px 24px}
-.venue-inner{width:min(100%,600px);margin:auto}
-.venue-block{text-align:center;margin-bottom:80px}
-.venue-title{font-family:Georgia,serif;font-style:italic;font-size:32px;margin:0 0 16px}
-.venue-address{font-size:14px;color:rgba(48,43,37,.7);margin-bottom:30px}
-.venue-image{width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:30px}
-.venue-description{font-size:14px;color:rgba(48,43,37,.7);line-height:1.8;margin-bottom:28px}
-.map-button,.submit-button{
-  display:block;width:100%;padding:16px;
-  border:1px solid rgba(181,138,69,.4);
-  background:transparent;
-  text-align:center;
-  text-transform:uppercase;
-  letter-spacing:.25em;
-  font-size:10px;
-  cursor:pointer;
-}
-.map-button:hover{background:rgba(181,138,69,.08)}
+    .guest-lookup-card {
+        padding: 35px 20px;
 
-/* Memories */
-.memory-frame{overflow:hidden;border:1px solid var(--gold-light)}
-.memory-slide{display:none;position:relative}
-.memory-slide.active{display:block}
-.memory-slide img{width:100%;aspect-ratio:4/5;object-fit:cover}
-.caption{
-  position:absolute;left:0;right:0;bottom:0;
-  padding:48px 20px 16px;
-  background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
-  color:white;font-size:10px;text-transform:uppercase;letter-spacing:.2em;
-}
-.slider-controls{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
-.slider-button{
-  width:42px;height:42px;border:1px solid rgba(181,138,69,.3);
-  border-radius:50%;background:var(--background);cursor:pointer;font-size:18px;
-}
-.dots{display:flex;gap:8px}
-.dot{width:8px;height:8px;border:0;border-radius:50%;background:rgba(181,138,69,.25);cursor:pointer}
-.dot.active{background:var(--gold)}
+        border-radius: 16px;
+    }
 
-.venue-image {
-    display: block;
-    width: 70%;
-    max-width: 400px;
-    height: auto;
-    margin: 0 auto 20px;
-    border-radius: 4px;
-}
-	
-/* =========================
-   RSVP FIELDS
-   ========================= */
+    .guest-lookup-card h2 {
+        font-size: 27px;
+    }
 
-.rsvp-field {
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: left;
-}
+    #guestFullName {
+        font-size: 24px;
+    }
 
-.rsvp-field label {
-    display: block;
-    margin-bottom: 8px;
-
-    color: #5d4b2a;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.rsvp-field input[type="text"],
-.rsvp-field input[type="email"],
-.rsvp-field textarea {
-    width: 100%;
-    box-sizing: border-box;
-
-    padding: 13px 15px;
-
-    border: 1px solid #d8c9a5;
-    border-radius: 8px;
-
-    background: #fff;
-    color: #333;
-
-    font-family: inherit;
-    font-size: 15px;
-
-    outline: none;
-
-    transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.rsvp-field textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.rsvp-field input:focus,
-.rsvp-field textarea:focus {
-    border-color: goldenrod;
-
-    box-shadow:
-        0 0 0 3px rgba(218, 165, 32, 0.12);
-}
-
-
-/* =========================
-   EVENT OPTIONS
-   ========================= */
-
-.event-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.event-option {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 8px;
-
-    padding: 10px 15px;
-
-    border: 1px solid #d8c9a5;
-    border-radius: 8px;
-
-    background: #fff;
-
-    color: #6d5425 !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-
-    cursor: pointer;
-}
-
-.event-option input {
-    margin: 0;
-    accent-color: goldenrod;
-}
-
-
-/* =========================
-   SUBMIT BUTTON
-   ========================= */
-
-.rsvp-submit {
-    display: block;
-
-    width: 100%;
-    margin-top: 10px;
-
-    padding: 14px 20px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: goldenrod;
-    color: #fff;
-
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        opacity 0.25s ease,
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.rsvp-submit:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 15px rgba(180, 140, 40, 0.25);
-}
-
-
-/* =========================
-   MOBILE
-   ========================= */
-
-@media (max-width: 600px) {
-
-    .event-options {
-        flex-direction: column;
+    .guest-choice-options {
         gap: 10px;
     }
 
-    .event-option {
-        width: 100%;
-        box-sizing: border-box;
+    .guest-choice-options label {
+        padding: 9px 16px;
     }
 
-    .rsvp-field label {
+    .event-choice {
+        padding: 14px;
+
+        gap: 10px;
+    }
+
+    .event-choice strong {
+        font-size: 14px;
+    }
+
+    .event-choice small {
+        font-size: 11px;
+    }
+
+    .event-option {
+        padding: 12px;
+    }
+
+    .rsvp-field > label {
         font-size: 13px;
     }
 
+    .rsvp-field input[type="text"],
     .rsvp-field input[type="email"],
     .rsvp-field textarea {
         font-size: 14px;
     }
 }
 
-/* Footer */
-footer{padding:55px 20px;text-align:center;border-top:1px solid var(--gold-light)}
-.footer-logo{width:96px;margin:0 auto 12px}
-footer p{font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(48,43,37,.4)}
-
-.fade-in {
-    opacity: 1;
-    transform: none;
-}
 </style>
-	<style>
-.music-button {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
 
-    width: 48px;
-    height: 48px;
-
-    border-radius: 50%;
-    border: 1px solid rgba(180, 150, 80, 0.5);
-
-    background: rgba(255, 255, 255, 0.85);
-
-    color: #b08a3c;
-    font-size: 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
-
-    z-index: 9999;
-
-    transition: all 0.3s ease;
-}
-
-.music-button:hover {
-    transform: scale(1.08);
-    background: white;
-}
-
-.music-button.playing {
-    animation: musicPulse 1.5s infinite;
-}
-
-@keyframes musicPulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(176, 138, 60, 0.25);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(176, 138, 60, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(176, 138, 60, 0);
-    }
-}
-
-
-</style>
 </head>
 
+
 <body>
-	
-	<audio id="weddingMusic" loop preload="metadata" playsinline>
-    <source src="aaj-sajeya.mp3" type="audio/mpeg">
+
+
+<!-- =========================================
+     BACKGROUND MUSIC
+========================================= -->
+
+<audio
+    id="weddingMusic"
+    loop
+    preload="metadata"
+    playsinline>
+
+    <source
+        src="aaj-sajeya.mp3"
+        type="audio/mpeg">
+
 </audio>
 
-<button id="musicButton" class="music-button" type="button">
+
+<button
+    id="musicButton"
+    class="music-button"
+    type="button"
+    aria-label="Play wedding music">
+
     ▶
+
 </button>
-	
-<div class="petal-field" id="petalField"></div>
-	<script>
-function seeded(i, salt) {
-    var x = Math.sin(i * 127.1 + salt * 311.7) * 43758.5453;
-    return x - Math.floor(x);
-}
 
-var field = document.getElementById("petalField");
 
-for (var i = 0; i < 25; i++) {
+<!-- =========================================
+     ROSE PETALS
+========================================= -->
 
-    var petal = document.createElement("span");
+<div
+    class="petal-field"
+    id="petalField">
+</div>
 
-    petal.className = "petal";
 
-    var left = seeded(i, 1) * 100;
-    var delay = seeded(i, 2) * 12;
-    var duration = 8 + seeded(i, 3) * 8;
-    var size = 10 + seeded(i, 4) * 12;
-    var drift = (seeded(i, 5) - 0.5) * 200;
-    var opacity = 0.4 + seeded(i, 6) * 0.5;
-
-    petal.style.left = left + "%";
-    petal.style.width = size + "px";
-    petal.style.height = (size * 1.3) + "px";
-    petal.style.opacity = opacity;
-    petal.style.animationDelay = "-" + delay + "s";
-    petal.style.animationDuration = duration + "s";
-    petal.style.setProperty("--drift", drift + "px");
-
-    field.appendChild(petal);
-}
-</script>
+<!-- =========================================
+     NAVIGATION
+========================================= -->
 
 <nav id="nav">
-  <a href="#top"><img class="nav-logo" src="PratikaWebsite/dp-logo-mark.png" alt="Pratika & Deepanshu monogram"></a>
- <div class="nav-links">
-    <a href="#events">Events</a>
-    <a href="#memories">Memories</a>
-    <a href="#venue">Venue</a>
-    <a href="#guest-invitation">Invitation</a>
-    <a href="#rsvp">RSVP</a>
-</div>
+
+    <a href="#top">
+
+        <img
+            class="nav-logo"
+            src="PratikaWebsite/dp-logo-mark.png"
+            alt="Pratika & Deepanshu monogram">
+
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="#events">
+            Events
+        </a>
+
+        <a href="#memories">
+            Memories
+        </a>
+
+        <a href="#venue">
+            Venue
+        </a>
+
+        <a href="#guest-invitation">
+            Invitation
+        </a>
+
+        <a href="#rsvp">
+            RSVP
+        </a>
+
+    </div>
+
 </nav>
 
+
+<!-- =========================================
+     GANESH
+========================================= -->
+
 <div class="ganesh-banner">
-  <img class="ganesh-icon" src="PratikaWebsite/ganesh-icon.png" alt="Lord Ganesha">
-  <div class="upper gold">|| Om Ganeshaya Namah ||</div>
+
+    <img
+        class="ganesh-icon"
+        src="PratikaWebsite/ganesh-icon.png"
+        alt="Lord Ganesha">
+
+    <div class="upper gold">
+        || Om Ganeshaya Namah ||
+    </div>
+
 </div>
 
-<header id="top" class="hero">
-  <img class="hero-bg" src="PratikaWebsite/dubai-wallpaper.png" alt="Illustrated Dubai skyline">
-  <div class="vignette-top"></div>
-  <div class="vignette-bottom"></div>
-  <div class="hero-content">
-    <img class="hero-logo" src="PratikaWebsite/DP_LogoNoBG.png" alt="Pratika & Deepanshu wedding logo">
-  </div>
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<header
+    id="top"
+    class="hero">
+
+    <img
+        class="hero-bg"
+        src="PratikaWebsite/dubai-wallpaper.png"
+        alt="Illustrated Dubai skyline">
+
+    <div class="vignette-top"></div>
+
+    <div class="vignette-bottom"></div>
+
+    <div class="hero-content">
+
+        <img
+            class="hero-logo"
+            src="PratikaWebsite/DP_LogoNoBG.png"
+            alt="Pratika & Deepanshu wedding logo">
+
+    </div>
+
 </header>
 
+
+<!-- =========================================
+     COUPLE
+========================================= -->
+
 <section class="couple-heading">
-  <h1 class="display" style="color: goldenrod;">Pratika &amp; Deepanshu</h1>
-<span class="display">Are Getting Married</span>
-</section>
 
-<section class="invitation fade-in">
-  <div class="invitation-inner text-center">
-    <div class="rule"><span class="upper gold">The Invitation</span></div>
-  <h2 class="upper gold">
-    Our Union in the City of Gold
-</h2>
-<p>
-          Deeply rooted in tradition and surrounded by the shifting sands of
-          Dubai, we invite you to witness our vows at the BAPS Hindu Mandir.
-          Two days of joy, ceremony, and celebration — we would be honoured to
-          have you with us.
-    </p>
-  </div>
-</section>
+    <h1
+        class="display"
+        style="color: goldenrod;">
 
-<section class="countdown fade-in">
-  <div class="countdown-box">
-    <div class="upper gold" style="margin-bottom:20px">Counting Down to the Sacred Knot</div>
-    <div class="countdown-grid">
-      <div><div id="days" class="count-number">--</div><div class="count-label">Days</div></div>
-      <div><div id="hours" class="count-number">--</div><div class="count-label">Hours</div></div>
-      <div><div id="minutes" class="count-number">--</div><div class="count-label">Minutes</div></div>
-      <div><div id="seconds" class="count-number">--</div><div class="count-label">Seconds</div></div>
-    </div>
-    <div style="margin-top:24px;font-size:12px;color:#777168;font-style:italic">
-      21 November 2026 &bull; 3:00 PM
-    </div>
-  </div>
-</section>
+        Pratika &amp; Deepanshu
 
-<div id="scratchCard" class="scratch-card">
+    </h1>
 
-    <div class="scratch-content">
-        <div class="upper" style="color:var(--emerald);margin-bottom:16px;">
-            Save The Date
-        </div>
 
-        <div class="date">
-            21 . 11 . 2026
-        </div>
+    <span class="display">
 
-        <div style="margin-top:20px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;">
-            BAPS Hindu Mandir, Abu Dhabi
-        </div>
+        Are Getting Married
 
-        <div style="margin-top:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#777168;">
-            3:00 PM Onwards
-        </div>
-    </div>
-
-    <canvas id="scratchCanvas"></canvas>
-
-    <span class="scratch-label">
-        Scratch to Reveal
     </span>
 
-</div>
-
-<section id="events" class="events">
-  <div class="events-header">
-    <div class="upper gold">The Celebrations</div>
-    <h2 class="section-title display" style="color: goldenrod;">Two Days of Joy</h2>
-  </div>
-
-  <article class="event-card fade-in">
-    <img class="event-image" src="PratikaWebsite/sangeet-final1.png" alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
-    <div class="event-body">
-      <span class="upper gold event-index">Function One</span>
-      <h3 class="event-title" style="color: goldenrod;">Glam Gala</h3>
-      <div class="event-details">
-        <p>Thu, 19th Nov &bull; 6:00 PM</p>
-        <p>Millenium Lakeview Hotel, Dubai Investment Park</p>
-        <p><strong>Attire:</strong> Glitter and Glam</p>
-      </div>
-      <p class="event-note">An evening of music, dance, and revelry beneath the Dubai skyline.</p>
-      <div class="divider"></div>
-    </div>
-  </article>
-
-  <article class="event-card emerald fade-in">
-    <img class="event-image" src="PratikaWebsite/wedding-final1.png" alt="Illustration of Pratika & Deepanshu in wedding attire">
-    <div class="event-body">
-      <span class="upper" style="color:var(--emerald)">Function Two</span>
-      <h3 class="event-title" style="color: goldenrod;">The Sacred Knot</h3>
-      <div class="event-details">
-        <p>Sat, 21st Nov &bull; 3:00 PM</p>
-        <p>BAPS Hindu Mandir, Abu Dhabi</p>
-        <p><strong>Attire:</strong> Pastel &amp; Jewel Harmony</p>
-      </div>
-      <p class="event-note">Seven sacred vows around the holy fire at the Mandir — the heart of our celebration.</p>
-      <div class="divider"></div>
-    </div>
-  </article>
 </section>
 
-<section id="memories" class="memories fade-in">
-  <div class="memory-inner">
-    <div class="text-center" style="margin-bottom:28px">
-      <div class="upper gold">Our Memories</div>
-      <h2 class="section-title display" style="color: goldenrod;">Moments Along the Way</h2>
-    </div>
 
-    <div class="memory-frame">
-      <figure class="memory-slide active">
-        <img src="PratikaWebsite/memory-proposal.jpeg" alt="Pratika and Deepanshu beneath a red rose heart">
-        <figcaption class="caption">Where Forever Began</figcaption>
-      </figure>
-      <figure class="memory-slide">
-        <img src="PratikaWebsite/memory-festive-red.jpeg" alt="Pratika and Deepanshu dressed in red">
-        <figcaption class="caption">Festive Moments</figcaption>
-      </figure>
-      <figure class="memory-slide">
-        <img src="PratikaWebsite/memory-museum-future.jpeg" alt="Pratika and Deepanshu at Dubai's Museum of the Future">
-        <figcaption class="caption">Dubai Days</figcaption>
-      </figure>
-      <figure class="memory-slide">
-        <img src="PratikaWebsite/memory-traditional.jpeg" alt="Pratika and Deepanshu in traditional Indian attire">
-        <figcaption class="caption">Together in Tradition</figcaption>
-      </figure>
-    </div>
+<!-- =========================================
+     INVITATION
+========================================= -->
 
-    <div class="slider-controls">
-      <button class="slider-button" id="prev" aria-label="Previous memory">&#10094;</button>
-      <div class="dots" id="dots"></div>
-      <button class="slider-button" id="next" aria-label="Next memory">&#10095;</button>
-    </div>
-  </div>
-</section>
-        
-	
-<section id="venue" class="venue">
+<section class="invitation fade-in">
 
-    <!-- GLAM GALA VENUE -->
-    <div class="venue-block fade-in">
+    <div class="invitation-inner text-center">
 
-        <div class="upper gold">Glam Gala Venue</div>
+        <div class="rule">
 
-        <h2 class="venue-title" style="color: goldenrod;">
-           Millennium Lakeview Hotel
+            <span class="upper gold">
+                The Invitation
+            </span>
+
+        </div>
+
+
+        <h2 class="upper gold">
+
+            Our Union in the City of Gold
+
         </h2>
 
-        <p class="venue-address">
-            Millennium Lakeview Hotel<br>
-            Dubai Investment Park, Dubai, UAE
+
+        <p>
+
+            Deeply rooted in tradition and surrounded
+            by the shifting sands of Dubai, we invite
+            you to witness our vows at the BAPS Hindu
+            Mandir. Two days of joy, ceremony, and
+            celebration — we would be honoured to
+            have you with us.
+
         </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     COUNTDOWN
+========================================= -->
+
+<section class="countdown fade-in">
+
+    <div class="countdown-box">
+
+        <div
+            class="upper gold"
+            style="margin-bottom:20px">
+
+            Counting Down to the Sacred Knot
+
+        </div>
+
+
+        <div class="countdown-grid">
+
+            <div>
+
+                <div
+                    id="days"
+                    class="count-number">
+
+                    --
+
+                </div>
+
+                <div class="count-label">
+                    Days
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    id="hours"
+                    class="count-number">
+
+                    --
+
+                </div>
+
+                <div class="count-label">
+                    Hours
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    id="minutes"
+                    class="count-number">
+
+                    --
+
+                </div>
+
+                <div class="count-label">
+                    Minutes
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <div
+                    id="seconds"
+                    class="count-number">
+
+                    --
+
+                </div>
+
+                <div class="count-label">
+                    Seconds
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            style="
+            margin-top:24px;
+            font-size:12px;
+            color:#777168;
+            font-style:italic">
+
+            21 November 2026 &bull; 3:00 PM
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SAVE THE DATE
+========================================= -->
+
+<section class="save-date">
+
+    <div class="save-inner">
+
+        <div
+            id="scratchCard"
+            class="scratch-card">
+
+
+            <div class="scratch-content">
+
+                <div
+                    class="upper"
+                    style="
+                    color:var(--emerald);
+                    margin-bottom:16px;">
+
+                    Save The Date
+
+                </div>
+
+
+                <div class="date">
+
+                    21 . 11 . 2026
+
+                </div>
+
+
+                <div
+                    style="
+                    margin-top:20px;
+                    font-size:12px;
+                    letter-spacing:.2em;
+                    text-transform:uppercase;">
+
+                    BAPS Hindu Mandir,
+                    Abu Dhabi
+
+                </div>
+
+
+                <div
+                    style="
+                    margin-top:8px;
+                    font-size:11px;
+                    letter-spacing:.15em;
+                    text-transform:uppercase;
+                    color:#777168;">
+
+                    3:00 PM Onwards
+
+                </div>
+
+            </div>
+
+
+            <canvas id="scratchCanvas"></canvas>
+
+
+            <span class="scratch-label">
+
+                Scratch to Reveal
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     EVENTS
+========================================= -->
+
+<section
+    id="events"
+    class="events">
+
+
+    <div class="events-header">
+
+        <div class="upper gold">
+
+            The Celebrations
+
+        </div>
+
+
+        <h2
+            class="section-title display"
+            style="color: goldenrod;">
+
+            Two Days of Joy
+
+        </h2>
+
+    </div>
+
+
+    <!-- SANGEET -->
+
+    <article class="event-card fade-in">
+
+        <img
+            class="event-image"
+            src="PratikaWebsite/sangeet-final1.png"
+            alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
+
+
+        <div class="event-body">
+
+            <span class="upper gold event-index">
+
+                Function One
+
+            </span>
+
+
+            <h3
+                class="event-title"
+                style="color: goldenrod;">
+
+                Glam Gala
+
+            </h3>
+
+
+            <div class="event-details">
+
+                <p>
+                    Thu, 19th Nov &bull; 6:00 PM
+                </p>
+
+                <p>
+                    Millennium Lakeview Hotel,
+                    Dubai Investment Park
+                </p>
+
+                <p>
+                    <strong>Attire:</strong>
+                    Glitter and Glam
+                </p>
+
+            </div>
+
+
+            <p class="event-note">
+
+                An evening of music, dance,
+                and revelry beneath the Dubai skyline.
+
+            </p>
+
+
+            <div class="divider"></div>
+
+        </div>
+
+    </article>
+
+
+    <!-- WEDDING -->
+
+    <article
+        class="event-card emerald fade-in">
+
+        <img
+            class="event-image"
+            src="PratikaWebsite/wedding-final1.png"
+            alt="Illustration of Pratika & Deepanshu in wedding attire">
+
+
+        <div class="event-body">
+
+            <span
+                class="upper"
+                style="color:var(--emerald)">
+
+                Function Two
+
+            </span>
+
+
+            <h3
+                class="event-title"
+                style="color: goldenrod;">
+
+                The Sacred Knot
+
+            </h3>
+
+
+            <div class="event-details">
+
+                <p>
+                    Sat, 21st Nov &bull; 3:00 PM
+                </p>
+
+                <p>
+                    BAPS Hindu Mandir,
+                    Abu Dhabi
+                </p>
+
+                <p>
+                    <strong>Attire:</strong>
+                    Pastel &amp; Jewel Harmony
+                </p>
+
+            </div>
+
+
+            <p class="event-note">
+
+                Seven sacred vows around the holy fire
+                at the Mandir — the heart of our celebration.
+
+            </p>
+
+
+            <div class="divider"></div>
+
+        </div>
+
+    </article>
+
+</section>
+
+
+<!-- =========================================
+     MEMORIES
+========================================= -->
+
+<section
+    id="memories"
+    class="memories fade-in">
+
+
+    <div class="memory-inner">
+
+        <div
+            class="text-center"
+            style="margin-bottom:28px">
+
+            <div class="upper gold">
+
+                Our Memories
+
+            </div>
+
+
+            <h2
+                class="section-title display"
+                style="color: goldenrod;">
+
+                Moments Along the Way
+
+            </h2>
+
+        </div>
+
+
+        <div class="memory-frame">
+
+
+            <figure class="memory-slide active">
+
+                <img
+                    src="PratikaWebsite/memory-proposal.jpeg"
+                    alt="Pratika and Deepanshu beneath a red rose heart">
+
+                <figcaption class="caption">
+
+                    Where Forever Began
+
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-festive-red.jpeg"
+                    alt="Pratika and Deepanshu dressed in red">
+
+                <figcaption class="caption">
+
+                    Festive Moments
+
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-museum-future.jpeg"
+                    alt="Pratika and Deepanshu at Dubai's Museum of the Future">
+
+                <figcaption class="caption">
+
+                    Dubai Days
+
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-traditional.jpeg"
+                    alt="Pratika and Deepanshu in traditional Indian attire">
+
+                <figcaption class="caption">
+
+                    Together in Tradition
+
+                </figcaption>
+
+            </figure>
+
+        </div>
+
+
+        <div class="slider-controls">
+
+            <button
+                class="slider-button"
+                id="prev"
+                aria-label="Previous memory">
+
+                &#10094;
+
+            </button>
+
+
+            <div
+                class="dots"
+                id="dots">
+            </div>
+
+
+            <button
+                class="slider-button"
+                id="next"
+                aria-label="Next memory">
+
+                &#10095;
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     VENUES
+========================================= -->
+
+<section
+    id="venue"
+    class="venue">
+
+
+    <!-- GLAM GALA VENUE -->
+
+    <div class="venue-block fade-in">
+
+        <div class="upper gold">
+
+            Glam Gala Venue
+
+        </div>
+
+
+        <h2
+            class="venue-title"
+            style="color: goldenrod;">
+
+            Millennium Lakeview Hotel
+
+        </h2>
+
+
+        <p class="venue-address">
+
+            Millennium Lakeview Hotel<br>
+
+            Dubai Investment Park,
+            Dubai, UAE
+
+        </p>
+
 
         <img
             class="venue-image"
             src="PratikaWebsite/millennium-lakeview-hotel.jpeg"
-            alt="Millennium Lakeview Hotel beside the lake"
-        >
+            alt="Millennium Lakeview Hotel beside the lake">
+
 
         <p class="venue-description">
-            Where the Glam Gala comes alive — an evening of music, dance,
-            and celebration under the lights of the Dubai skyline.
+
+            Where the Glam Gala comes alive —
+            an evening of music, dance, and celebration
+            under the lights of the Dubai skyline.
+
         </p>
+
 
         <a
             class="map-button"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.google.com/maps/search/?api=1&query=Millennium+Lakeview+Hotel%2C+Dubai+Investment+Park%2C+Dubai"
-        >
+            href="https://www.google.com/maps/search/?api=1&query=Millennium+Lakeview+Hotel%2C+Dubai+Investment+Park%2C+Dubai">
+
             View on Map
+
         </a>
 
     </div>
 
 
     <!-- SACRED KNOT VENUE -->
+
     <div class="venue-block fade-in">
 
-        <div class="upper gold">The Sacred Knot Venue</div>
+        <div class="upper gold">
 
-        <h2 class="venue-title" style="color: goldenrod;">
+            The Sacred Knot Venue
+
+        </div>
+
+
+        <h2
+            class="venue-title"
+            style="color: goldenrod;">
+
             The BAPS Mandir
+
         </h2>
 
+
         <p class="venue-address">
-            BAPS Hindu Mandir, Abu Dhabi - Dubai Highway, UAE
+
+            BAPS Hindu Mandir,
+            Abu Dhabi - Dubai Highway, UAE
+
         </p>
+
 
         <img
             class="venue-image"
             src="PratikaWebsite/baps-hindu-mandir.jpeg"
-            alt="BAPS Hindu Mandir in Abu Dhabi"
-        >
+            alt="BAPS Hindu Mandir in Abu Dhabi">
+
 
         <p class="venue-description">
-            The first traditional Hindu stone temple in the<br> Middle East — a sanctuary of hand-carved <br>sandstone where our vows will be exchanged. 
-			<br>Please observe modest attire within the temple premises.
+
+            The first traditional Hindu stone temple
+            in the Middle East — a sanctuary of
+            hand-carved sandstone where our vows
+            will be exchanged.
+
+            <br>
+
+            Please observe modest attire within
+            the temple premises.
+
         </p>
+
 
         <a
             class="map-button"
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.google.com/maps/search/?api=1&query=BAPS+Hindu+Mandir%2C+Abu+Dhabi%2C+UAE"
-        >
+            href="https://www.google.com/maps/search/?api=1&query=BAPS+Hindu+Mandir%2C+Abu+Dhabi%2C+UAE">
+
             View on Map
+
         </a>
 
     </div>
@@ -1306,58 +2515,97 @@ for (var i = 0; i < 25; i++) {
 </section>
 
 
-<section id="guest-invitation" class="guest-lookup">
+<!-- =========================================
+     GUEST INVITATION LOOKUP
+========================================= -->
+
+<section
+    id="guest-invitation"
+    class="guest-lookup">
+
 
     <div class="guest-lookup-card">
 
-        <div class="guest-lookup-icon">✦</div>
 
-        <h2>Let's Find Your Invitation</h2>
+        <div class="guest-lookup-icon">
+
+            ✦
+
+        </div>
+
+
+        <h2>
+
+            Let's Find Your Invitation
+
+        </h2>
+
 
         <p class="guest-subtitle">
+
             Enter your name to get your event schedule.
+
         </p>
 
-        <a href="#rsvp" class="ask-host">
+
+        <a
+            href="#rsvp"
+            class="ask-host">
+
             Need help? Ask the Host
+
         </a>
 
 
-        <!-- NAME SEARCH FORM -->
+        <!-- SEARCH FORM -->
 
         <form id="guestLookupForm">
 
+
             <div class="guest-field">
-                <label for="firstName">First Name</label>
+
+                <label for="firstName">
+
+                    First Name
+
+                </label>
+
 
                 <input
                     type="text"
                     id="firstName"
                     placeholder="e.g. Rahul"
                     autocomplete="given-name"
-                    required
-                >
+                    required>
+
             </div>
 
 
             <div class="guest-field">
-                <label for="lastName">Last Name</label>
+
+                <label for="lastName">
+
+                    Last Name
+
+                </label>
+
 
                 <input
                     type="text"
                     id="lastName"
                     placeholder="e.g. Sharma"
                     autocomplete="family-name"
-                    required
-                >
+                    required>
+
             </div>
 
 
             <button
                 type="submit"
-                class="find-invitation-btn"
-            >
+                class="find-invitation-btn">
+
                 Find Invitation
+
             </button>
 
         </form>
@@ -1365,25 +2613,37 @@ for (var i = 0; i < 25; i++) {
 
         <!-- ERROR -->
 
-        <div id="guestError" class="guest-error"></div>
+        <div
+            id="guestError"
+            class="guest-error">
+        </div>
 
 
-        <!-- GUEST RESULT -->
+        <!-- RESULT -->
 
-        <div id="guestResult" class="guest-result">
+        <div
+            id="guestResult"
+            class="guest-result">
+
 
             <div class="result-divider"></div>
 
+
             <p class="welcome-text">
+
                 Welcome
+
             </p>
+
 
             <h3 id="guestFullName"></h3>
 
 
             <p class="guest-welcome">
-                We are delighted to celebrate these special
-                moments with you.
+
+                We are delighted to celebrate these
+                special moments with you.
+
             </p>
 
 
@@ -1391,33 +2651,47 @@ for (var i = 0; i < 25; i++) {
 
             <div class="guest-details">
 
+
                 <div class="detail-section">
 
+
                     <span class="detail-label">
+
                         Number of Guests
+
                     </span>
 
 
                     <div class="guest-choice-options">
 
+
                         <label>
+
                             <input
                                 type="radio"
                                 name="lookupGuests"
-                                value="1"
-                            >
-                            <span>1 Guest</span>
+                                value="1">
+
+                            <span>
+                                1 Guest
+                            </span>
+
                         </label>
 
 
                         <label>
+
                             <input
                                 type="radio"
                                 name="lookupGuests"
-                                value="2"
-                            >
-                            <span>2 Guests</span>
+                                value="2">
+
+                            <span>
+                                2 Guests
+                            </span>
+
                         </label>
+
 
                     </div>
 
@@ -1426,14 +2700,22 @@ for (var i = 0; i < 25; i++) {
             </div>
 
 
-            <!-- EVENT SELECTION -->
+            <!-- EVENTS -->
 
-            <h4>
+            <h4
+                style="
+                margin:30px 0 15px;
+                color:#6d5425;
+                font-size:20px;
+                font-weight:500;">
+
                 Your Event Schedule
+
             </h4>
 
 
             <div class="event-selection">
+
 
                 <!-- SANGEET -->
 
@@ -1442,8 +2724,8 @@ for (var i = 0; i < 25; i++) {
                     <input
                         type="checkbox"
                         name="lookupEvents"
-                        value="Sangeet"
-                    >
+                        value="Sangeet">
+
 
                     <span>
 
@@ -1451,10 +2733,17 @@ for (var i = 0; i < 25; i++) {
                             Sangeet (Glam Gala)
                         </strong>
 
+
                         <small>
-                            Thursday, 19 November 2026 • 6:00 PM
+
+                            Thursday,
+                            19 November 2026 • 6:00 PM
+
                             <br>
-                            Millennium Lakeview Hotel, Dubai Investment Park
+
+                            Millennium Lakeview Hotel,
+                            Dubai Investment Park
+
                         </small>
 
                     </span>
@@ -1469,8 +2758,8 @@ for (var i = 0; i < 25; i++) {
                     <input
                         type="checkbox"
                         name="lookupEvents"
-                        value="Wedding"
-                    >
+                        value="Wedding">
+
 
                     <span>
 
@@ -1478,10 +2767,17 @@ for (var i = 0; i < 25; i++) {
                             Wedding (The Sacred Knot)
                         </strong>
 
+
                         <small>
-                            Saturday, 21 November 2026 • 3:00 PM
+
+                            Saturday,
+                            21 November 2026 • 3:00 PM
+
                             <br>
-                            BAPS Hindu Mandir, Abu Dhabi
+
+                            BAPS Hindu Mandir,
+                            Abu Dhabi
+
                         </small>
 
                     </span>
@@ -1494,518 +2790,1442 @@ for (var i = 0; i < 25; i++) {
 
     </div>
 
-
-<!-- EVENTS -->
-
-<div class="rsvp-field">
-    <label>Events</label>
-
-    <div class="event-options">
-
-        <label class="event-option">
-            <input
-                type="checkbox"
-                name="events"
-                value="Sangeet"
-                id="sangeet"
-            >
-            <span>Sangeet (Glam Gala)</span>
-        </label>
-
-        <label class="event-option">
-            <input
-                type="checkbox"
-                name="events"
-                value="Wedding"
-                id="wedding"
-            >
-            <span>Wedding (The Sacred Knot)</span>
-        </label>
-
-    </div>
-</div>
-
-
-<!-- EMAIL -->
-
-<div class="rsvp-field">
-    <label for="email">
-        Email ID
-    </label>
-
-    <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Enter your email address"
-        required
-    >
-</div>
-
-
-<!-- ADVICE -->
-
-<div class="rsvp-field">
-    <label for="advice">
-        Any tips, tricks or survival advice for Pratika &amp; Deepanshu before they officially become Mr. &amp; Mrs.? 😂♥️
-    </label>
-
-    <textarea
-        id="advice"
-        name="advice"
-        rows="4"
-        placeholder="Share your wisdom, advice or a funny message..."
-    ></textarea>
-</div>
-
-
-<!-- DIETARY NOTES -->
-
-<div class="rsvp-field">
-    <label for="notes">
-        Message / Dietary Notes
-    </label>
-
-    <textarea
-        id="notes"
-        name="notes"
-        rows="4"
-        placeholder="Any message, dietary requirements or special notes?"
-    ></textarea>
-</div>
-
-
-<!-- SUBMIT -->
-
-<button
-    type="submit"
-    class="rsvp-submit"
->
-    Submit RSVP
-</button>
 </section>
 
 
+<!-- =========================================
+     RSVP
+========================================= -->
 
+<section
+    id="rsvp"
+    class="rsvp">
+
+
+    <div class="rsvp-inner">
+
+
+        <div
+            class="text-center"
+            style="margin-bottom:28px">
+
+
+            <div class="upper gold">
+
+                Kindly Respond
+
+            </div>
+
+
+            <h2
+                class="section-title display"
+                style="color: goldenrod;">
+
+                Will You Join Us?
+
+            </h2>
+
+        </div>
+
+
+        <!-- RSVP FORM -->
+
+        <form
+            id="rsvpForm"
+            action="https://formsubmit.co/creativemoodon11@gmail.com"
+            method="POST">
+
+
+            <!-- FORMSUBMIT SETTINGS -->
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="New Wedding RSVP - Pratika & Deepanshu">
+
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table">
+
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false">
+
+
+            <input
+                type="hidden"
+                name="_next"
+                value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+
+            <!-- GUEST NAME -->
+
+            <div class="rsvp-field">
+
+                <label for="guestName">
+
+                    Guest Name
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="guestName"
+                    name="Guest Name"
+                    placeholder="Enter your name"
+                    required>
+
+            </div>
+
+
+            <!-- NUMBER OF GUESTS -->
+
+            <div class="rsvp-field">
+
+                <label>
+
+                    Number of Guests
+
+                </label>
+
+
+                <div class="guest-number-options">
+
+
+                    <label
+                        class="guest-number-option">
+
+                        <input
+                            type="radio"
+                            name="Number of Guests"
+                            value="1"
+                            required>
+
+                        <span>
+                            1 Guest
+                        </span>
+
+                    </label>
+
+
+                    <label
+                        class="guest-number-option">
+
+                        <input
+                            type="radio"
+                            name="Number of Guests"
+                            value="2">
+
+                        <span>
+                            2 Guests
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- ATTENDING FUNCTIONS -->
+
+            <div class="rsvp-field">
+
+                <label>
+
+                    Attending Functions
+
+                </label>
+
+
+                <div class="event-options">
+
+
+                    <label class="event-option">
+
+                        <input
+                            type="checkbox"
+                            name="Attending Events"
+                            value="Sangeet (Glam Gala)">
+
+                        <span>
+                            Sangeet (Glam Gala)
+                        </span>
+
+                    </label>
+
+
+                    <label class="event-option">
+
+                        <input
+                            type="checkbox"
+                            name="Attending Events"
+                            value="Wedding (The Sacred Knot)">
+
+                        <span>
+                            Wedding (The Sacred Knot)
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="rsvp-field">
+
+                <label for="email">
+
+                    Email ID
+
+                </label>
+
+
+                <input
+                    type="email"
+                    id="email"
+                    name="Email"
+                    placeholder="Enter your email address"
+                    required>
+
+            </div>
+
+
+            <!-- SURVIVAL ADVICE -->
+
+            <div class="rsvp-field">
+
+                <label for="advice">
+
+                    Any tips, tricks or survival advice
+                    for Pratika &amp; Deepanshu before
+                    they officially become Mr. &amp; Mrs.?
+                    😂♥️
+
+                </label>
+
+
+                <textarea
+                    id="advice"
+                    name="Tips / Survival Advice"
+                    rows="4"
+                    placeholder="Share your wisdom, advice or a funny message...">
+                </textarea>
+
+            </div>
+
+
+            <!-- MESSAGE / DIETARY NOTES -->
+
+            <div class="rsvp-field">
+
+                <label for="notes">
+
+                    Message / Dietary Notes
+
+                </label>
+
+
+                <textarea
+                    id="notes"
+                    name="Message / Dietary Notes"
+                    rows="4"
+                    placeholder="Any message, dietary requirements or special notes?">
+                </textarea>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="rsvp-submit">
+
+                Submit RSVP
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer>
-  <img class="footer-logo" src="PratikaWebsite/dp-logo-footer.png" alt="Pratika & Deepanshu monogram">
-  <p>19 &amp; 21 November 2026</p>
-  <p>#DeepkePratipyaar</p>
+
+    <img
+        class="footer-logo"
+        src="PratikaWebsite/dp-logo-footer.png"
+        alt="Pratika & Deepanshu monogram">
+
+
+    <p>
+        19 &amp; 21 November 2026
+    </p>
+
+
+    <p>
+        #DeepkePratipyaar
+    </p>
+
 </footer>
 
 
+<!-- =========================================
+     ROSE PETALS JAVASCRIPT
+========================================= -->
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    const music = document.getElementById("weddingMusic");
-    const button = document.getElementById("musicButton");
+function seeded(i, salt) {
 
-    if (!music || !button) {
-        console.log("Music player elements not found.");
-        return;
-    }
+    var x =
+        Math.sin(
+            i * 127.1 +
+            salt * 311.7
+        ) * 43758.5453;
 
-    music.volume = 0.7;
+    return x - Math.floor(x);
+}
 
-    button.addEventListener("click", async function () {
 
-        try {
+var field =
+    document.getElementById("petalField");
 
-            if (music.paused) {
 
-                await music.play();
+for (var i = 0; i < 25; i++) {
 
-                button.innerHTML = "❚❚";
-                button.classList.add("playing");
-                button.setAttribute("aria-label", "Pause wedding music");
+    var petal =
+        document.createElement("span");
 
-            } else {
 
-                music.pause();
+    petal.className = "petal";
 
-                button.innerHTML = "▶";
-                button.classList.remove("playing");
-                button.setAttribute("aria-label", "Play wedding music");
 
-            }
+    var left =
+        seeded(i, 1) * 100;
 
-        } catch (error) {
 
-            console.log("Music playback error:", error);
+    var delay =
+        seeded(i, 2) * 12;
 
-            button.innerHTML = "▶";
 
-            alert(
-                "Music could not be played. Please check the music file."
+    var duration =
+        8 + seeded(i, 3) * 8;
+
+
+    var size =
+        10 + seeded(i, 4) * 12;
+
+
+    var drift =
+        (seeded(i, 5) - .5) * 200;
+
+
+    var opacity =
+        .4 + seeded(i, 6) * .5;
+
+
+    petal.style.left =
+        left + "%";
+
+
+    petal.style.width =
+        size + "px";
+
+
+    petal.style.height =
+        (size * 1.3) + "px";
+
+
+    petal.style.opacity =
+        opacity;
+
+
+    petal.style.animationDelay =
+        "-" + delay + "s";
+
+
+    petal.style.animationDuration =
+        duration + "s";
+
+
+    petal.style.setProperty(
+        "--drift",
+        drift + "px"
+    );
+
+
+    field.appendChild(petal);
+
+}
+
+</script>
+
+
+<!-- =========================================
+     MUSIC JAVASCRIPT
+========================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const music =
+            document.getElementById(
+                "weddingMusic"
             );
+
+
+        const button =
+            document.getElementById(
+                "musicButton"
+            );
+
+
+        if (!music || !button) {
+            return;
         }
 
-    });
 
-    music.addEventListener("pause", function () {
-        button.innerHTML = "▶";
-        button.classList.remove("playing");
-    });
+        music.volume = .7;
 
-    music.addEventListener("play", function () {
-        button.innerHTML = "❚❚";
-        button.classList.add("playing");
-    });
 
-});
-</script>
-	
+        button.addEventListener(
+            "click",
+            async function () {
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+                try {
 
-    var card = document.getElementById("scratchCard");
-    var canvas = document.getElementById("scratchCanvas");
+                    if (music.paused) {
 
-    if (!card || !canvas) return;
+                        await music.play();
 
-    var ctx = canvas.getContext("2d");
-    var isScratching = false;
 
-    function setupCanvas() {
+                        button.innerHTML =
+                            "❚❚";
 
-        var rect = card.getBoundingClientRect();
-        var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
+                        button.classList.add(
+                            "playing"
+                        );
 
-        canvas.style.width = rect.width + "px";
-        canvas.style.height = rect.height + "px";
 
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                        button.setAttribute(
+                            "aria-label",
+                            "Pause wedding music"
+                        );
 
-        /* Golden scratch cover */
-        var gradient = ctx.createLinearGradient(
-            0, 0,
-            rect.width,
-            rect.height
-        );
+                    } else {
 
-        gradient.addColorStop(0, "#c8a66a");
-        gradient.addColorStop(0.45, "#e1c486");
-        gradient.addColorStop(1, "#9b743a");
+                        music.pause();
 
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, rect.width, rect.height);
 
-        /* Small texture */
-        ctx.globalAlpha = 0.15;
-        ctx.fillStyle = "#6d522b";
+                        button.innerHTML =
+                            "▶";
 
-        for (var i = 0; i < 180; i++) {
-            var x = Math.random() * rect.width;
-            var y = Math.random() * rect.height;
 
-            ctx.fillRect(x, y, 1.5, 1.5);
-        }
+                        button.classList.remove(
+                            "playing"
+                        );
 
-        ctx.globalAlpha = 1;
-    }
 
-    function scratch(x, y) {
+                        button.setAttribute(
+                            "aria-label",
+                            "Play wedding music"
+                        );
 
-        var rect = card.getBoundingClientRect();
+                    }
 
-        ctx.globalCompositeOperation = "destination-out";
+                } catch (error) {
 
-        ctx.beginPath();
+                    console.log(
+                        "Music playback error:",
+                        error
+                    );
 
-        ctx.arc(
-            x - rect.left,
-            y - rect.top,
-            28,
-            0,
-            Math.PI * 2
-        );
 
-        ctx.fill();
-    }
+                    button.innerHTML =
+                        "▶";
 
-    function checkScratchProgress() {
 
-        var imageData = ctx.getImageData(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
+                    alert(
+                        "Music could not be played. " +
+                        "Please check that aaj-sajeya.mp3 " +
+                        "is uploaded in the same folder as index.html."
+                    );
 
-        var pixels = imageData.data;
-        var transparent = 0;
-        var total = 0;
+                }
 
-        for (var i = 3; i < pixels.length; i += 40) {
-
-            total++;
-
-            if (pixels[i] === 0) {
-                transparent++;
             }
-        }
+        );
 
-        var percentage = transparent / total;
 
-        if (percentage > 0.45) {
+        music.addEventListener(
+            "pause",
+            function () {
 
-            card.classList.add("revealed");
+                button.innerHTML =
+                    "▶";
 
-            canvas.style.pointerEvents = "none";
+                button.classList.remove(
+                    "playing"
+                );
 
-            document.querySelector(".scratch-label").style.display = "none";
-        }
+            }
+        );
+
+
+        music.addEventListener(
+            "play",
+            function () {
+
+                button.innerHTML =
+                    "❚❚";
+
+                button.classList.add(
+                    "playing"
+                );
+
+            }
+        );
+
     }
+);
 
-    canvas.addEventListener("pointerdown", function (e) {
-
-        isScratching = true;
-
-        canvas.setPointerCapture(e.pointerId);
-
-        scratch(e.clientX, e.clientY);
-    });
-
-    canvas.addEventListener("pointermove", function (e) {
-
-        if (!isScratching) return;
-
-        scratch(e.clientX, e.clientY);
-    });
-
-    canvas.addEventListener("pointerup", function () {
-
-        isScratching = false;
-
-        checkScratchProgress();
-    });
-
-    canvas.addEventListener("pointercancel", function () {
-
-        isScratching = false;
-    });
-
-    setupCanvas();
-
-});
 </script>
 
 
+<!-- =========================================
+     SCRATCH CARD JAVASCRIPT
+========================================= -->
+
 <script>
-/* =========================================
-   GUEST INVITATION LOOKUP
-========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        var card =
+            document.getElementById(
+                "scratchCard"
+            );
+
+
+        var canvas =
+            document.getElementById(
+                "scratchCanvas"
+            );
+
+
+        if (!card || !canvas) {
+            return;
+        }
+
+
+        var ctx =
+            canvas.getContext("2d");
+
+
+        var isScratching =
+            false;
+
+
+        function setupCanvas() {
+
+            var rect =
+                card.getBoundingClientRect();
+
+
+            var dpr =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    2
+                );
+
+
+            canvas.width =
+                rect.width * dpr;
+
+
+            canvas.height =
+                rect.height * dpr;
+
+
+            canvas.style.width =
+                rect.width + "px";
+
+
+            canvas.style.height =
+                rect.height + "px";
+
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+
+            var gradient =
+                ctx.createLinearGradient(
+                    0,
+                    0,
+                    rect.width,
+                    rect.height
+                );
+
+
+            gradient.addColorStop(
+                0,
+                "#c8a66a"
+            );
+
+
+            gradient.addColorStop(
+                .45,
+                "#e1c486"
+            );
+
+
+            gradient.addColorStop(
+                1,
+                "#9b743a"
+            );
+
+
+            ctx.fillStyle =
+                gradient;
+
+
+            ctx.fillRect(
+                0,
+                0,
+                rect.width,
+                rect.height
+            );
+
+
+            ctx.globalAlpha = .15;
+
+
+            ctx.fillStyle =
+                "#6d522b";
+
+
+            for (
+                var i = 0;
+                i < 180;
+                i++
+            ) {
+
+                var x =
+                    Math.random() *
+                    rect.width;
+
+
+                var y =
+                    Math.random() *
+                    rect.height;
+
+
+                ctx.fillRect(
+                    x,
+                    y,
+                    1.5,
+                    1.5
+                );
+
+            }
+
+
+            ctx.globalAlpha = 1;
+
+        }
+
+
+        function scratch(x,y) {
+
+            var rect =
+                card.getBoundingClientRect();
+
+
+            ctx.globalCompositeOperation =
+                "destination-out";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                x - rect.left,
+                y - rect.top,
+                28,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fill();
+
+        }
+
+
+        function checkScratchProgress() {
+
+            var imageData =
+                ctx.getImageData(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
+
+
+            var pixels =
+                imageData.data;
+
+
+            var transparent = 0;
+
+            var total = 0;
+
+
+            for (
+                var i = 3;
+                i < pixels.length;
+                i += 40
+            ) {
+
+                total++;
+
+
+                if (pixels[i] === 0) {
+                    transparent++;
+                }
+
+            }
+
+
+            var percentage =
+                transparent / total;
+
+
+            if (percentage > .45) {
+
+                card.classList.add(
+                    "revealed"
+                );
+
+
+                canvas.style.pointerEvents =
+                    "none";
+
+
+                var label =
+                    document.querySelector(
+                        ".scratch-label"
+                    );
+
+
+                if (label) {
+                    label.style.display =
+                        "none";
+                }
+
+            }
+
+        }
+
+
+        canvas.addEventListener(
+            "pointerdown",
+            function (e) {
+
+                isScratching = true;
+
+
+                canvas.setPointerCapture(
+                    e.pointerId
+                );
+
+
+                scratch(
+                    e.clientX,
+                    e.clientY
+                );
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointermove",
+            function (e) {
+
+                if (!isScratching) {
+                    return;
+                }
+
+
+                scratch(
+                    e.clientX,
+                    e.clientY
+                );
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointerup",
+            function () {
+
+                isScratching = false;
+
+                checkScratchProgress();
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointercancel",
+            function () {
+
+                isScratching = false;
+
+            }
+        );
+
+
+        setupCanvas();
+
+    }
+);
+
+</script>
+
+
+<!-- =========================================
+     MEMORY SLIDER JAVASCRIPT
+========================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const slides =
+            document.querySelectorAll(
+                ".memory-slide"
+            );
+
+
+        const dotsContainer =
+            document.getElementById(
+                "dots"
+            );
+
+
+        const prev =
+            document.getElementById(
+                "prev"
+            );
+
+
+        const next =
+            document.getElementById(
+                "next"
+            );
+
+
+        if (
+            !slides.length ||
+            !dotsContainer
+        ) {
+            return;
+        }
+
+
+        let current = 0;
+
+
+        slides.forEach(
+            function (_, index) {
+
+                const dot =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                dot.className =
+                    "dot";
+
+
+                dot.setAttribute(
+                    "aria-label",
+                    "Go to memory " +
+                    (index + 1)
+                );
+
+
+                dot.addEventListener(
+                    "click",
+                    function () {
+
+                        current = index;
+
+                        showSlide();
+
+                    }
+                );
+
+
+                dotsContainer.appendChild(
+                    dot
+                );
+
+            }
+        );
+
+
+        const dots =
+            dotsContainer.querySelectorAll(
+                ".dot"
+            );
+
+
+        function showSlide() {
+
+            slides.forEach(
+                function (slide, index) {
+
+                    slide.classList.toggle(
+                        "active",
+                        index === current
+                    );
+
+                }
+            );
+
+
+            dots.forEach(
+                function (dot, index) {
+
+                    dot.classList.toggle(
+                        "active",
+                        index === current
+                    );
+
+                }
+            );
+
+        }
+
+
+        if (prev) {
+
+            prev.addEventListener(
+                "click",
+                function () {
+
+                    current =
+                        (current - 1 +
+                         slides.length) %
+                        slides.length;
+
+                    showSlide();
+
+                }
+            );
+
+        }
+
+
+        if (next) {
+
+            next.addEventListener(
+                "click",
+                function () {
+
+                    current =
+                        (current + 1) %
+                        slides.length;
+
+                    showSlide();
+
+                }
+            );
+
+        }
+
+
+        showSlide();
+
+    }
+);
+
+</script>
+
+
+<!-- =========================================
+     COUNTDOWN JAVASCRIPT
+========================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const target =
+            new Date(
+                "2026-11-21T15:00:00+04:00"
+            ).getTime();
+
+
+        function updateCountdown() {
+
+            const now =
+                new Date().getTime();
+
+
+            let distance =
+                target - now;
+
+
+            if (distance < 0) {
+                distance = 0;
+            }
+
+
+            const days =
+                Math.floor(
+                    distance /
+                    (1000 * 60 * 60 * 24)
+                );
+
+
+            const hours =
+                Math.floor(
+                    (distance %
+                        (1000 * 60 * 60 * 24)) /
+                    (1000 * 60 * 60)
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (distance %
+                        (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
+
+
+            const seconds =
+                Math.floor(
+                    (distance %
+                        (1000 * 60)) /
+                    1000
+                );
+
+
+            document.getElementById(
+                "days"
+            ).textContent =
+                String(days).padStart(2,"0");
+
+
+            document.getElementById(
+                "hours"
+            ).textContent =
+                String(hours).padStart(2,"0");
+
+
+            document.getElementById(
+                "minutes"
+            ).textContent =
+                String(minutes).padStart(2,"0");
+
+
+            document.getElementById(
+                "seconds"
+            ).textContent =
+                String(seconds).padStart(2,"0");
+
+        }
+
+
+        updateCountdown();
+
+
+        setInterval(
+            updateCountdown,
+            1000
+        );
+
+    }
+);
+
+</script>
+
+
+<!-- =========================================
+     GUEST INVITATION LOOKUP JAVASCRIPT
+========================================= -->
+
+<script>
 
 const guestList = [
 
     {
         firstName: "Rahul",
+
         lastName: "Sharma",
+
         guests: 2,
 
         events: [
+
             {
                 name: "Sangeet (Glam Gala)",
-                date: "Thursday, 19 November 2026 • 6:00 PM",
-                venue: "Millennium Lakeview Hotel, Dubai Investment Park"
+
+                date:
+                    "Thursday, 19 November 2026 • 6:00 PM",
+
+                venue:
+                    "Millennium Lakeview Hotel, Dubai Investment Park"
             },
+
             {
-                name: "Wedding (The Sacred Knot)",
-                date: "Saturday, 21 November 2026 • 3:00 PM",
-                venue: "BAPS Hindu Mandir, Abu Dhabi"
+                name:
+                    "Wedding (The Sacred Knot)",
+
+                date:
+                    "Saturday, 21 November 2026 • 3:00 PM",
+
+                venue:
+                    "BAPS Hindu Mandir, Abu Dhabi"
             }
+
         ]
+
     },
+
 
     {
         firstName: "Priya",
+
         lastName: "Sharma",
+
         guests: 1,
 
         events: [
+
             {
-                name: "Wedding (The Sacred Knot)",
-                date: "Saturday, 21 November 2026 • 3:00 PM",
-                venue: "BAPS Hindu Mandir, Abu Dhabi"
+                name:
+                    "Wedding (The Sacred Knot)",
+
+                date:
+                    "Saturday, 21 November 2026 • 3:00 PM",
+
+                venue:
+                    "BAPS Hindu Mandir, Abu Dhabi"
             }
+
         ]
+
     },
+
 
     {
         firstName: "Amit",
+
         lastName: "Mehta",
+
         guests: 2,
 
         events: [
+
             {
-                name: "Sangeet (Glam Gala)",
-                date: "Thursday, 19 November 2026 • 6:00 PM",
-                venue: "Millennium Lakeview Hotel, Dubai Investment Park"
+                name:
+                    "Sangeet (Glam Gala)",
+
+                date:
+                    "Thursday, 19 November 2026 • 6:00 PM",
+
+                venue:
+                    "Millennium Lakeview Hotel, Dubai Investment Park"
             },
+
             {
-                name: "Wedding (The Sacred Knot)",
-                date: "Saturday, 21 November 2026 • 3:00 PM",
-                venue: "BAPS Hindu Mandir, Abu Dhabi"
+                name:
+                    "Wedding (The Sacred Knot)",
+
+                date:
+                    "Saturday, 21 November 2026 • 3:00 PM",
+
+                venue:
+                    "BAPS Hindu Mandir, Abu Dhabi"
             }
+
         ]
+
     }
 
 ];
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    const guestForm =
-        document.getElementById("guestLookupForm");
 
-    if (!guestForm) {
-        return;
-    }
-
-    guestForm.addEventListener("submit", function (event) {
-
-        event.preventDefault();
-
-        const firstName =
-            document.getElementById("firstName")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const lastName =
-            document.getElementById("lastName")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const errorBox =
-            document.getElementById("guestError");
-
-        const resultBox =
-            document.getElementById("guestResult");
-
-        errorBox.style.display = "none";
-        resultBox.style.display = "none";
-
-        const guest = guestList.find(function (person) {
-
-            return (
-                person.firstName.toLowerCase() === firstName &&
-                person.lastName.toLowerCase() === lastName
+        const guestForm =
+            document.getElementById(
+                "guestLookupForm"
             );
 
-        });
+
+        if (!guestForm) {
+            return;
+        }
 
 
-      
-/* GUEST FOUND */
+        guestForm.addEventListener(
+            "submit",
+            function (event) {
 
-if (guest) {
-
-    document.getElementById("guestFullName")
-        .textContent =
-        guest.firstName + " " + guest.lastName;
-
-    /* -----------------------------
-       NUMBER OF GUESTS
-       ----------------------------- */
-
-    const guestOptions =
-        document.querySelectorAll(
-            'input[name="lookupGuests"]'
-        );
-
-    guestOptions.forEach(function (radio) {
-
-        radio.checked =
-            Number(radio.value) === Number(guest.guests);
-
-    });
+                event.preventDefault();
 
 
-    /* -----------------------------
-       EVENT SELECTION
-       ----------------------------- */
+                const firstName =
+                    document.getElementById(
+                        "firstName"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-    const eventOptions =
-        document.querySelectorAll(
-            'input[name="lookupEvents"]'
-        );
 
-    eventOptions.forEach(function (checkbox) {
+                const lastName =
+                    document.getElementById(
+                        "lastName"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
 
-        const allowedEvent =
-            guest.events.some(function (eventItem) {
 
-                return eventItem.name
-                    .toLowerCase()
-                    .includes(
-                        checkbox.value.toLowerCase()
+                const errorBox =
+                    document.getElementById(
+                        "guestError"
                     );
 
-            });
 
-        checkbox.checked = false;
-
-        checkbox.disabled = !allowedEvent;
-
-        const eventLabel =
-            checkbox.closest(".event-choice");
-
-        if (eventLabel) {
-            eventLabel.style.display =
-                allowedEvent ? "flex" : "none";
-        }
-
-    });
+                const resultBox =
+                    document.getElementById(
+                        "guestResult"
+                    );
 
 
-    /* -----------------------------
-       SHOW RESULT
-       ----------------------------- */
-
-    resultBox.style.display = "block";
+                errorBox.style.display =
+                    "none";
 
 
-    /* -----------------------------
-       SCROLL TO RESULT
-       ----------------------------- */
-
-    setTimeout(function () {
-
-        resultBox.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-    }, 100);
-
-}
+                resultBox.style.display =
+                    "none";
 
 
+                const guest =
+                    guestList.find(
+                        function (person) {
 
-        /* GUEST NOT FOUND */
+                            return (
 
-        else {
+                                person.firstName
+                                    .toLowerCase() ===
+                                firstName
 
-            errorBox.textContent =
-                "We couldn't find an invitation with that name. " +
-                "Please check your spelling or ask the host.";
+                                &&
 
-            errorBox.style.display = "block";
+                                person.lastName
+                                    .toLowerCase() ===
+                                lastName
 
-        }
+                            );
 
-    });
+                        }
+                    );
 
-});
+
+                /* GUEST FOUND */
+
+                if (guest) {
+
+
+                    document.getElementById(
+                        "guestFullName"
+                    ).textContent =
+
+                        guest.firstName +
+                        " " +
+                        guest.lastName;
+
+
+                    /* NUMBER OF GUESTS */
+
+                    const guestOptions =
+                        document.querySelectorAll(
+                            'input[name="lookupGuests"]'
+                        );
+
+
+                    guestOptions.forEach(
+                        function (radio) {
+
+                            radio.checked =
+                                Number(
+                                    radio.value
+                                ) ===
+                                Number(
+                                    guest.guests
+                                );
+
+                        }
+                    );
+
+
+                    /*
+                       EVENT SELECTION
+
+                       Only events included
+                       in this guest's
+                       invitation remain visible.
+                    */
+
+                    const eventOptions =
+                        document.querySelectorAll(
+                            'input[name="lookupEvents"]'
+                        );
+
+
+                    eventOptions.forEach(
+                        function (checkbox) {
+
+
+                            const allowedEvent =
+                                guest.events.some(
+                                    function (eventItem) {
+
+                                        return eventItem.name
+                                            .toLowerCase()
+                                            .includes(
+                                                checkbox.value
+                                                    .toLowerCase()
+                                            );
+
+                                    }
+                                );
+
+
+                            checkbox.checked =
+                                false;
+
+
+                            checkbox.disabled =
+                                !allowedEvent;
+
+
+                            const eventLabel =
+                                checkbox.closest(
+                                    ".event-choice"
+                                );
+
+
+                            if (eventLabel) {
+
+                                eventLabel.style.display =
+                                    allowedEvent
+                                    ? "flex"
+                                    : "none";
+
+                            }
+
+                        }
+                    );
+
+
+                    /* SHOW RESULT */
+
+                    resultBox.style.display =
+                        "block";
+
+
+                    /* SCROLL */
+
+                    setTimeout(
+                        function () {
+
+                            resultBox.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+
+                        },
+                        100
+                    );
+
+
+                }
+
+                /* GUEST NOT FOUND */
+
+                else {
+
+
+                    errorBox.textContent =
+                        "We couldn't find an invitation " +
+                        "with that name. Please check " +
+                        "your spelling or ask the host.";
+
+
+                    errorBox.style.display =
+                        "block";
+
+                }
+
+            }
+        );
+
+    }
+);
+
 </script>
 
+
 </body>
+
 </html>
