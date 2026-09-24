@@ -203,106 +203,194 @@
     line-height: 1.7;
 }
 
-
-/* Guest Details */
+/* ==============================
+   GUEST DETAILS / SELECTION
+   ============================== */
 
 .guest-details {
-    margin: 20px 0;
-    padding: 15px;
-
+    margin: 25px 0;
+    padding: 20px 0;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
 
-.detail-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+.detail-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.detail-section:last-child {
+    margin-bottom: 0;
 }
 
 .detail-label {
+    display: block;
+    margin-bottom: 14px;
     color: #777;
     font-size: 14px;
-}
-
-#guestCount {
-    color: #6d5425;
     font-weight: 600;
 }
 
 
-/* Event Schedule */
+/* ==============================
+   NUMBER OF GUESTS
+   ============================== */
 
-.guest-result h4 {
-    margin: 30px 0 15px;
+.guest-choice-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
+.guest-choice-options label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 20px;
+
+    border: 1px solid #d8c9a5;
+    border-radius: 8px;
+
+    background: #fff;
     color: #6d5425;
-    font-size: 20px;
-    font-weight: 500;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.guest-choice-options label:hover {
+    border-color: goldenrod;
+    background: #faf8f2;
+}
+
+.guest-choice-options input {
+    margin: 0;
+    accent-color: goldenrod;
 }
 
 
-/* IMPORTANT:
-   Use a separate class so it does not conflict
-   with your main wedding event cards.
-*/
+/* ==============================
+   EVENT SELECTION
+   ============================== */
 
-.guest-event-card {
-    margin: 12px 0;
-    padding: 18px;
+.event-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.event-choice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding: 16px;
 
     text-align: left;
 
     background: #faf8f2;
     border: 1px solid #e5d9bd;
     border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
-.guest-event-card .event-name {
-    margin: 0 0 10px;
+.event-choice:hover {
+    border-color: goldenrod;
+    background: #fffdf8;
+}
+
+.event-choice input {
+    width: 18px;
+    height: 18px;
+
+    margin-top: 3px;
+
+    accent-color: goldenrod;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.event-choice span {
+    display: block;
+    flex: 1;
+}
+
+.event-choice strong {
+    display: block;
+
+    margin-bottom: 5px;
 
     color: #6d5425;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
-.guest-event-card .event-date,
-.guest-event-card .event-venue {
-    margin: 6px 0;
+.event-choice small {
+    display: block;
 
-    color: #666;
-    font-size: 13px;
-    line-height: 1.5;
+    color: #777;
+    font-size: 12px;
+    line-height: 1.6;
 }
 
 
-/* Mobile */
+/* ==============================
+   DISABLED EVENT
+   ============================== */
+
+.event-choice input:disabled {
+    cursor: not-allowed;
+}
+
+.event-choice:has(input:disabled) {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* ==============================
+   MOBILE
+   ============================== */
 
 @media (max-width: 600px) {
 
-    .guest-lookup {
-        padding: 60px 15px;
+    .guest-details {
+        padding: 18px 0;
     }
 
-    .guest-lookup-card {
-        padding: 35px 20px;
-        border-radius: 16px;
+    .guest-choice-options {
+        gap: 10px;
     }
 
-    .guest-lookup-card h2 {
-        font-size: 27px;
+    .guest-choice-options label {
+        padding: 9px 16px;
+        font-size: 13px;
     }
 
-    #guestFullName {
-        font-size: 24px;
+    .event-choice {
+        padding: 14px;
+        gap: 10px;
     }
 
-    .detail-row {
-        flex-direction: column;
-        gap: 5px;
+    .event-choice strong {
+        font-size: 14px;
     }
 
+    .event-choice small {
+        font-size: 11px;
+    }
 }
 
 
@@ -1227,6 +1315,7 @@ for (var i = 0; i < 25; i++) {
 
 </section>
 
+```html
 <section id="guest-invitation" class="guest-lookup">
 
     <div class="guest-lookup-card">
@@ -1243,6 +1332,9 @@ for (var i = 0; i < 25; i++) {
             Need help? Ask the Host
         </a>
 
+
+        <!-- NAME SEARCH FORM -->
+
         <form id="guestLookupForm">
 
             <div class="guest-field">
@@ -1257,6 +1349,7 @@ for (var i = 0; i < 25; i++) {
                 >
             </div>
 
+
             <div class="guest-field">
                 <label for="lastName">Last Name</label>
 
@@ -1269,6 +1362,7 @@ for (var i = 0; i < 25; i++) {
                 >
             </div>
 
+
             <button
                 type="submit"
                 class="find-invitation-btn"
@@ -1278,44 +1372,141 @@ for (var i = 0; i < 25; i++) {
 
         </form>
 
+
+        <!-- ERROR -->
+
         <div id="guestError" class="guest-error"></div>
+
+
+        <!-- GUEST RESULT -->
 
         <div id="guestResult" class="guest-result">
 
             <div class="result-divider"></div>
 
-            <p class="welcome-text">Welcome</p>
+            <p class="welcome-text">
+                Welcome
+            </p>
 
             <h3 id="guestFullName"></h3>
+
 
             <p class="guest-welcome">
                 We are delighted to celebrate these special
                 moments with you.
             </p>
 
+
+            <!-- NUMBER OF GUESTS -->
+
             <div class="guest-details">
 
-                <div class="detail-row">
+                <div class="detail-section">
 
                     <span class="detail-label">
                         Number of Guests
                     </span>
 
-                    <span id="guestCount"></span>
+
+                    <div class="guest-choice-options">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="lookupGuests"
+                                value="1"
+                            >
+                            <span>1 Guest</span>
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="lookupGuests"
+                                value="2"
+                            >
+                            <span>2 Guests</span>
+                        </label>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            <h4>Your Event Schedule</h4>
 
-            <div id="eventSchedule"></div>
+            <!-- EVENT SELECTION -->
+
+            <h4>
+                Your Event Schedule
+            </h4>
+
+
+            <div class="event-selection">
+
+                <!-- SANGEET -->
+
+                <label class="event-choice">
+
+                    <input
+                        type="checkbox"
+                        name="lookupEvents"
+                        value="Sangeet"
+                    >
+
+                    <span>
+
+                        <strong>
+                            Sangeet (Glam Gala)
+                        </strong>
+
+                        <small>
+                            Thursday, 19 November 2026 • 6:00 PM
+                            <br>
+                            Millennium Lakeview Hotel, Dubai Investment Park
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <!-- WEDDING -->
+
+                <label class="event-choice">
+
+                    <input
+                        type="checkbox"
+                        name="lookupEvents"
+                        value="Wedding"
+                    >
+
+                    <span>
+
+                        <strong>
+                            Wedding (The Sacred Knot)
+                        </strong>
+
+                        <small>
+                            Saturday, 21 November 2026 • 3:00 PM
+                            <br>
+                            BAPS Hindu Mandir, Abu Dhabi
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
 
         </div>
 
     </div>
 
 </section>
+```
+
 
 <section id="rsvp" class="rsvp-section">
 
@@ -1835,61 +2026,91 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        /* GUEST FOUND */
+      
+/* GUEST FOUND */
 
-        if (guest) {
+if (guest) {
 
-            document.getElementById("guestFullName")
-                .textContent =
-                guest.firstName + " " + guest.lastName;
+    document.getElementById("guestFullName")
+        .textContent =
+        guest.firstName + " " + guest.lastName;
 
-            document.getElementById("guestCount")
-                .textContent =
-                guest.guests +
-                (guest.guests === 1 ? " Guest" : " Guests");
+    /* -----------------------------
+       NUMBER OF GUESTS
+       ----------------------------- */
 
-            const schedule =
-                document.getElementById("eventSchedule");
+    const guestOptions =
+        document.querySelectorAll(
+            'input[name="lookupGuests"]'
+        );
 
-            schedule.innerHTML = "";
+    guestOptions.forEach(function (radio) {
 
-            guest.events.forEach(function (eventItem) {
+        radio.checked =
+            Number(radio.value) === Number(guest.guests);
 
-                const eventCard =
-                    document.createElement("div");
+    });
 
-                eventCard.className =
-                    "guest-event-card";
 
-                eventCard.innerHTML =
-                    '<p class="event-name">' +
-                    eventItem.name +
-                    '</p>' +
+    /* -----------------------------
+       EVENT SELECTION
+       ----------------------------- */
 
-                    '<p class="event-date">' +
-                    '📅 ' + eventItem.date +
-                    '</p>' +
+    const eventOptions =
+        document.querySelectorAll(
+            'input[name="lookupEvents"]'
+        );
 
-                    '<p class="event-venue">' +
-                    '📍 ' + eventItem.venue +
-                    '</p>';
+    eventOptions.forEach(function (checkbox) {
 
-                schedule.appendChild(eventCard);
+        const allowedEvent =
+            guest.events.some(function (eventItem) {
+
+                return eventItem.name
+                    .toLowerCase()
+                    .includes(
+                        checkbox.value.toLowerCase()
+                    );
 
             });
 
-            resultBox.style.display = "block";
+        checkbox.checked = false;
 
-            setTimeout(function () {
+        checkbox.disabled = !allowedEvent;
 
-                resultBox.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
+        const eventLabel =
+            checkbox.closest(".event-choice");
 
-            }, 100);
-
+        if (eventLabel) {
+            eventLabel.style.display =
+                allowedEvent ? "flex" : "none";
         }
+
+    });
+
+
+    /* -----------------------------
+       SHOW RESULT
+       ----------------------------- */
+
+    resultBox.style.display = "block";
+
+
+    /* -----------------------------
+       SCROLL TO RESULT
+       ----------------------------- */
+
+    setTimeout(function () {
+
+        resultBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 100);
+
+}
+
 
 
         /* GUEST NOT FOUND */
