@@ -2407,8 +2407,10 @@ footer p {
         Enter your name to get your event schedule.
     </p>
 
-    <p class="help-text">
-    Need help? <a href="mailto:creativemoodon11@gmail.com">Ask the host</a>
+   
+<p class="help-text">
+    Need help?
+    <a href="mailto:pratika.d55@gmail.com,deepanshu94@hotmail.com">Ask the host</a>
 </p>
 
 
@@ -2635,116 +2637,118 @@ footer p {
     </div>
 
 
-    <!-- =====================================
-         FORMSUBMIT RSVP FORM
-    ====================================== -->
+<!-- =====================================
+     FORMSUBMIT RSVP FORM
+====================================== -->
 
-    <form
-        id="rsvpForm"
-        action="https://formsubmit.co/creativemoodon11@gmail.com"
-        method="POST">
+<form
+    id="rsvpForm"
+    action="https://formsubmit.co/pratika.d55@gmail.com"
+    method="POST">
 
+    <!-- FORMSUBMIT SETTINGS -->
 
-        <!-- FORMSUBMIT SETTINGS -->
+    <input
+        type="hidden"
+        name="_subject"
+        value="New Wedding RSVP - Pratika &amp; Deepanshu">
+
+    <input
+        type="hidden"
+        name="_template"
+        value="table">
+
+    <input
+        type="hidden"
+        name="_captcha"
+        value="false">
+
+    <!-- Send a copy to Deepanshu -->
+    <input
+        type="hidden"
+        name="_cc"
+        value="deepanshu94@hotmail.com">
+
+    <!-- Return guest to wedding website after submission -->
+    <input
+        type="hidden"
+        name="_next"
+        value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+    <!-- EMAIL -->
+
+    <div class="rsvp-field">
+
+        <label for="rsvpEmail">
+            Email ID
+        </label>
 
         <input
-            type="hidden"
-            name="_subject"
-            value="New Wedding RSVP - Pratika & Deepanshu">
+            type="email"
+            id="rsvpEmail"
+            name="Email"
+            placeholder="Enter your email address"
+            autocomplete="email"
+            required>
 
-        <input
-            type="hidden"
-            name="_template"
-            value="table">
-
-        <input
-            type="hidden"
-            name="_captcha"
-            value="false">
-
-        <input
-            type="hidden"
-            name="_next"
-            value="https://creativemoodon.github.io/PratikaDeepanshu/">
-
-        <!-- EMAIL -->
-
-        <div class="rsvp-field">
-
-            <label for="rsvpEmail">
-                Email ID
-            </label>
-
-            <input
-                type="email"
-                id="rsvpEmail"
-                name="Email"
-                placeholder="Enter your email address"
-                autocomplete="email"
-                required>
-
-        </div>
+    </div>
 
 
-        <!-- ADVICE -->
+    <!-- ADVICE -->
 
-        <div class="rsvp-field">
+    <div class="rsvp-field">
 
-            <label for="advice">
+        <label for="advice">
+            Any tips, tricks or survival advice
+            for Pratika &amp; Deepanshu before they
+            officially become Mr. &amp; Mrs.? 😂♥️
+        </label>
 
-                Any tips, tricks or survival advice
-                for Pratika &amp; Deepanshu before they
-                officially become Mr. &amp; Mrs.? 😂♥️
+        <textarea
+            id="advice"
+            name="Advice"
+            rows="4"
+            placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
 
-            </label>
-
-
-            <textarea
-                id="advice"
-                name="Advice"
-                rows="4"
-                placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
-
-        </div>
+    </div>
 
 
-        <!-- MESSAGE / DIETARY NOTES -->
+    <!-- MESSAGE / DIETARY NOTES -->
 
-        <div class="rsvp-field">
+    <div class="rsvp-field">
 
-            <label for="notes">
-                Message / Dietary Notes
-            </label>
+        <label for="notes">
+            Message / Dietary Notes
+        </label>
 
+        <textarea
+            id="notes"
+            name="Message / Dietary Notes"
+            rows="4"
+            placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
 
-            <textarea
-                id="notes"
-                name="Message / Dietary Notes"
-                rows="4"
-                placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
-
-        </div>
-
-
-        <!-- SUBMIT -->
-
-        <button
-            type="submit"
-            class="rsvp-submit">
-
-            Submit RSVP
-
-        </button>
+    </div>
 
 
-        <p
-            id="rsvpError"
-            class="rsvp-error"
-            role="alert">
-        </p>
+    <!-- SUBMIT -->
+
+    <button
+        type="submit"
+        class="rsvp-submit">
+
+        Submit RSVP
+
+    </button>
 
 
-    </form>
+    <p
+        id="rsvpError"
+        class="rsvp-error"
+        role="alert">
+    </p>
+
+</form>
+
 
 </div>
 
