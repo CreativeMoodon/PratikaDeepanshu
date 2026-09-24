@@ -1023,8 +1023,10 @@ for (var i = 0; i < 25; i++) {
 <section class="invitation fade-in">
   <div class="invitation-inner text-center">
     <div class="rule"><span class="upper gold">The Invitation</span></div>
-    <h2 classname="font-display text-3xl sm:text-4xl mb-8" class="upper gold"> Our Union in the City of Gold </h2>
-<p className="text-foreground/70 leading-relaxed text-pretty text-sm">
+  <h2 class="upper gold">
+    Our Union in the City of Gold
+</h2>
+<p>
           Deeply rooted in tradition and surrounded by the shifting sands of
           Dubai, we invite you to witness our vows at the BAPS Hindu Mandir.
           Two days of joy, ceremony, and celebration — we would be honoured to
@@ -1224,9 +1226,98 @@ for (var i = 0; i < 25; i++) {
 
 </section>
 
+<section id="guest-invitation" class="guest-lookup">
+
+    <div class="guest-lookup-card">
+
+        <div class="guest-lookup-icon">✦</div>
+
+        <h2>Let's Find Your Invitation</h2>
+
+        <p class="guest-subtitle">
+            Enter your name to get your event schedule.
+        </p>
+
+        <a href="#rsvp" class="ask-host">
+            Need help? Ask the Host
+        </a>
+
+        <form id="guestLookupForm">
+
+            <div class="guest-field">
+                <label for="firstName">First Name</label>
+
+                <input
+                    type="text"
+                    id="firstName"
+                    placeholder="e.g. Rahul"
+                    autocomplete="given-name"
+                    required
+                >
+            </div>
+
+            <div class="guest-field">
+                <label for="lastName">Last Name</label>
+
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="e.g. Sharma"
+                    autocomplete="family-name"
+                    required
+                >
+            </div>
+
+            <button
+                type="submit"
+                class="find-invitation-btn"
+            >
+                Find Invitation
+            </button>
+
+        </form>
+
+        <div id="guestError" class="guest-error"></div>
+
+        <div id="guestResult" class="guest-result">
+
+            <div class="result-divider"></div>
+
+            <p class="welcome-text">Welcome</p>
+
+            <h3 id="guestFullName"></h3>
+
+            <p class="guest-welcome">
+                We are delighted to celebrate these special
+                moments with you.
+            </p>
+
+            <div class="guest-details">
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Number of Guests
+                    </span>
+
+                    <span id="guestCount"></span>
+
+                </div>
+
+            </div>
+
+            <h4>Your Event Schedule</h4>
+
+            <div id="eventSchedule"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
 <section id="rsvp" class="rsvp-section">
 
-```
 <div class="rsvp-container">
 
     <div class="rsvp-heading">
@@ -1434,66 +1525,7 @@ for (var i = 0; i < 25; i++) {
   <p>#DeepkePratipyaar</p>
 </footer>
 
-<script>
-/* Countdown */
-const weddingDate = new Date("2026-11-21T15:00:00+04:00");
 
-function updateCountdown(){
-  const diff = Math.max(0, weddingDate.getTime() - Date.now());
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff / 3600000) % 24);
-  const minutes = Math.floor((diff / 60000) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  document.getElementById("days").textContent = String(days).padStart(2,"0");
-  document.getElementById("hours").textContent = String(hours).padStart(2,"0");
-  document.getElementById("minutes").textContent = String(minutes).padStart(2,"0");
-  document.getElementById("seconds").textContent = String(seconds).padStart(2,"0");
-}
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-/* Sticky navigation */
-const nav = document.getElementById("nav");
-window.addEventListener("scroll", () => {
-  nav.classList.toggle("scrolled", window.scrollY > 40);
-},{passive:true});
-
-/* Reveal animations */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:.15});
-
-document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-
-
-/* Memories carousel */
-const slides = Array.from(document.querySelectorAll(".memory-slide"));
-const dotsContainer = document.getElementById("dots");
-let currentSlide = 0;
-
-slides.forEach((_, index) => {
-  const dot = document.createElement("button");
-  dot.className = "dot" + (index === 0 ? " active" : "");
-  dot.setAttribute("aria-label","View photo " + (index + 1));
-  dot.addEventListener("click",() => showSlide(index));
-  dotsContainer.appendChild(dot);
-});
-
-function showSlide(index){
-  currentSlide = (index + slides.length) % slides.length;
-  slides.forEach((slide,i) => slide.classList.toggle("active",i === currentSlide));
-  document.querySelectorAll(".dot").forEach((dot,i) => dot.classList.toggle("active",i === currentSlide));
-}
-
-document.getElementById("prev").addEventListener("click",() => showSlide(currentSlide - 1));
-document.getElementById("next").addEventListener("click",() => showSlide(currentSlide + 1));
-</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -1556,48 +1588,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 	
-	<script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    var weddingDate = new Date("November 21, 2026 15:00:00").getTime();
-
-    function updateCountdown() {
-
-        var now = new Date().getTime();
-        var distance = weddingDate - now;
-
-        if (distance <= 0) {
-            document.getElementById("days").textContent = "0";
-            document.getElementById("hours").textContent = "0";
-            document.getElementById("minutes").textContent = "0";
-            document.getElementById("seconds").textContent = "0";
-            return;
-        }
-
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
-        var minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
-        var seconds = Math.floor(
-            (distance % (1000 * 60)) / 1000
-        );
-
-        document.getElementById("days").textContent = days;
-        document.getElementById("hours").textContent = hours;
-        document.getElementById("minutes").textContent = minutes;
-        document.getElementById("seconds").textContent = seconds;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-});
-</script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1736,6 +1727,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
+<script>
 /* =========================================
    GUEST INVITATION LOOKUP
 ========================================= */
@@ -1806,30 +1799,21 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-
     guestForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
-
-        /* Get entered name */
-
         const firstName =
-            document
-                .getElementById("firstName")
+            document.getElementById("firstName")
                 .value
                 .trim()
                 .toLowerCase();
 
         const lastName =
-            document
-                .getElementById("lastName")
+            document.getElementById("lastName")
                 .value
                 .trim()
                 .toLowerCase();
-
-
-        /* Get result elements */
 
         const errorBox =
             document.getElementById("guestError");
@@ -1837,14 +1821,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const resultBox =
             document.getElementById("guestResult");
 
-
-        /* Hide previous results */
-
         errorBox.style.display = "none";
         resultBox.style.display = "none";
-
-
-        /* Find guest */
 
         const guest = guestList.find(function (person) {
 
@@ -1856,37 +1834,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-        /* =====================================
-           GUEST FOUND
-        ===================================== */
+        /* GUEST FOUND */
 
         if (guest) {
 
-            document
-                .getElementById("guestFullName")
+            document.getElementById("guestFullName")
                 .textContent =
                 guest.firstName + " " + guest.lastName;
 
-
-            document
-                .getElementById("guestCount")
+            document.getElementById("guestCount")
                 .textContent =
                 guest.guests +
-                (guest.guests === 1
-                    ? " Guest"
-                    : " Guests");
-
+                (guest.guests === 1 ? " Guest" : " Guests");
 
             const schedule =
                 document.getElementById("eventSchedule");
 
-
-            /* Clear old schedule */
-
             schedule.innerHTML = "";
-
-
-            /* Add events */
 
             guest.events.forEach(function (eventItem) {
 
@@ -1896,35 +1860,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 eventCard.className =
                     "guest-event-card";
 
-
                 eventCard.innerHTML =
-
                     '<p class="event-name">' +
                     eventItem.name +
                     '</p>' +
 
                     '<p class="event-date">' +
-                    '📅 ' +
-                    eventItem.date +
+                    '📅 ' + eventItem.date +
                     '</p>' +
 
                     '<p class="event-venue">' +
-                    '📍 ' +
-                    eventItem.venue +
+                    '📍 ' + eventItem.venue +
                     '</p>';
-
 
                 schedule.appendChild(eventCard);
 
             });
 
-
-            /* Show result */
-
             resultBox.style.display = "block";
-
-
-            /* Scroll to result */
 
             setTimeout(function () {
 
@@ -1935,20 +1888,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }, 100);
 
-
         }
 
 
-        /* =====================================
-           GUEST NOT FOUND
-        ===================================== */
+        /* GUEST NOT FOUND */
 
         else {
 
             errorBox.textContent =
                 "We couldn't find an invitation with that name. " +
                 "Please check your spelling or ask the host.";
-
 
             errorBox.style.display = "block";
 
@@ -1957,7 +1906,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-
+</script>
 
 </body>
 </html>
