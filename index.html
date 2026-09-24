@@ -1209,121 +1209,145 @@ nav.scrolled {
     cursor: not-allowed;
 }
 
-
 /* =========================
-   RSVP FORM
+   RSVP SECTION
 ========================= */
 
 .rsvp {
-  width: 100%;
-  padding: 90px 24px;
+    width: 100%;
+    padding: 80px 20px;
+    box-sizing: border-box;
 }
 
 .rsvp-inner {
-  width: min(100%, 600px);
-  margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .rsvp-field {
-  margin-bottom: 24px;
+    margin-bottom: 24px;
 }
 
 .rsvp-field label {
-  display: block;
-  margin-bottom: 9px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #5b4730;
+    display: block;
+    margin-bottom: 8px;
+    color: #6d5425;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 .rsvp-field input[type="email"],
 .rsvp-field textarea {
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid rgba(180, 150, 80, 0.45);
-  border-radius: 10px;
-  padding: 13px 15px;
-  background: rgba(255,255,255,0.75);
-  color: #3f3325;
-  font-family: inherit;
-  font-size: 15px;
-  outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+    border: 1px solid rgba(180, 150, 80, 0.45);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.85);
+    color: #4d3b28;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
 }
 
 .rsvp-field input[type="email"]:focus,
 .rsvp-field textarea:focus {
-  border-color: goldenrod;
-  box-shadow: 0 0 0 3px rgba(218,165,32,0.10);
+    border-color: goldenrod;
+    box-shadow: 0 0 0 3px rgba(218,165,32,0.12);
 }
 
 .rsvp-field textarea {
-  resize: vertical;
-  min-height: 110px;
+    min-height: 110px;
+    resize: vertical;
 }
 
 
-/* Event choices */
+/* EVENT OPTIONS */
 
 .rsvp-event-options {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .rsvp-event-option {
-  flex: 1;
-  min-width: 220px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px;
-  border: 1px solid rgba(180, 150, 80, 0.35);
-  border-radius: 10px;
-  background: rgba(255,255,255,0.65);
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px solid rgba(180, 150, 80, 0.35);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.7);
+    cursor: pointer;
 }
 
 .rsvp-event-option input {
-  accent-color: goldenrod;
-  width: 17px;
-  height: 17px;
+    width: 18px;
+    height: 18px;
+    accent-color: goldenrod;
 }
 
 .rsvp-event-option span {
-  font-size: 14px;
-  color: #5b4730;
+    color: #5b4730;
+    font-size: 14px;
 }
 
 
-/* Submit button */
+/* SUBMIT BUTTON */
 
 .rsvp-submit {
-  width: 100%;
-  border: none;
-  border-radius: 30px;
-  padding: 15px 24px;
-  background: goldenrod;
-  color: white;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform .2s ease, opacity .2s ease;
+    width: 100%;
+    padding: 15px 24px;
+    border: none;
+    border-radius: 30px;
+    background: goldenrod;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
 
 .rsvp-submit:hover {
-  transform: translateY(-2px);
-  opacity: .92;
+    transform: translateY(-2px);
+    opacity: 0.92;
 }
+
+
+/* ERROR MESSAGE */
 
 .rsvp-error {
-  margin-top: 12px;
-  text-align: center;
-  color: #a33;
-  font-size: 14px;
+    margin-top: 12px;
+    text-align: center;
+    color: #a33;
+    font-size: 14px;
 }
 
 
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .rsvp {
+        padding: 60px 16px;
+    }
+
+    .rsvp-inner {
+        max-width: 100%;
+    }
+
+    .rsvp-field label {
+        font-size: 14px;
+    }
+
+    .rsvp-event-option {
+        padding: 13px 14px;
+    }
+
+}
 
 /* =========================================
    MUSIC BUTTON
@@ -2395,61 +2419,28 @@ footer p {
 </section>
 
 
-<!-- =========================================
-     GUEST INVITATION LOOKUP
-========================================= -->
+<!-- GUEST INVITATION LOOKUP -->
 
-<section
-    id="guest-invitation"
-    class="guest-lookup">
-
+<section id="guest-invitation" class="guest-lookup">
 
     <div class="guest-lookup-card">
 
+        <div class="guest-lookup-icon">✦</div>
 
-        <div class="guest-lookup-icon">
-
-            ✦
-
-        </div>
-
-
-        <h2>
-
-            Let's Find Your Invitation
-
-        </h2>
-
+        <h2>Let's Find Your Invitation</h2>
 
         <p class="guest-subtitle">
-
             Enter your name to get your event schedule.
-
         </p>
 
-
-        <a
-            href="#rsvp"
-            class="ask-host">
-
+        <a href="#rsvp" class="ask-host">
             Need help? Ask the Host
-
         </a>
-
-
-        <!-- SEARCH FORM -->
 
         <form id="guestLookupForm">
 
-
             <div class="guest-field">
-
-                <label for="firstName">
-
-                    First Name
-
-                </label>
-
+                <label for="firstName">First Name</label>
 
                 <input
                     type="text"
@@ -2457,18 +2448,10 @@ footer p {
                     placeholder="e.g. Rahul"
                     autocomplete="given-name"
                     required>
-
             </div>
 
-
             <div class="guest-field">
-
-                <label for="lastName">
-
-                    Last Name
-
-                </label>
-
+                <label for="lastName">Last Name</label>
 
                 <input
                     type="text"
@@ -2476,102 +2459,53 @@ footer p {
                     placeholder="e.g. Sharma"
                     autocomplete="family-name"
                     required>
-
             </div>
 
-
-            <button
-                type="submit"
-                class="find-invitation-btn">
-
+            <button type="submit" class="find-invitation-btn">
                 Find Invitation
-
             </button>
 
         </form>
 
+        <div id="guestError" class="guest-error"></div>
 
-        <!-- ERROR -->
-
-        <div
-            id="guestError"
-            class="guest-error">
-        </div>
-
-
-        <!-- RESULT -->
-
-        <div
-            id="guestResult"
-            class="guest-result">
-
+        <div id="guestResult" class="guest-result">
 
             <div class="result-divider"></div>
 
-
-            <p class="welcome-text">
-
-                Welcome
-
-            </p>
-
+            <p class="welcome-text">Welcome</p>
 
             <h3 id="guestFullName"></h3>
 
-
             <p class="guest-welcome">
-
-                We are delighted to celebrate these
-                special moments with you.
-
+                We are delighted to celebrate these special moments with you.
             </p>
-
-
-            <!-- NUMBER OF GUESTS -->
 
             <div class="guest-details">
 
-
                 <div class="detail-section">
 
-
                     <span class="detail-label">
-
                         Number of Guests
-
                     </span>
-
 
                     <div class="guest-choice-options">
 
-
                         <label>
-
                             <input
                                 type="radio"
                                 name="lookupGuests"
                                 value="1">
-
-                            <span>
-                                1 Guest
-                            </span>
-
+                            <span>1 Guest</span>
                         </label>
 
-
                         <label>
-
                             <input
                                 type="radio"
                                 name="lookupGuests"
                                 value="2">
-
-                            <span>
-                                2 Guests
-                            </span>
-
+                            <span>2 Guests</span>
                         </label>
-
 
                     </div>
 
@@ -2579,25 +2513,11 @@ footer p {
 
             </div>
 
-
-            <!-- EVENTS -->
-
-            <h4
-                style="
-                margin:30px 0 15px;
-                color:#6d5425;
-                font-size:20px;
-                font-weight:500;">
-
+            <h4 style="margin:30px 0 15px;color:#6d5425;font-size:20px;font-weight:500;">
                 Your Event Schedule
-
             </h4>
 
-
             <div class="event-selection">
-
-
-                <!-- SANGEET -->
 
                 <label class="event-choice">
 
@@ -2606,32 +2526,17 @@ footer p {
                         name="lookupEvents"
                         value="Sangeet">
 
-
                     <span>
-
-                        <strong>
-                            Sangeet (Glam Gala)
-                        </strong>
-
+                        <strong>Sangeet (Glam Gala)</strong>
 
                         <small>
-
-                            Thursday,
-                            19 November 2026 • 6:00 PM
-
+                            Thursday, 19 November 2026 • 6:00 PM
                             <br>
-
-                            Millennium Lakeview Hotel,
-                            Dubai Investment Park
-
+                            Millennium Lakeview Hotel, Dubai Investment Park
                         </small>
-
                     </span>
 
                 </label>
-
-
-                <!-- WEDDING -->
 
                 <label class="event-choice">
 
@@ -2640,26 +2545,14 @@ footer p {
                         name="lookupEvents"
                         value="Wedding">
 
-
                     <span>
-
-                        <strong>
-                            Wedding (The Sacred Knot)
-                        </strong>
-
+                        <strong>Wedding (The Sacred Knot)</strong>
 
                         <small>
-
-                            Saturday,
-                            21 November 2026 • 3:00 PM
-
+                            Saturday, 21 November 2026 • 3:00 PM
                             <br>
-
-                            BAPS Hindu Mandir,
-                            Abu Dhabi
-
+                            BAPS Hindu Mandir, Abu Dhabi
                         </small>
-
                     </span>
 
                 </label>
@@ -2674,138 +2567,146 @@ footer p {
 
 
 <!-- RSVP -->
+
 <section id="rsvp" class="rsvp fade-in">
-  <div class="rsvp-inner">
 
-    <div class="text-center" style="margin-bottom: 30px;">
-      <div class="upper gold">Kindly Respond</div>
-      <h2 class="section-title display" style="color: goldenrod;">
-        Will You Join Us?
-      </h2>
-    </div>
+    <div class="rsvp-inner">
 
-    <form
-      id="rsvpForm"
-      action="https://formsubmit.co/creativemoodon11@gmail.com"
-      method="POST"
-    >
+        <div class="text-center" style="margin-bottom:30px;">
 
-      <input
-        type="hidden"
-        name="_subject"
-        value="New Wedding RSVP - Pratika & Deepanshu"
-      >
+            <div class="upper gold">
+                Kindly Respond
+            </div>
 
-      <input
-        type="hidden"
-        name="_template"
-        value="table"
-      >
-
-      <input
-        type="hidden"
-        name="_captcha"
-        value="false"
-      >
-
-      <input
-        type="hidden"
-        name="_next"
-        value="https://creativemoodon.github.io/PratikaDeepanshu/"
-      >
-
-      <!-- Your Event Schedule -->
-      <div class="rsvp-field">
-        <label>Your Event Schedule</label>
-
-        <div class="rsvp-event-options">
-
-          <label class="rsvp-event-option">
-            <input
-              type="checkbox"
-              name="events"
-              value="Sangeet (Glam Gala)"
-              id="rsvpSangeet"
-            >
-            <span>Sangeet (Glam Gala)</span>
-          </label>
-
-          <label class="rsvp-event-option">
-            <input
-              type="checkbox"
-              name="events"
-              value="Wedding (The Sacred Knot)"
-              id="rsvpWedding"
-            >
-            <span>Wedding (The Sacred Knot)</span>
-          </label>
+            <h2 class="section-title display" style="color:goldenrod;">
+                Will You Join Us?
+            </h2>
 
         </div>
-      </div>
+
+        <form
+            id="rsvpForm"
+            action="https://formsubmit.co/creativemoodon11@gmail.com"
+            method="POST">
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="New Wedding RSVP - Pratika & Deepanshu">
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table">
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false">
+
+            <input
+                type="hidden"
+                name="_next"
+                value="https://creativemoodon.github.io/PratikaDeepanshu/">
 
 
-      <!-- Email ID -->
-      <div class="rsvp-field">
-        <label for="rsvpEmail">Email ID</label>
+            <div class="rsvp-field">
 
-        <input
-          type="email"
-          id="rsvpEmail"
-          name="email"
-          placeholder="Enter your email address"
-          required
-        >
-      </div>
+                <label>Your Event Schedule</label>
 
+                <div class="rsvp-event-options">
 
-      <!-- Advice -->
-      <div class="rsvp-field">
-        <label for="advice">
-          Any tips, tricks or survival advice for Pratika & Deepanshu
-          before they officially become Mr. & Mrs.? 😂♥️
-        </label>
+                    <label class="rsvp-event-option">
 
-        <textarea
-          id="advice"
-          name="advice"
-          rows="4"
-          placeholder="Share your wisdom, wishes or marriage survival tips..."
-        ></textarea>
-      </div>
+                        <input
+                            type="checkbox"
+                            name="events"
+                            value="Sangeet (Glam Gala)"
+                            id="rsvpSangeet">
 
+                        <span>Sangeet (Glam Gala)</span>
 
-      <!-- Message / Dietary Notes -->
-      <div class="rsvp-field">
-        <label for="notes">
-          Message / Dietary Notes
-        </label>
+                    </label>
 
-        <textarea
-          id="notes"
-          name="notes"
-          rows="4"
-          placeholder="Leave us a message or let us know about any dietary requirements..."
-        ></textarea>
-      </div>
+                    <label class="rsvp-event-option">
+
+                        <input
+                            type="checkbox"
+                            name="events"
+                            value="Wedding (The Sacred Knot)"
+                            id="rsvpWedding">
+
+                        <span>Wedding (The Sacred Knot)</span>
+
+                    </label>
+
+                </div>
+
+            </div>
 
 
-      <!-- Submit -->
-      <button
-        type="submit"
-        class="rsvp-submit"
-      >
-        Submit RSVP
-      </button>
+            <div class="rsvp-field">
 
-      <p
-        id="rsvpError"
-        class="rsvp-error"
-        role="alert"
-      ></p>
+                <label for="rsvpEmail">
+                    Email ID
+                </label>
 
-    </form>
+                <input
+                    type="email"
+                    id="rsvpEmail"
+                    name="email"
+                    placeholder="Enter your email address"
+                    required>
 
-  </div>
+            </div>
+
+
+            <div class="rsvp-field">
+
+                <label for="advice">
+                    Any tips, tricks or survival advice for Pratika & Deepanshu before they officially become Mr. & Mrs.? 😂♥️
+                </label>
+
+                <textarea
+                    id="advice"
+                    name="advice"
+                    rows="4"
+                    placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
+
+            </div>
+
+
+            <div class="rsvp-field">
+
+                <label for="notes">
+                    Message / Dietary Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    rows="4"
+                    placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="rsvp-submit">
+                Submit RSVP
+            </button>
+
+            <p
+                id="rsvpError"
+                class="rsvp-error"
+                role="alert">
+            </p>
+
+        </form>
+
+    </div>
+
 </section>
 
       
