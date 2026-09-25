@@ -1012,7 +1012,41 @@ nav.scrolled {
         transform:translate3d(calc(var(--drift) * -1),110vh,0) rotate(360deg);
     }
 }
+/* =====================================================
+   LARGER HEADER LOGO + NAVIGATION
+===================================================== */
 
+.site-header {
+    transition: transform .35s ease, opacity .35s ease;
+}
+
+.site-header .brand,
+.site-header .logo {
+    font-size: 1.35rem !important;
+    font-weight: 600;
+    letter-spacing: .12em;
+}
+
+.site-header nav a {
+    font-size: .85rem !important;
+    font-weight: 500;
+    letter-spacing: .16em;
+    padding: 8px 4px;
+}
+
+/* Make navigation easier to see */
+.site-header nav {
+    gap: 28px;
+}
+    /* =====================================================
+   HIDE HEADER WHEN SCROLLING DOWN
+===================================================== */
+
+.site-header.header-hidden {
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+}
 
 /* =========================================
    FOOTER
@@ -3503,6 +3537,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+</script>
+
+    <script>
+let lastScrollTop = 0;
+const siteHeader = document.querySelector(".site-header");
+
+window.addEventListener("scroll", function () {
+
+    if (!siteHeader) return;
+
+    const currentScroll =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+    /* Always show header at the very top */
+    if (currentScroll <= 20) {
+        siteHeader.classList.remove("header-hidden");
+        lastScrollTop = currentScroll;
+        return;
+    }
+
+    /* Scrolling DOWN */
+    if (currentScroll > lastScrollTop) {
+        siteHeader.classList.add("header-hidden");
+    }
+
+    /* Scrolling UP */
+    else {
+        siteHeader.classList.remove("header-hidden");
+    }
+
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
+}, { passive: true });
 </script>
 
 </body>
