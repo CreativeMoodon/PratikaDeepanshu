@@ -4139,482 +4139,705 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
-
-    /* =========================================
-       FIND INVITATION
+/* =========================================
+   GOOGLE APPS SCRIPT CONNECTION
 ========================================= */
 
-    guestForm.addEventListener(
-        "submit",
-        async function (event) {
+const APPS_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbylb2ZUxAffH9M8Qiw_WWL2AFmf0h_2DcKh77YCLR3XX_tmLfgPgElWrlmMuJGLeSU/exec";
 
-            event.preventDefault();
 
-            clearError();
+/* =========================================
+   FIND INVITATION
+========================================= */
 
-            resetInvitation();
+guestForm.addEventListener(
+    "submit",
+    async function (event) {
 
+        event.preventDefault();
 
-            if (
-                !APPS_SCRIPT_URL ||
-                APPS_SCRIPT_URL.indexOf(
-                    "https://script.google.com/macros/s/AKfycbylb2ZUxAffH9M8Qiw_WWL2AFmf0h_2DcKh77YCLR3XX_tmLfgPgElWrlmMuJGLeSU/exec"
-                ) === 0
-            ) {
+        clearError();
 
-                showError(
-                    "The invitation lookup is not connected yet. Please add your Google Apps Script Web App URL."
-                );
+        resetInvitation();
 
-                return;
 
-            }
+        /* -----------------------------------------
+           CHECK APPS SCRIPT CONNECTION
+        ----------------------------------------- */
 
+        if (
+            !APPS_SCRIPT_URL ||
+            APPS_SCRIPT_URL.includes(
+                "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"
+            )
+        ) {
 
-            const firstName =
-                firstNameInput.value.trim();
+            showError(
+                "The invitation lookup is not connected yet. Please add your Google Apps Script Web App URL."
+            );
 
-            const lastName =
-                lastNameInput.value.trim();
-
-
-            if (!firstName || !lastName) {
-
-                showError(
-                    "Please enter your first and last name."
-                );
-
-                return;
-
-            }
-
-
-            findButton.disabled = true;
-
-            findButton.innerHTML =
-                '<span class="loading-spinner"></span> Finding Invitation';
-
-
-            try {
-
-                const url =
-                    APPS_SCRIPT_URL +
-                    "?action=lookup" +
-                    "&firstName=" +
-                    encodeURIComponent(firstName) +
-                    "&lastName=" +
-                    encodeURIComponent(lastName);
-
-
-                const response =
-                    await fetch(url);
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Lookup request failed."
-                    );
-
-                }
-
-
-                const data =
-                    await response.json();
-
-
-                if (
-                    !data.success ||
-                    !data.guest
-                ) {
-
-                    showError(
-                        data.message ||
-                        "We couldn't find your invitation. Please check your name or ask the host."
-                    );
-
-                    return;
-
-                }
-
-
-                const guest =
-                    data.guest;
-
-
-                currentGuest =
-                    guest;
-
-
-                const people =
-                    getGuestPeople(guest);
-
-
-                if (!people.length) {
-
-                    showError(
-                        "Your invitation was found, but no guest names are configured. Please contact the host."
-                    );
-
-                    return;
-
-                }
-
-
-                const totalGuests =
-                    Number(
-                        guest.guestCount ||
-                        guest.guests ||
-                        people.length
-                    );
-
-
-                rsvpGuestId.value =
-                    guest.guestId ||
-                    guest.id ||
-                    "";
-
-
-                const primaryName =
-                    guest.firstName +
-                    " " +
-                    guest.lastName;
-
-
-                rsvpGuestName.value =
-                    primaryName;
-
-
-                rsvpTotalGuests.value =
-                    totalGuests;
-
-
-                guestFullName.textContent =
-                    primaryName;
-
-
-                buildGuestCountOptions(
-                    totalGuests
-                );
-
-
-                buildPeopleList(
-                    people
-                );
-
-
-                applyEventPermissions(
-                    guest
-                );
-
-
-                guestResult.style.display =
-                    "block";
-
-
-                setTimeout(
-                    function () {
-
-                        guestResult.scrollIntoView({
-                            behavior:"smooth",
-                            block:"center"
-                        });
-
-                    },
-                    100
-                );
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-                showError(
-                    "We couldn't connect to the invitation service. Please try again or contact the host."
-                );
-
-            } finally {
-
-                findButton.disabled = false;
-
-                findButton.textContent =
-                    "Find Invitation";
-
-            }
-
+            return;
         }
-    );
 
 
-    /* =========================================
-       RSVP SUBMIT
-    ========================================= */
+        /* -----------------------------------------
+           GET NAME
+        ----------------------------------------- */
 
-    rsvpForm.addEventListener(
-        "submit",
-        async function (event) {
+        const firstName =
+            firstNameInput.value.trim();
 
-            event.preventDefault();
-
-            rsvpError.textContent =
-                "";
-
-            rsvpSuccess.style.display =
-                "none";
+        const lastName =
+            lastNameInput.value.trim();
 
 
-            if (!currentGuest) {
+        if (!firstName || !lastName) {
 
-                rsvpError.textContent =
-                    "Please find your invitation first.";
+            showError(
+                "Please enter your first and last name."
+            );
 
-                return;
-
-            }
-
-
-            const countRadio =
-                document.querySelector(
-                    'input[name="guestCount"]:checked'
-                );
+            return;
+        }
 
 
-            if (!countRadio) {
+        /* -----------------------------------------
+           BUTTON LOADING
+        ----------------------------------------- */
 
-                rsvpError.textContent =
-                    "Please select the number of guests attending.";
+        findButton.disabled = true;
 
-                return;
-
-            }
-
-
-            const totalSelected =
-                Number(
-                    countRadio.value
-                );
+        findButton.innerHTML =
+            '<span class="loading-spinner"></span> Finding Invitation';
 
 
-            const attendingPeople =
-                getSelectedPeople();
+        try {
+
+            /* -----------------------------------------
+               CREATE LOOKUP URL
+            ----------------------------------------- */
+
+            const url =
+                APPS_SCRIPT_URL +
+                "?action=lookup" +
+                "&firstName=" +
+                encodeURIComponent(firstName) +
+                "&lastName=" +
+                encodeURIComponent(lastName);
 
 
-            if (
-                attendingPeople.length !==
-                totalSelected
-            ) {
-
-                rsvpError.textContent =
-                    "Please select exactly " +
-                    totalSelected +
-                    (
-                        totalSelected === 1
-                            ? " guest."
-                            : " guests."
-                    );
-
-                return;
-
-            }
+            console.log(
+                "Invitation lookup:",
+                url
+            );
 
 
-            if (
-                !sangeetCheck.checked &&
-                !weddingCheck.checked
-            ) {
+            /* -----------------------------------------
+               SEND REQUEST
+            ----------------------------------------- */
 
-                rsvpError.textContent =
-                    "Please select at least one event.";
-
-                return;
-
-            }
-
-
-            const phone =
-                document.getElementById(
-                    "rsvpPhone"
-                ).value.trim();
-
-
-            if (!phone) {
-
-                rsvpError.textContent =
-                    "Please enter your phone number.";
-
-                return;
-
-            }
-
-
-            /*
-             * Make absolutely sure hidden values
-             * are current before sending.
-             */
-
-            rsvpTotalGuests.value =
-                totalSelected;
-
-            rsvpAttendingGuests.value =
-                attendingPeople.join(", ");
-
-            rsvpSangeet.value =
-                sangeetCheck.checked
-                    ? "YES"
-                    : "NO";
-
-            rsvpWedding.value =
-                weddingCheck.checked
-                    ? "YES"
-                    : "NO";
-
-
-            if (
-                !APPS_SCRIPT_URL ||
-                APPS_SCRIPT_URL.indexOf(
-                    "https://script.google.com/macros/s/AKfycbylb2ZUxAffH9M8Qiw_WWL2AFmf0h_2DcKh77YCLR3XX_tmLfgPgElWrlmMuJGLeSU/exec"
-                ) === 0
-            ) {
-
-                rsvpError.textContent =
-                    "The RSVP service is not connected yet. Please add your Google Apps Script Web App URL.";
-
-                return;
-
-            }
-
-
-            rsvpSubmit.disabled =
-                true;
-
-            rsvpSubmit.innerHTML =
-                '<span class="loading-spinner"></span> Sending RSVP';
-
-
-            try {
-
-                const formData =
-                    new FormData(
-                        rsvpForm
-                    );
-
-
-                const data =
-                    {};
-
-                formData.forEach(
-                    function (value,key) {
-
-                        data[key] =
-                            value;
-
+            const response =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        cache: "no-store"
                     }
                 );
 
 
-                const response =
-                    await fetch(
-                        APPS_SCRIPT_URL,
-                        {
-                            method:"POST",
+            if (!response.ok) {
 
-                            headers:{
-                                "Content-Type":
-                                    "text/plain;charset=utf-8"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    action:"rsvp",
-                                    data:data
-                                })
-                        }
-                    );
-
-
-                const result =
-                    await response.json();
-
-
-                if (!result.success) {
-
-                    throw new Error(
-                        result.message ||
-                        "RSVP failed."
-                    );
-
-                }
-
-
-                rsvpSuccess.textContent =
-                    "Thank you, " +
-                    rsvpGuestName.value +
-                    "! Your RSVP has been received. We look forward to celebrating with you. ❤️";
-
-
-                rsvpSuccess.style.display =
-                    "block";
-
-
-                rsvpError.textContent =
-                    "";
-
-
-                rsvpSubmit.textContent =
-                    "RSVP Submitted ✓";
-
-
-                /*
-                 * Keep the invitation information visible.
-                 * Clear only phone/message fields.
-                 */
-
-                document.getElementById(
-                    "rsvpPhone"
-                ).value = "";
-
-                document.getElementById(
-                    "advice"
-                ).value = "";
-
-                document.getElementById(
-                    "notes"
-                ).value = "";
-
-
-                rsvpSuccess.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-
-
-            } catch (error) {
-
-                console.error(
-                    error
+                throw new Error(
+                    "Lookup request failed."
                 );
-
-                rsvpError.textContent =
-                    error.message ||
-                    "We couldn't submit your RSVP. Please try again.";
-
-                rsvpSubmit.textContent =
-                    "Submit RSVP";
-
-            } finally {
-
-                rsvpSubmit.disabled =
-                    false;
-
             }
 
+
+            /* -----------------------------------------
+               READ RESPONSE
+            ----------------------------------------- */
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Invitation response:",
+                data
+            );
+
+
+            /* -----------------------------------------
+               CHECK RESPONSE
+            ----------------------------------------- */
+
+            if (
+                !data.success ||
+                !data.guest
+            ) {
+
+                showError(
+                    data.message ||
+                    "We couldn't find your invitation. Please check your name or ask the host."
+                );
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               SAVE CURRENT GUEST
+            ----------------------------------------- */
+
+            const guest =
+                data.guest;
+
+
+            currentGuest =
+                guest;
+
+
+            /* -----------------------------------------
+               GET FAMILY MEMBERS
+            ----------------------------------------- */
+
+            const people =
+                getGuestPeople(
+                    guest
+                );
+
+
+            if (!people.length) {
+
+                showError(
+                    "Your invitation was found, but no guest names are configured. Please contact the host."
+                );
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               GET TOTAL GUESTS
+            ----------------------------------------- */
+
+            const totalGuests =
+                Number(
+                    guest.guestCount ||
+                    guest.guests ||
+                    people.length
+                );
+
+
+            /* -----------------------------------------
+               SET HIDDEN RSVP VALUES
+            ----------------------------------------- */
+
+            rsvpGuestId.value =
+                guest.guestId ||
+                guest.id ||
+                "";
+
+
+            const primaryName =
+                (
+                    guest.firstName +
+                    " " +
+                    guest.lastName
+                ).trim();
+
+
+            rsvpGuestName.value =
+                primaryName;
+
+
+            rsvpTotalGuests.value =
+                totalGuests;
+
+
+            /* -----------------------------------------
+               DISPLAY GUEST NAME
+            ----------------------------------------- */
+
+            guestFullName.textContent =
+                primaryName;
+
+
+            /* -----------------------------------------
+               BUILD GUEST COUNT
+            ----------------------------------------- */
+
+            buildGuestCountOptions(
+                totalGuests
+            );
+
+
+            /* -----------------------------------------
+               BUILD FAMILY MEMBER LIST
+            ----------------------------------------- */
+
+            buildPeopleList(
+                people
+            );
+
+
+            /* -----------------------------------------
+               APPLY EVENT PERMISSIONS
+            ----------------------------------------- */
+
+            applyEventPermissions(
+                guest
+            );
+
+
+            /* -----------------------------------------
+               SHOW INVITATION
+            ----------------------------------------- */
+
+            guestResult.style.display =
+                "block";
+
+
+            /* -----------------------------------------
+               SCROLL TO INVITATION
+            ----------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    guestResult.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                },
+                100
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Invitation lookup error:",
+                error
+            );
+
+
+            showError(
+                "We couldn't connect to the invitation service. Please try again or contact the host."
+            );
+
+
+        } finally {
+
+            findButton.disabled =
+                false;
+
+
+            findButton.textContent =
+                "Find Invitation";
         }
-    );
 
-});
+    }
+);
 
 
+/* =========================================
+   RSVP SUBMIT
+========================================= */
+
+rsvpForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        /* -----------------------------------------
+           CLEAR OLD MESSAGES
+        ----------------------------------------- */
+
+        rsvpError.textContent =
+            "";
+
+
+        rsvpSuccess.style.display =
+            "none";
+
+
+        /* -----------------------------------------
+           CHECK INVITATION
+        ----------------------------------------- */
+
+        if (!currentGuest) {
+
+            rsvpError.textContent =
+                "Please find your invitation first.";
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           CHECK GUEST COUNT
+        ----------------------------------------- */
+
+        const countRadio =
+            document.querySelector(
+                'input[name="guestCount"]:checked'
+            );
+
+
+        if (!countRadio) {
+
+            rsvpError.textContent =
+                "Please select the number of guests attending.";
+
+            return;
+        }
+
+
+        const totalSelected =
+            Number(
+                countRadio.value
+            );
+
+
+        /* -----------------------------------------
+           GET SELECTED FAMILY MEMBERS
+        ----------------------------------------- */
+
+        const attendingPeople =
+            getSelectedPeople();
+
+
+        if (
+            attendingPeople.length !==
+            totalSelected
+        ) {
+
+            rsvpError.textContent =
+                "Please select exactly " +
+                totalSelected +
+                (
+                    totalSelected === 1
+                        ? " guest."
+                        : " guests."
+                );
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           CHECK EVENTS
+        ----------------------------------------- */
+
+        if (
+            !sangeetCheck.checked &&
+            !weddingCheck.checked
+        ) {
+
+            rsvpError.textContent =
+                "Please select at least one event.";
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           PHONE
+        ----------------------------------------- */
+
+        const phone =
+            document.getElementById(
+                "rsvpPhone"
+            ).value.trim();
+
+
+        if (!phone) {
+
+            rsvpError.textContent =
+                "Please enter your phone number.";
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           UPDATE HIDDEN VALUES
+        ----------------------------------------- */
+
+        rsvpTotalGuests.value =
+            totalSelected;
+
+
+        rsvpAttendingGuests.value =
+            attendingPeople.join(
+                ", "
+            );
+
+
+        rsvpSangeet.value =
+            sangeetCheck.checked
+                ? "YES"
+                : "NO";
+
+
+        rsvpWedding.value =
+            weddingCheck.checked
+                ? "YES"
+                : "NO";
+
+
+        /* -----------------------------------------
+           CHECK APPS SCRIPT CONNECTION
+        ----------------------------------------- */
+
+        if (
+            !APPS_SCRIPT_URL ||
+            APPS_SCRIPT_URL.includes(
+                "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"
+            )
+        ) {
+
+            rsvpError.textContent =
+                "The RSVP service is not connected yet. Please add your Google Apps Script Web App URL.";
+
+            return;
+        }
+
+
+        /* -----------------------------------------
+           DISABLE BUTTON
+        ----------------------------------------- */
+
+        rsvpSubmit.disabled =
+            true;
+
+
+        rsvpSubmit.innerHTML =
+            '<span class="loading-spinner"></span> Sending RSVP';
+
+
+        try {
+
+            /* -----------------------------------------
+               COLLECT FORM DATA
+            ----------------------------------------- */
+
+            const formData =
+                new FormData(
+                    rsvpForm
+                );
+
+
+            const data =
+                {};
+
+
+            formData.forEach(
+                function (
+                    value,
+                    key
+                ) {
+
+                    data[key] =
+                        value;
+
+                }
+            );
+
+
+            /* -----------------------------------------
+               MAKE SURE IMPORTANT VALUES ARE CORRECT
+            ----------------------------------------- */
+
+            data.guestId =
+                currentGuest.guestId ||
+                rsvpGuestId.value;
+
+
+            data.primaryGuest =
+                rsvpGuestName.value;
+
+
+            data.phone =
+                phone;
+
+
+            data.totalGuests =
+                totalSelected;
+
+
+            data.attendingGuests =
+                attendingPeople;
+
+
+            data.sangeet =
+                sangeetCheck.checked;
+
+
+            data.wedding =
+                weddingCheck.checked;
+
+
+            data.advice =
+                document.getElementById(
+                    "advice"
+                ).value.trim();
+
+
+            data.message =
+                document.getElementById(
+                    "notes"
+                ).value.trim();
+
+
+            /* -----------------------------------------
+               SEND RSVP TO GOOGLE APPS SCRIPT
+            ----------------------------------------- */
+
+            console.log(
+                "Sending RSVP:",
+                data
+            );
+
+
+            const response =
+                await fetch(
+                    APPS_SCRIPT_URL,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+                        },
+
+                        body:
+                            JSON.stringify({
+                                action: "rsvp",
+                                data: data
+                            })
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "RSVP request failed."
+                );
+            }
+
+
+            /* -----------------------------------------
+               READ RSVP RESPONSE
+            ----------------------------------------- */
+
+            const result =
+                await response.json();
+
+
+            console.log(
+                "RSVP response:",
+                result
+            );
+
+
+            /* -----------------------------------------
+               CHECK RESULT
+            ----------------------------------------- */
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "RSVP failed."
+                );
+            }
+
+
+            /* -----------------------------------------
+               SUCCESS MESSAGE
+            ----------------------------------------- */
+
+            rsvpSuccess.textContent =
+                "Thank you, " +
+                rsvpGuestName.value +
+                "! Your RSVP has been received. We look forward to celebrating with you. ❤️";
+
+
+            rsvpSuccess.style.display =
+                "block";
+
+
+            rsvpError.textContent =
+                "";
+
+
+            rsvpSubmit.textContent =
+                "RSVP Submitted ✓";
+
+
+            /* -----------------------------------------
+               CLEAR ONLY CONTACT / MESSAGE FIELDS
+            ----------------------------------------- */
+
+            document.getElementById(
+                "rsvpPhone"
+            ).value = "";
+
+
+            document.getElementById(
+                "advice"
+            ).value = "";
+
+
+            document.getElementById(
+                "notes"
+            ).value = "";
+
+
+            /* -----------------------------------------
+               SCROLL TO SUCCESS MESSAGE
+            ----------------------------------------- */
+
+            rsvpSuccess.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "RSVP error:",
+                error
+            );
+
+
+            rsvpError.textContent =
+                error.message ||
+                "We couldn't submit your RSVP. Please try again.";
+
+
+            rsvpSubmit.textContent =
+                "Submit RSVP";
+
+
+        } finally {
+
+            rsvpSubmit.disabled =
+                false;
+        }
+
+    }
+);
+  
 /* =========================================
    NAVIGATION AUTO HIDE
 ========================================= */
