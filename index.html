@@ -3037,7 +3037,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const target =
         new Date(
-            "2026-11-21T15:00:00+04:00"
+            "2026-11-21T14:00:00+04:00"
         ).getTime();
 
 
@@ -3234,34 +3234,26 @@ document.addEventListener("DOMContentLoaded", function () {
        CHECK REQUIRED ELEMENTS
     ========================================= */
 
-    if (
-        !guestForm ||
-        !guestResult ||
-        !guestError ||
-        !guestFullName ||
-        !firstNameInput ||
-        !lastNameInput ||
-        !guestCount ||
-        !attendeeList ||
-        !rsvpForm ||
-        !rsvpGuestId ||
-        !rsvpGuestName ||
-        !rsvpGuests ||
-        !rsvpAttendingGuests ||
-        !rsvpSangeet ||
-        !rsvpWedding ||
-        !rsvpPhone ||
-        !rsvpStatus ||
-        !rsvpError
-    ) {
+   const findInvitationBtn =
+    document.getElementById("findInvitationBtn");
 
-        console.error(
-            "Guest Lookup / RSVP: Required element missing."
-        );
+if (!guestForm) {
 
-        return;
-    }
+    console.error(
+        "Guest Lookup form not found."
+    );
 
+    return;
+}
+
+if (!findInvitationBtn) {
+
+    console.error(
+        "Find Invitation button not found."
+    );
+
+    return;
+}
 
     /* =========================================
        CURRENT INVITATION
@@ -4258,14 +4250,36 @@ document.addEventListener("DOMContentLoaded", function () {
                     adviceInput.value = "";
                 }
 
-            } catch (error) {
+                        } catch (error) {
 
                 console.error(
                     "RSVP submission error:",
                     error
                 );
 
-                </script>
+                showRsvpError(
+                    "We couldn't submit your RSVP. Please try again."
+                );
+
+            } finally {
+
+                if (submitButton) {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        "Submit RSVP";
+
+                }
+
+            }
+
+        }
+    );
+
+});
+
+</script>
 
 
 
