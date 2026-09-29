@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -88,6 +87,7 @@ nav {
     top:0;
     left:0;
     right:0;
+
     z-index:9999;
 
     height:70px;
@@ -110,8 +110,12 @@ nav {
     transition:
         transform .4s ease,
         opacity .4s ease,
-        visibility .4s ease;
+        visibility .4s ease,
+        background .3s ease;
 }
+
+
+/* HIDE NAVIGATION WHEN SCROLLING DOWN */
 
 nav.nav-hidden {
     transform:translateY(-110%);
@@ -120,12 +124,18 @@ nav.nav-hidden {
     pointer-events:none;
 }
 
+
+/* LOGO */
+
 .nav-logo {
     width:52px;
     height:52px;
     object-fit:contain;
     flex-shrink:0;
 }
+
+
+/* NAVIGATION LINKS */
 
 .nav-links {
     display:flex;
@@ -144,6 +154,7 @@ nav.nav-hidden {
 .nav-links a {
     position:relative;
     padding:8px 2px;
+
     white-space:nowrap;
 
     transition:
@@ -156,12 +167,17 @@ nav.nav-hidden {
     transform:translateY(-1px);
 }
 
+
+/* GOLD UNDERLINE ON HOVER */
+
 .nav-links a::after {
     content:"";
+
     position:absolute;
     left:0;
     right:0;
     bottom:2px;
+
     height:1px;
 
     background:var(--gold);
@@ -174,6 +190,23 @@ nav.nav-hidden {
 
 .nav-links a:hover::after {
     transform:scaleX(1);
+}
+
+
+.help-text {
+    color:#6d5425;
+    font-size:14px;
+    font-weight:400;
+}
+
+.help-text a {
+    color:#b8860b;
+    font-weight:500;
+}
+
+.help-text a:hover {
+    color:#8f6b08;
+    text-decoration:underline;
 }
 
 
@@ -201,26 +234,20 @@ nav.nav-hidden {
 .hero {
     position:relative;
     min-height:82vh;
-
     display:flex;
     align-items:flex-start;
     justify-content:center;
-
     padding:48px 24px 30px;
-
     overflow:hidden;
 }
 
 .hero-bg {
     position:absolute;
     inset:0;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
     opacity:.2;
-
     z-index:0;
 }
 
@@ -235,21 +262,13 @@ nav.nav-hidden {
 .vignette-top {
     top:0;
     height:35%;
-    background:linear-gradient(
-        to bottom,
-        rgba(251,248,242,.55),
-        transparent
-    );
+    background:linear-gradient(to bottom,rgba(251,248,242,.55),transparent);
 }
 
 .vignette-bottom {
     bottom:0;
     height:28%;
-    background:linear-gradient(
-        to top,
-        rgba(251,248,242,.8),
-        transparent
-    );
+    background:linear-gradient(to top,rgba(251,248,242,.8),transparent);
 }
 
 .hero-content {
@@ -261,10 +280,7 @@ nav.nav-hidden {
 .hero-logo {
     width:min(380px,80vw);
     margin:auto;
-
-    filter:drop-shadow(
-        0 4px 24px rgba(0,0,0,.25)
-    );
+    filter:drop-shadow(0 4px 24px rgba(0,0,0,.25));
 }
 
 
@@ -284,9 +300,7 @@ nav.nav-hidden {
 
 .couple-heading span {
     display:block;
-
     font-size:clamp(26px,5vw,40px);
-
     margin-top:12px;
 }
 
@@ -302,6 +316,7 @@ nav.nav-hidden {
 .rsvp {
     padding:90px 24px;
     width:100%;
+    box-sizing:border-box;
 }
 
 .invitation-inner,
@@ -311,25 +326,22 @@ nav.nav-hidden {
 .rsvp-inner {
     width:min(100%,600px);
     margin:0 auto;
+    box-sizing:border-box;
 }
 
 .rule {
     display:flex;
     align-items:center;
     justify-content:center;
-
     gap:12px;
-
     margin-bottom:28px;
 }
 
 .rule:before,
 .rule:after {
     content:"";
-
     height:1px;
     width:40px;
-
     background:rgba(181,138,69,.4);
 }
 
@@ -358,11 +370,8 @@ nav.nav-hidden {
 
 .countdown-box {
     border:1px solid var(--gold-light);
-
     background:rgba(255,253,249,.6);
-
     padding:32px;
-
     text-align:center;
 }
 
@@ -379,10 +388,8 @@ nav.nav-hidden {
 
 .count-label {
     font-size:9px;
-
     text-transform:uppercase;
     letter-spacing:.18em;
-
     color:#777168;
 }
 
@@ -393,19 +400,12 @@ nav.nav-hidden {
 
 .scratch-card {
     position:relative;
-
     overflow:hidden;
-
     border:1px solid var(--gold-light);
-
     background:var(--card);
-
     text-align:center;
-
     padding:55px 20px;
-
     min-height:180px;
-
     cursor:pointer;
     user-select:none;
 }
@@ -418,33 +418,23 @@ nav.nav-hidden {
 #scratchCanvas {
     position:absolute;
     inset:0;
-
     width:100%;
     height:100%;
-
     z-index:2;
-
     cursor:crosshair;
-
     touch-action:none;
 }
 
 .scratch-label {
     position:absolute;
-
     left:0;
     right:0;
     bottom:20px;
-
     z-index:3;
-
     color:rgba(255,255,255,.9);
-
     font-size:10px;
-
     text-transform:uppercase;
     letter-spacing:.3em;
-
     pointer-events:none;
 }
 
@@ -453,7 +443,6 @@ nav.nav-hidden {
 }
 
 @keyframes revealDate {
-
     from {
         opacity:0;
         transform:scale(.95);
@@ -463,13 +452,11 @@ nav.nav-hidden {
         opacity:1;
         transform:scale(1);
     }
-
 }
 
 .date {
     font-family:Georgia,serif;
     font-style:italic;
-
     font-size:48px;
     line-height:1;
 }
@@ -490,11 +477,8 @@ nav.nav-hidden {
 
 .event-card {
     margin:0 auto 32px;
-
     width:min(100%,600px);
-
     border:1px solid var(--gold-light);
-
     background:var(--card);
 }
 
@@ -505,9 +489,7 @@ nav.nav-hidden {
 .event-image {
     width:100%;
     aspect-ratio:9/16;
-
     object-fit:cover;
-
     background:#eee5d6;
 }
 
@@ -523,9 +505,7 @@ nav.nav-hidden {
 .event-title {
     font-family:Georgia,serif;
     font-style:italic;
-
     font-size:28px;
-
     margin:0 0 16px;
 }
 
@@ -536,11 +516,8 @@ nav.nav-hidden {
 
 .event-note {
     font-size:14px;
-
     color:rgba(48,43,37,.6);
-
     font-style:italic;
-
     margin:20px 0;
 }
 
@@ -571,64 +548,43 @@ nav.nav-hidden {
 .venue-title {
     font-family:Georgia,serif;
     font-style:italic;
-
     font-size:32px;
-
     margin:0 0 16px;
 }
 
 .venue-address {
     font-size:14px;
-
     color:rgba(48,43,37,.7);
-
     margin-bottom:30px;
 }
 
 .venue-image {
     display:block;
-
     width:70%;
     max-width:400px;
-
     height:auto;
-
     margin:0 auto 20px;
-
     border-radius:4px;
 }
 
 .venue-description {
     font-size:14px;
-
     color:rgba(48,43,37,.7);
-
     line-height:1.8;
-
     margin-bottom:28px;
 }
 
 .map-button {
     display:table;
-
     width:auto;
-
     margin:15px auto 0;
-
     padding:10px 16px;
-
     border:1px solid rgba(181,138,69,.4);
-
     background:transparent;
-
     text-align:center;
-
     text-transform:uppercase;
-
     letter-spacing:.15em;
-
     font-size:10px;
-
     cursor:pointer;
 }
 
@@ -643,13 +599,11 @@ nav.nav-hidden {
 
 .memory-frame {
     overflow:hidden;
-
     border:1px solid var(--gold-light);
 }
 
 .memory-slide {
     display:none;
-
     position:relative;
 }
 
@@ -659,57 +613,37 @@ nav.nav-hidden {
 
 .memory-slide img {
     width:100%;
-
     aspect-ratio:4/5;
-
     object-fit:cover;
 }
 
 .caption {
     position:absolute;
-
     left:0;
     right:0;
     bottom:0;
-
     padding:48px 20px 16px;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.75),
-            transparent
-        );
-
+    background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
     color:white;
-
     font-size:10px;
-
     text-transform:uppercase;
     letter-spacing:.2em;
 }
 
 .slider-controls {
     display:flex;
-
     align-items:center;
     justify-content:space-between;
-
     margin-top:18px;
 }
 
 .slider-button {
     width:42px;
     height:42px;
-
     border:1px solid rgba(181,138,69,.3);
-
     border-radius:50%;
-
     background:var(--background);
-
     cursor:pointer;
-
     font-size:18px;
 }
 
@@ -721,13 +655,9 @@ nav.nav-hidden {
 .dot {
     width:8px;
     height:8px;
-
     border:0;
-
     border-radius:50%;
-
     background:rgba(181,138,69,.25);
-
     cursor:pointer;
 }
 
@@ -737,16 +667,13 @@ nav.nav-hidden {
 
 
 /* =========================================
-   GUEST INVITATION
+   GUEST INVITATION LOOKUP
 ========================================= */
 
 .guest-lookup {
     width:100%;
-
     padding:80px 20px;
-
     display:flex;
-
     justify-content:center;
     align-items:center;
 }
@@ -754,519 +681,247 @@ nav.nav-hidden {
 .guest-lookup-card {
     width:100%;
     max-width:560px;
-
     padding:45px 35px;
-
     text-align:center;
-
     background:rgba(255,255,255,.96);
-
     border:1px solid rgba(180,150,80,.35);
-
     border-radius:20px;
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.10);
+    box-shadow:0 15px 45px rgba(0,0,0,.10);
 }
 
 .guest-lookup-icon {
     font-size:28px;
-
     color:goldenrod;
-
     margin-bottom:10px;
 }
 
 .guest-lookup-card h2 {
     margin:0 0 10px;
-
     font-size:32px;
-
     font-weight:500;
-
     color:#6d5425;
 }
 
 .guest-subtitle {
     margin:0 auto 10px;
-
     color:#777;
-
     font-size:15px;
 }
 
-.help-text {
-    color:#6d5425;
-
-    font-size:14px;
-
-    margin:0 0 30px;
-}
-
 .ask-host {
-    color:#b8860b;
-
-    font-weight:500;
+    display:inline-block;
+    margin-bottom:30px;
+    color:goldenrod;
+    text-decoration:none;
+    font-size:14px;
 }
 
 .ask-host:hover {
     text-decoration:underline;
 }
 
-
-/* =========================================
-   LOOKUP FORM
-========================================= */
-
 #guestLookupForm {
     width:100%;
     max-width:430px;
-
     margin:0 auto;
 }
 
 .guest-field {
     margin-bottom:20px;
-
     text-align:left;
 }
 
 .guest-field label {
     display:block;
-
     margin-bottom:7px;
-
     font-size:14px;
-
     font-weight:600;
-
     color:#5d4b2a;
 }
 
 .guest-field input {
     width:100%;
-
     padding:13px 15px;
-
     border:1px solid #d8c9a5;
-
     border-radius:8px;
-
     background:#fff;
-
     color:#333;
-
     font-family:inherit;
-
     font-size:15px;
-
     outline:none;
 }
 
 .guest-field input:focus {
     border-color:goldenrod;
-
-    box-shadow:
-        0 0 0 3px rgba(218,165,32,.12);
+    box-shadow:0 0 0 3px rgba(218,165,32,.12);
 }
 
 .find-invitation-btn {
     width:100%;
-
     padding:14px 20px;
-
     border:none;
-
     border-radius:8px;
-
     background:goldenrod;
-
     color:white;
-
     font-family:inherit;
-
     font-size:15px;
-
     font-weight:600;
-
     cursor:pointer;
-
-    transition:
-        transform .2s ease,
-        opacity .2s ease,
-        box-shadow .2s ease;
+    transition:transform .2s ease,opacity .2s ease,box-shadow .2s ease;
 }
 
 .find-invitation-btn:hover {
     opacity:.9;
-
     transform:translateY(-1px);
-
-    box-shadow:
-        0 5px 15px rgba(180,140,40,.25);
+    box-shadow:0 5px 15px rgba(180,140,40,.25);
 }
 
-.find-invitation-btn:disabled {
-    opacity:.6;
-    cursor:wait;
-    transform:none;
+.find-invitation-btn:active {
+    transform:translateY(0);
 }
 
 .guest-error {
     display:none;
-
     margin-top:18px;
-
     color:#a33;
-
     font-size:14px;
 }
 
-
-/* =========================================
-   GUEST RESULT
-========================================= */
-
 .guest-result {
     display:none;
-
     margin-top:35px;
-
     padding-top:5px;
 }
 
 .result-divider {
     width:70px;
-
     height:1px;
-
     margin:0 auto 25px;
-
     background:goldenrod;
 }
 
 .welcome-text {
     margin:0 0 5px;
-
     color:goldenrod;
-
     font-size:14px;
-
     text-transform:uppercase;
-
     letter-spacing:2px;
 }
 
 #guestFullName {
     margin:0 0 12px;
-
     color:#6d5425;
-
     font-size:28px;
-
     font-weight:500;
 }
 
 .guest-welcome {
     margin:0 auto 25px;
-
     max-width:430px;
-
     color:#777;
-
     font-size:14px;
-
     line-height:1.7;
 }
 
-
-/* =========================================
-   WHO IS ATTENDING
-========================================= */
-
-.attendance-box {
+.guest-details {
     margin:25px 0;
-
-    padding:22px 0;
-
+    padding:20px 0;
     border-top:1px solid #eee;
-
     border-bottom:1px solid #eee;
 }
 
-.attendance-title {
+.detail-section {
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.detail-section:last-child {
+    margin-bottom:0;
+}
+
+.detail-label {
     display:block;
-
     margin-bottom:14px;
-
     color:#777;
-
     font-size:14px;
-
     font-weight:600;
 }
 
-.guest-count-options {
+.guest-choice-options {
     display:flex;
-
     justify-content:center;
-
-    gap:10px;
-
+    align-items:center;
+    gap:15px;
     flex-wrap:wrap;
 }
 
-.guest-count-option {
-    position:relative;
-}
-
-.guest-count-option input {
-    position:absolute;
-
-    opacity:0;
-
-    pointer-events:none;
-}
-
-.guest-count-option span {
-    display:block;
-
-    min-width:75px;
-
-    padding:10px 16px;
-
-    border:1px solid #d8c9a5;
-
-    border-radius:8px;
-
-    background:#fff;
-
-    color:#6d5425;
-
-    font-size:14px;
-
-    cursor:pointer;
-
-    transition:all .2s ease;
-}
-
-.guest-count-option input:checked + span {
-    background:#b58a45;
-
-    border-color:#b58a45;
-
-    color:white;
-}
-
-
-/* =========================================
-   ATTENDING PEOPLE LIST
-========================================= */
-
-.attending-people {
-    margin:25px 0;
-}
-
-.attending-people-title {
-    margin:0 0 6px;
-
-    color:#6d5425;
-
-    font-size:20px;
-
-    font-weight:500;
-}
-
-.attending-people-help {
-    margin:0 0 15px;
-
-    color:#777;
-
-    font-size:12px;
-}
-
-.people-list {
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-}
-
-.person-option {
-    display:flex;
-
+.guest-choice-options label {
+    display:inline-flex;
     align-items:center;
-
-    gap:12px;
-
-    padding:14px 16px;
-
-    text-align:left;
-
-    background:#faf8f2;
-
-    border:1px solid #e5d9bd;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-    transition:all .2s ease;
-}
-
-.person-option:hover {
-    border-color:goldenrod;
-
-    background:#fffdf8;
-}
-
-.person-option.disabled {
-    opacity:.45;
-
-    cursor:not-allowed;
-}
-
-.person-option input {
-    width:19px;
-    height:19px;
-
-    margin:0;
-
-    accent-color:goldenrod;
-
-    flex-shrink:0;
-}
-
-.person-option span {
-    flex:1;
-
+    justify-content:center;
+    gap:8px;
+    padding:10px 20px;
+    border:1px solid #d8c9a5;
+    border-radius:8px;
+    background:#fff;
     color:#6d5425;
-
     font-size:14px;
+    cursor:pointer;
 }
 
-.person-option.primary-person {
-    border-color:rgba(181,138,69,.5);
-}
-
-.person-badge {
-    font-size:9px;
-
-    text-transform:uppercase;
-
-    letter-spacing:.12em;
-
-    color:#999;
-}
-
-.selection-counter {
-    margin-top:12px;
-
-    text-align:center;
-
-    color:#777;
-
-    font-size:12px;
-}
-
-.selection-counter.complete {
-    color:#567866;
-
-    font-weight:600;
-}
-
-
-/* =========================================
-   EVENT SELECTION
-========================================= */
-
-.event-selection-heading {
-    margin:30px 0 15px;
-
-    color:#6d5425;
-
-    font-size:20px;
-
-    font-weight:500;
+.guest-choice-options input {
+    margin:0;
+    accent-color:goldenrod;
 }
 
 .event-selection {
     display:flex;
-
     flex-direction:column;
-
     gap:12px;
-
     margin-top:15px;
 }
 
 .event-choice {
     display:flex;
-
     align-items:flex-start;
-
     gap:12px;
-
     padding:16px;
-
     text-align:left;
-
     background:#faf8f2;
-
     border:1px solid #e5d9bd;
-
     border-radius:10px;
-
     cursor:pointer;
 }
 
 .event-choice:hover {
     border-color:goldenrod;
-
     background:#fffdf8;
-}
-
-.event-choice.disabled {
-    opacity:.45;
-
-    cursor:not-allowed;
 }
 
 .event-choice input {
     width:18px;
     height:18px;
-
     margin-top:3px;
-
     accent-color:goldenrod;
-
     flex-shrink:0;
 }
 
 .event-choice span {
     display:block;
-
     flex:1;
 }
 
 .event-choice strong {
     display:block;
-
     margin-bottom:5px;
-
     color:#6d5425;
-
     font-size:15px;
 }
 
 .event-choice small {
     display:block;
-
     color:#777;
-
     font-size:12px;
-
     line-height:1.6;
 }
 
@@ -1277,15 +932,12 @@ nav.nav-hidden {
 
 .rsvp {
     width:100%;
-
     padding:80px 20px;
 }
 
 .rsvp-inner {
     width:100%;
-
     max-width:600px;
-
     margin:0 auto;
 }
 
@@ -1295,135 +947,60 @@ nav.nav-hidden {
 
 .rsvp-field > label {
     display:block;
-
     margin-bottom:8px;
-
     color:#6d5425;
-
     font-size:15px;
-
     font-weight:400;
-
     line-height:1.5;
 }
 
-.rsvp-field input {
+.rsvp-field input[type="email"],
+.rsvp-field textarea {
     width:100%;
-
     padding:14px 16px;
-
     border:1px solid rgba(180,150,80,.45);
-
     border-radius:10px;
-
     background:rgba(255,255,255,.85);
-
     color:#4d3b28;
-
     font-family:inherit;
-
     font-size:15px;
-
     outline:none;
 }
 
-.rsvp-field input:focus,
+.rsvp-field input[type="email"]:focus,
 .rsvp-field textarea:focus {
     border-color:goldenrod;
-
-    box-shadow:
-        0 0 0 3px rgba(218,165,32,.12);
+    box-shadow:0 0 0 3px rgba(218,165,32,.12);
 }
 
 .rsvp-field textarea {
-    width:100%;
-
-    padding:14px 16px;
-
-    border:1px solid rgba(180,150,80,.45);
-
-    border-radius:10px;
-
-    background:rgba(255,255,255,.85);
-
-    color:#4d3b28;
-
-    font-family:inherit;
-
-    font-size:15px;
-
-    outline:none;
-
     min-height:110px;
-
     resize:vertical;
 }
 
 .rsvp-submit {
     width:100%;
-
     padding:15px 24px;
-
     border:none;
-
     border-radius:30px;
-
     background:goldenrod;
-
     color:white;
-
     font-family:inherit;
-
     font-size:15px;
-
     font-weight:600;
-
     cursor:pointer;
-
     transition:all .25s ease;
 }
 
 .rsvp-submit:hover {
     transform:translateY(-2px);
-
     opacity:.92;
-}
-
-.rsvp-submit:disabled {
-    opacity:.6;
-
-    cursor:wait;
-
-    transform:none;
 }
 
 .rsvp-error {
     margin-top:12px;
-
     text-align:center;
-
     color:#a33;
-
-    font-size:14px;
-}
-
-.rsvp-success {
-    display:none;
-
-    margin-top:20px;
-
-    padding:18px;
-
-    border:1px solid rgba(86,120,102,.3);
-
-    border-radius:10px;
-
-    background:rgba(86,120,102,.08);
-
-    color:#567866;
-
-    text-align:center;
-
     font-size:14px;
 }
 
@@ -1434,33 +1011,20 @@ nav.nav-hidden {
 
 .music-button {
     position:fixed;
-
     right:20px;
     bottom:20px;
-
     width:48px;
     height:48px;
-
     border-radius:50%;
-
     border:1px solid rgba(180,150,80,.5);
-
     background:rgba(255,255,255,.85);
-
     color:#b08a3c;
-
     font-size:18px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     cursor:pointer;
-
-    box-shadow:
-        0 4px 15px rgba(0,0,0,.12);
-
+    box-shadow:0 4px 15px rgba(0,0,0,.12);
     z-index:9999;
 }
 
@@ -1471,18 +1035,15 @@ nav.nav-hidden {
 @keyframes musicPulse {
 
     0% {
-        box-shadow:
-            0 0 0 0 rgba(176,138,60,.25);
+        box-shadow:0 0 0 0 rgba(176,138,60,.25);
     }
 
     70% {
-        box-shadow:
-            0 0 0 10px rgba(176,138,60,0);
+        box-shadow:0 0 0 10px rgba(176,138,60,0);
     }
 
     100% {
-        box-shadow:
-            0 0 0 0 rgba(176,138,60,0);
+        box-shadow:0 0 0 0 rgba(176,138,60,0);
     }
 
 }
@@ -1494,65 +1055,41 @@ nav.nav-hidden {
 
 .petal-field {
     position:fixed;
-
     top:0;
     left:0;
-
     width:100%;
     height:100vh;
-
     pointer-events:none;
-
     overflow:hidden;
-
-    z-index:9998;
+    z-index:9999;
 }
 
 .petal {
     position:absolute;
-
     top:-40px;
-
     display:block;
-
     width:14px;
     height:20px;
-
     background:#e8a0aa;
-
     border-radius:50% 0 50% 50%;
-
     opacity:.7;
-
     animation-name:petalFall;
-
     animation-timing-function:linear;
-
     animation-iteration-count:infinite;
 }
 
 @keyframes petalFall {
 
     0% {
-        transform:
-            translate3d(0,-40px,0)
-            rotate(0deg);
+        transform:translate3d(0,-40px,0) rotate(0deg);
     }
 
     50% {
-        transform:
-            translate3d(var(--drift),50vh,0)
-            rotate(180deg);
+        transform:translate3d(var(--drift),50vh,0) rotate(180deg);
     }
 
     100% {
-        transform:
-            translate3d(
-                calc(var(--drift) * -1),
-                110vh,
-                0
-            )
-            rotate(360deg);
+        transform:translate3d(calc(var(--drift) * -1),110vh,0) rotate(360deg);
     }
 
 }
@@ -1564,31 +1101,25 @@ nav.nav-hidden {
 
 footer {
     padding:55px 20px;
-
     text-align:center;
-
     border-top:1px solid var(--gold-light);
 }
 
 .footer-logo {
     width:96px;
-
     margin:0 auto 12px;
 }
 
 footer p {
     font-size:10px;
-
     text-transform:uppercase;
-
     letter-spacing:.2em;
-
     color:rgba(48,43,37,.4);
 }
 
 
 /* =========================================
-   MOBILE
+   TABLET
 ========================================= */
 
 @media(max-width:850px) {
@@ -1599,9 +1130,7 @@ footer p {
 
     .nav-links {
         gap:18px;
-
         font-size:11px;
-
         letter-spacing:.13em;
     }
 
@@ -1612,11 +1141,15 @@ footer p {
 
 }
 
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media(max-width:650px) {
 
     nav {
         height:62px;
-
         padding:0 14px;
     }
 
@@ -1627,9 +1160,7 @@ footer p {
 
     .nav-links {
         gap:10px;
-
         font-size:9px;
-
         letter-spacing:.08em;
     }
 
@@ -1638,6 +1169,11 @@ footer p {
     }
 
 }
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
 @media(max-width:480px) {
 
@@ -1652,9 +1188,7 @@ footer p {
 
     .nav-links {
         gap:7px;
-
         font-size:8px;
-
         letter-spacing:.05em;
     }
 
@@ -1663,6 +1197,11 @@ footer p {
     }
 
 }
+
+
+/* =========================================
+   GENERAL MOBILE SECTIONS
+========================================= */
 
 @media(max-width:600px) {
 
@@ -1696,7 +1235,6 @@ footer p {
 
     .guest-lookup-card {
         padding:35px 20px;
-
         border-radius:16px;
     }
 
@@ -1708,54 +1246,36 @@ footer p {
         font-size:24px;
     }
 
+    .guest-choice-options {
+        gap:10px;
+    }
+
+    .guest-choice-options label {
+        padding:9px 16px;
+    }
+
+    .event-choice {
+        padding:14px;
+        gap:10px;
+    }
+
+    .event-choice strong {
+        font-size:14px;
+    }
+
+    .event-choice small {
+        font-size:11px;
+    }
+
     .rsvp-field > label {
         font-size:13px;
     }
 
-    .rsvp-field input,
+    .rsvp-field input[type="email"],
     .rsvp-field textarea {
         font-size:14px;
     }
 
-}
-
-
-/* =========================================
-   LOADING SPINNER
-========================================= */
-
-.loading-spinner {
-    width:18px;
-    height:18px;
-
-    border:2px solid rgba(255,255,255,.5);
-
-    border-top-color:white;
-
-    border-radius:50%;
-
-    display:inline-block;
-
-    vertical-align:middle;
-
-    animation:spin .7s linear infinite;
-}
-
-@keyframes spin {
-
-    to {
-        transform:rotate(360deg);
-    }
-
-}
-
-
-/* =========================================
-   HIDDEN
-========================================= */
-
-.hidden {
-    display:none !important;
 }
 
 </style>
@@ -1764,35 +1284,34 @@ footer p {
 
 <body>
 
+
 <!-- =========================================
-     MUSIC
+     BACKGROUND MUSIC
 ========================================= -->
 
 <audio
- id="weddingMusic"
- loop
- preload="metadata"
- playsinline>
+    id="weddingMusic"
+    loop
+    preload="metadata"
+    playsinline>
 
-```
-<source
-    src="aaj-sajeya.mp3"
-    type="audio/mpeg">
-```
+    <source
+        src="aaj-sajeya.mp3"
+        type="audio/mpeg">
 
 </audio>
 
-<button
- id="musicButton"
- class="music-button"
- type="button"
- aria-label="Play wedding music">
 
-```
-▶
-```
+<button
+    id="musicButton"
+    class="music-button"
+    type="button"
+    aria-label="Play wedding music">
+
+    ▶
 
 </button>
+
 
 <!-- =========================================
      ROSE PETALS
@@ -1803,38 +1322,49 @@ footer p {
     id="petalField">
 </div>
 
+
 <!-- =========================================
      NAVIGATION
 ========================================= -->
 
 <nav id="nav">
 
-```
-<a href="#top">
+    <a href="#top">
 
-    <img
-        class="nav-logo"
-        src="PratikaWebsite/dp-logo-mark.png"
-        alt="Pratika & Deepanshu monogram">
+        <img
+            class="nav-logo"
+            src="PratikaWebsite/dp-logo-mark.png"
+            alt="Pratika & Deepanshu monogram">
 
-</a>
+    </a>
 
-<div class="nav-links">
 
-    <a href="#events">Events</a>
+    <div class="nav-links">
 
-    <a href="#memories">Memories</a>
+        <a href="#events">
+            Events
+        </a>
 
-    <a href="#venue">Venue</a>
+        <a href="#memories">
+            Memories
+        </a>
 
-    <a href="#guest-invitation">Invitation</a>
+        <a href="#venue">
+            Venue
+        </a>
 
-    <a href="#rsvp">RSVP</a>
+        <a href="#guest-invitation">
+            Invitation
+        </a>
 
-</div>
-```
+        <a href="#rsvp">
+            RSVP
+        </a>
+
+    </div>
 
 </nav>
+
 
 <!-- =========================================
      GANESH
@@ -1842,18 +1372,17 @@ footer p {
 
 <div class="ganesh-banner">
 
-```
-<img
-    class="ganesh-icon"
-    src="PratikaWebsite/ganesh-icon.png"
-    alt="Lord Ganesha">
+    <img
+        class="ganesh-icon"
+        src="PratikaWebsite/ganesh-icon.png"
+        alt="Lord Ganesha">
 
-<div class="upper gold">
-    || Om Shree Ganeshaya Namah ||
-</div>
-```
+    <div class="upper gold">
+        || Om Shree Ganeshaya Namah ||
+    </div>
 
 </div>
+
 
 <!-- =========================================
      HERO
@@ -1863,27 +1392,26 @@ footer p {
     id="top"
     class="hero">
 
-```
-<img
-    class="hero-bg"
-    src="PratikaWebsite/dubai-wallpaper.png"
-    alt="Illustrated Dubai skyline">
-
-<div class="vignette-top"></div>
-
-<div class="vignette-bottom"></div>
-
-<div class="hero-content">
-
     <img
-        class="hero-logo"
-        src="PratikaWebsite/DP_LogoNoBG.png"
-        alt="Pratika & Deepanshu wedding logo">
+        class="hero-bg"
+        src="PratikaWebsite/dubai-wallpaper.png"
+        alt="Illustrated Dubai skyline">
 
-</div>
-```
+    <div class="vignette-top"></div>
+
+    <div class="vignette-bottom"></div>
+
+    <div class="hero-content">
+
+        <img
+            class="hero-logo"
+            src="PratikaWebsite/DP_LogoNoBG.png"
+            alt="Pratika & Deepanshu wedding logo">
+
+    </div>
 
 </header>
+
 
 <!-- =========================================
      COUPLE
@@ -1891,21 +1419,20 @@ footer p {
 
 <section class="couple-heading">
 
-```
-<h1
-    class="display"
-    style="color:goldenrod;">
+    <h1
+        class="display"
+        style="color:goldenrod;">
 
-    Pratika &amp; Deepanshu
+        Pratika &amp; Deepanshu
 
-</h1>
+    </h1>
 
-<span class="display">
-    Are Getting Married
-</span>
-```
+    <span class="display">
+        Are Getting Married
+    </span>
 
 </section>
+
 
 <!-- =========================================
      INVITATION
@@ -1913,34 +1440,33 @@ footer p {
 
 <section class="invitation fade-in">
 
-```
-<div class="invitation-inner text-center">
+    <div class="invitation-inner text-center">
 
-    <div class="rule">
+        <div class="rule">
 
-        <span class="upper gold">
-            The Invitation
-        </span>
+            <span class="upper gold">
+                The Invitation
+            </span>
+
+        </div>
+
+        <h2 class="upper gold">
+            Our Union in the City of Gold
+        </h2>
+
+        <p>
+            Deeply rooted in tradition and surrounded
+            by the shifting sands of Dubai, we invite
+            you to witness our vows at the BAPS Hindu
+            Mandir. Two days of joy, ceremony, and
+            celebration — we would be honoured to
+            have you with us.
+        </p>
 
     </div>
 
-    <h2 class="upper gold">
-        Our Union in the City of Gold
-    </h2>
-
-    <p>
-        Deeply rooted in tradition and surrounded
-        by the shifting sands of Dubai, we invite
-        you to witness our vows at the BAPS Hindu
-        Mandir. Two days of joy, ceremony, and
-        celebration — we would be honoured to
-        have you with us.
-    </p>
-
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      COUNTDOWN
@@ -1948,56 +1474,83 @@ footer p {
 
 <section class="countdown fade-in">
 
-```
-<div class="countdown-box">
+    <div class="countdown-box">
 
-    <div
-        class="upper gold"
-        style="margin-bottom:20px">
+        <div
+            class="upper gold"
+            style="margin-bottom:20px">
 
-        Counting Down to the Sacred Knot
+            Counting Down to the Sacred Knot
+
+        </div>
+
+        <div class="countdown-grid">
+
+            <div>
+
+                <div id="days" class="count-number">
+                    --
+                </div>
+
+                <div class="count-label">
+                    Days
+                </div>
+
+            </div>
+
+            <div>
+
+                <div id="hours" class="count-number">
+                    --
+                </div>
+
+                <div class="count-label">
+                    Hours
+                </div>
+
+            </div>
+
+            <div>
+
+                <div id="minutes" class="count-number">
+                    --
+                </div>
+
+                <div class="count-label">
+                    Minutes
+                </div>
+
+            </div>
+
+            <div>
+
+                <div id="seconds" class="count-number">
+                    --
+                </div>
+
+                <div class="count-label">
+                    Seconds
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            style="
+            margin-top:24px;
+            font-size:12px;
+            color:#777168;
+            font-style:italic">
+
+            21 November 2026 &bull; 2:00 PM
+
+        </div>
 
     </div>
-
-    <div class="countdown-grid">
-
-        <div>
-            <div id="days" class="count-number">--</div>
-            <div class="count-label">Days</div>
-        </div>
-
-        <div>
-            <div id="hours" class="count-number">--</div>
-            <div class="count-label">Hours</div>
-        </div>
-
-        <div>
-            <div id="minutes" class="count-number">--</div>
-            <div class="count-label">Minutes</div>
-        </div>
-
-        <div>
-            <div id="seconds" class="count-number">--</div>
-            <div class="count-label">Seconds</div>
-        </div>
-
-    </div>
-
-    <div
-        style="
-        margin-top:24px;
-        font-size:12px;
-        color:#777168;
-        font-style:italic">
-
-        21 November 2026 &bull; 2:00 PM
-
-    </div>
-
-</div>
-```
 
 </section>
+
 
 <!-- =========================================
      SAVE THE DATE
@@ -2005,67 +1558,66 @@ footer p {
 
 <section class="save-date">
 
-```
-<div class="save-inner">
+    <div class="save-inner">
 
-    <div
-        id="scratchCard"
-        class="scratch-card">
+        <div
+            id="scratchCard"
+            class="scratch-card">
 
-        <div class="scratch-content">
+            <div class="scratch-content">
 
-            <div
-                class="upper"
-                style="
-                color:var(--emerald);
-                margin-bottom:16px;">
+                <div
+                    class="upper"
+                    style="
+                    color:var(--emerald);
+                    margin-bottom:16px;">
 
-                Save The Date
+                    Save The Date
+
+                </div>
+
+                <div class="date">
+                    21 . 11 . 2026
+                </div>
+
+                <div
+                    style="
+                    margin-top:20px;
+                    font-size:12px;
+                    letter-spacing:.2em;
+                    text-transform:uppercase;">
+
+                    BAPS Hindu Mandir,
+                    Abu Dhabi
+
+                </div>
+
+                <div
+                    style="
+                    margin-top:8px;
+                    font-size:11px;
+                    letter-spacing:.15em;
+                    text-transform:uppercase;
+                    color:#777168;">
+
+                    2:00 PM Onwards
+
+                </div>
 
             </div>
 
-            <div class="date">
-                21 . 11 . 2026
-            </div>
+            <canvas id="scratchCanvas"></canvas>
 
-            <div
-                style="
-                margin-top:20px;
-                font-size:12px;
-                letter-spacing:.2em;
-                text-transform:uppercase;">
-
-                BAPS Hindu Mandir,
-                Abu Dhabi
-
-            </div>
-
-            <div
-                style="
-                margin-top:8px;
-                font-size:11px;
-                letter-spacing:.15em;
-                text-transform:uppercase;
-                color:#777168;">
-
-                2:00 PM Onwards
-
-            </div>
+            <span class="scratch-label">
+                Scratch to Reveal
+            </span>
 
         </div>
 
-        <canvas id="scratchCanvas"></canvas>
-
-        <span class="scratch-label">
-            Scratch to Reveal
-        </span>
-
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      EVENTS
@@ -2073,131 +1625,130 @@ footer p {
 
 <section id="events" class="events">
 
-```
-<div class="events-header">
+    <div class="events-header">
 
-    <div class="upper gold">
-        The Celebrations
-    </div>
+        <div class="upper gold">
+            The Celebrations
+        </div>
 
-    <h2
-        class="section-title display"
-        style="color:goldenrod;">
-
-        Two Days of Joy
-
-    </h2>
-
-</div>
-
-
-<article class="event-card fade-in">
-
-    <img
-        class="event-image"
-        src="PratikaWebsite/sangeet-final1.png"
-        alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
-
-    <div class="event-body">
-
-        <span class="upper gold event-index">
-            Function One
-        </span>
-
-        <h3
-            class="event-title"
+        <h2
+            class="section-title display"
             style="color:goldenrod;">
 
-            Glam Gala
+            Two Days of Joy
 
-        </h3>
+        </h2>
 
-        <div class="event-details">
+    </div>
 
-            <p>
-                Thu, 19th Nov &bull; 6:00 PM
+
+    <article class="event-card fade-in">
+
+        <img
+            class="event-image"
+            src="PratikaWebsite/sangeet-final1.png"
+            alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
+
+        <div class="event-body">
+
+            <span class="upper gold event-index">
+                Function One
+            </span>
+
+            <h3
+                class="event-title"
+                style="color:goldenrod;">
+
+                Glam Gala
+
+            </h3>
+
+            <div class="event-details">
+
+                <p>
+                    Thu, 19th Nov &bull; 6:00 PM
+                </p>
+
+                <p>
+                    Millennium Lakeview Hotel,
+                    Dubai Investment Park
+                </p>
+
+                <p>
+                    <strong>Attire:</strong>
+                    Glitter and Glam
+                </p>
+
+            </div>
+
+            <p class="event-note">
+                An evening of music, dance,
+                and revelry beneath the Dubai skyline.
             </p>
 
-            <p>
-                Millennium Lakeview Hotel,
-                Dubai Investment Park
-            </p>
-
-            <p>
-                <strong>Attire:</strong>
-                Glitter and Glam
-            </p>
+            <div class="divider"></div>
 
         </div>
 
-        <p class="event-note">
-            An evening of music, dance,
-            and revelry beneath the Dubai skyline.
-        </p>
-
-        <div class="divider"></div>
-
-    </div>
-
-</article>
+    </article>
 
 
-<article class="event-card emerald fade-in">
+    <article class="event-card emerald fade-in">
 
-    <img
-        class="event-image"
-        src="PratikaWebsite/wedding-final1.png"
-        alt="Illustration of Pratika & Deepanshu in wedding attire">
+        <img
+            class="event-image"
+            src="PratikaWebsite/wedding-final1.png"
+            alt="Illustration of Pratika & Deepanshu in wedding attire">
 
-    <div class="event-body">
+        <div class="event-body">
 
-        <span
-            class="upper"
-            style="color:var(--emerald)">
+            <span
+                class="upper"
+                style="color:var(--emerald)">
 
-            Function Two
+                Function Two
 
-        </span>
+            </span>
 
-        <h3
-            class="event-title"
-            style="color:goldenrod;">
+            <h3
+                class="event-title"
+                style="color:goldenrod;">
 
-            The Sacred Knot
+                The Sacred Knot
 
-        </h3>
+            </h3>
 
-        <div class="event-details">
+            <div class="event-details">
 
-            <p>
-                Sat, 21st Nov &bull; 2:00 PM
+                <p>
+                    Sat, 21st Nov &bull; 2:00 PM
+                </p>
+
+                <p>
+                    BAPS Hindu Mandir,
+                    Abu Dhabi
+                </p>
+
+                <p>
+                    <strong>Attire:</strong>
+                    Pastel &amp; Jewel Harmony
+                </p>
+
+            </div>
+
+            <p class="event-note">
+                Seven sacred vows around the holy fire
+                at the Mandir — the heart of our celebration.
             </p>
 
-            <p>
-                BAPS Hindu Mandir,
-                Abu Dhabi
-            </p>
-
-            <p>
-                <strong>Attire:</strong>
-                Pastel &amp; Jewel Harmony
-            </p>
+            <div class="divider"></div>
 
         </div>
 
-        <p class="event-note">
-            Seven sacred vows around the holy fire
-            at the Mandir — the heart of our celebration.
-        </p>
-
-        <div class="divider"></div>
-
-    </div>
-
-</article>
-```
+    </article>
 
 </section>
+
 
 <!-- =========================================
      MEMORIES
@@ -2205,125 +1756,122 @@ footer p {
 
 <section id="memories" class="memories fade-in">
 
-```
-<div class="memory-inner">
-
-    <div
-        class="text-center"
-        style="margin-bottom:28px">
-
-        <div class="upper gold">
-            Our Memories
-        </div>
-
-        <h2
-            class="section-title display"
-            style="color:goldenrod;">
-
-            Moments Along the Way
-
-        </h2>
-
-    </div>
-
-
-    <div class="memory-frame">
-
-        <figure class="memory-slide active">
-
-            <img
-                src="PratikaWebsite/memory-proposal.jpeg"
-                alt="Pratika and Deepanshu beneath a red rose heart">
-
-            <figcaption class="caption">
-                Where Forever Began
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="memory-slide">
-
-            <img
-                src="PratikaWebsite/memory-festive-red.jpeg"
-                alt="Pratika and Deepanshu dressed in red">
-
-            <figcaption class="caption">
-                Festive Moments
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="memory-slide">
-
-            <img
-                src="PratikaWebsite/memory-museum-future.jpeg"
-                alt="Pratika and Deepanshu at Dubai's Museum of the Future">
-
-            <figcaption class="caption">
-                Dubai Days
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="memory-slide">
-
-            <img
-                src="PratikaWebsite/memory-traditional.jpeg"
-                alt="Pratika and Deepanshu in traditional Indian attire">
-
-            <figcaption class="caption">
-                Together in Tradition
-            </figcaption>
-
-        </figure>
-
-    </div>
-
-
-    <div class="slider-controls">
-
-        <button
-            class="slider-button"
-            id="prev"
-            type="button">
-
-            &#10094;
-
-        </button>
+    <div class="memory-inner">
 
         <div
-            class="dots"
-            id="dots">
+            class="text-center"
+            style="margin-bottom:28px">
+
+            <div class="upper gold">
+                Our Memories
+            </div>
+
+            <h2
+                class="section-title display"
+                style="color:goldenrod;">
+
+                Moments Along the Way
+
+            </h2>
+
         </div>
 
-        <button
-            class="slider-button"
-            id="next"
-            type="button">
 
-            &#10095;
+        <div class="memory-frame">
 
-        </button>
+            <figure class="memory-slide active">
+
+                <img
+                    src="PratikaWebsite/memory-proposal.jpeg"
+                    alt="Pratika and Deepanshu beneath a red rose heart">
+
+                <figcaption class="caption">
+                    Where Forever Began
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-festive-red.jpeg"
+                    alt="Pratika and Deepanshu dressed in red">
+
+                <figcaption class="caption">
+                    Festive Moments
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-museum-future.jpeg"
+                    alt="Pratika and Deepanshu at Dubai's Museum of the Future">
+
+                <figcaption class="caption">
+                    Dubai Days
+                </figcaption>
+
+            </figure>
+
+
+            <figure class="memory-slide">
+
+                <img
+                    src="PratikaWebsite/memory-traditional.jpeg"
+                    alt="Pratika and Deepanshu in traditional Indian attire">
+
+                <figcaption class="caption">
+                    Together in Tradition
+                </figcaption>
+
+            </figure>
+
+        </div>
+
+
+        <div class="slider-controls">
+
+            <button
+                class="slider-button"
+                id="prev"
+                type="button"
+                aria-label="Previous memory">
+
+                &#10094;
+
+            </button>
+
+            <div
+                class="dots"
+                id="dots">
+            </div>
+
+            <button
+                class="slider-button"
+                id="next"
+                type="button"
+                aria-label="Next memory">
+
+                &#10095;
+
+            </button>
+
+        </div>
 
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      VENUES
 ========================================= -->
 
 <section id="venue" class="venue">
-
-```
-<div class="venue-inner">
-
 
     <div class="venue-block fade-in">
 
@@ -2425,10 +1973,8 @@ footer p {
 
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      GUEST INVITATION LOOKUP
@@ -2438,376 +1984,383 @@ footer p {
     id="guest-invitation"
     class="guest-lookup">
 
-```
-<div class="guest-lookup-card">
+    <div class="guest-lookup-card">
 
-    <div class="guest-lookup-icon">
-        ✦
-    </div>
-
-    <h2>
-        Let's Find Your Invitation
-    </h2>
-
-    <p class="guest-subtitle">
-        Enter your name to get your event schedule.
-    </p>
-
-    <p class="help-text">
-
-        Need help?
-
-        <a
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=pratika.d55@gmail.com&cc=deepanshu94@hotmail.com&su=Help%20with%20Wedding%20Invitation"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="ask-host">
-
-            Ask the host
-
-        </a>
-
-    </p>
-
-
-    <!-- LOOKUP FORM -->
-
-    <form id="guestLookupForm">
-
-        <div class="guest-field">
-
-            <label for="firstName">
-                First Name
-            </label>
-
-            <input
-                type="text"
-                id="firstName"
-                placeholder="e.g. Rahul"
-                autocomplete="given-name"
-                required>
-
+        <div class="guest-lookup-icon">
+            ✦
         </div>
 
+        <h2>
+            Let's Find Your Invitation
+        </h2>
 
-        <div class="guest-field">
-
-            <label for="lastName">
-                Last Name
-            </label>
-
-            <input
-                type="text"
-                id="lastName"
-                placeholder="e.g. Sharma"
-                autocomplete="family-name"
-                required>
-
-        </div>
-
-
-        <button
-            type="submit"
-            id="findInvitationBtn"
-            class="find-invitation-btn">
-
-            Find Invitation
-
-        </button>
-
-    </form>
-
-
-    <div
-        id="guestError"
-        class="guest-error">
-    </div>
-
-
-    <!-- =====================================
-         INVITATION RESULT
-    ====================================== -->
-
-    <div
-        id="guestResult"
-        class="guest-result">
-
-        <div class="result-divider"></div>
-
-        <p class="welcome-text">
-            Welcome
+        <p class="guest-subtitle">
+            Enter your name to get your event schedule.
         </p>
 
-        <h3 id="guestFullName"></h3>
+        <p class="help-text">
 
-        <p class="guest-welcome">
-            We are delighted to celebrate these
-            special moments with you.
+            Need help?
+
+            <a
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=pratika.d55@gmail.com&cc=deepanshu94@hotmail.com&su=Help%20with%20Wedding%20Invitation"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ask-host">
+
+                Ask the host
+
+            </a>
+
         </p>
 
 
-        <!-- NUMBER OF GUESTS -->
+        <form id="guestLookupForm">
 
-        <div class="attendance-box">
+            <div class="guest-field">
 
-            <span class="attendance-title">
-                Who is attending?
-            </span>
+                <label for="firstName">
+                    First Name
+                </label>
 
-            <div
-                id="guestCountOptions"
-                class="guest-count-options">
-            </div>
-
-        </div>
-
-
-        <!-- PEOPLE -->
-
-        <div class="attending-people">
-
-            <h4 class="attending-people-title">
-                Select Your Guests
-            </h4>
-
-            <p class="attending-people-help">
-                Please select exactly the number of guests
-                attending.
-            </p>
-
-            <div
-                id="peopleList"
-                class="people-list">
-            </div>
-
-            <div
-                id="selectionCounter"
-                class="selection-counter">
-
-                0 selected
+                <input
+                    type="text"
+                    id="firstName"
+                    placeholder="e.g. Rahul"
+                    autocomplete="given-name"
+                    required>
 
             </div>
 
-        </div>
+
+            <div class="guest-field">
+
+                <label for="lastName">
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="lastName"
+                    placeholder="e.g. Sharma"
+                    autocomplete="family-name"
+                    required>
+
+            </div>
 
 
-        <!-- EVENTS -->
+            <button
+                type="submit"
+                id="findInvitationBtn"
+                class="find-invitation-btn">
 
-        <h4 class="event-selection-heading">
-            Your Event Schedule
-        </h4>
+                Find Invitation
+
+            </button>
+
+        </form>
+
 
         <div
-            id="eventSelection"
-            class="event-selection">
-
-            <label class="event-choice">
-
-                <input
-                    type="checkbox"
-                    id="sangeetCheck"
-                    value="Sangeet">
-
-                <span>
-
-                    <strong>
-                        Sangeet — Glam Gala
-                    </strong>
-
-                    <small>
-                        Thursday, 19 November 2026 • 6:00 PM
-                        <br>
-                        Millennium Lakeview Hotel,
-                        Dubai Investment Park
-                    </small>
-
-                </span>
-
-            </label>
+            id="guestError"
+            class="guest-error">
+        </div>
 
 
-            <label class="event-choice">
+        <div
+            id="guestResult"
+            class="guest-result">
 
-                <input
-                    type="checkbox"
-                    id="weddingCheck"
-                    value="Wedding">
+            <div class="result-divider"></div>
 
-                <span>
+            <p class="welcome-text">
+                Welcome
+            </p>
 
-                    <strong>
-                        Wedding — The Sacred Knot
-                    </strong>
+            <h3 id="guestFullName"></h3>
 
-                    <small>
-                        Saturday, 21 November 2026 • 2:00 PM
-                        <br>
-                        BAPS Hindu Mandir,
-                        Abu Dhabi
-                    </small>
+            <p class="guest-welcome">
+                We are delighted to celebrate these
+                special moments with you.
+            </p>
 
-                </span>
 
-            </label>
+            <div class="guest-details">
+
+                <div class="detail-section">
+
+                    <span class="detail-label">
+                        Number of Guests
+                    </span>
+
+                    <div class="guest-choice-options">
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="lookupGuests"
+                                value="1">
+
+                            <span>
+                                1 Guest
+                            </span>
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="lookupGuests"
+                                value="2">
+
+                            <span>
+                                2 Guests
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <h4
+                style="
+                margin:30px 0 15px;
+                color:#6d5425;
+                font-size:20px;
+                font-weight:500;">
+
+                Your Event Schedule
+
+            </h4>
+
+
+            <div class="event-selection">
+
+                <label class="event-choice">
+
+                    <input
+                        type="checkbox"
+                        name="lookupEvents"
+                        value="Sangeet">
+
+                    <span>
+
+                        <strong>
+                            Sangeet (Glam Gala)
+                        </strong>
+
+                        <small>
+
+                            Thursday, 19 November 2026 • 6:00 PM
+                            <br>
+                            Millennium Lakeview Hotel,
+                            Dubai Investment Park
+
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="event-choice">
+
+                    <input
+                        type="checkbox"
+                        name="lookupEvents"
+                        value="Wedding">
+
+                    <span>
+
+                        <strong>
+                            Wedding (The Sacred Knot)
+                        </strong>
+
+                        <small>
+
+                            Saturday, 21 November 2026 • 2:00 PM
+                            <br>
+                            BAPS Hindu Mandir,
+                            Abu Dhabi
+
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      RSVP
 ========================================= -->
 
-<section
-    id="rsvp"
-    class="rsvp fade-in">
+<section id="rsvp" class="rsvp fade-in">
 
-```
-<div class="rsvp-inner">
+    <div class="rsvp-inner">
 
-    <div
-        class="text-center"
-        style="margin-bottom:30px;">
+        <div
+            class="text-center"
+            style="margin-bottom:30px;">
 
-        <div class="upper gold">
-            Kindly Respond
+            <div class="upper gold">
+                Kindly Respond
+            </div>
+
+            <h2
+                class="section-title display"
+                style="color:goldenrod;">
+
+                Would You Join Us?
+
+            </h2>
+
         </div>
 
-        <h2
-            class="section-title display"
-            style="color:goldenrod;">
 
-            Would You Join Us?
+        <form
+            id="rsvpForm"
+            action="https://formsubmit.co/pratika.d55@gmail.com"
+            method="POST">
 
-        </h2>
+
+            <input
+                type="hidden"
+                name="_subject"
+                value="New Wedding RSVP - Pratika &amp; Deepanshu">
+
+            <input
+                type="hidden"
+                name="_template"
+                value="table">
+
+            <input
+                type="hidden"
+                name="_captcha"
+                value="false">
+
+            <input
+                type="hidden"
+                name="_cc"
+                value="deepanshu94@hotmail.com">
+
+            <input
+                type="hidden"
+                name="_next"
+                value="https://creativemoodon.github.io/PratikaDeepanshu/">
+
+
+            <input
+                type="hidden"
+                id="rsvpGuestNameDisplay"
+                name="Guest Name"
+                value="">
+
+            <input
+                type="hidden"
+                id="rsvpGuests1"
+                name="Number of Guests"
+                value="">
+
+            <input
+                type="hidden"
+                id="rsvpSangeet"
+                name="Sangeet (Glam Gala)"
+                value="">
+
+            <input
+                type="hidden"
+                id="rsvpWedding"
+                name="Wedding (The Sacred Knot)"
+                value="">
+
+
+            <div class="rsvp-field">
+
+                <label for="rsvpEmail">
+                    Email ID
+                </label>
+
+                <input
+                    type="email"
+                    id="rsvpEmail"
+                    name="Email"
+                    placeholder="Enter your email address"
+                    autocomplete="email"
+                    required>
+
+            </div>
+
+
+            <div class="rsvp-field">
+
+                <label for="advice">
+
+                    Any tips, tricks or survival advice
+                    for Pratika &amp; Deepanshu before they
+                    officially become Mr. &amp; Mrs.? 😂♥️
+
+                </label>
+
+                <textarea
+                    id="advice"
+                    name="Advice"
+                    rows="4"
+                    placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
+
+            </div>
+
+
+            <div class="rsvp-field">
+
+                <label for="notes">
+                    Message / Dietary Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="Message / Dietary Notes"
+                    rows="4"
+                    placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
+
+            </div>
+
+
+            <p
+                id="rsvpError"
+                class="rsvp-error"
+                role="alert">
+            </p>
+
+
+            <button
+                type="submit"
+                class="rsvp-submit">
+
+                Submit RSVP
+
+            </button>
+
+        </form>
 
     </div>
 
-
-    <form id="rsvpForm">
-
-
-        <!-- Hidden data populated by lookup -->
-
-        <input
-            type="hidden"
-            id="rsvpGuestId"
-            name="Guest ID">
-
-        <input
-            type="hidden"
-            id="rsvpGuestName"
-            name="Primary Guest">
-
-        <input
-            type="hidden"
-            id="rsvpTotalGuests"
-            name="Total Guests">
-
-        <input
-            type="hidden"
-            id="rsvpAttendingGuests"
-            name="Attending Guests">
-
-        <input
-            type="hidden"
-            id="rsvpSangeet"
-            name="Sangeet">
-
-        <input
-            type="hidden"
-            id="rsvpWedding"
-            name="Wedding">
-
-
-        <div class="rsvp-field">
-
-            <label for="rsvpPhone">
-                Phone Number
-            </label>
-
-            <input
-                type="tel"
-                id="rsvpPhone"
-                name="Phone"
-                placeholder="+91 XXXXX XXXXX"
-                autocomplete="tel"
-                required>
-
-        </div>
-
-
-        <div class="rsvp-field">
-
-            <label for="advice">
-
-                Any tips, tricks or survival advice
-                for Pratika &amp; Deepanshu before they
-                officially become Mr. &amp; Mrs.? 😂♥️
-
-            </label>
-
-            <textarea
-                id="advice"
-                name="Advice"
-                rows="4"
-                placeholder="Share your wisdom, wishes or marriage survival tips..."></textarea>
-
-        </div>
-
-
-        <div class="rsvp-field">
-
-            <label for="notes">
-                Message / Dietary Notes
-            </label>
-
-            <textarea
-                id="notes"
-                name="Message / Dietary Notes"
-                rows="4"
-                placeholder="Leave us a message or let us know about any dietary requirements..."></textarea>
-
-        </div>
-
-
-        <p
-            id="rsvpError"
-            class="rsvp-error"
-            role="alert">
-        </p>
-
-
-        <div
-            id="rsvpSuccess"
-            class="rsvp-success">
-
-            Thank you! Your RSVP has been received.
-            We look forward to celebrating with you. ❤️
-
-        </div>
-
-
-        <button
-            type="submit"
-            id="rsvpSubmit"
-            class="rsvp-submit">
-
-            Submit RSVP
-
-        </button>
-
-    </form>
-
-</div>
-```
-
 </section>
+
 
 <!-- =========================================
      FOOTER
@@ -2815,49 +2368,41 @@ footer p {
 
 <footer>
 
-```
-<img
-    class="footer-logo"
-    src="PratikaWebsite/dp-logo-footer.png"
-    alt="Pratika & Deepanshu monogram">
+    <img
+        class="footer-logo"
+        src="PratikaWebsite/dp-logo-footer.png"
+        alt="Pratika & Deepanshu monogram">
 
-<p>
-    19 &amp; 21 November 2026
-</p>
+    <p>
+        19 &amp; 21 November 2026
+    </p>
 
-<p>
-    #DeepkePratipyaar
-</p>
-```
+    <p>
+        #DeepkePratipyaar
+    </p>
 
 </footer>
 
+
+<!-- =========================================
+     ROSE PETALS
+========================================= -->
+
 <script>
-
-/* =========================================
-   IMPORTANT:
-   REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT
-   WEB APP URL.
-========================================= */
-
-const APPS_SCRIPT_URL =
-    "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
-
-
-/* =========================================
-   ROSE PETALS
-========================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const field =
+    var field =
         document.getElementById("petalField");
 
-    if (!field) return;
+    if (!field) {
+        return;
+    }
+
 
     function seeded(i, salt) {
 
-        const x =
+        var x =
             Math.sin(
                 i * 127.1 +
                 salt * 311.7
@@ -2867,38 +2412,68 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    for (let i = 0; i < 25; i++) {
 
-        const petal =
+    for (var i = 0; i < 25; i++) {
+
+        var petal =
             document.createElement("span");
 
         petal.className = "petal";
 
-        const size =
+
+        var left =
+            seeded(i,1) * 100;
+
+
+        var delay =
+            seeded(i,2) * 12;
+
+
+        var duration =
+            8 + seeded(i,3) * 8;
+
+
+        var size =
             10 + seeded(i,4) * 12;
 
+
+        var drift =
+            (seeded(i,5) - .5) * 200;
+
+
+        var opacity =
+            .4 + seeded(i,6) * .5;
+
+
         petal.style.left =
-            seeded(i,1) * 100 + "%";
+            left + "%";
+
 
         petal.style.width =
             size + "px";
 
+
         petal.style.height =
-            size * 1.3 + "px";
+            (size * 1.3) + "px";
+
 
         petal.style.opacity =
-            .4 + seeded(i,6) * .5;
+            opacity;
+
 
         petal.style.animationDelay =
-            "-" + seeded(i,2) * 12 + "s";
+            "-" + delay + "s";
+
 
         petal.style.animationDuration =
-            8 + seeded(i,3) * 8 + "s";
+            duration + "s";
+
 
         petal.style.setProperty(
             "--drift",
-            (seeded(i,5) - .5) * 200 + "px"
+            drift + "px"
         );
+
 
         field.appendChild(petal);
 
@@ -2906,10 +2481,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+</script>
 
-/* =========================================
-   MUSIC
-========================================= */
+
+<!-- =========================================
+     MUSIC
+========================================= -->
+
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -2919,9 +2498,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const button =
         document.getElementById("musicButton");
 
-    if (!music || !button) return;
 
-    music.volume = .7;
+    if (!music || !button) {
+        return;
+    }
+
+
+    music.volume = 0.7;
+
 
     button.addEventListener(
         "click",
@@ -2933,9 +2517,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     await music.play();
 
-                    button.innerHTML = "❚❚";
+                    button.innerHTML =
+                        "❚❚";
 
-                    button.classList.add("playing");
+                    button.classList.add(
+                        "playing"
+                    );
 
                     button.setAttribute(
                         "aria-label",
@@ -2946,9 +2533,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     music.pause();
 
-                    button.innerHTML = "▶";
+                    button.innerHTML =
+                        "▶";
 
-                    button.classList.remove("playing");
+                    button.classList.remove(
+                        "playing"
+                    );
 
                     button.setAttribute(
                         "aria-label",
@@ -2958,6 +2548,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
             } catch (error) {
+
+                console.log(
+                    "Music playback error:",
+                    error
+                );
 
                 alert(
                     "Music could not be played. " +
@@ -2970,72 +2565,96 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+
     music.addEventListener(
         "pause",
         function () {
 
-            button.innerHTML = "▶";
+            button.innerHTML =
+                "▶";
 
-            button.classList.remove("playing");
+            button.classList.remove(
+                "playing"
+            );
 
         }
     );
+
 
     music.addEventListener(
         "play",
         function () {
 
-            button.innerHTML = "❚❚";
+            button.innerHTML =
+                "❚❚";
 
-            button.classList.add("playing");
+            button.classList.add(
+                "playing"
+            );
 
         }
     );
 
 });
 
+</script>
 
-/* =========================================
-   SCRATCH CARD
-========================================= */
+
+<!-- =========================================
+     SCRATCH CARD
+========================================= -->
+
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const card =
+    var card =
         document.getElementById("scratchCard");
 
-    const canvas =
+    var canvas =
         document.getElementById("scratchCanvas");
 
-    if (!card || !canvas) return;
 
-    const ctx =
+    if (!card || !canvas) {
+        return;
+    }
+
+
+    var ctx =
         canvas.getContext("2d");
 
-    let isScratching = false;
+    var isScratching =
+        false;
+
 
     function setupCanvas() {
 
-        const rect =
+        var rect =
             card.getBoundingClientRect();
 
-        const dpr =
+
+        var dpr =
             Math.min(
                 window.devicePixelRatio || 1,
                 2
             );
 
+
         canvas.width =
             rect.width * dpr;
+
 
         canvas.height =
             rect.height * dpr;
 
+
         canvas.style.width =
             rect.width + "px";
 
+
         canvas.style.height =
             rect.height + "px";
+
 
         ctx.setTransform(
             dpr,
@@ -3046,7 +2665,8 @@ document.addEventListener("DOMContentLoaded", function () {
             0
         );
 
-        const gradient =
+
+        var gradient =
             ctx.createLinearGradient(
                 0,
                 0,
@@ -3054,22 +2674,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 rect.height
             );
 
+
         gradient.addColorStop(
             0,
             "#c8a66a"
         );
+
 
         gradient.addColorStop(
             .45,
             "#e1c486"
         );
 
+
         gradient.addColorStop(
             1,
             "#9b743a"
         );
 
-        ctx.fillStyle = gradient;
+
+        ctx.fillStyle =
+            gradient;
+
 
         ctx.fillRect(
             0,
@@ -3078,34 +2704,55 @@ document.addEventListener("DOMContentLoaded", function () {
             rect.height
         );
 
-        ctx.globalAlpha = .15;
 
-        ctx.fillStyle = "#6d522b";
+        ctx.globalAlpha =
+            .15;
 
-        for (let i = 0; i < 180; i++) {
+
+        ctx.fillStyle =
+            "#6d522b";
+
+
+        for (var i = 0; i < 180; i++) {
+
+            var x =
+                Math.random() *
+                rect.width;
+
+
+            var y =
+                Math.random() *
+                rect.height;
+
 
             ctx.fillRect(
-                Math.random() * rect.width,
-                Math.random() * rect.height,
+                x,
+                y,
                 1.5,
                 1.5
             );
 
         }
 
-        ctx.globalAlpha = 1;
+
+        ctx.globalAlpha =
+            1;
 
     }
 
+
     function scratch(x,y) {
 
-        const rect =
+        var rect =
             card.getBoundingClientRect();
+
 
         ctx.globalCompositeOperation =
             "destination-out";
 
+
         ctx.beginPath();
+
 
         ctx.arc(
             x - rect.left,
@@ -3115,13 +2762,15 @@ document.addEventListener("DOMContentLoaded", function () {
             Math.PI * 2
         );
 
+
         ctx.fill();
 
     }
 
+
     function checkScratchProgress() {
 
-        const imageData =
+        var imageData =
             ctx.getImageData(
                 0,
                 0,
@@ -3129,19 +2778,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 canvas.height
             );
 
-        const pixels =
+
+        var pixels =
             imageData.data;
 
-        let transparent = 0;
-        let total = 0;
+
+        var transparent =
+            0;
+
+
+        var total =
+            0;
+
 
         for (
-            let i = 3;
+            var i = 3;
             i < pixels.length;
             i += 40
         ) {
 
             total++;
+
 
             if (pixels[i] === 0) {
                 transparent++;
@@ -3149,36 +2806,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-        if (
-            transparent / total > .45
-        ) {
 
-            card.classList.add("revealed");
+        var percentage =
+            transparent / total;
+
+
+        if (percentage > .45) {
+
+            card.classList.add(
+                "revealed"
+            );
+
 
             canvas.style.pointerEvents =
                 "none";
 
-            const label =
-                document.querySelector(".scratch-label");
+
+            var label =
+                document.querySelector(
+                    ".scratch-label"
+                );
+
 
             if (label) {
-                label.style.display = "none";
+
+                label.style.display =
+                    "none";
+
             }
 
         }
 
     }
 
+
     canvas.addEventListener(
         "pointerdown",
         function (e) {
 
-            isScratching = true;
+            isScratching =
+                true;
+
 
             canvas.setPointerCapture(
                 e.pointerId
             );
 
+
             scratch(
                 e.clientX,
                 e.clientY
@@ -3186,12 +2860,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
     );
+
 
     canvas.addEventListener(
         "pointermove",
         function (e) {
 
-            if (!isScratching) return;
+            if (!isScratching) {
+                return;
+            }
+
 
             scratch(
                 e.clientX,
@@ -3201,27 +2879,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
+
     canvas.addEventListener(
         "pointerup",
         function () {
 
-            isScratching = false;
+            isScratching =
+                false;
+
 
             checkScratchProgress();
 
         }
     );
 
+
     canvas.addEventListener(
         "pointercancel",
         function () {
 
-            isScratching = false;
+            isScratching =
+                false;
 
         }
     );
 
+
     setupCanvas();
+
 
     window.addEventListener(
         "resize",
@@ -3230,62 +2915,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+</script>
 
-/* =========================================
-   MEMORY SLIDER
-========================================= */
+
+<!-- =========================================
+     MEMORY SLIDER
+========================================= -->
+
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
     const slides =
-        document.querySelectorAll(".memory-slide");
+        document.querySelectorAll(
+            ".memory-slide"
+        );
+
 
     const dotsContainer =
         document.getElementById("dots");
 
+
     const prev =
         document.getElementById("prev");
+
 
     const next =
         document.getElementById("next");
 
-    if (!slides.length || !dotsContainer) {
+
+    if (
+        !slides.length ||
+        !dotsContainer
+    ) {
+
         return;
+
     }
 
-    let current = 0;
 
-    slides.forEach(function (_, index) {
+    let current =
+        0;
 
-        const dot =
-            document.createElement("button");
 
-        dot.className = "dot";
+    slides.forEach(
+        function (_,index) {
 
-        dot.type = "button";
+            const dot =
+                document.createElement(
+                    "button"
+                );
 
-        dot.setAttribute(
-            "aria-label",
-            "Go to memory " + (index + 1)
-        );
 
-        dot.addEventListener(
-            "click",
-            function () {
+            dot.className =
+                "dot";
 
-                current = index;
 
-                showSlide();
+            dot.type =
+                "button";
 
-            }
-        );
 
-        dotsContainer.appendChild(dot);
+            dot.setAttribute(
+                "aria-label",
+                "Go to memory " +
+                (index + 1)
+            );
 
-    });
+
+            dot.addEventListener(
+                "click",
+                function () {
+
+                    current =
+                        index;
+
+
+                    showSlide();
+
+                }
+            );
+
+
+            dotsContainer.appendChild(
+                dot
+            );
+
+        }
+    );
+
 
     const dots =
-        dotsContainer.querySelectorAll(".dot");
+        dotsContainer.querySelectorAll(
+            ".dot"
+        );
+
 
     function showSlide() {
 
@@ -3300,6 +3023,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
+
         dots.forEach(
             function (dot,index) {
 
@@ -3312,6 +3036,7 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
     }
+
 
     if (prev) {
 
@@ -3327,12 +3052,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     ) %
                     slides.length;
 
+
                 showSlide();
 
             }
         );
 
     }
+
 
     if (next) {
 
@@ -3342,9 +3069,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 current =
                     (
-                        current + 1
+                        current +
+                        1
                     ) %
                     slides.length;
+
 
                 showSlide();
 
@@ -3353,14 +3082,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
     showSlide();
 
 });
 
+</script>
 
-/* =========================================
-   COUNTDOWN
-========================================= */
+
+<!-- =========================================
+     COUNTDOWN
+========================================= -->
+
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -3369,23 +3103,28 @@ document.addEventListener("DOMContentLoaded", function () {
             "2026-11-21T15:00:00+04:00"
         ).getTime();
 
+
     function updateCountdown() {
 
         const now =
             new Date().getTime();
 
+
         let distance =
             target - now;
+
 
         if (distance < 0) {
             distance = 0;
         }
+
 
         const days =
             Math.floor(
                 distance /
                 (1000 * 60 * 60 * 24)
             );
+
 
         const hours =
             Math.floor(
@@ -3396,6 +3135,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 (1000 * 60 * 60)
             );
 
+
         const minutes =
             Math.floor(
                 (
@@ -3404,6 +3144,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ) /
                 (1000 * 60)
             );
+
 
         const seconds =
             Math.floor(
@@ -3414,21 +3155,47 @@ document.addEventListener("DOMContentLoaded", function () {
                 1000
             );
 
-        document.getElementById("days").textContent =
-            String(days).padStart(2,"0");
 
-        document.getElementById("hours").textContent =
-            String(hours).padStart(2,"0");
+        document.getElementById(
+            "days"
+        ).textContent =
+            String(days).padStart(
+                2,
+                "0"
+            );
 
-        document.getElementById("minutes").textContent =
-            String(minutes).padStart(2,"0");
 
-        document.getElementById("seconds").textContent =
-            String(seconds).padStart(2,"0");
+        document.getElementById(
+            "hours"
+        ).textContent =
+            String(hours).padStart(
+                2,
+                "0"
+            );
+
+
+        document.getElementById(
+            "minutes"
+        ).textContent =
+            String(minutes).padStart(
+                2,
+                "0"
+            );
+
+
+        document.getElementById(
+            "seconds"
+        ).textContent =
+            String(seconds).padStart(
+                2,
+                "0"
+            );
 
     }
 
+
     updateCountdown();
+
 
     setInterval(
         updateCountdown,
@@ -3437,926 +3204,502 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+</script>
 
-/* =========================================
-   GOOGLE SHEET GUEST LOOKUP + RSVP
-========================================= */
+
+<!-- =========================================
+     GUEST LOOKUP + RSVP
+========================================= -->
+
+<script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
+
+    /* =========================================
+       GUEST LOOKUP
+    ========================================= */
+
     const guestForm =
-        document.getElementById("guestLookupForm");
+        document.getElementById(
+            "guestLookupForm"
+        );
+
 
     const guestResult =
-        document.getElementById("guestResult");
+        document.getElementById(
+            "guestResult"
+        );
+
 
     const guestError =
-        document.getElementById("guestError");
+        document.getElementById(
+            "guestError"
+        );
+
 
     const guestFullName =
-        document.getElementById("guestFullName");
+        document.getElementById(
+            "guestFullName"
+        );
+
 
     const firstNameInput =
-        document.getElementById("firstName");
+        document.getElementById(
+            "firstName"
+        );
+
 
     const lastNameInput =
-        document.getElementById("lastName");
-
-    const findButton =
-        document.getElementById("findInvitationBtn");
-
-    const guestCountOptions =
-        document.getElementById("guestCountOptions");
-
-    const peopleList =
-        document.getElementById("peopleList");
-
-    const selectionCounter =
-        document.getElementById("selectionCounter");
-
-    const sangeetCheck =
-        document.getElementById("sangeetCheck");
-
-    const weddingCheck =
-        document.getElementById("weddingCheck");
-
-    const rsvpForm =
-        document.getElementById("rsvpForm");
-
-    const rsvpError =
-        document.getElementById("rsvpError");
-
-    const rsvpSuccess =
-        document.getElementById("rsvpSuccess");
-
-    const rsvpSubmit =
-        document.getElementById("rsvpSubmit");
-
-    const rsvpGuestId =
-        document.getElementById("rsvpGuestId");
-
-    const rsvpGuestName =
-        document.getElementById("rsvpGuestName");
-
-    const rsvpTotalGuests =
-        document.getElementById("rsvpTotalGuests");
-
-    const rsvpAttendingGuests =
-        document.getElementById("rsvpAttendingGuests");
-
-    const rsvpSangeet =
-        document.getElementById("rsvpSangeet");
-
-    const rsvpWedding =
-        document.getElementById("rsvpWedding");
-
-
-    let currentGuest = null;
+        document.getElementById(
+            "lastName"
+        );
 
 
     /* =========================================
-       BASIC HELPERS
+       LOOKUP OPTIONS
+    ========================================= */
+
+    const lookupGuestRadios =
+        document.querySelectorAll(
+            'input[name="lookupGuests"]'
+        );
+
+
+    const lookupEventCheckboxes =
+        document.querySelectorAll(
+            'input[name="lookupEvents"]'
+        );
+
+
+    /* =========================================
+       RSVP HIDDEN FIELDS
+    ========================================= */
+
+    const rsvpForm =
+        document.getElementById(
+            "rsvpForm"
+        );
+
+
+    const rsvpGuestName =
+        document.getElementById(
+            "rsvpGuestNameDisplay"
+        );
+
+
+    const rsvpGuests =
+        document.getElementById(
+            "rsvpGuests1"
+        );
+
+
+    const rsvpSangeet =
+        document.getElementById(
+            "rsvpSangeet"
+        );
+
+
+    const rsvpWedding =
+        document.getElementById(
+            "rsvpWedding"
+        );
+
+
+    const rsvpError =
+        document.getElementById(
+            "rsvpError"
+        );
+
+
+    /* =========================================
+       CHECK ELEMENTS
+    ========================================= */
+
+    if (
+        !guestForm ||
+        !guestResult ||
+        !guestError ||
+        !guestFullName ||
+        !firstNameInput ||
+        !lastNameInput ||
+        !rsvpForm ||
+        !rsvpGuestName ||
+        !rsvpGuests ||
+        !rsvpSangeet ||
+        !rsvpWedding ||
+        !rsvpError
+    ) {
+
+        console.error(
+            "Guest Lookup / RSVP: Required element missing."
+        );
+
+        return;
+
+    }
+
+
+    /* =========================================
+       GUEST LIST
+    ========================================= */
+
+    const guestList = [
+
+        {
+            firstName:"Rahul",
+            lastName:"Sharma",
+            guests:2,
+            events:[
+                "Sangeet",
+                "Wedding"
+            ]
+        },
+
+        {
+            firstName:"Priya",
+            lastName:"Sharma",
+            guests:1,
+            events:[
+                "Wedding"
+            ]
+        },
+
+        {
+            firstName:"Amit",
+            lastName:"Mehta",
+            guests:2,
+            events:[
+                "Sangeet",
+                "Wedding"
+            ]
+        }
+
+    ];
+
+
+    /* =========================================
+       NORMALIZE
     ========================================= */
 
     function normalize(value) {
 
-        return String(value || "")
+        return value
             .trim()
             .toLowerCase()
-            .replace(/\s+/g," ");
+            .replace(
+                /\s+/g,
+                " "
+            );
 
     }
 
 
-    function showError(message) {
+    /* =========================================
+       CHECK EVENT
+    ========================================= */
 
-        guestError.textContent =
-            message;
+    function hasEvent(
+        guest,
+        eventName
+    ) {
 
-        guestError.style.display =
-            "block";
+        return guest.events.some(
+            function (event) {
+
+                return (
+                    normalize(event) ===
+                    normalize(eventName)
+                );
+
+            }
+        );
 
     }
 
 
-    function clearError() {
+    /* =========================================
+       RESET RSVP
+    ========================================= */
 
-        guestError.textContent =
+    function resetRsvp() {
+
+        rsvpGuestName.value =
             "";
 
-        guestError.style.display =
-            "none";
-
-    }
-
-
-    function resetInvitation() {
-
-        currentGuest = null;
-
-        guestResult.style.display =
-            "none";
-
-        peopleList.innerHTML =
+        rsvpGuests.value =
             "";
-
-        guestCountOptions.innerHTML =
-            "";
-
-        selectionCounter.textContent =
-            "0 selected";
-
-        selectionCounter.classList.remove(
-            "complete"
-        );
-
-        sangeetCheck.checked = false;
-        weddingCheck.checked = false;
-
-        sangeetCheck.disabled = true;
-        weddingCheck.disabled = true;
-
-        rsvpGuestId.value = "";
-        rsvpGuestName.value = "";
-        rsvpTotalGuests.value = "";
-        rsvpAttendingGuests.value = "";
-        rsvpSangeet.value = "";
-        rsvpWedding.value = "";
-
-    }
-
-
-    /* =========================================
-       NORMALIZE GOOGLE RESPONSE
-    ========================================= */
-
-    function getGuestPeople(guest) {
-
-        let people = [];
-
-        if (Array.isArray(guest.people)) {
-
-            people =
-                guest.people
-                    .map(function (person) {
-                        return String(person || "").trim();
-                    })
-                    .filter(Boolean);
-
-        }
-
-
-        /*
-         * Also supports Apps Script returning:
-         *
-         * guest1
-         * guest2
-         * guest3
-         * guest4
-         */
-
-        if (!people.length) {
-
-            [
-                "guest1",
-                "guest2",
-                "guest3",
-                "guest4"
-            ].forEach(function (key) {
-
-                if (
-                    guest[key] &&
-                    String(guest[key]).trim()
-                ) {
-
-                    people.push(
-                        String(
-                            guest[key]
-                        ).trim()
-                    );
-
-                }
-
-            });
-
-        }
-
-
-        /*
-         * Make sure primary guest exists.
-         */
-
-        if (
-            guest.firstName &&
-            guest.lastName
-        ) {
-
-            const primary =
-                String(
-                    guest.firstName
-                ).trim() +
-                " " +
-                String(
-                    guest.lastName
-                ).trim();
-
-
-            const alreadyExists =
-                people.some(function (name) {
-
-                    return (
-                        normalize(name) ===
-                        normalize(primary)
-                    );
-
-                });
-
-
-            if (!alreadyExists) {
-
-                people.unshift(primary);
-
-            }
-
-        }
-
-        return people;
-
-    }
-
-
-    /* =========================================
-       BUILD GUEST COUNT OPTIONS
-    ========================================= */
-
-    function buildGuestCountOptions(total) {
-
-        guestCountOptions.innerHTML = "";
-
-        for (
-            let i = 1;
-            i <= total;
-            i++
-        ) {
-
-            const label =
-                document.createElement("label");
-
-            label.className =
-                "guest-count-option";
-
-            const input =
-                document.createElement("input");
-
-            input.type =
-                "radio";
-
-            input.name =
-                "guestCount";
-
-            input.value =
-                i;
-
-            const span =
-                document.createElement("span");
-
-            span.textContent =
-                i +
-                (i === 1 ? " Guest" : " Guests");
-
-            label.appendChild(input);
-            label.appendChild(span);
-
-            guestCountOptions.appendChild(
-                label
-            );
-
-            input.addEventListener(
-                "change",
-                function () {
-
-                    if (input.checked) {
-
-                        updateAllowedPeople(
-                            Number(input.value)
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-        /*
-         * Default to full invitation count.
-         */
-
-        const firstOption =
-            guestCountOptions.querySelector(
-                'input[value="' +
-                total +
-                '"]'
-            );
-
-        if (firstOption) {
-
-            firstOption.checked = true;
-
-            updateAllowedPeople(total);
-
-        }
-
-    }
-
-
-    /* =========================================
-       BUILD PEOPLE LIST
-    ========================================= */
-
-    function buildPeopleList(people) {
-
-        peopleList.innerHTML = "";
-
-        people.forEach(
-            function (person,index) {
-
-                const label =
-                    document.createElement("label");
-
-                label.className =
-                    "person-option";
-
-                if (index === 0) {
-
-                    label.classList.add(
-                        "primary-person"
-                    );
-
-                }
-
-                const checkbox =
-                    document.createElement("input");
-
-                checkbox.type =
-                    "checkbox";
-
-                checkbox.className =
-                    "person-checkbox";
-
-                checkbox.value =
-                    person;
-
-                checkbox.dataset.index =
-                    index;
-
-
-                const name =
-                    document.createElement("span");
-
-                name.textContent =
-                    person;
-
-
-                label.appendChild(
-                    checkbox
-                );
-
-                label.appendChild(
-                    name
-                );
-
-
-                if (index === 0) {
-
-                    const badge =
-                        document.createElement("small");
-
-                    badge.className =
-                        "person-badge";
-
-                    badge.textContent =
-                        "Primary Guest";
-
-                    label.appendChild(
-                        badge
-                    );
-
-                }
-
-
-                checkbox.addEventListener(
-                    "change",
-                    function () {
-
-                        enforceGuestSelection();
-
-                    }
-                );
-
-
-                peopleList.appendChild(
-                    label
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =========================================
-       EXACT GUEST COUNT
-    ========================================= */
-
-    function getSelectedPeople() {
-
-        return Array.from(
-            document.querySelectorAll(
-                ".person-checkbox:checked"
-            )
-        ).map(function (checkbox) {
-
-            return checkbox.value;
-
-        });
-
-    }
-
-
-    function updateSelectionCounter() {
-
-        const selected =
-            getSelectedPeople().length;
-
-        const countRadio =
-            document.querySelector(
-                'input[name="guestCount"]:checked'
-            );
-
-        const allowed =
-            countRadio
-                ? Number(countRadio.value)
-                : 0;
-
-
-        selectionCounter.textContent =
-            selected +
-            " of " +
-            allowed +
-            " selected";
-
-
-        if (
-            allowed > 0 &&
-            selected === allowed
-        ) {
-
-            selectionCounter.classList.add(
-                "complete"
-            );
-
-        } else {
-
-            selectionCounter.classList.remove(
-                "complete"
-            );
-
-        }
-
-
-        rsvpAttendingGuests.value =
-            getSelectedPeople().join(", ");
-
-    }
-
-
-    function updateAllowedPeople(count) {
-
-        const checkboxes =
-            document.querySelectorAll(
-                ".person-checkbox"
-            );
-
-        checkboxes.forEach(
-            function (checkbox,index) {
-
-                checkbox.checked = false;
-
-                checkbox.disabled = false;
-
-                checkbox.parentElement.classList.remove(
-                    "disabled"
-                );
-
-            }
-        );
-
-
-        /*
-         * Automatically select primary guest.
-         */
-
-        if (checkboxes.length > 0) {
-
-            checkboxes[0].checked = true;
-
-        }
-
-
-        /*
-         * If one guest is selected,
-         * stop there.
-         */
-
-        updateSelectionCounter();
-
-    }
-
-
-    function enforceGuestSelection() {
-
-        const countRadio =
-            document.querySelector(
-                'input[name="guestCount"]:checked'
-            );
-
-        if (!countRadio) return;
-
-        const allowed =
-            Number(countRadio.value);
-
-        const checkboxes =
-            Array.from(
-                document.querySelectorAll(
-                    ".person-checkbox"
-                )
-            );
-
-        const selected =
-            checkboxes.filter(
-                function (checkbox) {
-                    return checkbox.checked;
-                }
-            );
-
-
-        /*
-         * Never allow more than requested.
-         */
-
-        if (
-            selected.length > allowed
-        ) {
-
-            const lastChecked =
-                selected[selected.length - 1];
-
-            lastChecked.checked =
-                false;
-
-        }
-
-
-        const finalSelected =
-            checkboxes.filter(
-                function (checkbox) {
-                    return checkbox.checked;
-                }
-            );
-
-
-        /*
-         * Disable remaining people when
-         * the exact number has been reached.
-         */
-
-        checkboxes.forEach(
-            function (checkbox) {
-
-                if (
-                    finalSelected.length >= allowed &&
-                    !checkbox.checked
-                ) {
-
-                    checkbox.disabled = true;
-
-                    checkbox.parentElement.classList.add(
-                        "disabled"
-                    );
-
-                } else {
-
-                    checkbox.disabled = false;
-
-                    checkbox.parentElement.classList.remove(
-                        "disabled"
-                    );
-
-                }
-
-            }
-        );
-
-
-        updateSelectionCounter();
-
-    }
-
-
-    /* =========================================
-       APPLY EVENTS
-========================================= */
-
-    function applyEventPermissions(guest) {
-
-        const sangeetAllowed =
-            String(
-                guest.sangeet || ""
-            ).toUpperCase() === "YES";
-
-        const weddingAllowed =
-            String(
-                guest.wedding || ""
-            ).toUpperCase() === "YES";
-
-
-        sangeetCheck.disabled =
-            !sangeetAllowed;
-
-        weddingCheck.disabled =
-            !weddingAllowed;
-
-
-        sangeetCheck.checked =
-            sangeetAllowed;
-
-        weddingCheck.checked =
-            weddingAllowed;
-
-
-        sangeetCheck
-            .closest(".event-choice")
-            .classList.toggle(
-                "disabled",
-                !sangeetAllowed
-            );
-
-
-        weddingCheck
-            .closest(".event-choice")
-            .classList.toggle(
-                "disabled",
-                !weddingAllowed
-            );
-
 
         rsvpSangeet.value =
-            sangeetAllowed
-                ? "YES"
-                : "NO";
-
+            "";
 
         rsvpWedding.value =
-            weddingAllowed
-                ? "YES"
-                : "NO";
+            "";
 
     }
 
 
     /* =========================================
-       EVENT CHANGES
-========================================= */
+       INITIAL STATE
+    ========================================= */
 
-    sangeetCheck.addEventListener(
-        "change",
-        function () {
-
-            rsvpSangeet.value =
-                sangeetCheck.checked
-                    ? "YES"
-                    : "NO";
-
-        }
-    );
+    guestResult.style.display =
+        "none";
 
 
-    weddingCheck.addEventListener(
-        "change",
-        function () {
+    guestError.style.display =
+        "none";
 
-            rsvpWedding.value =
-                weddingCheck.checked
-                    ? "YES"
-                    : "NO";
 
-        }
-    );
+    resetRsvp();
 
 
     /* =========================================
        FIND INVITATION
-========================================= */
+    ========================================= */
 
     guestForm.addEventListener(
         "submit",
-        async function (event) {
+        function (event) {
 
             event.preventDefault();
 
-            clearError();
 
-            resetInvitation();
+            guestError.textContent =
+                "";
 
 
-            if (
-                !APPS_SCRIPT_URL ||
-                APPS_SCRIPT_URL.indexOf(
-                    "PASTE_YOUR"
-                ) === 0
-            ) {
+            guestError.style.display =
+                "none";
 
-                showError(
-                    "The invitation lookup is not connected yet. Please add your Google Apps Script Web App URL."
-                );
 
-                return;
+            guestResult.style.display =
+                "none";
 
-            }
+
+            resetRsvp();
 
 
             const firstName =
-                firstNameInput.value.trim();
+                normalize(
+                    firstNameInput.value
+                );
+
 
             const lastName =
-                lastNameInput.value.trim();
-
-
-            if (!firstName || !lastName) {
-
-                showError(
-                    "Please enter your first and last name."
+                normalize(
+                    lastNameInput.value
                 );
+
+
+            const guest =
+                guestList.find(
+                    function (item) {
+
+                        return (
+                            normalize(
+                                item.firstName
+                            ) ===
+                            firstName &&
+
+                            normalize(
+                                item.lastName
+                            ) ===
+                            lastName
+                        );
+
+                    }
+                );
+
+
+            if (!guest) {
+
+                guestFullName.textContent =
+                    "";
+
+
+                guestError.textContent =
+                    "We couldn't find your invitation. Please check your name or ask the host.";
+
+
+                guestError.style.display =
+                    "block";
+
 
                 return;
 
             }
 
 
-            findButton.disabled = true;
-
-            findButton.innerHTML =
-                '<span class="loading-spinner"></span> Finding Invitation';
-
-
-            try {
-
-                const url =
-                    APPS_SCRIPT_URL +
-                    "?action=lookup" +
-                    "&firstName=" +
-                    encodeURIComponent(firstName) +
-                    "&lastName=" +
-                    encodeURIComponent(lastName);
+            const fullName =
+                guest.firstName +
+                " " +
+                guest.lastName;
 
 
-                const response =
-                    await fetch(url);
+            guestFullName.textContent =
+                fullName;
 
 
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Lookup request failed."
-                    );
-
-                }
+            rsvpGuestName.value =
+                fullName;
 
 
-                const data =
-                    await response.json();
+            rsvpGuests.value =
+                guest.guests;
 
 
-                if (
-                    !data.success ||
-                    !data.guest
-                ) {
+            lookupGuestRadios.forEach(
+                function (radio) {
 
-                    showError(
-                        data.message ||
-                        "We couldn't find your invitation. Please check your name or ask the host."
-                    );
-
-                    return;
+                    radio.checked =
+                        Number(
+                            radio.value
+                        ) ===
+                        Number(
+                            guest.guests
+                        );
 
                 }
+            );
 
 
-                const guest =
-                    data.guest;
+            const hasSangeet =
+                hasEvent(
+                    guest,
+                    "Sangeet"
+                );
 
 
-                currentGuest =
-                    guest;
+            rsvpSangeet.value =
+                hasSangeet
+                    ? "Yes"
+                    : "No";
 
 
-                const people =
-                    getGuestPeople(guest);
+            const hasWedding =
+                hasEvent(
+                    guest,
+                    "Wedding"
+                );
 
 
-                if (!people.length) {
+            rsvpWedding.value =
+                hasWedding
+                    ? "Yes"
+                    : "No";
 
-                    showError(
-                        "Your invitation was found, but no guest names are configured. Please contact the host."
-                    );
 
-                    return;
+            lookupEventCheckboxes.forEach(
+                function (checkbox) {
+
+                    const allowed =
+                        hasEvent(
+                            guest,
+                            checkbox.value
+                        );
+
+
+                    checkbox.checked =
+                        allowed;
+
+
+                    checkbox.disabled =
+                        !allowed;
 
                 }
+            );
 
 
-                const totalGuests =
-                    Number(
-                        guest.guestCount ||
-                        guest.guests ||
-                        people.length
-                    );
+            guestResult.style.display =
+                "block";
 
 
-                rsvpGuestId.value =
-                    guest.guestId ||
-                    guest.id ||
-                    "";
+            setTimeout(
+                function () {
+
+                    guestResult.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                },
+                100
+            );
+
+        }
+    );
 
 
-                const primaryName =
-                    guest.firstName +
-                    " " +
-                    guest.lastName;
+    /* =========================================
+       GUEST COUNT CHANGE
+    ========================================= */
+
+    lookupGuestRadios.forEach(
+        function (radio) {
+
+            radio.addEventListener(
+                "change",
+                function () {
+
+                    if (!radio.checked) {
+                        return;
+                    }
 
 
-                rsvpGuestName.value =
-                    primaryName;
+                    if (!rsvpGuestName.value) {
+                        return;
+                    }
 
 
-                rsvpTotalGuests.value =
-                    totalGuests;
+                    rsvpGuests.value =
+                        radio.value;
+
+                }
+            );
+
+        }
+    );
 
 
-                guestFullName.textContent =
-                    primaryName;
+    /* =========================================
+       EVENT CHANGE
+    ========================================= */
+
+    lookupEventCheckboxes.forEach(
+        function (checkbox) {
+
+            checkbox.addEventListener(
+                "change",
+                function () {
+
+                    if (
+                        checkbox.value ===
+                        "Sangeet"
+                    ) {
+
+                        rsvpSangeet.value =
+                            checkbox.checked
+                                ? "Yes"
+                                : "No";
+
+                    }
 
 
-                buildGuestCountOptions(
-                    totalGuests
-                );
+                    if (
+                        checkbox.value ===
+                        "Wedding"
+                    ) {
 
+                        rsvpWedding.value =
+                            checkbox.checked
+                                ? "Yes"
+                                : "No";
 
-                buildPeopleList(
-                    people
-                );
+                    }
 
-
-                applyEventPermissions(
-                    guest
-                );
-
-
-                guestResult.style.display =
-                    "block";
-
-
-                setTimeout(
-                    function () {
-
-                        guestResult.scrollIntoView({
-                            behavior:"smooth",
-                            block:"center"
-                        });
-
-                    },
-                    100
-                );
-
-            } catch (error) {
-
-                console.error(
-                    error
-                );
-
-                showError(
-                    "We couldn't connect to the invitation service. Please try again or contact the host."
-                );
-
-            } finally {
-
-                findButton.disabled = false;
-
-                findButton.textContent =
-                    "Find Invitation";
-
-            }
+                }
+            );
 
         }
     );
@@ -4368,259 +3711,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
     rsvpForm.addEventListener(
         "submit",
-        async function (event) {
-
-            event.preventDefault();
+        function (event) {
 
             rsvpError.textContent =
                 "";
 
-            rsvpSuccess.style.display =
+
+            rsvpError.style.display =
                 "none";
 
 
-            if (!currentGuest) {
+            if (
+                !rsvpGuestName.value.trim()
+            ) {
+
+                event.preventDefault();
+
 
                 rsvpError.textContent =
                     "Please find your invitation first.";
 
-                return;
 
-            }
-
-
-            const countRadio =
-                document.querySelector(
-                    'input[name="guestCount"]:checked'
-                );
-
-
-            if (!countRadio) {
-
-                rsvpError.textContent =
-                    "Please select the number of guests attending.";
-
-                return;
-
-            }
-
-
-            const totalSelected =
-                Number(
-                    countRadio.value
-                );
-
-
-            const attendingPeople =
-                getSelectedPeople();
-
-
-            if (
-                attendingPeople.length !==
-                totalSelected
-            ) {
-
-                rsvpError.textContent =
-                    "Please select exactly " +
-                    totalSelected +
-                    (
-                        totalSelected === 1
-                            ? " guest."
-                            : " guests."
-                    );
-
-                return;
-
-            }
-
-
-            if (
-                !sangeetCheck.checked &&
-                !weddingCheck.checked
-            ) {
-
-                rsvpError.textContent =
-                    "Please select at least one event.";
-
-                return;
-
-            }
-
-
-            const phone =
-                document.getElementById(
-                    "rsvpPhone"
-                ).value.trim();
-
-
-            if (!phone) {
-
-                rsvpError.textContent =
-                    "Please enter your phone number.";
-
-                return;
-
-            }
-
-
-            /*
-             * Make absolutely sure hidden values
-             * are current before sending.
-             */
-
-            rsvpTotalGuests.value =
-                totalSelected;
-
-            rsvpAttendingGuests.value =
-                attendingPeople.join(", ");
-
-            rsvpSangeet.value =
-                sangeetCheck.checked
-                    ? "YES"
-                    : "NO";
-
-            rsvpWedding.value =
-                weddingCheck.checked
-                    ? "YES"
-                    : "NO";
-
-
-            if (
-                !APPS_SCRIPT_URL ||
-                APPS_SCRIPT_URL.indexOf(
-                    "PASTE_YOUR"
-                ) === 0
-            ) {
-
-                rsvpError.textContent =
-                    "The RSVP service is not connected yet. Please add your Google Apps Script Web App URL.";
-
-                return;
-
-            }
-
-
-            rsvpSubmit.disabled =
-                true;
-
-            rsvpSubmit.innerHTML =
-                '<span class="loading-spinner"></span> Sending RSVP';
-
-
-            try {
-
-                const formData =
-                    new FormData(
-                        rsvpForm
-                    );
-
-
-                const data =
-                    {};
-
-                formData.forEach(
-                    function (value,key) {
-
-                        data[key] =
-                            value;
-
-                    }
-                );
-
-
-                const response =
-                    await fetch(
-                        APPS_SCRIPT_URL,
-                        {
-                            method:"POST",
-
-                            headers:{
-                                "Content-Type":
-                                    "text/plain;charset=utf-8"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    action:"rsvp",
-                                    data:data
-                                })
-                        }
-                    );
-
-
-                const result =
-                    await response.json();
-
-
-                if (!result.success) {
-
-                    throw new Error(
-                        result.message ||
-                        "RSVP failed."
-                    );
-
-                }
-
-
-                rsvpSuccess.textContent =
-                    "Thank you, " +
-                    rsvpGuestName.value +
-                    "! Your RSVP has been received. We look forward to celebrating with you. ❤️";
-
-
-                rsvpSuccess.style.display =
+                rsvpError.style.display =
                     "block";
 
 
+                return;
+
+            }
+
+
+            if (
+                !rsvpGuests.value
+            ) {
+
+                event.preventDefault();
+
+
                 rsvpError.textContent =
-                    "";
+                    "Please find your invitation first.";
 
 
-                rsvpSubmit.textContent =
-                    "RSVP Submitted ✓";
+                rsvpError.style.display =
+                    "block";
 
 
-                /*
-                 * Keep the invitation information visible.
-                 * Clear only phone/message fields.
-                 */
+                return;
 
+            }
+
+
+            if (
+                rsvpSangeet.value !== "Yes" &&
+                rsvpWedding.value !== "Yes"
+            ) {
+
+                event.preventDefault();
+
+
+                rsvpError.textContent =
+                    "No event has been selected for this invitation. Please contact the host.";
+
+
+                rsvpError.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            const email =
                 document.getElementById(
-                    "rsvpPhone"
-                ).value = "";
-
-                document.getElementById(
-                    "advice"
-                ).value = "";
-
-                document.getElementById(
-                    "notes"
-                ).value = "";
-
-
-                rsvpSuccess.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-
-
-            } catch (error) {
-
-                console.error(
-                    error
+                    "rsvpEmail"
                 );
 
+
+            if (
+                !email ||
+                !email.value.trim()
+            ) {
+
+                event.preventDefault();
+
+
                 rsvpError.textContent =
-                    error.message ||
-                    "We couldn't submit your RSVP. Please try again.";
+                    "Please enter your email address.";
 
-                rsvpSubmit.textContent =
-                    "Submit RSVP";
 
-            } finally {
+                rsvpError.style.display =
+                    "block";
 
-                rsvpSubmit.disabled =
-                    false;
+
+                return;
 
             }
 
@@ -4629,10 +3813,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+</script>
 
-/* =========================================
-   NAVIGATION AUTO HIDE
-========================================= */
+
+<!-- =========================================
+     NAVIGATION AUTO HIDE
+========================================= -->
+
+<script>
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -4641,13 +3829,25 @@ document.addEventListener(
         const nav =
             document.getElementById("nav");
 
-        if (!nav) return;
+
+        if (!nav) {
+
+            console.error(
+                "Navigation #nav not found."
+            );
+
+            return;
+
+        }
+
 
         let lastScrollTop =
             window.scrollY ||
             document.documentElement.scrollTop;
 
-        let ticking = false;
+
+        let ticking =
+            false;
 
 
         function updateNavigation() {
@@ -4657,6 +3857,11 @@ document.addEventListener(
                 document.documentElement.scrollTop;
 
 
+            /* ---------------------------------
+               AT TOP
+               Keep navigation visible
+            --------------------------------- */
+
             if (currentScroll <= 30) {
 
                 nav.classList.remove(
@@ -4664,6 +3869,12 @@ document.addEventListener(
                 );
 
             }
+
+
+            /* ---------------------------------
+               SCROLLING DOWN
+               Hide navigation
+            --------------------------------- */
 
             else if (
                 currentScroll >
@@ -4675,6 +3886,12 @@ document.addEventListener(
                 );
 
             }
+
+
+            /* ---------------------------------
+               SCROLLING UP
+               Show navigation
+            --------------------------------- */
 
             else if (
                 currentScroll <
@@ -4694,7 +3911,9 @@ document.addEventListener(
                     0
                 );
 
-            ticking = false;
+
+            ticking =
+                false;
 
         }
 
@@ -4709,7 +3928,8 @@ document.addEventListener(
                         updateNavigation
                     );
 
-                    ticking = true;
+                    ticking =
+                        true;
 
                 }
 
@@ -4720,12 +3940,15 @@ document.addEventListener(
         );
 
 
+        /* Initial state */
+
         updateNavigation();
 
     }
 );
 
 </script>
+
 
 </body>
 
