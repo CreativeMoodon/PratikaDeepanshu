@@ -3537,41 +3537,157 @@ document.addEventListener("DOMContentLoaded", function () {
                 const data =
                     await response.json();
 
-                if (!data.success || !data.guest) {
+                if (!data.success || !data.guests || !data.guests.length) {
 
-                    showError(
-                        data.message ||
-                        "We couldn't find your invitation. Please check your name or ask the host."
-                    );
+    showError(
+        data.message ||
+        "We couldn't find your invitation. Please check your name or ask the host."
+    );
 
-                    return;
-                }
+    return;
+}
 
-                currentGuest =
-                    data.guest;
+const foundGuest = data.guests[0];
 
-                const fullName =
-                    currentGuest.firstName +
-                    " " +
-                    currentGuest.lastName;
 
-                guestFullName.textContent =
-                    fullName;
+/* =========================================
+   CONVERT APPS SCRIPT DATA TO WEBSITE FORMAT
+========================================= */
 
-                rsvpGuestId.value =
-                    currentGuest.guestId || "";
+currentGuest = {
 
-                rsvpGuestName.value =
-                    fullName;
+    guestId:
+        foundGuest.guestId || "",
 
-                buildGuestCount(
-                    Math.min(
-                        Number(currentGuest.maxGuests || 1),
-                        4
-                    )
-                );
+    firstName:
+        firstNameInput.value.trim(),
 
-                buildAttendeeList();
+    lastName:
+        lastNameInput.value.trim(),
+
+    familyMembers:
+        Array.isArray(foundGuest.guests)
+            ? foundGuest.guests
+            : [],
+
+    maxGuests:
+        Array.isArray(foundGuest.guests)
+            ? foundGuest.guests.length
+            : 1,
+
+    sangeet:
+        Boolean(foundGuest.sangeet),
+
+    wedding:
+        Boolean(foundGuest.wedding)
+
+};
+
+
+/* =========================================
+   DISPLAY NAME
+========================================= */
+
+const fullName =
+    foundGuest.primaryGuest ||
+    (
+        firstNameInput.value.trim() +
+        " " +
+        lastNameInput.value.trim()
+    );
+
+guestFullName.textContent =
+    fullName;
+
+
+/* =========================================
+   RSVP HIDDEN FIELDS
+========================================= */
+
+rsvpGuestId.value =
+    currentGuest.guestId;
+
+rsvpGuestName.value =
+    fullName;
+
+
+/* =========================================
+   BUILD GUEST COUNT
+========================================= */
+
+buildGuestCount(
+    Math.min(
+        currentGuest.maxGuests || 1,
+        4
+    )
+);
+
+
+/* =========================================
+   BUILD FAMILY MEMBER LIST
+========================================= */
+
+buildAttendeeList();
+
+
+/* =========================================
+   EVENT PERMISSIONS
+========================================= */
+
+lookupEventCheckboxes.forEach(
+    function (checkbox) {
+
+        let allowed = false;
+
+        if (checkbox.value === "Sangeet") {
+            allowed = currentGuest.sangeet;
+        }
+
+        if (checkbox.value === "Wedding") {
+            allowed = currentGuest.wedding;
+        }
+
+        checkbox.checked =
+            allowed;
+
+        checkbox.disabled =
+            !allowed;
+
+    }
+);
+
+
+/* =========================================
+   SYNC EVENT VALUES
+========================================= */
+
+rsvpSangeet.value =
+    currentGuest.sangeet
+        ? "YES"
+        : "NO";
+
+rsvpWedding.value =
+    currentGuest.wedding
+        ? "YES"
+        : "NO";
+
+
+/* =========================================
+   SHOW RESULT
+========================================= */
+
+guestResult.style.display =
+    "block";
+
+
+setTimeout(function () {
+
+    guestResult.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}, 100);
 
 
                 lookupEventCheckboxes.forEach(
