@@ -4313,85 +4313,120 @@ document.addEventListener("DOMContentLoaded", function () {
                 "================================="
             );
 
+const submitButton =
+    rsvpForm.querySelector(
+        ".rsvp-submit"
+    );
 
-            /* =========================================
-               SUBMIT BUTTON
-            ========================================= */
+if (submitButton) {
 
-            const submitButton =
-                rsvpForm.querySelector(
-                    ".rsvp-submit"
-                );
+    submitButton.disabled = true;
 
+    submitButton.textContent =
+        "Sending RSVP…";
+}
 
-            if (submitButton) {
+try {
 
-                submitButton.disabled =
-                    true;
+    const response = await fetch(
+        RSVP_API_URL,
+        {
+            method: "POST",
 
-                submitButton.textContent =
-                    "Sending RSVP…";
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
 
-            }
+            body: JSON.stringify(payload)
+        }
+    );
 
+    const responseText =
+        await response.text();
 
-            try {
+    console.log(
+        "RSVP HTTP STATUS:",
+        response.status
+    );
 
-                const response =
-                    await fetch(
-                        RSVP_API_URL,
-                        {
-                            method: "POST",
+    console.log(
+        "RSVP RAW RESPONSE:",
+        responseText
+    );
 
-                            headers: {
-                                "Content-Type":
-                                    "text/plain;charset=utf-8"
-                            },
+    let data;
 
-                            body:
-                                JSON.stringify(
-                                    payload
-                                )
+    try {
 
-                        }
-                    );
+        data = JSON.parse(
+            responseText.trim()
+        );
 
+    } catch (jsonError) {
 
-                const responseText =
-                    await response.text();
+        console.error(
+            "RSVP JSON PARSE ERROR:",
+            jsonError
+        );
 
+        console.error(
+            "SERVER RETURNED:",
+            responseText
+        );
 
-                console.log(
-                    "RSVP RAW RESPONSE:",
-                    responseText
-                );
+        throw new Error(
+            "The RSVP server did not return valid data. Please try again."
+        );
+    }
 
+    console.log(
+        "RSVP RESPONSE:",
+        data
+    );
 
-                let data;
+    if (!data.success) {
 
+        throw new Error(
+            data.message ||
+            "Your RSVP could not be submitted. Please try again."
+        );
+    }
 
-                try {
+    rsvpStatus.textContent =
+        "Thank you! Your RSVP has been received. ❤️";
 
-                    data =
-                        JSON.parse(
-                            responseText
-                        );
+    rsvpError.textContent = "";
 
-                } catch (jsonError) {
+    if (submitButton) {
 
-                    throw new Error(
-                        "Invalid response from RSVP server."
-                    );
+        submitButton.disabled = true;
 
-                }
+        submitButton.textContent =
+            "RSVP Submitted ✓";
+    }
 
+} catch (error) {
 
-                console.log(
-                    "RSVP RESPONSE:",
-                    data
-                );
+    console.error(
+        "RSVP SUBMISSION ERROR:",
+        error
+    );
 
+    rsvpStatus.textContent = "";
 
+    rsvpError.textContent =
+        error.message ||
+        "Something went wrong while submitting your RSVP. Please try again.";
+
+    if (submitButton) {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+            "Submit RSVP";
+    }
+}
                 /* =========================================
                    SERVER ERROR
                 ========================================= */
