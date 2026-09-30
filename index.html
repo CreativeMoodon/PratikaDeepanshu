@@ -2169,7 +2169,9 @@ footer p {
                 <div class="detail-section">
                     <span class="detail-label">Who is attending?</span>
                     <div id="attendeeList" class="attendee-list"></div>
-                    <p id="attendeeHint" class="attendee-hint"></p>
+                    <p id="attendeeHint" class="attendee-hint">
+    You may select yourself only or any other invited family members who are attending.
+</p>
                 </div>
 
             </div>
@@ -4102,43 +4104,27 @@ rsvpForm.addEventListener(
         );
 
 
-        /* =========================================
-           CHECK GUEST COUNT
-        ========================================= */
+       /* =========================================
+   CHECK GUEST COUNT
+========================================= */
 
-        if (
-            selectedGuests.length < 1
-        ) {
-
-            showRsvpError(
-                "Please select at least one guest who is attending."
-            );
-
-            return;
-
-        }
-
-
-        if (
-            selectedGuests.length >
-            currentGuest.familyMembers.length
-        ) {
-
-            showRsvpError(
-                "You cannot select more guests than are included in your invitation."
-            );
-
-            return;
-
-        }
-
-
-       if (
-    selectedGuests.length < 1
-) {
+if (selectedGuests.length < 1) {
 
     showRsvpError(
         "Please select at least one guest who is attending."
+    );
+
+    return;
+
+}
+
+if (
+    selectedGuests.length >
+    currentGuest.familyMembers.length
+) {
+
+    showRsvpError(
+        "You cannot select more guests than are included in your invitation."
     );
 
     return;
