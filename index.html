@@ -4426,22 +4426,19 @@ rsvpForm.addEventListener(
             }
 
 
-        } catch (error) {
+       } catch (error) {
 
             console.error(
                 "RSVP SUBMISSION ERROR:",
                 error
             );
 
-
             showRsvpStatus("");
-
 
             showRsvpError(
                 error.message ||
                 "Something went wrong while submitting your RSVP. Please try again."
             );
-
 
             if (submitButton) {
 
@@ -4456,8 +4453,12 @@ rsvpForm.addEventListener(
         }
 
     }
-);
-    </script>
+
+);   // closes rsvpForm.addEventListener
+
+});   // closes DOMContentLoaded
+
+</script>
 
 <!-- =========================================
      NAVIGATION AUTO HIDE
