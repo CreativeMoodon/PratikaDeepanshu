@@ -4104,11 +4104,7 @@ rsvpForm.addEventListener(
         );
 
 
-       /* =========================================
-   CHECK GUEST COUNT
-========================================= */
-
-if (selectedGuests.length < 1) {
+      if (selectedGuests.length < 1) {
 
     showRsvpError(
         "Please select at least one guest who is attending."
@@ -4118,9 +4114,15 @@ if (selectedGuests.length < 1) {
 
 }
 
+const maxAllowedGuests =
+    Math.min(
+        Number(currentGuest.maxGuests) || 1,
+        4
+    );
+
 if (
     selectedGuests.length >
-    currentGuest.familyMembers.length
+    maxAllowedGuests
 ) {
 
     showRsvpError(
