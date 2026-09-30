@@ -4427,21 +4427,6 @@ try {
             "Submit RSVP";
     }
 }
-                /* =========================================
-                   SERVER ERROR
-                ========================================= */
-
-                if (!data.success) {
-
-                    showRsvpError(
-                        data.message ||
-                        "We couldn't save your RSVP. Please try again."
-                    );
-
-                    return;
-
-                }
-
 
                 /* =========================================
                    SUCCESS
