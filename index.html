@@ -3530,137 +3530,148 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =========================================
-       SYNC ATTENDEES
-    ========================================= */
+    SYNC ATTENDEES
+ ========================================= */
 
-    function syncAttendeeSelection() {
+ function syncAttendeeSelection() {
 
-        const selectedGuests =
-            getSelectedGuests();
-
-
-        /*
-         * IMPORTANT:
-         * The selected guest names are the
-         * actual source of truth.
-         */
-
-        rsvpAttendingGuests.value =
-            JSON.stringify(
-                selectedGuests
-            );
+     const selectedGuests =
+         getSelectedGuests();
 
 
-        rsvpGuests.value =
-            selectedGuests.length
-                ? String(selectedGuests.length)
-                : "";
+     /*
+      * The selected family members are the
+      * actual source of truth.
+      */
+
+     rsvpAttendingGuests.value =
+         JSON.stringify(
+             selectedGuests
+         );
 
 
-        const requiredCount =
-            parseInt(
-                guestCount.value,
-                10
-            );
+     /*
+      * Automatically keep Number of Guests
+      * synchronized with the selected names.
+      */
+
+     rsvpGuests.value =
+         selectedGuests.length
+             ? String(selectedGuests.length)
+             : "";
 
 
-        if (attendeeHint) {
+     /*
+      * Update the guest-count dropdown
+      * to match the actual selection.
+      */
 
-            if (!requiredCount) {
+     if (selectedGuests.length > 0) {
 
-                attendeeHint.textContent =
-                    "Select the number of guests first.";
+         guestCount.value =
+             String(selectedGuests.length);
 
-            } else {
+     } else {
 
-                attendeeHint.textContent =
-                    selectedGuests.length +
-                    " of " +
-                    requiredCount +
-                    " guest" +
-                    (
-                        requiredCount === 1
-                            ? ""
-                            : "s"
-                    ) +
-                    " selected.";
+         guestCount.value = "";
 
-            }
-
-        }
+     }
 
 
-        console.log(
-            "Selected guests:",
-            selectedGuests
-        );
+     /*
+      * Helpful message for the guest.
+      */
 
-    }
+     if (attendeeHint) {
+
+         if (!selectedGuests.length) {
+
+             attendeeHint.textContent =
+                 "Select the guests who are attending.";
+
+         } else {
+
+             attendeeHint.textContent =
+                 selectedGuests.length +
+                 " guest" +
+                 (
+                     selectedGuests.length === 1
+                         ? ""
+                         : "s"
+                 ) +
+                 " selected.";
+
+         }
+
+     }
+
+
+     console.log(
+         "Selected guests:",
+         selectedGuests
+     );
+
+ }
 
 
     /* =========================================
-       APPLY GUEST COUNT
-    ========================================= */
+   APPLY GUEST COUNT
+========================================= */
 
-    function applyGuestCount(count) {
+function applyGuestCount(count) {
 
-        const requiredCount =
-            parseInt(
-                count,
-                10
+    const requiredCount = parseInt(count, 10);
+
+    if (
+        isNaN(requiredCount) ||
+        requiredCount < 1
+    ) {
+
+        attendeeList
+            .querySelectorAll(
+                'input[name="attendingGuest"]'
+            )
+            .forEach(
+                function (checkbox) {
+
+                    checkbox.checked = false;
+
+                }
             );
-
-
-        if (
-            isNaN(requiredCount) ||
-            requiredCount < 1
-        ) {
-
-            attendeeList
-                .querySelectorAll(
-                    'input[name="attendingGuest"]'
-                )
-                .forEach(
-                    function (checkbox) {
-
-                        checkbox.checked = false;
-
-                    }
-                );
-
-            syncAttendeeSelection();
-
-            return;
-
-        }
-
-
-        const checkboxes =
-            Array.from(
-                attendeeList.querySelectorAll(
-                    'input[name="attendingGuest"]'
-                )
-            );
-
-
-        /*
-         * Select exactly the first N invited guests.
-         */
-
-        checkboxes.forEach(
-            function (checkbox, index) {
-
-                checkbox.checked =
-                    index < requiredCount;
-
-            }
-        );
-
 
         syncAttendeeSelection();
 
+        return;
     }
 
+
+    const checkboxes =
+        Array.from(
+            attendeeList.querySelectorAll(
+                'input[name="attendingGuest"]'
+            )
+        );
+
+
+    /*
+     * Select the first N guests initially.
+     * After this, the guest can freely
+     * change which family members are attending.
+     */
+
+    checkboxes.forEach(
+        function (checkbox, index) {
+
+            checkbox.checked =
+                index < requiredCount;
+
+        }
+    );
+
+
+    syncAttendeeSelection();
+
+}
 
     /* =========================================
        INITIAL STATE
@@ -4122,33 +4133,17 @@ rsvpForm.addEventListener(
         }
 
 
-        const selectedCount =
-            parseInt(
-                guestCount.value,
-                10
-            );
+       if (
+    selectedGuests.length < 1
+) {
 
+    showRsvpError(
+        "Please select at least one guest who is attending."
+    );
 
-        if (
-            !isNaN(selectedCount) &&
-            selectedGuests.length !== selectedCount
-        ) {
+    return;
 
-            showRsvpError(
-                "Please select exactly " +
-                selectedCount +
-                " guest" +
-                (
-                    selectedCount === 1
-                        ? ""
-                        : "s"
-                ) +
-                " attending."
-            );
-
-            return;
-
-        }
+}
 
 
         /* =========================================
