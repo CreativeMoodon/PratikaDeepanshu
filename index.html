@@ -3,17 +3,28 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pratika &amp; Deepanshu — A Wedding in Dubai</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+Pratika &amp; Deepanshu — A Wedding in Dubai
+</title>
 
 <meta name="description"
 content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sangeet & Pheras at the BAPS Hindu Mandir, Dubai.">
 
+
 <style>
 
+/* =========================================
+   ROOT
+========================================= */
+
 :root {
+
     --background:#fbf8f2;
     --foreground:#302b25;
     --gold:#b58a45;
@@ -21,60 +32,94 @@ content="Join Pratika & Deepanshu for their wedding celebration — Haldi, Sange
     --emerald:#567866;
     --sand:#eee5d6;
     --card:#fffdf9;
+
 }
+
 
 * {
+
     box-sizing:border-box;
+
 }
+
 
 html {
+
     scroll-behavior:smooth;
+
 }
 
+
 body {
+
     margin:0;
     background:var(--background);
     color:var(--foreground);
     font-family:Arial,Helvetica,sans-serif;
     line-height:1.6;
+
 }
+
 
 a {
+
     color:inherit;
     text-decoration:none;
+
 }
+
 
 img {
+
     max-width:100%;
     display:block;
+
 }
+
 
 .container {
+
     width:min(100% - 32px,900px);
     margin:auto;
+
 }
+
 
 .display {
+
     font-family:Georgia,"Times New Roman",serif;
     font-style:italic;
+
 }
+
 
 .gold {
+
     color:var(--gold);
+
 }
+
 
 .text-center {
+
     text-align:center;
+
 }
 
+
 .upper {
+
     text-transform:uppercase;
     letter-spacing:.25em;
     font-size:10px;
+
 }
 
+
 section {
+
     scroll-margin-top:70px;
+
 }
 
 
@@ -83,100 +128,170 @@ section {
 ========================================= */
 
 nav {
+
     position:fixed;
     top:0;
     left:0;
     right:0;
+
     z-index:9999;
+
     height:70px;
+
     padding:0 28px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     background:rgba(251,248,242,.94);
+
     backdrop-filter:blur(12px);
     -webkit-backdrop-filter:blur(12px);
+
     border-bottom:1px solid var(--gold-light);
+
     transform:translateY(0);
+
     opacity:1;
     visibility:visible;
+
     transition:
         transform .4s ease,
         opacity .4s ease,
         visibility .4s ease,
         background .3s ease;
+
 }
+
 
 nav.nav-hidden {
+
     transform:translateY(-110%);
+
     opacity:0;
+
     visibility:hidden;
+
     pointer-events:none;
+
 }
+
 
 .nav-logo {
+
     width:52px;
     height:52px;
+
     object-fit:contain;
+
     flex-shrink:0;
+
 }
+
 
 .nav-links {
+
     display:flex;
+
     align-items:center;
+
     gap:30px;
+
     font-size:13px;
+
     font-weight:500;
+
     text-transform:uppercase;
+
     letter-spacing:.16em;
+
     color:#625d55;
+
 }
 
+
 .nav-links a {
+
     position:relative;
+
     padding:8px 2px;
+
     white-space:nowrap;
+
     transition:
         color .25s ease,
         transform .25s ease;
+
 }
+
 
 .nav-links a:hover {
+
     color:var(--gold);
+
     transform:translateY(-1px);
+
 }
+
 
 .nav-links a::after {
+
     content:"";
+
     position:absolute;
+
     left:0;
     right:0;
+
     bottom:2px;
+
     height:1px;
+
     background:var(--gold);
+
     transform:scaleX(0);
+
     transform-origin:center;
+
     transition:transform .25s ease;
+
 }
+
 
 .nav-links a:hover::after {
+
     transform:scaleX(1);
+
 }
+
 
 .help-text {
+
     color:#6d5425;
+
     font-size:14px;
+
     font-weight:400;
+
 }
+
 
 .help-text a {
+
     color:#b8860b;
+
     font-weight:500;
+
 }
 
+
 .help-text a:hover {
+
     color:#8f6b08;
+
     text-decoration:underline;
+
 }
 
 
@@ -185,15 +300,23 @@ nav.nav-hidden {
 ========================================= */
 
 .ganesh-banner {
+
     text-align:center;
+
     padding:90px 20px 20px;
+
 }
 
+
 .ganesh-icon {
+
     width:48px;
     height:48px;
+
     margin:0 auto 8px;
+
     object-fit:contain;
+
 }
 
 
@@ -202,55 +325,109 @@ nav.nav-hidden {
 ========================================= */
 
 .hero {
+
     position:relative;
+
     min-height:82vh;
+
     display:flex;
+
     align-items:flex-start;
+
     justify-content:center;
+
     padding:48px 24px 30px;
+
     overflow:hidden;
+
 }
 
+
 .hero-bg {
+
     position:absolute;
+
     inset:0;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     opacity:.2;
+
     z-index:0;
+
 }
+
 
 .vignette-top,
 .vignette-bottom {
+
     position:absolute;
+
     left:0;
     right:0;
+
     z-index:1;
+
 }
+
 
 .vignette-top {
+
     top:0;
+
     height:35%;
-    background:linear-gradient(to bottom,rgba(251,248,242,.55),transparent);
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(251,248,242,.55),
+            transparent
+        );
+
 }
+
 
 .vignette-bottom {
+
     bottom:0;
+
     height:28%;
-    background:linear-gradient(to top,rgba(251,248,242,.8),transparent);
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(251,248,242,.8),
+            transparent
+        );
+
 }
+
 
 .hero-content {
+
     position:relative;
+
     z-index:2;
+
     text-align:center;
+
 }
 
+
 .hero-logo {
+
     width:min(380px,80vw);
+
     margin:auto;
-    filter:drop-shadow(0 4px 24px rgba(0,0,0,.25));
+
+    filter:
+        drop-shadow(
+            0 4px 24px rgba(0,0,0,.25)
+        );
+
 }
 
 
@@ -259,19 +436,31 @@ nav.nav-hidden {
 ========================================= */
 
 .couple-heading {
+
     padding:48px 24px;
+
     text-align:center;
+
 }
+
 
 .couple-heading h1 {
+
     font-size:clamp(42px,8vw,64px);
+
     margin:0;
+
 }
 
+
 .couple-heading span {
+
     display:block;
+
     font-size:clamp(26px,5vw,40px);
+
     margin-top:12px;
+
 }
 
 
@@ -284,53 +473,89 @@ nav.nav-hidden {
 .save-date,
 .memories,
 .rsvp {
+
     padding:90px 24px;
+
     width:100%;
+
     box-sizing:border-box;
+
 }
+
 
 .invitation-inner,
 .countdown-box,
 .save-inner,
 .memory-inner,
 .rsvp-inner {
+
     width:min(100%,600px);
+
     margin:0 auto;
+
     box-sizing:border-box;
+
 }
 
+
 .rule {
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     gap:12px;
+
     margin-bottom:28px;
+
 }
+
 
 .rule:before,
 .rule:after {
+
     content:"";
+
     height:1px;
+
     width:40px;
+
     background:rgba(181,138,69,.4);
+
 }
+
 
 .invitation h2,
 .section-title {
+
     font-size:32px;
+
     margin:0 0 28px;
+
 }
+
 
 .invitation p {
+
     font-size:14px;
+
     color:rgba(48,43,37,.7);
+
     line-height:1.9;
+
 }
 
+
 .fade-in {
+
     opacity:1;
+
     visibility:visible;
+
     transform:none;
+
 }
 
 
@@ -339,28 +564,48 @@ nav.nav-hidden {
 ========================================= */
 
 .countdown-box {
+
     border:1px solid var(--gold-light);
+
     background:rgba(255,253,249,.6);
+
     padding:32px;
+
     text-align:center;
+
 }
+
 
 .countdown-grid {
+
     display:grid;
+
     grid-template-columns:repeat(4,1fr);
+
     gap:8px;
+
 }
+
 
 .count-number {
+
     font-family:Georgia,serif;
+
     font-size:36px;
+
 }
 
+
 .count-label {
+
     font-size:9px;
+
     text-transform:uppercase;
+
     letter-spacing:.18em;
+
     color:#777168;
+
 }
 
 
@@ -369,66 +614,118 @@ nav.nav-hidden {
 ========================================= */
 
 .scratch-card {
+
     position:relative;
+
     overflow:hidden;
+
     border:1px solid var(--gold-light);
+
     background:var(--card);
+
     text-align:center;
+
     padding:55px 20px;
+
     min-height:180px;
+
     cursor:pointer;
+
     user-select:none;
+
 }
+
 
 .scratch-content {
+
     position:relative;
+
     z-index:1;
+
 }
+
 
 #scratchCanvas {
+
     position:absolute;
+
     inset:0;
+
     width:100%;
     height:100%;
+
     z-index:2;
+
     cursor:crosshair;
+
     touch-action:none;
+
 }
+
 
 .scratch-label {
+
     position:absolute;
+
     left:0;
     right:0;
+
     bottom:20px;
+
     z-index:3;
+
     color:rgba(255,255,255,.9);
+
     font-size:10px;
+
     text-transform:uppercase;
+
     letter-spacing:.3em;
+
     pointer-events:none;
+
 }
 
-.scratch-card.revealed .scratch-content {
+
+.scratch-card.revealed
+.scratch-content {
+
     animation:revealDate .8s ease;
+
 }
+
 
 @keyframes revealDate {
+
     from {
+
         opacity:0;
+
         transform:scale(.95);
+
     }
 
     to {
+
         opacity:1;
+
         transform:scale(1);
+
     }
+
 }
 
+
 .date {
+
     font-family:Georgia,serif;
+
     font-style:italic;
+
     font-size:48px;
+
     line-height:1;
+
 }
 
 
@@ -437,63 +734,111 @@ nav.nav-hidden {
 ========================================= */
 
 .events {
+
     padding:20px 16px 90px;
+
 }
+
 
 .events-header {
+
     text-align:center;
+
     margin-bottom:32px;
+
 }
+
 
 .event-card {
+
     margin:0 auto 32px;
+
     width:min(100%,600px);
+
     border:1px solid var(--gold-light);
+
     background:var(--card);
+
 }
+
 
 .event-card.emerald {
+
     border-color:rgba(86,120,102,.2);
+
 }
+
 
 .event-image {
+
     width:100%;
+
     aspect-ratio:9/16;
+
     object-fit:cover;
+
     background:#eee5d6;
+
 }
+
 
 .event-body {
+
     padding:32px;
+
 }
+
 
 .event-index {
+
     display:block;
+
     margin-bottom:8px;
+
 }
+
 
 .event-title {
+
     font-family:Georgia,serif;
+
     font-style:italic;
+
     font-size:28px;
+
     margin:0 0 16px;
+
 }
+
 
 .event-details {
+
     font-size:14px;
+
     color:rgba(48,43,37,.8);
+
 }
+
 
 .event-note {
+
     font-size:14px;
+
     color:rgba(48,43,37,.6);
+
     font-style:italic;
+
     margin:20px 0;
+
 }
 
+
 .divider {
+
     height:1px;
+
     background:var(--gold-light);
+
 }
 
 
@@ -502,64 +847,115 @@ nav.nav-hidden {
 ========================================= */
 
 .venue {
+
     padding:80px 24px;
+
 }
+
 
 .venue-inner {
+
     width:min(100%,600px);
+
     margin:auto;
+
 }
+
 
 .venue-block {
+
     text-align:center;
+
     margin-bottom:80px;
+
 }
+
 
 .venue-title {
+
     font-family:Georgia,serif;
+
     font-style:italic;
+
     font-size:32px;
+
     margin:0 0 16px;
+
 }
+
 
 .venue-address {
+
     font-size:14px;
+
     color:rgba(48,43,37,.7);
+
     margin-bottom:30px;
+
 }
+
 
 .venue-image {
+
     display:block;
+
     width:70%;
+
     max-width:400px;
+
     height:auto;
+
     margin:0 auto 20px;
+
     border-radius:4px;
+
 }
+
 
 .venue-description {
+
     font-size:14px;
+
     color:rgba(48,43,37,.7);
+
     line-height:1.8;
+
     margin-bottom:28px;
+
 }
+
 
 .map-button {
+
     display:table;
+
     width:auto;
+
     margin:15px auto 0;
+
     padding:10px 16px;
+
     border:1px solid rgba(181,138,69,.4);
+
     background:transparent;
+
     text-align:center;
+
     text-transform:uppercase;
+
     letter-spacing:.15em;
+
     font-size:10px;
+
     cursor:pointer;
+
 }
 
+
 .map-button:hover {
+
     background:rgba(181,138,69,.08);
+
 }
 
 
@@ -568,71 +964,130 @@ nav.nav-hidden {
 ========================================= */
 
 .memory-frame {
+
     overflow:hidden;
+
     border:1px solid var(--gold-light);
+
 }
+
 
 .memory-slide {
+
     display:none;
+
     position:relative;
+
 }
+
 
 .memory-slide.active {
+
     display:block;
+
 }
+
 
 .memory-slide img {
+
     width:100%;
+
     aspect-ratio:4/5;
+
     object-fit:cover;
+
 }
+
 
 .caption {
+
     position:absolute;
+
     left:0;
     right:0;
+
     bottom:0;
+
     padding:48px 20px 16px;
-    background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.75),
+            transparent
+        );
+
     color:white;
+
     font-size:10px;
+
     text-transform:uppercase;
+
     letter-spacing:.2em;
+
 }
+
 
 .slider-controls {
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     margin-top:18px;
+
 }
+
 
 .slider-button {
+
     width:42px;
     height:42px;
+
     border:1px solid rgba(181,138,69,.3);
+
     border-radius:50%;
+
     background:var(--background);
+
     cursor:pointer;
+
     font-size:18px;
+
 }
+
 
 .dots {
+
     display:flex;
+
     gap:8px;
+
 }
+
 
 .dot {
+
     width:8px;
     height:8px;
+
     border:0;
+
     border-radius:50%;
+
     background:rgba(181,138,69,.25);
+
     cursor:pointer;
+
 }
 
+
 .dot.active {
+
     background:var(--gold);
+
 }
 
 
@@ -641,344 +1096,642 @@ nav.nav-hidden {
 ========================================= */
 
 .guest-lookup {
+
     width:100%;
+
     padding:80px 20px;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
 }
+
 
 .guest-lookup-card {
+
     width:100%;
+
     max-width:560px;
+
     padding:45px 35px;
+
     text-align:center;
+
     background:rgba(255,255,255,.96);
+
     border:1px solid rgba(180,150,80,.35);
+
     border-radius:20px;
-    box-shadow:0 15px 45px rgba(0,0,0,.10);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.10);
+
 }
+
 
 .guest-lookup-icon {
+
     font-size:28px;
+
     color:goldenrod;
+
     margin-bottom:10px;
+
 }
+
 
 .guest-lookup-card h2 {
+
     margin:0 0 10px;
+
     font-size:32px;
+
     font-weight:500;
+
     color:#6d5425;
+
 }
+
 
 .guest-subtitle {
+
     margin:0 auto 10px;
+
     color:#777;
+
     font-size:15px;
+
 }
+
 
 .ask-host {
+
     display:inline-block;
+
     margin-bottom:30px;
+
     color:goldenrod;
+
     text-decoration:none;
+
     font-size:14px;
+
 }
+
 
 .ask-host:hover {
+
     text-decoration:underline;
+
 }
+
 
 #guestLookupForm {
+
     width:100%;
+
     max-width:430px;
+
     margin:0 auto;
+
 }
+
 
 .guest-field {
+
     margin-bottom:20px;
+
     text-align:left;
+
 }
+
 
 .guest-field label {
+
     display:block;
+
     margin-bottom:7px;
+
     font-size:14px;
+
     font-weight:600;
+
     color:#5d4b2a;
+
 }
+
 
 .guest-field input {
+
     width:100%;
+
     padding:13px 15px;
+
     border:1px solid #d8c9a5;
+
     border-radius:8px;
+
     background:#fff;
+
     color:#333;
+
     font-family:inherit;
+
     font-size:15px;
+
     outline:none;
+
 }
+
 
 .guest-field input:focus {
+
     border-color:goldenrod;
-    box-shadow:0 0 0 3px rgba(218,165,32,.12);
+
+    box-shadow:
+        0 0 0 3px rgba(218,165,32,.12);
+
 }
+
 
 .find-invitation-btn {
+
     width:100%;
+
     padding:14px 20px;
+
     border:none;
+
     border-radius:8px;
+
     background:goldenrod;
+
     color:white;
+
     font-family:inherit;
+
     font-size:15px;
+
     font-weight:600;
+
     cursor:pointer;
-    transition:transform .2s ease,opacity .2s ease,box-shadow .2s ease;
+
+    transition:
+        transform .2s ease,
+        opacity .2s ease,
+        box-shadow .2s ease;
+
 }
+
 
 .find-invitation-btn:hover {
+
     opacity:.9;
+
     transform:translateY(-1px);
-    box-shadow:0 5px 15px rgba(180,140,40,.25);
+
+    box-shadow:
+        0 5px 15px rgba(180,140,40,.25);
+
 }
 
+
 .find-invitation-btn:active {
+
     transform:translateY(0);
+
 }
+
 
 .find-invitation-btn:disabled,
 .rsvp-submit:disabled {
+
     opacity:.6;
+
     cursor:not-allowed;
+
     transform:none;
+
 }
+
 
 .guest-error {
+
     display:none;
+
     margin-top:18px;
+
     color:#a33;
+
     font-size:14px;
+
 }
+
 
 .guest-result {
+
     display:none;
+
     margin-top:35px;
+
     padding-top:5px;
+
 }
+
 
 .result-divider {
+
     width:70px;
+
     height:1px;
+
     margin:0 auto 25px;
+
     background:goldenrod;
+
 }
+
 
 .welcome-text {
+
     margin:0 0 5px;
+
     color:goldenrod;
+
     font-size:14px;
+
     text-transform:uppercase;
+
     letter-spacing:2px;
+
 }
+
 
 #guestFullName {
+
     margin:0 0 12px;
+
     color:#6d5425;
+
     font-size:28px;
+
     font-weight:500;
+
 }
+
 
 .guest-welcome {
+
     margin:0 auto 25px;
+
     max-width:430px;
+
     color:#777;
+
     font-size:14px;
+
     line-height:1.7;
+
 }
+
 
 .guest-details {
+
     margin:25px 0;
+
     padding:20px 0;
+
     border-top:1px solid #eee;
+
     border-bottom:1px solid #eee;
+
 }
+
 
 .detail-section {
+
     text-align:center;
+
     margin-bottom:25px;
+
 }
+
 
 .detail-section:last-child {
+
     margin-bottom:0;
+
 }
+
 
 .detail-label {
+
     display:block;
+
     margin-bottom:14px;
+
     color:#777;
+
     font-size:14px;
+
     font-weight:600;
+
 }
+
 
 .guest-select {
+
     width:100%;
+
     padding:13px 15px;
+
     border:1px solid #d8c9a5;
+
     border-radius:8px;
+
     background:#fff;
+
     color:#333;
+
     font-family:inherit;
+
     font-size:15px;
+
     outline:none;
+
 }
+
 
 .guest-select:disabled {
+
     opacity:1;
+
     color:#6d5425;
+
     background:#fffdf8;
+
     cursor:default;
+
 }
+
 
 .guest-choice-options {
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     gap:15px;
+
     flex-wrap:wrap;
+
 }
+
 
 .guest-choice-options label {
+
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
+
     gap:8px;
+
     padding:10px 20px;
+
     border:1px solid #d8c9a5;
+
     border-radius:8px;
+
     background:#fff;
+
     color:#6d5425;
+
     font-size:14px;
+
     cursor:pointer;
+
 }
+
 
 .guest-choice-options input {
+
     margin:0;
+
     accent-color:goldenrod;
+
 }
+
 
 .attendee-list {
+
     display:flex;
+
     flex-direction:column;
+
     gap:10px;
+
     text-align:left;
+
 }
+
 
 .attendee-option {
+
     display:flex;
+
     align-items:center;
+
     gap:10px;
+
     padding:12px 14px;
+
     border:1px solid #e5d9bd;
+
     border-radius:9px;
+
     background:#fff;
+
     cursor:pointer;
-    transition:border-color .2s ease,background .2s ease;
+
+    transition:
+        border-color .2s ease,
+        background .2s ease;
+
 }
+
 
 .attendee-option:hover {
+
     border-color:goldenrod;
+
     background:#fffdf8;
+
 }
+
 
 .attendee-option input {
+
     width:18px;
     height:18px;
+
     margin:0;
+
     accent-color:goldenrod;
+
     flex-shrink:0;
+
 }
+
 
 .attendee-option span {
+
     color:#6d5425;
+
     font-size:14px;
+
 }
+
 
 .attendee-option input:disabled {
+
     cursor:not-allowed;
+
 }
+
 
 .attendee-hint {
+
     margin:10px 0 0;
+
     color:#777;
+
     font-size:12px;
+
     text-align:center;
+
 }
+
 
 .event-choice input:disabled + span {
+
     opacity:.45;
+
 }
+
 
 .rsvp-status {
+
     display:none;
+
     margin:12px 0;
+
     text-align:center;
+
     color:#567866;
+
     font-size:14px;
+
 }
+
 
 .event-selection {
+
     display:flex;
+
     flex-direction:column;
+
     gap:12px;
+
     margin-top:15px;
+
 }
+
 
 .event-choice {
+
     display:flex;
+
     align-items:flex-start;
+
     gap:12px;
+
     padding:16px;
+
     text-align:left;
+
     background:#faf8f2;
+
     border:1px solid #e5d9bd;
+
     border-radius:10px;
+
     cursor:pointer;
+
 }
+
 
 .event-choice:hover {
+
     border-color:goldenrod;
+
     background:#fffdf8;
+
 }
+
 
 .event-choice input {
+
     width:18px;
     height:18px;
+
     margin-top:3px;
+
     accent-color:goldenrod;
+
     flex-shrink:0;
+
 }
+
 
 .event-choice span {
+
     display:block;
+
     flex:1;
+
 }
+
 
 .event-choice strong {
+
     display:block;
+
     margin-bottom:5px;
+
     color:#6d5425;
+
     font-size:15px;
+
 }
 
+
 .event-choice small {
+
     display:block;
+
     color:#777;
+
     font-size:12px;
+
     line-height:1.6;
+
 }
 
 
@@ -987,77 +1740,139 @@ nav.nav-hidden {
 ========================================= */
 
 .rsvp {
+
     width:100%;
+
     padding:80px 20px;
+
 }
+
 
 .rsvp-inner {
+
     width:100%;
+
     max-width:600px;
+
     margin:0 auto;
+
 }
+
 
 .rsvp-field {
+
     margin-bottom:24px;
+
 }
 
+
 .rsvp-field > label {
+
     display:block;
+
     margin-bottom:8px;
+
     color:#6d5425;
+
     font-size:15px;
+
     font-weight:400;
+
     line-height:1.5;
+
 }
+
 
 .rsvp-field input[type="tel"],
 .rsvp-field textarea {
+
     width:100%;
+
     padding:14px 16px;
+
     border:1px solid rgba(180,150,80,.45);
+
     border-radius:10px;
+
     background:rgba(255,255,255,.85);
+
     color:#4d3b28;
+
     font-family:inherit;
+
     font-size:15px;
+
     outline:none;
+
 }
+
 
 .rsvp-field input[type="tel"]:focus,
 .rsvp-field textarea:focus {
+
     border-color:goldenrod;
-    box-shadow:0 0 0 3px rgba(218,165,32,.12);
+
+    box-shadow:
+        0 0 0 3px rgba(218,165,32,.12);
+
 }
+
 
 .rsvp-field textarea {
+
     min-height:110px;
+
     resize:vertical;
+
 }
+
 
 .rsvp-submit {
+
     width:100%;
+
     padding:15px 24px;
+
     border:none;
+
     border-radius:30px;
+
     background:goldenrod;
+
     color:white;
+
     font-family:inherit;
+
     font-size:15px;
+
     font-weight:600;
+
     cursor:pointer;
+
     transition:all .25s ease;
+
 }
+
 
 .rsvp-submit:hover {
+
     transform:translateY(-2px);
+
     opacity:.92;
+
 }
 
+
 .rsvp-error {
+
     margin-top:12px;
+
     text-align:center;
+
     color:#a33;
+
     font-size:14px;
+
 }
 
 
@@ -1066,40 +1881,68 @@ nav.nav-hidden {
 ========================================= */
 
 .music-button {
+
     position:fixed;
+
     right:20px;
     bottom:20px;
+
     width:48px;
     height:48px;
+
     border-radius:50%;
+
     border:1px solid rgba(180,150,80,.5);
+
     background:rgba(255,255,255,.85);
+
     color:#b08a3c;
+
     font-size:18px;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     cursor:pointer;
-    box-shadow:0 4px 15px rgba(0,0,0,.12);
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,.12);
+
     z-index:9999;
+
 }
 
+
 .music-button.playing {
+
     animation:musicPulse 1.5s infinite;
+
 }
+
 
 @keyframes musicPulse {
 
     0% {
-        box-shadow:0 0 0 0 rgba(176,138,60,.25);
+
+        box-shadow:
+            0 0 0 0 rgba(176,138,60,.25);
+
     }
 
     70% {
-        box-shadow:0 0 0 10px rgba(176,138,60,0);
+
+        box-shadow:
+            0 0 0 10px rgba(176,138,60,0);
+
     }
 
     100% {
-        box-shadow:0 0 0 0 rgba(176,138,60,0);
+
+        box-shadow:
+            0 0 0 0 rgba(176,138,60,0);
+
     }
 
 }
@@ -1110,42 +1953,86 @@ nav.nav-hidden {
 ========================================= */
 
 .petal-field {
+
     position:fixed;
+
     top:0;
     left:0;
+
     width:100%;
     height:100vh;
+
     pointer-events:none;
+
     overflow:hidden;
+
     z-index:9999;
+
 }
 
+
 .petal {
+
     position:absolute;
+
     top:-40px;
+
     display:block;
+
     width:14px;
     height:20px;
+
     background:#e8a0aa;
+
     border-radius:50% 0 50% 50%;
+
     opacity:.7;
+
     animation-name:petalFall;
+
     animation-timing-function:linear;
+
     animation-iteration-count:infinite;
+
 }
+
 
 @keyframes petalFall {
 
     0% {
-        transform:translate3d(0,-40px,0) rotate(0deg);
+
+        transform:
+            translate3d(
+                0,
+                -40px,
+                0
+            )
+            rotate(0deg);
+
     }
 
     50% {
-        transform:translate3d(var(--drift),50vh,0) rotate(180deg);
+
+        transform:
+            translate3d(
+                var(--drift),
+                50vh,
+                0
+            )
+            rotate(180deg);
+
     }
 
     100% {
-        transform:translate3d(calc(var(--drift) * -1),110vh,0) rotate(360deg);
+
+        transform:
+            translate3d(
+                calc(var(--drift) * -1),
+                110vh,
+                0
+            )
+            rotate(360deg);
+
     }
 
 }
@@ -1156,21 +2043,35 @@ nav.nav-hidden {
 ========================================= */
 
 footer {
+
     padding:55px 20px;
+
     text-align:center;
+
     border-top:1px solid var(--gold-light);
+
 }
+
 
 .footer-logo {
+
     width:96px;
+
     margin:0 auto 12px;
+
 }
 
+
 footer p {
+
     font-size:10px;
+
     text-transform:uppercase;
+
     letter-spacing:.2em;
+
     color:rgba(48,43,37,.4);
+
 }
 
 
@@ -1181,18 +2082,28 @@ footer p {
 @media(max-width:850px) {
 
     nav {
+
         padding:0 20px;
+
     }
+
 
     .nav-links {
+
         gap:18px;
+
         font-size:11px;
+
         letter-spacing:.13em;
+
     }
 
+
     .nav-logo {
+
         width:48px;
         height:48px;
+
     }
 
 }
@@ -1205,23 +2116,37 @@ footer p {
 @media(max-width:650px) {
 
     nav {
+
         height:62px;
+
         padding:0 14px;
+
     }
+
 
     .nav-logo {
+
         width:40px;
         height:40px;
+
     }
+
 
     .nav-links {
+
         gap:10px;
+
         font-size:9px;
+
         letter-spacing:.08em;
+
     }
 
+
     .nav-links a {
+
         padding:6px 1px;
+
     }
 
 }
@@ -1234,22 +2159,35 @@ footer p {
 @media(max-width:480px) {
 
     nav {
+
         padding:0 10px;
+
     }
+
 
     .nav-logo {
+
         width:36px;
         height:36px;
+
     }
+
 
     .nav-links {
+
         gap:7px;
+
         font-size:8px;
+
         letter-spacing:.05em;
+
     }
 
+
     .hero {
+
         min-height:70vh;
+
     }
 
 }
@@ -1265,71 +2203,120 @@ footer p {
     .countdown,
     .save-date,
     .rsvp {
+
         padding:60px 20px;
+
     }
+
 
     .invitation h2,
     .section-title {
+
         font-size:27px;
+
     }
+
 
     .countdown-box {
+
         padding:24px 15px;
+
     }
+
 
     .count-number {
+
         font-size:28px;
+
     }
+
 
     .date {
+
         font-size:36px;
+
     }
+
 
     .guest-lookup {
+
         padding:60px 15px;
+
     }
+
 
     .guest-lookup-card {
+
         padding:35px 20px;
+
         border-radius:16px;
+
     }
+
 
     .guest-lookup-card h2 {
+
         font-size:27px;
+
     }
+
 
     #guestFullName {
+
         font-size:24px;
+
     }
+
 
     .guest-choice-options {
+
         gap:10px;
+
     }
+
 
     .guest-choice-options label {
+
         padding:9px 16px;
+
     }
+
 
     .event-choice {
+
         padding:14px;
+
         gap:10px;
+
     }
+
 
     .event-choice strong {
+
         font-size:14px;
+
     }
+
 
     .event-choice small {
+
         font-size:11px;
+
     }
 
+
     .rsvp-field > label {
+
         font-size:13px;
+
     }
+
 
     .rsvp-field input[type="tel"],
     .rsvp-field textarea {
+
         font-size:14px;
+
     }
 
 }
@@ -1337,6 +2324,7 @@ footer p {
 </style>
 
 </head>
+
 
 <body>
 
@@ -1434,7 +2422,9 @@ footer p {
         alt="Lord Ganesha">
 
     <div class="upper gold">
+
         || Om Shree Ganeshaya Namah ||
+
     </div>
 
 </div>
@@ -1453,9 +2443,11 @@ footer p {
         src="PratikaWebsite/dubai-wallpaper.png"
         alt="Illustrated Dubai skyline">
 
+
     <div class="vignette-top"></div>
 
     <div class="vignette-bottom"></div>
+
 
     <div class="hero-content">
 
@@ -1483,8 +2475,11 @@ footer p {
 
     </h1>
 
+
     <span class="display">
+
         Are Getting Married
+
     </span>
 
 </section>
@@ -1501,22 +2496,30 @@ footer p {
         <div class="rule">
 
             <span class="upper gold">
+
                 The Invitation
+
             </span>
 
         </div>
 
+
         <h2 class="upper gold">
+
             Our Union in the City of Gold
+
         </h2>
 
+
         <p>
+
             Deeply rooted in tradition and surrounded
             by the shifting sands of Dubai, we invite
             you to witness our vows at the BAPS Hindu
             Mandir. Two days of joy, ceremony, and
             celebration — we would be honoured to
             have you with us.
+
         </p>
 
     </div>
@@ -1540,57 +2543,90 @@ footer p {
 
         </div>
 
+
         <div class="countdown-grid">
 
             <div>
 
-                <div id="days" class="count-number">
+                <div
+                    id="days"
+                    class="count-number">
+
                     --
+
                 </div>
 
+
                 <div class="count-label">
+
                     Days
+
                 </div>
 
             </div>
 
+
             <div>
 
-                <div id="hours" class="count-number">
+                <div
+                    id="hours"
+                    class="count-number">
+
                     --
+
                 </div>
 
+
                 <div class="count-label">
+
                     Hours
+
                 </div>
 
             </div>
 
+
             <div>
 
-                <div id="minutes" class="count-number">
+                <div
+                    id="minutes"
+                    class="count-number">
+
                     --
+
                 </div>
 
+
                 <div class="count-label">
+
                     Minutes
+
                 </div>
 
             </div>
 
+
             <div>
 
-                <div id="seconds" class="count-number">
+                <div
+                    id="seconds"
+                    class="count-number">
+
                     --
+
                 </div>
 
+
                 <div class="count-label">
+
                     Seconds
+
                 </div>
 
             </div>
 
         </div>
+
 
         <div
             style="
@@ -1620,6 +2656,7 @@ footer p {
             id="scratchCard"
             class="scratch-card">
 
+
             <div class="scratch-content">
 
                 <div
@@ -1632,9 +2669,13 @@ footer p {
 
                 </div>
 
+
                 <div class="date">
+
                     21 . 11 . 2026
+
                 </div>
+
 
                 <div
                     style="
@@ -1647,6 +2688,7 @@ footer p {
                     Abu Dhabi
 
                 </div>
+
 
                 <div
                     style="
@@ -1662,10 +2704,14 @@ footer p {
 
             </div>
 
+
             <canvas id="scratchCanvas"></canvas>
 
+
             <span class="scratch-label">
+
                 Scratch to Reveal
+
             </span>
 
         </div>
@@ -1679,13 +2725,19 @@ footer p {
      EVENTS
 ========================================= -->
 
-<section id="events" class="events">
+<section
+    id="events"
+    class="events">
+
 
     <div class="events-header">
 
         <div class="upper gold">
+
             The Celebrations
+
         </div>
+
 
         <h2
             class="section-title display"
@@ -1705,11 +2757,16 @@ footer p {
             src="PratikaWebsite/sangeet-final1.png"
             alt="Illustration of Pratika & Deepanshu dancing at their Sangeet">
 
+
         <div class="event-body">
 
-            <span class="upper gold event-index">
+            <span
+                class="upper gold event-index">
+
                 Function One
+
             </span>
+
 
             <h3
                 class="event-title"
@@ -1719,28 +2776,41 @@ footer p {
 
             </h3>
 
+
             <div class="event-details">
 
                 <p>
+
                     Thu, 19th Nov &bull; 6:00 PM
+
                 </p>
 
+
                 <p>
+
                     Millennium Lakeview Hotel,
                     Dubai Investment Park
+
                 </p>
 
+
                 <p>
+
                     <strong>Attire:</strong>
                     Glitter and Glam
+
                 </p>
 
             </div>
 
+
             <p class="event-note">
+
                 An evening of music, dance,
                 and revelry beneath the Dubai skyline.
+
             </p>
+
 
             <div class="divider"></div>
 
@@ -1756,6 +2826,7 @@ footer p {
             src="PratikaWebsite/wedding-final1.png"
             alt="Illustration of Pratika & Deepanshu in wedding attire">
 
+
         <div class="event-body">
 
             <span
@@ -1766,6 +2837,7 @@ footer p {
 
             </span>
 
+
             <h3
                 class="event-title"
                 style="color:goldenrod;">
@@ -1774,28 +2846,41 @@ footer p {
 
             </h3>
 
+
             <div class="event-details">
 
                 <p>
+
                     Sat, 21st Nov &bull; 2:00 PM
+
                 </p>
 
+
                 <p>
+
                     BAPS Hindu Mandir,
                     Abu Dhabi
+
                 </p>
 
+
                 <p>
+
                     <strong>Attire:</strong>
                     Pastel &amp; Jewel Harmony
+
                 </p>
 
             </div>
 
+
             <p class="event-note">
+
                 Seven sacred vows around the holy fire
                 at the Mandir — the heart of our celebration.
+
             </p>
+
 
             <div class="divider"></div>
 
@@ -1810,17 +2895,25 @@ footer p {
      MEMORIES
 ========================================= -->
 
-<section id="memories" class="memories fade-in">
+<section
+    id="memories"
+    class="memories fade-in">
+
 
     <div class="memory-inner">
+
 
         <div
             class="text-center"
             style="margin-bottom:28px">
 
+
             <div class="upper gold">
+
                 Our Memories
+
             </div>
+
 
             <h2
                 class="section-title display"
@@ -1835,14 +2928,18 @@ footer p {
 
         <div class="memory-frame">
 
+
             <figure class="memory-slide active">
 
                 <img
                     src="PratikaWebsite/memory-proposal.jpeg"
                     alt="Pratika and Deepanshu beneath a red rose heart">
 
+
                 <figcaption class="caption">
+
                     Where Forever Began
+
                 </figcaption>
 
             </figure>
@@ -1854,8 +2951,11 @@ footer p {
                     src="PratikaWebsite/memory-festive-red.jpeg"
                     alt="Pratika and Deepanshu dressed in red">
 
+
                 <figcaption class="caption">
+
                     Festive Moments
+
                 </figcaption>
 
             </figure>
@@ -1867,8 +2967,11 @@ footer p {
                     src="PratikaWebsite/memory-museum-future.jpeg"
                     alt="Pratika and Deepanshu at Dubai's Museum of the Future">
 
+
                 <figcaption class="caption">
+
                     Dubai Days
+
                 </figcaption>
 
             </figure>
@@ -1880,8 +2983,11 @@ footer p {
                     src="PratikaWebsite/memory-traditional.jpeg"
                     alt="Pratika and Deepanshu in traditional Indian attire">
 
+
                 <figcaption class="caption">
+
                     Together in Tradition
+
                 </figcaption>
 
             </figure>
@@ -1890,6 +2996,7 @@ footer p {
 
 
         <div class="slider-controls">
+
 
             <button
                 class="slider-button"
@@ -1901,10 +3008,12 @@ footer p {
 
             </button>
 
+
             <div
                 class="dots"
                 id="dots">
             </div>
+
 
             <button
                 class="slider-button"
@@ -1927,13 +3036,20 @@ footer p {
      VENUES
 ========================================= -->
 
-<section id="venue" class="venue">
+<section
+    id="venue"
+    class="venue">
+
 
     <div class="venue-block fade-in">
 
+
         <div class="upper gold">
+
             Glam Gala Venue
+
         </div>
+
 
         <h2
             class="venue-title"
@@ -1943,6 +3059,7 @@ footer p {
 
         </h2>
 
+
         <p class="venue-address">
 
             Millennium Lakeview Hotel<br>
@@ -1951,10 +3068,12 @@ footer p {
 
         </p>
 
+
         <img
             class="venue-image"
             src="PratikaWebsite/millennium-lakeview-hotel.jpeg"
             alt="Millennium Lakeview Hotel beside the lake">
+
 
         <p class="venue-description">
 
@@ -1963,6 +3082,7 @@ footer p {
             under the lights of the Dubai skyline.
 
         </p>
+
 
         <a
             class="map-button"
@@ -1979,9 +3099,13 @@ footer p {
 
     <div class="venue-block fade-in">
 
+
         <div class="upper gold">
+
             The Sacred Knot Venue
+
         </div>
+
 
         <h2
             class="venue-title"
@@ -1991,6 +3115,7 @@ footer p {
 
         </h2>
 
+
         <p class="venue-address">
 
             BAPS Hindu Mandir,
@@ -1998,10 +3123,12 @@ footer p {
 
         </p>
 
+
         <img
             class="venue-image"
             src="PratikaWebsite/baps-hindu-mandir.jpeg"
             alt="BAPS Hindu Mandir in Abu Dhabi">
+
 
         <p class="venue-description">
 
@@ -2016,6 +3143,7 @@ footer p {
             the temple premises.
 
         </p>
+
 
         <a
             class="map-button"
@@ -2040,23 +3168,35 @@ footer p {
     id="guest-invitation"
     class="guest-lookup">
 
+
     <div class="guest-lookup-card">
 
+
         <div class="guest-lookup-icon">
+
             ✦
+
         </div>
 
+
         <h2>
+
             Let's Find Your Invitation
+
         </h2>
 
+
         <p class="guest-subtitle">
+
             Enter your name to get your event schedule.
+
         </p>
+
 
         <p class="help-text">
 
             Need help?
+
 
             <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=pratika.d55@gmail.com&cc=deepanshu94@hotmail.com&su=Help%20with%20Wedding%20Invitation"
@@ -2073,11 +3213,15 @@ footer p {
 
         <form id="guestLookupForm">
 
+
             <div class="guest-field">
 
                 <label for="firstName">
+
                     First Name
+
                 </label>
+
 
                 <input
                     type="text"
@@ -2092,8 +3236,11 @@ footer p {
             <div class="guest-field">
 
                 <label for="lastName">
+
                     Last Name
+
                 </label>
+
 
                 <input
                     type="text"
@@ -2127,22 +3274,33 @@ footer p {
             id="guestResult"
             class="guest-result">
 
+
             <div class="result-divider"></div>
 
+
             <p class="welcome-text">
+
                 Welcome
+
             </p>
+
 
             <h3 id="guestFullName"></h3>
 
+
             <p class="guest-welcome">
-                We are delighted to celebrate these special moments with you.
+
+                We are delighted to celebrate these
+                special moments with you.
+
             </p>
 
 
             <div class="guest-details">
 
+
                 <div class="detail-section">
+
 
                     <label
                         class="detail-label"
@@ -2152,14 +3310,19 @@ footer p {
 
                     </label>
 
+
                     <select
                         id="guestCount"
                         class="guest-select"
                         disabled>
 
+
                         <option value="">
+
                             Select number of guests
+
                         </option>
+
 
                     </select>
 
@@ -2168,20 +3331,26 @@ footer p {
 
                 <div class="detail-section">
 
+
                     <span class="detail-label">
+
                         Who is attending?
+
                     </span>
+
 
                     <div
                         id="attendeeList"
                         class="attendee-list">
                     </div>
 
+
                     <p
                         id="attendeeHint"
                         class="attendee-hint">
 
-                        Select the guests who are attending.
+                        Select the guests who are attending,
+                        or leave everyone unchecked if you cannot attend.
 
                     </p>
 
@@ -2204,22 +3373,31 @@ footer p {
 
             <div class="event-selection">
 
+
                 <label class="event-choice">
+
 
                     <input
                         type="checkbox"
                         name="lookupEvents"
                         value="Sangeet">
 
+
                     <span>
 
+
                         <strong>
+
                             Sangeet (Glam Gala)
+
                         </strong>
 
+
                         <small>
+
                             Thursday, 19 November 2026 • 6:00 PM<br>
                             Millennium Lakeview Hotel, Dubai Investment Park
+
                         </small>
 
                     </span>
@@ -2229,20 +3407,28 @@ footer p {
 
                 <label class="event-choice">
 
+
                     <input
                         type="checkbox"
                         name="lookupEvents"
                         value="Wedding">
 
+
                     <span>
 
+
                         <strong>
+
                             Wedding (The Sacred Knot)
+
                         </strong>
 
+
                         <small>
+
                             Saturday, 21 November 2026 • 2:00 PM<br>
                             BAPS Hindu Mandir, Abu Dhabi
+
                         </small>
 
                     </span>
@@ -2266,15 +3452,21 @@ footer p {
     id="rsvp"
     class="rsvp fade-in">
 
+
     <div class="rsvp-inner">
+
 
         <div
             class="text-center"
             style="margin-bottom:30px;">
 
+
             <div class="upper gold">
+
                 Kindly Respond
+
             </div>
+
 
             <h2
                 class="section-title display"
@@ -2288,6 +3480,7 @@ footer p {
 
 
         <form id="rsvpForm">
+
 
             <input
                 type="hidden"
@@ -2333,9 +3526,13 @@ footer p {
 
             <div class="rsvp-field">
 
+
                 <label for="rsvpPhone">
+
                     Phone Number
+
                 </label>
+
 
                 <input
                     type="tel"
@@ -2354,6 +3551,7 @@ footer p {
 
             <div class="rsvp-field">
 
+
                 <label for="advice">
 
                     Any tips, tricks or survival advice
@@ -2361,6 +3559,7 @@ footer p {
                     officially become Mr. &amp; Mrs.? 😂♥️
 
                 </label>
+
 
                 <textarea
                     id="advice"
@@ -2406,17 +3605,24 @@ footer p {
 
 <footer>
 
+
     <img
         class="footer-logo"
         src="PratikaWebsite/dp-logo-footer.png"
         alt="Pratika & Deepanshu monogram">
 
-    <p>
-        19 &amp; 21 November 2026
-    </p>
 
     <p>
+
+        19 &amp; 21 November 2026
+
+    </p>
+
+
+    <p>
+
         #DeepkePratipyaar
+
     </p>
 
 </footer>
@@ -2428,97 +3634,126 @@ footer p {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    var field =
-        document.getElementById("petalField");
 
-    if (!field) {
-        return;
+        var field =
+            document.getElementById(
+                "petalField"
+            );
+
+
+        if (!field) {
+
+            return;
+
+        }
+
+
+        function seeded(i,salt) {
+
+            var x =
+                Math.sin(
+                    i * 127.1 +
+                    salt * 311.7
+                ) *
+                43758.5453;
+
+
+            return x -
+                Math.floor(x);
+
+        }
+
+
+        for (
+            var i = 0;
+            i < 25;
+            i++
+        ) {
+
+
+            var petal =
+                document.createElement(
+                    "span"
+                );
+
+
+            petal.className =
+                "petal";
+
+
+            var left =
+                seeded(i,1) * 100;
+
+
+            var delay =
+                seeded(i,2) * 12;
+
+
+            var duration =
+                8 +
+                seeded(i,3) * 8;
+
+
+            var size =
+                10 +
+                seeded(i,4) * 12;
+
+
+            var drift =
+                (
+                    seeded(i,5) -
+                    .5
+                ) *
+                200;
+
+
+            var opacity =
+                .4 +
+                seeded(i,6) * .5;
+
+
+            petal.style.left =
+                left + "%";
+
+
+            petal.style.width =
+                size + "px";
+
+
+            petal.style.height =
+                (size * 1.3) + "px";
+
+
+            petal.style.opacity =
+                opacity;
+
+
+            petal.style.animationDelay =
+                "-" + delay + "s";
+
+
+            petal.style.animationDuration =
+                duration + "s";
+
+
+            petal.style.setProperty(
+                "--drift",
+                drift + "px"
+            );
+
+
+            field.appendChild(
+                petal
+            );
+
+        }
+
     }
-
-
-    function seeded(i, salt) {
-
-        var x =
-            Math.sin(
-                i * 127.1 +
-                salt * 311.7
-            ) * 43758.5453;
-
-        return x - Math.floor(x);
-
-    }
-
-
-    for (var i = 0; i < 25; i++) {
-
-        var petal =
-            document.createElement("span");
-
-        petal.className =
-            "petal";
-
-
-        var left =
-            seeded(i,1) * 100;
-
-
-        var delay =
-            seeded(i,2) * 12;
-
-
-        var duration =
-            8 + seeded(i,3) * 8;
-
-
-        var size =
-            10 + seeded(i,4) * 12;
-
-
-        var drift =
-            (seeded(i,5) - .5) * 200;
-
-
-        var opacity =
-            .4 + seeded(i,6) * .5;
-
-
-        petal.style.left =
-            left + "%";
-
-
-        petal.style.width =
-            size + "px";
-
-
-        petal.style.height =
-            (size * 1.3) + "px";
-
-
-        petal.style.opacity =
-            opacity;
-
-
-        petal.style.animationDelay =
-            "-" + delay + "s";
-
-
-        petal.style.animationDuration =
-            duration + "s";
-
-
-        petal.style.setProperty(
-            "--drift",
-            drift + "px"
-        );
-
-
-        field.appendChild(petal);
-
-    }
-
-});
+);
 
 </script>
 
@@ -2529,112 +3764,146 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const music =
-        document.getElementById("weddingMusic");
-
-    const button =
-        document.getElementById("musicButton");
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    if (!music || !button) {
-        return;
-    }
+        const music =
+            document.getElementById(
+                "weddingMusic"
+            );
 
 
-    music.volume = 0.7;
+        const button =
+            document.getElementById(
+                "musicButton"
+            );
 
 
-    button.addEventListener(
-        "click",
-        async function () {
+        if (
+            !music ||
+            !button
+        ) {
 
-            try {
+            return;
 
-                if (music.paused) {
+        }
 
-                    await music.play();
 
-                    button.innerHTML =
-                        "❚❚";
+        music.volume = 0.7;
 
-                    button.classList.add(
-                        "playing"
+
+        button.addEventListener(
+            "click",
+            async function () {
+
+
+                try {
+
+
+                    if (
+                        music.paused
+                    ) {
+
+
+                        await music.play();
+
+
+                        button.innerHTML =
+                            "❚❚";
+
+
+                        button.classList.add(
+                            "playing"
+                        );
+
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Pause wedding music"
+                        );
+
+
+                    } else {
+
+
+                        music.pause();
+
+
+                        button.innerHTML =
+                            "▶";
+
+
+                        button.classList.remove(
+                            "playing"
+                        );
+
+
+                        button.setAttribute(
+                            "aria-label",
+                            "Play wedding music"
+                        );
+
+                    }
+
+
+                } catch (error) {
+
+
+                    console.log(
+                        "Music playback error:",
+                        error
                     );
 
-                    button.setAttribute(
-                        "aria-label",
-                        "Pause wedding music"
-                    );
 
-                } else {
-
-                    music.pause();
-
-                    button.innerHTML =
-                        "▶";
-
-                    button.classList.remove(
-                        "playing"
-                    );
-
-                    button.setAttribute(
-                        "aria-label",
-                        "Play wedding music"
+                    alert(
+                        "Music could not be played. " +
+                        "Please make sure aaj-sajeya.mp3 " +
+                        "is uploaded in the same folder as index.html."
                     );
 
                 }
 
-            } catch (error) {
+            }
+        );
 
-                console.log(
-                    "Music playback error:",
-                    error
-                );
 
-                alert(
-                    "Music could not be played. " +
-                    "Please make sure aaj-sajeya.mp3 " +
-                    "is uploaded in the same folder as index.html."
+        music.addEventListener(
+            "pause",
+            function () {
+
+
+                button.innerHTML =
+                    "▶";
+
+
+                button.classList.remove(
+                    "playing"
                 );
 
             }
-
-        }
-    );
+        );
 
 
-    music.addEventListener(
-        "pause",
-        function () {
-
-            button.innerHTML =
-                "▶";
-
-            button.classList.remove(
-                "playing"
-            );
-
-        }
-    );
+        music.addEventListener(
+            "play",
+            function () {
 
 
-    music.addEventListener(
-        "play",
-        function () {
+                button.innerHTML =
+                    "❚❚";
 
-            button.innerHTML =
-                "❚❚";
 
-            button.classList.add(
-                "playing"
-            );
+                button.classList.add(
+                    "playing"
+                );
 
-        }
-    );
+            }
+        );
 
-});
+    }
+);
 
 </script>
 
@@ -2645,68 +3914,113 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    var card =
-        document.getElementById("scratchCard");
-
-    var canvas =
-        document.getElementById("scratchCanvas");
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    if (!card || !canvas) {
-        return;
-    }
-
-
-    var ctx =
-        canvas.getContext("2d");
-
-    var isScratching =
-        false;
-
-
-    function setupCanvas() {
-
-        var rect =
-            card.getBoundingClientRect();
-
-
-        var dpr =
-            Math.min(
-                window.devicePixelRatio || 1,
-                2
+        var card =
+            document.getElementById(
+                "scratchCard"
             );
 
 
-        canvas.width =
-            rect.width * dpr;
+        var canvas =
+            document.getElementById(
+                "scratchCanvas"
+            );
 
 
-        canvas.height =
-            rect.height * dpr;
+        if (
+            !card ||
+            !canvas
+        ) {
+
+            return;
+
+        }
 
 
-        canvas.style.width =
-            rect.width + "px";
+        var ctx =
+            canvas.getContext("2d");
 
 
-        canvas.style.height =
-            rect.height + "px";
+        var isScratching =
+            false;
 
 
-        ctx.setTransform(
-            dpr,
-            0,
-            0,
-            dpr,
-            0,
-            0
-        );
+        function setupCanvas() {
 
 
-        var gradient =
-            ctx.createLinearGradient(
+            var rect =
+                card.getBoundingClientRect();
+
+
+            var dpr =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    2
+                );
+
+
+            canvas.width =
+                rect.width * dpr;
+
+
+            canvas.height =
+                rect.height * dpr;
+
+
+            canvas.style.width =
+                rect.width + "px";
+
+
+            canvas.style.height =
+                rect.height + "px";
+
+
+            ctx.setTransform(
+                dpr,
+                0,
+                0,
+                dpr,
+                0,
+                0
+            );
+
+
+            var gradient =
+                ctx.createLinearGradient(
+                    0,
+                    0,
+                    rect.width,
+                    rect.height
+                );
+
+
+            gradient.addColorStop(
+                0,
+                "#c8a66a"
+            );
+
+
+            gradient.addColorStop(
+                .45,
+                "#e1c486"
+            );
+
+
+            gradient.addColorStop(
+                1,
+                "#9b743a"
+            );
+
+
+            ctx.fillStyle =
+                gradient;
+
+
+            ctx.fillRect(
                 0,
                 0,
                 rect.width,
@@ -2714,245 +4028,240 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        gradient.addColorStop(
-            0,
-            "#c8a66a"
-        );
+            ctx.globalAlpha =
+                .15;
 
 
-        gradient.addColorStop(
-            .45,
-            "#e1c486"
-        );
+            ctx.fillStyle =
+                "#6d522b";
 
 
-        gradient.addColorStop(
-            1,
-            "#9b743a"
-        );
+            for (
+                var i = 0;
+                i < 180;
+                i++
+            ) {
 
 
-        ctx.fillStyle =
-            gradient;
+                var x =
+                    Math.random() *
+                    rect.width;
 
 
-        ctx.fillRect(
-            0,
-            0,
-            rect.width,
-            rect.height
-        );
+                var y =
+                    Math.random() *
+                    rect.height;
 
 
-        ctx.globalAlpha =
-            .15;
+                ctx.fillRect(
+                    x,
+                    y,
+                    1.5,
+                    1.5
+                );
 
-
-        ctx.fillStyle =
-            "#6d522b";
-
-
-        for (var i = 0; i < 180; i++) {
-
-            var x =
-                Math.random() *
-                rect.width;
-
-
-            var y =
-                Math.random() *
-                rect.height;
-
-
-            ctx.fillRect(
-                x,
-                y,
-                1.5,
-                1.5
-            );
-
-        }
-
-
-        ctx.globalAlpha =
-            1;
-
-    }
-
-
-    function scratch(x,y) {
-
-        var rect =
-            card.getBoundingClientRect();
-
-
-        ctx.globalCompositeOperation =
-            "destination-out";
-
-
-        ctx.beginPath();
-
-
-        ctx.arc(
-            x - rect.left,
-            y - rect.top,
-            28,
-            0,
-            Math.PI * 2
-        );
-
-
-        ctx.fill();
-
-    }
-
-
-    function checkScratchProgress() {
-
-        var imageData =
-            ctx.getImageData(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-
-
-        var pixels =
-            imageData.data;
-
-
-        var transparent =
-            0;
-
-
-        var total =
-            0;
-
-
-        for (
-            var i = 3;
-            i < pixels.length;
-            i += 40
-        ) {
-
-            total++;
-
-
-            if (pixels[i] === 0) {
-                transparent++;
             }
 
+
+            ctx.globalAlpha =
+                1;
+
         }
 
 
-        var percentage =
-            transparent / total;
+        function scratch(x,y) {
 
 
-        if (percentage > .45) {
+            var rect =
+                card.getBoundingClientRect();
 
-            card.classList.add(
-                "revealed"
+
+            ctx.globalCompositeOperation =
+                "destination-out";
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                x - rect.left,
+                y - rect.top,
+                28,
+                0,
+                Math.PI * 2
             );
 
 
-            canvas.style.pointerEvents =
-                "none";
+            ctx.fill();
+
+        }
 
 
-            var label =
-                document.querySelector(
-                    ".scratch-label"
+        function checkScratchProgress() {
+
+
+            var imageData =
+                ctx.getImageData(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
                 );
 
 
-            if (label) {
+            var pixels =
+                imageData.data;
 
-                label.style.display =
+
+            var transparent =
+                0;
+
+
+            var total =
+                0;
+
+
+            for (
+                var i = 3;
+                i < pixels.length;
+                i += 40
+            ) {
+
+
+                total++;
+
+
+                if (
+                    pixels[i] === 0
+                ) {
+
+                    transparent++;
+
+                }
+
+            }
+
+
+            var percentage =
+                transparent /
+                total;
+
+
+            if (
+                percentage > .45
+            ) {
+
+
+                card.classList.add(
+                    "revealed"
+                );
+
+
+                canvas.style.pointerEvents =
                     "none";
 
+
+                var label =
+                    document.querySelector(
+                        ".scratch-label"
+                    );
+
+
+                if (label) {
+
+                    label.style.display =
+                        "none";
+
+                }
+
             }
 
         }
+
+
+        canvas.addEventListener(
+            "pointerdown",
+            function (e) {
+
+
+                isScratching =
+                    true;
+
+
+                canvas.setPointerCapture(
+                    e.pointerId
+                );
+
+
+                scratch(
+                    e.clientX,
+                    e.clientY
+                );
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointermove",
+            function (e) {
+
+
+                if (
+                    !isScratching
+                ) {
+
+                    return;
+
+                }
+
+
+                scratch(
+                    e.clientX,
+                    e.clientY
+                );
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointerup",
+            function () {
+
+
+                isScratching =
+                    false;
+
+
+                checkScratchProgress();
+
+            }
+        );
+
+
+        canvas.addEventListener(
+            "pointercancel",
+            function () {
+
+
+                isScratching =
+                    false;
+
+            }
+        );
+
+
+        setupCanvas();
+
+
+        window.addEventListener(
+            "resize",
+            setupCanvas
+        );
 
     }
-
-
-    canvas.addEventListener(
-        "pointerdown",
-        function (e) {
-
-            isScratching =
-                true;
-
-
-            canvas.setPointerCapture(
-                e.pointerId
-            );
-
-
-            scratch(
-                e.clientX,
-                e.clientY
-            );
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "pointermove",
-        function (e) {
-
-            if (!isScratching) {
-                return;
-            }
-
-
-            scratch(
-                e.clientX,
-                e.clientY
-            );
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "pointerup",
-        function () {
-
-            isScratching =
-                false;
-
-
-            checkScratchProgress();
-
-        }
-    );
-
-
-    canvas.addEventListener(
-        "pointercancel",
-        function () {
-
-            isScratching =
-                false;
-
-        }
-    );
-
-
-    setupCanvas();
-
-
-    window.addEventListener(
-        "resize",
-        setupCanvas
-    );
-
-});
+);
 
 </script>
 
@@ -2963,70 +4272,155 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const slides =
-        document.querySelectorAll(
-            ".memory-slide"
-        );
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    const dotsContainer =
-        document.getElementById("dots");
-
-
-    const prev =
-        document.getElementById("prev");
-
-
-    const next =
-        document.getElementById("next");
-
-
-    if (
-        !slides.length ||
-        !dotsContainer
-    ) {
-
-        return;
-
-    }
-
-
-    let current =
-        0;
-
-
-    slides.forEach(
-        function (_,index) {
-
-            const dot =
-                document.createElement(
-                    "button"
-                );
-
-
-            dot.className =
-                "dot";
-
-
-            dot.type =
-                "button";
-
-
-            dot.setAttribute(
-                "aria-label",
-                "Go to memory " +
-                (index + 1)
+        const slides =
+            document.querySelectorAll(
+                ".memory-slide"
             );
 
 
-            dot.addEventListener(
+        const dotsContainer =
+            document.getElementById(
+                "dots"
+            );
+
+
+        const prev =
+            document.getElementById(
+                "prev"
+            );
+
+
+        const next =
+            document.getElementById(
+                "next"
+            );
+
+
+        if (
+            !slides.length ||
+            !dotsContainer
+        ) {
+
+            return;
+
+        }
+
+
+        let current =
+            0;
+
+
+        slides.forEach(
+            function (_,index) {
+
+
+                const dot =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                dot.className =
+                    "dot";
+
+
+                dot.type =
+                    "button";
+
+
+                dot.setAttribute(
+                    "aria-label",
+                    "Go to memory " +
+                    (index + 1)
+                );
+
+
+                dot.addEventListener(
+                    "click",
+                    function () {
+
+
+                        current =
+                            index;
+
+
+                        showSlide();
+
+                    }
+                );
+
+
+                dotsContainer.appendChild(
+                    dot
+                );
+
+            }
+        );
+
+
+        const dots =
+            dotsContainer.querySelectorAll(
+                ".dot"
+            );
+
+
+        function showSlide() {
+
+
+            slides.forEach(
+                function (
+                    slide,
+                    index
+                ) {
+
+
+                    slide.classList.toggle(
+                        "active",
+                        index === current
+                    );
+
+                }
+            );
+
+
+            dots.forEach(
+                function (
+                    dot,
+                    index
+                ) {
+
+
+                    dot.classList.toggle(
+                        "active",
+                        index === current
+                    );
+
+                }
+            );
+
+        }
+
+
+        if (prev) {
+
+
+            prev.addEventListener(
                 "click",
                 function () {
 
+
                     current =
-                        index;
+                        (
+                            current -
+                            1 +
+                            slides.length
+                        ) %
+                        slides.length;
 
 
                     showSlide();
@@ -3034,97 +4428,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             );
 
+        }
 
-            dotsContainer.appendChild(
-                dot
+
+        if (next) {
+
+
+            next.addEventListener(
+                "click",
+                function () {
+
+
+                    current =
+                        (
+                            current +
+                            1
+                        ) %
+                        slides.length;
+
+
+                    showSlide();
+
+                }
             );
 
         }
-    );
 
 
-    const dots =
-        dotsContainer.querySelectorAll(
-            ".dot"
-        );
-
-
-    function showSlide() {
-
-        slides.forEach(
-            function (slide,index) {
-
-                slide.classList.toggle(
-                    "active",
-                    index === current
-                );
-
-            }
-        );
-
-
-        dots.forEach(
-            function (dot,index) {
-
-                dot.classList.toggle(
-                    "active",
-                    index === current
-                );
-
-            }
-        );
+        showSlide();
 
     }
-
-
-    if (prev) {
-
-        prev.addEventListener(
-            "click",
-            function () {
-
-                current =
-                    (
-                        current -
-                        1 +
-                        slides.length
-                    ) %
-                    slides.length;
-
-
-                showSlide();
-
-            }
-        );
-
-    }
-
-
-    if (next) {
-
-        next.addEventListener(
-            "click",
-            function () {
-
-                current =
-                    (
-                        current +
-                        1
-                    ) %
-                    slides.length;
-
-
-                showSlide();
-
-            }
-        );
-
-    }
-
-
-    showSlide();
-
-});
+);
 
 </script>
 
@@ -3135,1122 +4469,1519 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const target =
-        new Date(
-            "2026-11-21T14:00:00+04:00"
-        ).getTime();
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    function updateCountdown() {
-
-        const now =
-            new Date().getTime();
-
-
-        let distance =
-            target - now;
+        const target =
+            new Date(
+                "2026-11-21T14:00:00+04:00"
+            ).getTime();
 
 
-        if (distance < 0) {
-            distance = 0;
+        function updateCountdown() {
+
+
+            const now =
+                new Date().getTime();
+
+
+            let distance =
+                target -
+                now;
+
+
+            if (
+                distance < 0
+            ) {
+
+                distance = 0;
+
+            }
+
+
+            const days =
+                Math.floor(
+                    distance /
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                );
+
+
+            const hours =
+                Math.floor(
+                    (
+                        distance %
+                        (
+                            1000 *
+                            60 *
+                            60 *
+                            24
+                        )
+                    ) /
+                    (
+                        1000 *
+                        60 *
+                        60
+                    )
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (
+                        distance %
+                        (
+                            1000 *
+                            60 *
+                            60
+                        )
+                    ) /
+                    (
+                        1000 *
+                        60
+                    )
+                );
+
+
+            const seconds =
+                Math.floor(
+                    (
+                        distance %
+                        (
+                            1000 *
+                            60
+                        )
+                    ) /
+                    1000
+                );
+
+
+            document.getElementById(
+                "days"
+            ).textContent =
+                String(days).padStart(
+                    2,
+                    "0"
+                );
+
+
+            document.getElementById(
+                "hours"
+            ).textContent =
+                String(hours).padStart(
+                    2,
+                    "0"
+                );
+
+
+            document.getElementById(
+                "minutes"
+            ).textContent =
+                String(minutes).padStart(
+                    2,
+                    "0"
+                );
+
+
+            document.getElementById(
+                "seconds"
+            ).textContent =
+                String(seconds).padStart(
+                    2,
+                    "0"
+                );
+
         }
 
 
-        const days =
-            Math.floor(
-                distance /
-                (1000 * 60 * 60 * 24)
-            );
+        updateCountdown();
 
 
-        const hours =
-            Math.floor(
-                (
-                    distance %
-                    (1000 * 60 * 60 * 24)
-                ) /
-                (1000 * 60 * 60)
-            );
-
-
-        const minutes =
-            Math.floor(
-                (
-                    distance %
-                    (1000 * 60 * 60)
-                ) /
-                (1000 * 60)
-            );
-
-
-        const seconds =
-            Math.floor(
-                (
-                    distance %
-                    (1000 * 60)
-                ) /
-                1000
-            );
-
-
-        document.getElementById(
-            "days"
-        ).textContent =
-            String(days).padStart(
-                2,
-                "0"
-            );
-
-
-        document.getElementById(
-            "hours"
-        ).textContent =
-            String(hours).padStart(
-                2,
-                "0"
-            );
-
-
-        document.getElementById(
-            "minutes"
-        ).textContent =
-            String(minutes).padStart(
-                2,
-                "0"
-            );
-
-
-        document.getElementById(
-            "seconds"
-        ).textContent =
-            String(seconds).padStart(
-                2,
-                "0"
-            );
+        setInterval(
+            updateCountdown,
+            1000
+        );
 
     }
-
-
-    updateCountdown();
-
-
-    setInterval(
-        updateCountdown,
-        1000
-    );
-
-});
+);
 
 </script>
 
 
 <!-- =========================================
      GUEST LOOKUP + RSVP
-     CORRECTED VERSION
+     FINAL CORRECTED VERSION
 ========================================= -->
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
 
-    /* =========================================
-       GOOGLE APPS SCRIPT WEB APP URL
-    ========================================= */
+        /* =========================================
+           GOOGLE APPS SCRIPT WEB APP URL
+        ========================================= */
 
-    const RSVP_API_URL =
-        "https://script.google.com/macros/s/AKfycby1X-76kpX9Sp7TUPzbF5N1MDDo7F2oBaCdA62FAaIp2CpsKDXUDL-Tim-Uz4VDSRhf/exec";
+        const RSVP_API_URL =
+            "https://script.google.com/macros/s/AKfycby1X-76kpX9Sp7TUPzbF5N1MDDo7F2oBaCdA62FAaIp2CpsKDXUDL-Tim-Uz4VDSRhf/exec";
 
 
-    /* =========================================
-       ELEMENTS
-    ========================================= */
+        /* =========================================
+           ELEMENTS
+        ========================================= */
 
-    const guestForm =
-        document.getElementById("guestLookupForm");
+        const guestForm =
+            document.getElementById(
+                "guestLookupForm"
+            );
 
-    const guestResult =
-        document.getElementById("guestResult");
 
-    const guestError =
-        document.getElementById("guestError");
+        const guestResult =
+            document.getElementById(
+                "guestResult"
+            );
 
-    const guestFullName =
-        document.getElementById("guestFullName");
 
-    const firstNameInput =
-        document.getElementById("firstName");
+        const guestError =
+            document.getElementById(
+                "guestError"
+            );
 
-    const lastNameInput =
-        document.getElementById("lastName");
 
-    const guestCount =
-        document.getElementById("guestCount");
+        const guestFullName =
+            document.getElementById(
+                "guestFullName"
+            );
 
-    const attendeeList =
-        document.getElementById("attendeeList");
 
-    const attendeeHint =
-        document.getElementById("attendeeHint");
+        const firstNameInput =
+            document.getElementById(
+                "firstName"
+            );
 
-    const lookupEventCheckboxes =
-        document.querySelectorAll(
-            'input[name="lookupEvents"]'
-        );
 
-    const rsvpForm =
-        document.getElementById("rsvpForm");
+        const lastNameInput =
+            document.getElementById(
+                "lastName"
+            );
 
-    const rsvpGuestId =
-        document.getElementById("rsvpGuestId");
 
-    const rsvpGuestName =
-        document.getElementById("rsvpGuestNameDisplay");
+        const guestCount =
+            document.getElementById(
+                "guestCount"
+            );
 
-    const rsvpGuests =
-        document.getElementById("rsvpGuests1");
 
-    const rsvpAttendingGuests =
-        document.getElementById("rsvpAttendingGuests");
+        const attendeeList =
+            document.getElementById(
+                "attendeeList"
+            );
 
-    const rsvpSangeet =
-        document.getElementById("rsvpSangeet");
 
-    const rsvpWedding =
-        document.getElementById("rsvpWedding");
+        const attendeeHint =
+            document.getElementById(
+                "attendeeHint"
+            );
 
-    const rsvpPhone =
-        document.getElementById("rsvpPhone");
 
-    const rsvpStatus =
-        document.getElementById("rsvpStatus");
+        const lookupEventCheckboxes =
+            document.querySelectorAll(
+                'input[name="lookupEvents"]'
+            );
 
-    const rsvpError =
-        document.getElementById("rsvpError");
 
-    const adviceInput =
-        document.getElementById("advice");
+        const rsvpForm =
+            document.getElementById(
+                "rsvpForm"
+            );
 
-    const findInvitationBtn =
-        document.getElementById("findInvitationBtn");
 
+        const rsvpGuestId =
+            document.getElementById(
+                "rsvpGuestId"
+            );
 
-    /* =========================================
-       CHECK ELEMENTS
-    ========================================= */
 
-    if (!guestForm) {
-        console.error("Guest Lookup form not found.");
-        return;
-    }
+        const rsvpGuestName =
+            document.getElementById(
+                "rsvpGuestNameDisplay"
+            );
 
-    if (!rsvpForm) {
-        console.error("RSVP form not found.");
-        return;
-    }
 
-    if (!guestCount) {
-        console.error("Guest count dropdown not found.");
-        return;
-    }
+        const rsvpGuests =
+            document.getElementById(
+                "rsvpGuests1"
+            );
 
-    if (!attendeeList) {
-        console.error("Attendee list not found.");
-        return;
-    }
 
+        const rsvpAttendingGuests =
+            document.getElementById(
+                "rsvpAttendingGuests"
+            );
 
-    /* =========================================
-       CURRENT GUEST
-    ========================================= */
 
-    let currentGuest = null;
+        const rsvpSangeet =
+            document.getElementById(
+                "rsvpSangeet"
+            );
 
 
-    /* =========================================
-       NORMALIZE
-    ========================================= */
+        const rsvpWedding =
+            document.getElementById(
+                "rsvpWedding"
+            );
 
-    function normalize(value) {
 
-        return String(value || "")
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, " ");
+        const rsvpPhone =
+            document.getElementById(
+                "rsvpPhone"
+            );
 
-    }
 
+        const rsvpStatus =
+            document.getElementById(
+                "rsvpStatus"
+            );
 
-    /* =========================================
-       YES / TRUE CHECK
-       
-       Google Sheets may return:
-       YES
-       yes
-       TRUE
-       true
-       boolean true
-    ========================================= */
 
-    function isAllowed(value) {
+        const rsvpError =
+            document.getElementById(
+                "rsvpError"
+            );
 
-        return (
-            value === true ||
-            String(value || "")
-                .trim()
-                .toUpperCase() === "YES" ||
-            String(value || "")
-                .trim()
-                .toUpperCase() === "TRUE"
-        );
 
-    }
+        const adviceInput =
+            document.getElementById(
+                "advice"
+            );
 
 
-    /* =========================================
-       CLEAN NAME
-    ========================================= */
+        const findInvitationBtn =
+            document.getElementById(
+                "findInvitationBtn"
+            );
 
-    function cleanName(value) {
 
-        return String(value || "")
-            .trim()
-            .replace(/\s+/g, " ");
+        /* =========================================
+           CHECK ELEMENTS
+        ========================================= */
 
-    }
+        if (!guestForm) {
 
+            console.error(
+                "Guest Lookup form not found."
+            );
 
-    /* =========================================
-       ERROR MESSAGE
-    ========================================= */
-
-    function showError(message) {
-
-        guestError.textContent =
-            message || "";
-
-        guestError.style.display =
-            message ? "block" : "none";
-
-    }
-
-
-    function showRsvpError(message) {
-
-        rsvpError.textContent =
-            message || "";
-
-        rsvpError.style.display =
-            message ? "block" : "none";
-
-    }
-
-
-    function showRsvpStatus(message) {
-
-        rsvpStatus.textContent =
-            message || "";
-
-        rsvpStatus.style.display =
-            message ? "block" : "none";
-
-    }
-
-
-    /* =========================================
-       RESET RSVP FIELDS
-    ========================================= */
-
-    function resetRsvpFields() {
-
-        currentGuest = null;
-
-        rsvpGuestId.value = "";
-        rsvpGuestName.value = "";
-        rsvpGuests.value = "";
-        rsvpAttendingGuests.value = "";
-        rsvpSangeet.value = "";
-        rsvpWedding.value = "";
-
-        attendeeList.innerHTML = "";
-
-        guestCount.innerHTML =
-            '<option value="">Select number of guests</option>';
-
-        guestCount.value = "";
-        guestCount.disabled = true;
-
-        lookupEventCheckboxes.forEach(
-            function (checkbox) {
-
-                checkbox.checked = false;
-                checkbox.disabled = true;
-
-            }
-        );
-
-        if (attendeeHint) {
-
-            attendeeHint.textContent =
-                "Select the guests who are attending.";
+            return;
 
         }
 
-        showRsvpError("");
-        showRsvpStatus("");
 
-    }
+        if (!rsvpForm) {
 
+            console.error(
+                "RSVP form not found."
+            );
 
-    /* =========================================
-       BUILD GUEST COUNT
-       
-       This is now DISPLAY ONLY.
-       The selected family members are
-       the real source of truth.
-    ========================================= */
+            return;
 
-    function buildGuestCount(maxGuests) {
-
-        guestCount.innerHTML =
-            '<option value="">Select number of guests</option>';
-
-        let limit =
-            parseInt(maxGuests, 10);
+        }
 
 
-        if (
-            isNaN(limit) ||
-            limit < 1
-        ) {
+        if (!guestCount) {
+
+            console.error(
+                "Guest count dropdown not found."
+            );
+
+            return;
+
+        }
+
+
+        if (!attendeeList) {
+
+            console.error(
+                "Attendee list not found."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================================
+           CURRENT GUEST
+        ========================================= */
+
+        let currentGuest = null;
+
+
+        /* =========================================
+           NORMALIZE
+        ========================================= */
+
+        function normalize(value) {
+
+            return String(value || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g," ");
+
+        }
+
+
+        /* =========================================
+           YES / TRUE CHECK
+        ========================================= */
+
+        function isAllowed(value) {
+
+            return (
+                value === true ||
+
+                String(value || "")
+                    .trim()
+                    .toUpperCase() ===
+                    "YES" ||
+
+                String(value || "")
+                    .trim()
+                    .toUpperCase() ===
+                    "TRUE"
+            );
+
+        }
+
+
+        /* =========================================
+           CLEAN NAME
+        ========================================= */
+
+        function cleanName(value) {
+
+            return String(value || "")
+                .trim()
+                .replace(/\s+/g," ");
+
+        }
+
+
+        /* =========================================
+           ERROR MESSAGE
+        ========================================= */
+
+        function showError(message) {
+
+            guestError.textContent =
+                message || "";
+
+
+            guestError.style.display =
+                message
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        function showRsvpError(message) {
+
+            rsvpError.textContent =
+                message || "";
+
+
+            rsvpError.style.display =
+                message
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        function showRsvpStatus(message) {
+
+            rsvpStatus.textContent =
+                message || "";
+
+
+            rsvpStatus.style.display =
+                message
+                    ? "block"
+                    : "none";
+
+        }
+
+
+        /* =========================================
+           RESET RSVP FIELDS
+        ========================================= */
+
+        function resetRsvpFields() {
+
+
+            currentGuest = null;
+
+
+            rsvpGuestId.value =
+                "";
+
+
+            rsvpGuestName.value =
+                "";
+
+
+            rsvpGuests.value =
+                "";
+
+
+            rsvpAttendingGuests.value =
+                "";
+
+
+            rsvpSangeet.value =
+                "";
+
+
+            rsvpWedding.value =
+                "";
+
+
+            attendeeList.innerHTML =
+                "";
+
+
+            guestCount.innerHTML =
+                '<option value="">Select number of guests</option>';
+
+
+            guestCount.value =
+                "";
+
+
+            guestCount.disabled =
+                true;
+
+
+            lookupEventCheckboxes.forEach(
+                function (checkbox) {
+
+
+                    checkbox.checked =
+                        false;
+
+
+                    checkbox.disabled =
+                        true;
+
+                }
+            );
+
+
+            if (attendeeHint) {
+
+                attendeeHint.textContent =
+                    "Select the guests who are attending, or leave everyone unchecked if you cannot attend.";
+
+            }
+
+
+            showRsvpError("");
+
+            showRsvpStatus("");
+
+        }
+
+
+        /* =========================================
+           BUILD GUEST COUNT
+        ========================================= */
+
+        function buildGuestCount(maxGuests) {
+
+
+            guestCount.innerHTML =
+                '<option value="">Select number of guests</option>';
+
+
+            let limit =
+                parseInt(
+                    maxGuests,
+                    10
+                );
+
 
             if (
-                currentGuest &&
-                Array.isArray(
+                isNaN(limit) ||
+                limit < 1
+            ) {
+
+
+                if (
+                    currentGuest &&
+                    Array.isArray(
+                        currentGuest.familyMembers
+                    )
+                ) {
+
+
+                    limit =
+                        currentGuest
+                            .familyMembers
+                            .length;
+
+
+                } else {
+
+
+                    limit =
+                        1;
+
+                }
+
+            }
+
+
+            limit =
+                Math.min(
+                    limit,
+                    4
+                );
+
+
+            for (
+                let i = 1;
+                i <= limit;
+                i++
+            ) {
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    String(i);
+
+
+                option.textContent =
+                    i === 1
+                        ? "1 Guest"
+                        : i + " Guests";
+
+
+                guestCount.appendChild(
+                    option
+                );
+
+            }
+
+
+            guestCount.disabled =
+                true;
+
+
+            guestCount.value =
+                "";
+
+
+            console.log(
+                "Guest count maximum:",
+                limit
+            );
+
+        }
+
+
+        /* =========================================
+           BUILD ATTENDEE LIST
+        ========================================= */
+
+        function buildAttendeeList() {
+
+
+            attendeeList.innerHTML =
+                "";
+
+
+            if (
+                !currentGuest ||
+                !Array.isArray(
                     currentGuest.familyMembers
                 )
             ) {
 
-                limit =
-                    currentGuest.familyMembers.length;
 
-            } else {
-
-                limit = 1;
-
-            }
-
-        }
-
-
-        limit =
-            Math.min(limit, 4);
-
-
-        for (
-            let i = 1;
-            i <= limit;
-            i++
-        ) {
-
-            const option =
-                document.createElement("option");
-
-
-            option.value =
-                String(i);
-
-
-            option.textContent =
-                i === 1
-                    ? "1 Guest"
-                    : i + " Guests";
-
-
-            guestCount.appendChild(option);
-
-        }
-
-
-        /*
-         * The guest cannot manually choose
-         * a number that differs from the
-         * family members selected below.
-         */
-
-        guestCount.disabled = true;
-        guestCount.value = "";
-
-
-        console.log(
-            "Guest count maximum:",
-            limit
-        );
-
-    }
-
-
-    /* =========================================
-       BUILD ATTENDEE LIST
-    ========================================= */
-
-    function buildAttendeeList() {
-
-        attendeeList.innerHTML = "";
-
-
-        if (
-            !currentGuest ||
-            !Array.isArray(
-                currentGuest.familyMembers
-            )
-        ) {
-
-            console.error(
-                "No family members found:",
-                currentGuest
-            );
-
-            return;
-
-        }
-
-
-        const uniqueMembers = [];
-
-
-        currentGuest.familyMembers.forEach(
-            function (name) {
-
-                const cleaned =
-                    cleanName(name);
-
-
-                if (!cleaned) {
-                    return;
-                }
-
-
-                const exists =
-                    uniqueMembers.some(
-                        function (existing) {
-
-                            return (
-                                normalize(existing) ===
-                                normalize(cleaned)
-                            );
-
-                        }
-                    );
-
-
-                if (!exists) {
-
-                    uniqueMembers.push(
-                        cleaned
-                    );
-
-                }
-
-            }
-        );
-
-
-        currentGuest.familyMembers =
-            uniqueMembers;
-
-
-        console.log(
-            "Invited family members:",
-            uniqueMembers
-        );
-
-
-        uniqueMembers.forEach(
-            function (name, index) {
-
-                const label =
-                    document.createElement("label");
-
-                label.className =
-                    "attendee-option";
-
-
-                const checkbox =
-                    document.createElement("input");
-
-                checkbox.type =
-                    "checkbox";
-
-                checkbox.name =
-                    "attendingGuest";
-
-                checkbox.value =
-                    name;
-
-                checkbox.dataset.index =
-                    String(index);
-
-
-                const span =
-                    document.createElement("span");
-
-                span.textContent =
-                    name;
-
-
-                label.appendChild(
-                    checkbox
+                console.error(
+                    "No family members found:",
+                    currentGuest
                 );
 
-                label.appendChild(
-                    span
-                );
-
-
-                attendeeList.appendChild(
-                    label
-                );
-
-
-                checkbox.addEventListener(
-                    "change",
-                    function () {
-
-                        syncAttendeeSelection();
-
-                    }
-                );
-
-            }
-        );
-
-
-        if (attendeeHint) {
-
-            attendeeHint.textContent =
-                "Select the guests who are attending.";
-
-        }
-
-    }
-
-
-    /* =========================================
-       GET SELECTED GUESTS
-    ========================================= */
-
-    function getSelectedGuests() {
-
-        return Array.from(
-            attendeeList.querySelectorAll(
-                'input[name="attendingGuest"]:checked'
-            )
-        )
-        .map(
-            function (checkbox) {
-
-                return cleanName(
-                    checkbox.value
-                );
-
-            }
-        )
-        .filter(Boolean);
-
-    }
-
-
-    /* =========================================
-       SYNC ATTENDEES
-       
-       Selected family members are the
-       actual source of truth.
-    ========================================= */
-
-    function syncAttendeeSelection() {
-
-        const selectedGuests =
-            getSelectedGuests();
-
-
-        /*
-         * Remove accidental duplicates.
-         */
-
-        const uniqueGuests =
-            selectedGuests.filter(
-                function (name, index, array) {
-
-                    return (
-                        array.findIndex(
-                            function (item) {
-
-                                return (
-                                    normalize(item) ===
-                                    normalize(name)
-                                );
-
-                            }
-                        ) === index
-                    );
-
-                }
-            );
-
-
-        /*
-         * Store attending family members.
-         */
-
-        rsvpAttendingGuests.value =
-            JSON.stringify(
-                uniqueGuests
-            );
-
-
-        /*
-         * Store total number of guests.
-         */
-
-        rsvpGuests.value =
-            uniqueGuests.length
-                ? String(uniqueGuests.length)
-                : "";
-
-
-        /*
-         * Keep the display count synchronized.
-         */
-
-        if (uniqueGuests.length > 0) {
-
-            guestCount.value =
-                String(
-                    uniqueGuests.length
-                );
-
-        } else {
-
-            guestCount.value = "";
-
-        }
-
-
-        /*
-         * Helpful message.
-         */
-
-        if (attendeeHint) {
-
-            if (!uniqueGuests.length) {
-
-                attendeeHint.textContent =
-                    "Select the guests who are attending.";
-
-            } else {
-
-                attendeeHint.textContent =
-                    uniqueGuests.length +
-                    " guest" +
-                    (
-                        uniqueGuests.length === 1
-                            ? ""
-                            : "s"
-                    ) +
-                    " selected.";
-
-            }
-
-        }
-
-
-        console.log(
-            "Selected guests:",
-            uniqueGuests
-        );
-
-    }
-
-
-    /* =========================================
-       APPLY GUEST COUNT
-       
-       Kept for compatibility.
-       
-       IMPORTANT:
-       It does NOT automatically select
-       family members.
-    ========================================= */
-
-    function applyGuestCount(count) {
-
-        const requiredCount =
-            parseInt(
-                count,
-                10
-            );
-
-
-        if (
-            isNaN(requiredCount) ||
-            requiredCount < 1
-        ) {
-
-            guestCount.value = "";
-
-            syncAttendeeSelection();
-
-            return;
-
-        }
-
-
-        /*
-         * The attendee checkboxes remain
-         * the source of truth.
-         */
-
-        syncAttendeeSelection();
-
-    }
-
-
-    /* =========================================
-       INITIAL STATE
-    ========================================= */
-
-    guestResult.style.display =
-        "none";
-
-    showError("");
-
-    resetRsvpFields();
-
-
-    /* =========================================
-       FIND INVITATION
-    ========================================= */
-
-    guestForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-
-            showError("");
-            showRsvpError("");
-            showRsvpStatus("");
-
-
-            guestResult.style.display =
-                "none";
-
-
-            resetRsvpFields();
-
-
-            const firstName =
-                normalize(
-                    firstNameInput.value
-                );
-
-
-            const lastName =
-                normalize(
-                    lastNameInput.value
-                );
-
-
-            if (
-                !firstName ||
-                !lastName
-            ) {
-
-                showError(
-                    "Please enter your first and last name."
-                );
 
                 return;
 
             }
 
 
-            if (findInvitationBtn) {
-
-                findInvitationBtn.disabled =
-                    true;
-
-                findInvitationBtn.textContent =
-                    "Finding Invitation…";
-
-            }
+            const uniqueMembers =
+                [];
 
 
-            try {
-
-                const url =
-                    RSVP_API_URL +
-                    "?action=lookup" +
-                    "&firstName=" +
-                    encodeURIComponent(
-                        firstName
-                    ) +
-                    "&lastName=" +
-                    encodeURIComponent(
-                        lastName
-                    );
+            currentGuest.familyMembers.forEach(
+                function (name) {
 
 
-                console.log(
-                    "LOOKUP URL:",
-                    url
-                );
-
-
-                const response =
-                    await fetch(
-                        url,
-                        {
-                            method:"GET",
-                            cache:"no-store"
-                        }
-                    );
-
-
-                const responseText =
-                    await response.text();
-
-
-                console.log(
-                    "LOOKUP RAW RESPONSE:",
-                    responseText
-                );
-
-
-                let data;
-
-
-                try {
-
-                    data =
-                        JSON.parse(
-                            responseText
+                    const cleaned =
+                        cleanName(
+                            name
                         );
 
-                } catch (jsonError) {
 
-                    console.error(
-                        "LOOKUP JSON ERROR:",
-                        jsonError
-                    );
+                    if (!cleaned) {
 
-                    throw new Error(
-                        "Invalid response from invitation database."
-                    );
+                        return;
 
-                }
+                    }
 
 
-                console.log(
-                    "LOOKUP DATA:",
-                    data
-                );
+                    const exists =
+                        uniqueMembers.some(
+                            function (existing) {
 
-
-                if (
-                    !data.success ||
-                    !data.guest
-                ) {
-
-                    showError(
-                        data.message ||
-                        "We couldn't find your invitation. Please check your name or ask the host."
-                    );
-
-                    return;
-
-                }
-
-
-                /* =========================================
-                   SAVE GUEST
-                ========================================= */
-
-                currentGuest =
-                    data.guest;
-
-
-                /* =========================================
-                   CLEAN FAMILY MEMBERS
-                ========================================= */
-
-                if (
-                    !Array.isArray(
-                        currentGuest.familyMembers
-                    )
-                ) {
-
-                    currentGuest.familyMembers =
-                        [];
-
-                }
-
-
-                currentGuest.familyMembers =
-                    currentGuest.familyMembers
-                        .map(cleanName)
-                        .filter(Boolean)
-                        .filter(
-                            function (name,index,array) {
 
                                 return (
-                                    array.findIndex(
-                                        function (item) {
-
-                                            return (
-                                                normalize(item) ===
-                                                normalize(name)
-                                            );
-
-                                        }
-                                    ) === index
+                                    normalize(
+                                        existing
+                                    ) ===
+                                    normalize(
+                                        cleaned
+                                    )
                                 );
 
                             }
                         );
 
 
-                if (
-                    currentGuest.familyMembers.length <
-                    1
+                    if (!exists) {
+
+                        uniqueMembers.push(
+                            cleaned
+                        );
+
+                    }
+
+                }
+            );
+
+
+            currentGuest.familyMembers =
+                uniqueMembers;
+
+
+            console.log(
+                "Invited family members:",
+                uniqueMembers
+            );
+
+
+            uniqueMembers.forEach(
+                function (
+                    name,
+                    index
                 ) {
 
-                    showError(
-                        "Your invitation was found, but no invited family members could be loaded. Please ask the host."
+
+                    const label =
+                        document.createElement(
+                            "label"
+                        );
+
+
+                    label.className =
+                        "attendee-option";
+
+
+                    const checkbox =
+                        document.createElement(
+                            "input"
+                        );
+
+
+                    checkbox.type =
+                        "checkbox";
+
+
+                    checkbox.name =
+                        "attendingGuest";
+
+
+                    checkbox.value =
+                        name;
+
+
+                    checkbox.dataset.index =
+                        String(index);
+
+
+                    const span =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    span.textContent =
+                        name;
+
+
+                    label.appendChild(
+                        checkbox
                     );
+
+
+                    label.appendChild(
+                        span
+                    );
+
+
+                    attendeeList.appendChild(
+                        label
+                    );
+
+
+                    checkbox.addEventListener(
+                        "change",
+                        function () {
+
+                            syncAttendeeSelection();
+
+                        }
+                    );
+
+                }
+            );
+
+
+            if (attendeeHint) {
+
+                attendeeHint.textContent =
+                    "Select the guests who are attending, or leave everyone unchecked if you cannot attend.";
+
+            }
+
+        }
+
+
+        /* =========================================
+           GET SELECTED GUESTS
+        ========================================= */
+
+        function getSelectedGuests() {
+
+
+            return Array.from(
+                attendeeList.querySelectorAll(
+                    'input[name="attendingGuest"]:checked'
+                )
+            )
+            .map(
+                function (checkbox) {
+
+
+                    return cleanName(
+                        checkbox.value
+                    );
+
+                }
+            )
+            .filter(Boolean);
+
+        }
+
+
+        /* =========================================
+           SYNC ATTENDEES
+        ========================================= */
+
+        function syncAttendeeSelection() {
+
+
+            const selectedGuests =
+                getSelectedGuests();
+
+
+            const uniqueGuests =
+                selectedGuests.filter(
+                    function (
+                        name,
+                        index,
+                        array
+                    ) {
+
+
+                        return (
+                            array.findIndex(
+                                function (item) {
+
+
+                                    return (
+                                        normalize(
+                                            item
+                                        ) ===
+                                        normalize(
+                                            name
+                                        )
+                                    );
+
+                                }
+                            ) ===
+                            index
+                        );
+
+                    }
+                );
+
+
+            rsvpAttendingGuests.value =
+                JSON.stringify(
+                    uniqueGuests
+                );
+
+
+            rsvpGuests.value =
+                String(
+                    uniqueGuests.length
+                );
+
+
+            if (
+                uniqueGuests.length > 0
+            ) {
+
+
+                guestCount.value =
+                    String(
+                        uniqueGuests.length
+                    );
+
+
+            } else {
+
+
+                guestCount.value =
+                    "";
+
+            }
+
+
+            if (attendeeHint) {
+
+
+                if (
+                    !uniqueGuests.length
+                ) {
+
+
+                    attendeeHint.textContent =
+                        "Select the guests who are attending, or leave everyone unchecked if you cannot attend.";
+
+
+                } else {
+
+
+                    attendeeHint.textContent =
+                        uniqueGuests.length +
+                        " guest" +
+                        (
+                            uniqueGuests.length === 1
+                                ? ""
+                                : "s"
+                        ) +
+                        " selected.";
+
+                }
+
+            }
+
+
+            console.log(
+                "Selected guests:",
+                uniqueGuests
+            );
+
+        }
+
+
+        /* =========================================
+           APPLY GUEST COUNT
+        ========================================= */
+
+        function applyGuestCount(count) {
+
+
+            const requiredCount =
+                parseInt(
+                    count,
+                    10
+                );
+
+
+            if (
+                isNaN(requiredCount) ||
+                requiredCount < 1
+            ) {
+
+
+                guestCount.value =
+                    "";
+
+
+                syncAttendeeSelection();
+
+
+                return;
+
+            }
+
+
+            syncAttendeeSelection();
+
+        }
+
+
+        /* =========================================
+           INITIAL STATE
+        ========================================= */
+
+        guestResult.style.display =
+            "none";
+
+
+        showError("");
+
+
+        resetRsvpFields();
+
+
+        /* =========================================
+           FIND INVITATION
+        ========================================= */
+
+        guestForm.addEventListener(
+            "submit",
+            async function (event) {
+
+
+                event.preventDefault();
+
+
+                showError("");
+
+                showRsvpError("");
+
+                showRsvpStatus("");
+
+
+                guestResult.style.display =
+                    "none";
+
+
+                resetRsvpFields();
+
+
+                const firstName =
+                    normalize(
+                        firstNameInput.value
+                    );
+
+
+                const lastName =
+                    normalize(
+                        lastNameInput.value
+                    );
+
+
+                if (
+                    !firstName ||
+                    !lastName
+                ) {
+
+
+                    showError(
+                        "Please enter your first and last name."
+                    );
+
 
                     return;
 
                 }
 
 
-                /* =========================================
-                   DERIVE MAX GUESTS SAFELY
-                ========================================= */
-
-                const familyCount =
-                    currentGuest.familyMembers.length;
+                if (findInvitationBtn) {
 
 
-                let serverMax =
-                    parseInt(
-                        currentGuest.maxGuests,
-                        10
-                    );
+                    findInvitationBtn.disabled =
+                        true;
 
 
-                if (
-                    isNaN(serverMax) ||
-                    serverMax < 1
-                ) {
-
-                    serverMax =
-                        familyCount;
+                    findInvitationBtn.textContent =
+                        "Finding Invitation…";
 
                 }
 
 
-                const safeMaxGuests =
-                    Math.min(
-                        serverMax,
-                        familyCount,
-                        4
-                    );
+                try {
 
 
-                currentGuest.maxGuests =
-                    safeMaxGuests;
-
-
-                console.log(
-                    "SAFE MAX GUESTS:",
-                    safeMaxGuests
-                );
-
-
-                /* =========================================
-                   NAME
-                ========================================= */
-
-                const fullName =
-                    (
-                        cleanName(
-                            currentGuest.firstName
+                    const url =
+                        RSVP_API_URL +
+                        "?action=lookup" +
+                        "&firstName=" +
+                        encodeURIComponent(
+                            firstName
                         ) +
-                        " " +
-                        cleanName(
-                            currentGuest.lastName
+                        "&lastName=" +
+                        encodeURIComponent(
+                            lastName
+                        );
+
+
+                    console.log(
+                        "LOOKUP URL:",
+                        url
+                    );
+
+
+                    const response =
+                        await fetch(
+                            url,
+                            {
+                                method:"GET",
+                                cache:"no-store"
+                            }
+                        );
+
+
+                    const responseText =
+                        await response.text();
+
+
+                    console.log(
+                        "LOOKUP RAW RESPONSE:",
+                        responseText
+                    );
+
+
+                    let data;
+
+
+                    try {
+
+
+                        data =
+                            JSON.parse(
+                                responseText
+                            );
+
+
+                    } catch (jsonError) {
+
+
+                        console.error(
+                            "LOOKUP JSON ERROR:",
+                            jsonError
+                        );
+
+
+                        throw new Error(
+                            "Invalid response from invitation database."
+                        );
+
+                    }
+
+
+                    console.log(
+                        "LOOKUP DATA:",
+                        data
+                    );
+
+
+                    if (
+                        !data.success ||
+                        !data.guest
+                    ) {
+
+
+                        showError(
+                            data.message ||
+                            "We couldn't find your invitation. Please check your name or ask the host."
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /* =========================================
+                       SAVE GUEST
+                    ========================================= */
+
+                    currentGuest =
+                        data.guest;
+
+
+                    /* =========================================
+                       CLEAN FAMILY MEMBERS
+                    ========================================= */
+
+                    if (
+                        !Array.isArray(
+                            currentGuest.familyMembers
                         )
-                    ).trim();
+                    ) {
 
 
-                guestFullName.textContent =
-                    fullName;
+                        currentGuest.familyMembers =
+                            [];
+
+                    }
 
 
-                /* =========================================
-                   HIDDEN RSVP VALUES
-                ========================================= */
+                    currentGuest.familyMembers =
+                        currentGuest
+                            .familyMembers
+                            .map(cleanName)
+                            .filter(Boolean)
+                            .filter(
+                                function (
+                                    name,
+                                    index,
+                                    array
+                                ) {
 
-                rsvpGuestId.value =
-                    currentGuest.guestId || "";
+
+                                    return (
+                                        array.findIndex(
+                                            function (item) {
 
 
-                rsvpGuestName.value =
-                    fullName;
+                                                return (
+                                                    normalize(
+                                                        item
+                                                    ) ===
+                                                    normalize(
+                                                        name
+                                                    )
+                                                );
+
+                                            }
+                                        ) ===
+                                        index
+                                    );
+
+                                }
+                            );
 
 
-                /* =========================================
-                   BUILD GUEST COUNT
-                ========================================= */
+                    if (
+                        currentGuest.familyMembers.length <
+                        1
+                    ) {
 
-                buildGuestCount(
-                    safeMaxGuests
+
+                        showError(
+                            "Your invitation was found, but no invited family members could be loaded. Please ask the host."
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    /* =========================================
+                       DERIVE MAX GUESTS
+                    ========================================= */
+
+                    const familyCount =
+                        currentGuest
+                            .familyMembers
+                            .length;
+
+
+                    let serverMax =
+                        parseInt(
+                            currentGuest.maxGuests,
+                            10
+                        );
+
+
+                    if (
+                        isNaN(serverMax) ||
+                        serverMax < 1
+                    ) {
+
+
+                        serverMax =
+                            familyCount;
+
+                    }
+
+
+                    const safeMaxGuests =
+                        Math.min(
+                            serverMax,
+                            familyCount,
+                            4
+                        );
+
+
+                    currentGuest.maxGuests =
+                        safeMaxGuests;
+
+
+                    console.log(
+                        "SAFE MAX GUESTS:",
+                        safeMaxGuests
+                    );
+
+
+                    /* =========================================
+                       NAME
+                    ========================================= */
+
+                    const fullName =
+                        (
+                            cleanName(
+                                currentGuest.firstName
+                            ) +
+                            " " +
+                            cleanName(
+                                currentGuest.lastName
+                            )
+                        ).trim();
+
+
+                    guestFullName.textContent =
+                        fullName;
+
+
+                    /* =========================================
+                       HIDDEN RSVP VALUES
+                    ========================================= */
+
+                    rsvpGuestId.value =
+                        currentGuest.guestId || "";
+
+
+                    rsvpGuestName.value =
+                        fullName;
+
+
+                    /* =========================================
+                       BUILD GUEST COUNT
+                    ========================================= */
+
+                    buildGuestCount(
+                        safeMaxGuests
+                    );
+
+
+                    /* =========================================
+                       BUILD ATTENDEE LIST
+                    ========================================= */
+
+                    buildAttendeeList();
+
+
+                    /* =========================================
+                       EVENT PERMISSIONS
+                    ========================================= */
+
+                    const sangeetAllowed =
+                        isAllowed(
+                            currentGuest.sangeet
+                        );
+
+
+                    const weddingAllowed =
+                        isAllowed(
+                            currentGuest.wedding
+                        );
+
+
+                    lookupEventCheckboxes.forEach(
+                        function (checkbox) {
+
+
+                            let allowed =
+                                false;
+
+
+                            if (
+                                checkbox.value ===
+                                "Sangeet"
+                            ) {
+
+
+                                allowed =
+                                    sangeetAllowed;
+
+                            }
+
+
+                            if (
+                                checkbox.value ===
+                                "Wedding"
+                            ) {
+
+
+                                allowed =
+                                    weddingAllowed;
+
+                            }
+
+
+                            checkbox.checked =
+                                allowed;
+
+
+                            checkbox.disabled =
+                                !allowed;
+
+                        }
+                    );
+
+
+                    /* =========================================
+                       DEFAULT EVENT VALUES
+                    ========================================= */
+
+                    rsvpSangeet.value =
+                        sangeetAllowed
+                            ? "YES"
+                            : "NO";
+
+
+                    rsvpWedding.value =
+                        weddingAllowed
+                            ? "YES"
+                            : "NO";
+
+
+                    /* =========================================
+                       SHOW RESULT
+                    ========================================= */
+
+                    guestResult.style.display =
+                        "block";
+
+
+                    setTimeout(
+                        function () {
+
+
+                            guestResult.scrollIntoView({
+                                behavior:"smooth",
+                                block:"nearest"
+                            });
+
+
+                        },
+                        100
+                    );
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        "Guest lookup error:",
+                        error
+                    );
+
+
+                    showError(
+                        error.message ||
+                        "We couldn't connect to the invitation database. Please try again."
+                    );
+
+
+                } finally {
+
+
+                    if (findInvitationBtn) {
+
+
+                        findInvitationBtn.disabled =
+                            false;
+
+
+                        findInvitationBtn.textContent =
+                            "Find Invitation";
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           GUEST COUNT CHANGE
+        ========================================= */
+
+        guestCount.addEventListener(
+            "change",
+            function () {
+
+
+                if (!currentGuest) {
+
+                    return;
+
+                }
+
+
+                applyGuestCount(
+                    guestCount.value
                 );
 
-
-                /* =========================================
-                   BUILD ATTENDEE LIST
-                ========================================= */
-
-                buildAttendeeList();
+            }
+        );
 
 
-                /* =========================================
-                   EVENT PERMISSIONS
-                ========================================= */
+        /* =========================================
+           EVENT CHANGE
+        ========================================= */
 
-                const sangeetAllowed =
-                    isAllowed(
-                        currentGuest.sangeet
-                    );
+        lookupEventCheckboxes.forEach(
+            function (checkbox) {
 
 
-                const weddingAllowed =
-                    isAllowed(
-                        currentGuest.wedding
-                    );
+                checkbox.addEventListener(
+                    "change",
+                    function () {
 
 
-                lookupEventCheckboxes.forEach(
-                    function (checkbox) {
+                        if (
+                            checkbox.disabled
+                        ) {
 
-                        let allowed =
-                            false;
+                            return;
+
+                        }
 
 
                         if (
@@ -4258,8 +5989,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             "Sangeet"
                         ) {
 
-                            allowed =
-                                sangeetAllowed;
+
+                            rsvpSangeet.value =
+                                checkbox.checked
+                                    ? "YES"
+                                    : "NO";
 
                         }
 
@@ -4269,716 +6003,572 @@ document.addEventListener("DOMContentLoaded", function () {
                             "Wedding"
                         ) {
 
-                            allowed =
-                                weddingAllowed;
+
+                            rsvpWedding.value =
+                                checkbox.checked
+                                    ? "YES"
+                                    : "NO";
 
                         }
-
-
-                        checkbox.checked =
-                            allowed;
-
-
-                        checkbox.disabled =
-                            !allowed;
 
                     }
                 );
 
+            }
+        );
+
+
+        /* =========================================
+           RSVP SUBMIT
+           
+           FINAL VERSION
+           
+           ZERO GUESTS ARE ALLOWED.
+        ========================================= */
+
+        rsvpForm.addEventListener(
+            "submit",
+            async function (event) {
+
+
+                event.preventDefault();
+
+
+                showRsvpError("");
+
+                showRsvpStatus("");
+
 
                 /* =========================================
-                   DEFAULT EVENT VALUES
+                   CHECK INVITATION
                 ========================================= */
 
+                if (
+                    !currentGuest ||
+                    !rsvpGuestId.value
+                ) {
+
+
+                    showRsvpError(
+                        "Please find your invitation first."
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   GET SELECTED GUESTS
+                ========================================= */
+
+                const selectedGuests =
+                    getSelectedGuests();
+
+
+                console.log(
+                    "FINAL SELECTED GUESTS:",
+                    selectedGuests
+                );
+
+
+                console.log(
+                    "INVITED FAMILY:",
+                    currentGuest.familyMembers
+                );
+
+
+                /* =========================================
+                   SAFE MAXIMUM
+                ========================================= */
+
+                const familyCount =
+                    Array.isArray(
+                        currentGuest.familyMembers
+                    )
+                        ? currentGuest
+                            .familyMembers
+                            .length
+                        : 0;
+
+
+                const invitationMax =
+                    Number(
+                        currentGuest.maxGuests
+                    );
+
+
+                const maxAllowedGuests =
+                    Math.min(
+                        invitationMax > 0
+                            ? invitationMax
+                            : familyCount,
+
+                        familyCount || 4,
+
+                        4
+                    );
+
+
+                console.log(
+                    "MAX ALLOWED GUESTS:",
+                    maxAllowedGuests
+                );
+
+
+                /* =========================================
+                   VALIDATE NUMBER OF GUESTS
+                   
+                   IMPORTANT:
+                   ZERO GUESTS IS ALLOWED.
+                   
+                   We only block if the user
+                   selects MORE than allowed.
+                ========================================= */
+
+                if (
+                    selectedGuests.length >
+                    maxAllowedGuests
+                ) {
+
+
+                    showRsvpError(
+                        "You cannot select more guests than are included in your invitation."
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   VALIDATE EACH SELECTED FAMILY MEMBER
+                ========================================= */
+
+                const allowedFamilyMembers =
+                    Array.isArray(
+                        currentGuest.familyMembers
+                    )
+                        ? currentGuest.familyMembers
+                        : [];
+
+
+                const invalidGuests =
+                    selectedGuests.filter(
+                        function (
+                            selectedName
+                        ) {
+
+
+                            return !allowedFamilyMembers.some(
+                                function (
+                                    allowedName
+                                ) {
+
+
+                                    return (
+                                        normalize(
+                                            allowedName
+                                        ) ===
+                                        normalize(
+                                            selectedName
+                                        )
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                if (
+                    invalidGuests.length
+                ) {
+
+
+                    console.error(
+                        "INVALID SELECTED GUESTS:",
+                        invalidGuests
+                    );
+
+
+                    showRsvpError(
+                        "One or more selected guests are not included in this invitation. Please select only the invited family members shown above."
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   PRIMARY GUEST
+                   
+                   If guests are selected:
+                   first selected guest = primary guest.
+                   
+                   If ZERO guests:
+                   primary guest = blank.
+                ========================================= */
+
+                const primaryGuest =
+                    selectedGuests.length > 0
+                        ? selectedGuests[0]
+                        : "";
+
+
+                /* =========================================
+                   CHECK EVENTS
+                ========================================= */
+
+                const selectedEvents =
+                    Array.from(
+                        lookupEventCheckboxes
+                    )
+                    .filter(
+                        function (
+                            checkbox
+                        ) {
+
+
+                            return (
+                                checkbox.checked &&
+                                !checkbox.disabled
+                            );
+
+                        }
+                    )
+                    .map(
+                        function (
+                            checkbox
+                        ) {
+
+
+                            return checkbox.value;
+
+                        }
+                    );
+
+
+                /* =========================================
+                   REQUIRE AT LEAST ONE EVENT
+                ========================================= */
+
+                if (
+                    selectedEvents.length === 0
+                ) {
+
+
+                    showRsvpError(
+                        "Please select at least one event from your invitation."
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   PHONE
+                ========================================= */
+
+                const phone =
+                    rsvpPhone.value.replace(
+                        /[^0-9]/g,
+                        ""
+                    );
+
+
+                if (
+                    !/^\d{10}$/.test(phone)
+                ) {
+
+
+                    showRsvpError(
+                        "Please enter a valid 10-digit phone number."
+                    );
+
+
+                    rsvpPhone.focus();
+
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   SYNC HIDDEN FIELDS
+                ========================================= */
+
+                rsvpAttendingGuests.value =
+                    JSON.stringify(
+                        selectedGuests
+                    );
+
+
+                rsvpGuests.value =
+                    String(
+                        selectedGuests.length
+                    );
+
+
+                rsvpGuestName.value =
+                    primaryGuest;
+
+
                 rsvpSangeet.value =
-                    sangeetAllowed
+                    selectedEvents.indexOf(
+                        "Sangeet"
+                    ) !== -1
                         ? "YES"
                         : "NO";
 
 
                 rsvpWedding.value =
-                    weddingAllowed
+                    selectedEvents.indexOf(
+                        "Wedding"
+                    ) !== -1
                         ? "YES"
                         : "NO";
 
 
                 /* =========================================
-                   SHOW RESULT
+                   FINAL PAYLOAD
+                   
+                   THIS IS THE ONLY PAYLOAD
+                   DECLARATION IN THE FILE.
                 ========================================= */
 
-                guestResult.style.display =
-                    "block";
+                const payload = {
 
+                    guestId:
+                        rsvpGuestId.value,
 
-                /*
-                 * Bring the invitation result
-                 * into view on mobile/desktop.
-                 */
+                    primaryGuest:
+                        primaryGuest,
 
-                setTimeout(
-                    function () {
+                    phone:
+                        phone,
 
-                        guestResult.scrollIntoView({
-                            behavior:"smooth",
-                            block:"nearest"
-                        });
+                    totalGuests:
+                        selectedGuests.length,
 
-                    },
-                    100
-                );
+                    numberOfGuests:
+                        selectedGuests.length,
 
-            } catch (error) {
+                    attendingGuests:
+                        selectedGuests,
 
-                console.error(
-                    "Guest lookup error:",
-                    error
-                );
+                    sangeet:
+                        rsvpSangeet.value === "YES",
 
+                    wedding:
+                        rsvpWedding.value === "YES",
 
-                showError(
-                    error.message ||
-                    "We couldn't connect to the invitation database. Please try again."
-                );
+                    advice:
+                        adviceInput
+                            ? adviceInput.value.trim()
+                            : ""
 
-            } finally {
-
-                if (findInvitationBtn) {
-
-                    findInvitationBtn.disabled =
-                        false;
-
-                    findInvitationBtn.textContent =
-                        "Find Invitation";
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /* =========================================
-       GUEST COUNT CHANGE
-    ========================================= */
-
-    guestCount.addEventListener(
-        "change",
-        function () {
-
-            if (!currentGuest) {
-                return;
-            }
-
-
-            applyGuestCount(
-                guestCount.value
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       EVENT CHANGE
-    ========================================= */
-
-    lookupEventCheckboxes.forEach(
-        function (checkbox) {
-
-            checkbox.addEventListener(
-                "change",
-                function () {
-
-                    if (
-                        checkbox.disabled
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    if (
-                        checkbox.value ===
-                        "Sangeet"
-                    ) {
-
-                        rsvpSangeet.value =
-                            checkbox.checked
-                                ? "YES"
-                                : "NO";
-
-                    }
-
-
-                    if (
-                        checkbox.value ===
-                        "Wedding"
-                    ) {
-
-                        rsvpWedding.value =
-                            checkbox.checked
-                                ? "YES"
-                                : "NO";
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       RSVP SUBMIT
-    ========================================= */
-
-    rsvpForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-
-            showRsvpError("");
-            showRsvpStatus("");
-
-
-            /* =========================================
-               CHECK INVITATION
-            ========================================= */
-
-            if (
-                !currentGuest ||
-                !rsvpGuestId.value
-            ) {
-
-                showRsvpError(
-                    "Please find your invitation first."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               GET SELECTED GUESTS
-            ========================================= */
-
-            const selectedGuests =
-                getSelectedGuests();
-
-
-            console.log(
-                "FINAL SELECTED GUESTS:",
-                selectedGuests
-            );
-
-
-            console.log(
-                "INVITED FAMILY:",
-                currentGuest.familyMembers
-            );
-
-
-            /* =========================================
-               AT LEAST ONE GUEST
-            ========================================= */
-
-            if (
-                selectedGuests.length <
-                1
-            ) {
-
-                showRsvpError(
-                    "Please select at least one guest who is attending."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               SAFE MAXIMUM
-            ========================================= */
-
-            const familyCount =
-                Array.isArray(
-                    currentGuest.familyMembers
-                )
-                    ? currentGuest.familyMembers.length
-                    : 0;
-
-
-            const invitationMax =
-                Number(
-                    currentGuest.maxGuests
-                );
-
-
-            const maxAllowedGuests =
-                Math.min(
-                    invitationMax > 0
-                        ? invitationMax
-                        : familyCount,
-                    familyCount || 4,
-                    4
-                );
-
-
-            console.log(
-                "MAX ALLOWED GUESTS:",
-                maxAllowedGuests
-            );
-
-
-            /* =========================================
-               VALIDATE NUMBER OF GUESTS
-            ========================================= */
-
-            if (
-                selectedGuests.length >
-                maxAllowedGuests
-            ) {
-
-                showRsvpError(
-                    "You cannot select more guests than are included in your invitation."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               VALIDATE EACH SELECTED FAMILY MEMBER
-            ========================================= */
-
-            const allowedFamilyMembers =
-                Array.isArray(
-                    currentGuest.familyMembers
-                )
-                    ? currentGuest.familyMembers
-                    : [];
-
-
-            const invalidGuests =
-                selectedGuests.filter(
-                    function (selectedName) {
-
-                        return !allowedFamilyMembers.some(
-                            function (allowedName) {
-
-                                return (
-                                    normalize(
-                                        allowedName
-                                    ) ===
-                                    normalize(
-                                        selectedName
-                                    )
-                                );
-
-                            }
-                        );
-
-                    }
-                );
-
-
-            if (
-                invalidGuests.length
-            ) {
-
-                console.error(
-                    "INVALID SELECTED GUESTS:",
-                    invalidGuests
-                );
-
-
-                showRsvpError(
-                    "One or more selected guests are not included in this invitation. Please select only the invited family members shown above."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               PRIMARY GUEST MUST BE INCLUDED
-            ========================================= */
-
-            const primaryGuest =
-                cleanName(
-                    rsvpGuestName.value
-                );
-
-
-            const primarySelected =
-                selectedGuests.some(
-                    function (name) {
-
-                        return (
-                            normalize(name) ===
-                            normalize(primaryGuest)
-                        );
-
-                    }
-                );
-
-
-            if (!primarySelected) {
-
-                showRsvpError(
-                    "Please include your name in the guests attending."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               CHECK EVENTS
-            ========================================= */
-
-            const selectedEvents =
-                Array.from(
-                    lookupEventCheckboxes
-                )
-                .filter(
-                    function (checkbox) {
-
-                        return (
-                            checkbox.checked &&
-                            !checkbox.disabled
-                        );
-
-                    }
-                )
-                .map(
-                    function (checkbox) {
-
-                        return checkbox.value;
-
-                    }
-                );
-
-
-            if (
-                selectedEvents.length <
-                1
-            ) {
-
-                showRsvpError(
-                    "Please select at least one event."
-                );
-
-                return;
-
-            }
-
-
-            /* =========================================
-               PHONE
-            ========================================= */
-
-            const phone =
-                rsvpPhone.value.replace(
-                    /[^0-9]/g,
-                    ""
-                );
-
-
-            if (
-                !/^\d{10}$/.test(phone)
-            ) {
-
-                showRsvpError(
-                    "Please enter a valid 10-digit phone number."
-                );
-
-
-                rsvpPhone.focus();
-
-
-                return;
-
-            }
-
-
-            /* =========================================
-               SYNC HIDDEN FIELDS
-            ========================================= */
-
-            rsvpAttendingGuests.value =
-                JSON.stringify(
-                    selectedGuests
-                );
-
-
-            rsvpGuests.value =
-                String(
-                    selectedGuests.length
-                );
-
-
-            rsvpSangeet.value =
-                selectedEvents.indexOf(
-                    "Sangeet"
-                ) !== -1
-                    ? "YES"
-                    : "NO";
-
-
-            rsvpWedding.value =
-                selectedEvents.indexOf(
-                    "Wedding"
-                ) !== -1
-                    ? "YES"
-                    : "NO";
-
-
-            /* =========================================
-               FINAL PAYLOAD
-            ========================================= */
-
-            const payload = {
-
-                guestId:
-                    rsvpGuestId.value,
-
-                primaryGuest:
-                    primaryGuest,
-
-                phone:
-                    phone,
-
-                /*
-                 * Current Apps Script field
-                 */
-                totalGuests:
-                    selectedGuests.length,
-
-                /*
-                 * Compatibility field for
-                 * older Apps Script versions.
-                 */
-                numberOfGuests:
-                    selectedGuests.length,
-
-                /*
-                 * Actual attending family members
-                 */
-                attendingGuests:
-                    selectedGuests,
-
-                /*
-                 * Event attendance
-                 */
-                sangeet:
-                    rsvpSangeet.value === "YES",
-
-                wedding:
-                    rsvpWedding.value === "YES",
-
-                advice:
-                    adviceInput
-                        ? adviceInput.value.trim()
-                        : ""
-
-            };
-
-
-            console.log(
-                "FINAL RSVP PAYLOAD:",
-                JSON.stringify(
-                    payload,
-                    null,
-                    2
-                )
-            );
-
-
-            /* =========================================
-               SUBMIT BUTTON
-            ========================================= */
-
-            const submitButton =
-                rsvpForm.querySelector(
-                    ".rsvp-submit"
-                );
-
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.textContent =
-                    "Sending RSVP…";
-
-            }
-
-
-            /* =========================================
-               SEND RSVP TO GOOGLE APPS SCRIPT
-            ========================================= */
-
-            try {
-
-                const response =
-                    await fetch(
-                        RSVP_API_URL,
-                        {
-                            method:"POST",
-
-                            /*
-                             * text/plain prevents the
-                             * browser from sending a
-                             * CORS preflight request
-                             * to Google Apps Script.
-                             */
-
-                            headers:{
-                                "Content-Type":
-                                    "text/plain;charset=utf-8"
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    payload
-                                )
-
-                        }
-                    );
-
-
-                const responseText =
-                    await response.text();
+                };
 
 
                 console.log(
-                    "RSVP HTTP STATUS:",
-                    response.status
-                );
-
-
-                console.log(
-                    "RSVP RAW RESPONSE:",
-                    responseText
-                );
-
-
-                let data;
-
-
-                try {
-
-                    data =
-                        JSON.parse(
-                            responseText.trim()
-                        );
-
-                } catch (jsonError) {
-
-                    console.error(
-                        "RSVP JSON PARSE ERROR:",
-                        jsonError
-                    );
-
-
-                    throw new Error(
-                        "The RSVP server did not return valid data. Please try again."
-                    );
-
-                }
-
-
-                console.log(
-                    "RSVP RESPONSE:",
-                    data
+                    "FINAL RSVP PAYLOAD:",
+                    JSON.stringify(
+                        payload,
+                        null,
+                        2
+                    )
                 );
 
 
                 /* =========================================
-                   SERVER ERROR
+                   SUBMIT BUTTON
                 ========================================= */
 
-                if (
-                    !data.success
-                ) {
-
-                    throw new Error(
-                        data.message ||
-                        "Your RSVP could not be submitted. Please try again."
+                const submitButton =
+                    rsvpForm.querySelector(
+                        ".rsvp-submit"
                     );
-
-                }
-
-
-                /* =========================================
-                   SUCCESS
-                ========================================= */
-
-                showRsvpStatus(
-                    data.message ||
-                    "Thank you! Your RSVP has been received. ❤️"
-                );
-
-
-                showRsvpError("");
 
 
                 if (submitButton) {
+
 
                     submitButton.disabled =
                         true;
 
+
                     submitButton.textContent =
-                        "RSVP Submitted ✓";
+                        "Sending RSVP…";
 
                 }
 
 
-            } catch (error) {
+                /* =========================================
+                   SEND RSVP TO GOOGLE APPS SCRIPT
+                ========================================= */
 
-                console.error(
-                    "RSVP SUBMISSION ERROR:",
-                    error
-                );
-
-
-                showRsvpStatus("");
+                try {
 
 
-                showRsvpError(
-                    error.message ||
-                    "Something went wrong while submitting your RSVP. Please try again."
-                );
+                    const response =
+                        await fetch(
+                            RSVP_API_URL,
+                            {
+                                method:"POST",
+
+                                headers:{
+                                    "Content-Type":
+                                        "text/plain;charset=utf-8"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+
+                            }
+                        );
 
 
-                if (submitButton) {
+                    const responseText =
+                        await response.text();
 
-                    submitButton.disabled =
-                        false;
 
-                    submitButton.textContent =
-                        "Submit RSVP";
+                    console.log(
+                        "RSVP HTTP STATUS:",
+                        response.status
+                    );
+
+
+                    console.log(
+                        "RSVP RAW RESPONSE:",
+                        responseText
+                    );
+
+
+                    let data;
+
+
+                    try {
+
+
+                        data =
+                            JSON.parse(
+                                responseText.trim()
+                            );
+
+
+                    } catch (jsonError) {
+
+
+                        console.error(
+                            "RSVP JSON PARSE ERROR:",
+                            jsonError
+                        );
+
+
+                        throw new Error(
+                            "The RSVP server did not return valid data. Please try again."
+                        );
+
+                    }
+
+
+                    console.log(
+                        "RSVP RESPONSE:",
+                        data
+                    );
+
+
+                    /* =========================================
+                       SERVER ERROR
+                    ========================================= */
+
+                    if (
+                        !data.success
+                    ) {
+
+
+                        throw new Error(
+                            data.message ||
+                            "Your RSVP could not be submitted. Please try again."
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       SUCCESS
+                    ========================================= */
+
+                    showRsvpStatus(
+                        data.message ||
+                        "Thank you! Your RSVP has been received. ❤️"
+                    );
+
+
+                    showRsvpError("");
+
+
+                    if (submitButton) {
+
+
+                        submitButton.disabled =
+                            true;
+
+
+                        submitButton.textContent =
+                            "RSVP Submitted ✓";
+
+                    }
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        "RSVP SUBMISSION ERROR:",
+                        error
+                    );
+
+
+                    showRsvpStatus("");
+
+
+                    showRsvpError(
+                        error.message ||
+                        "Something went wrong while submitting your RSVP. Please try again."
+                    );
+
+
+                    if (submitButton) {
+
+
+                        submitButton.disabled =
+                            false;
+
+
+                        submitButton.textContent =
+                            "Submit RSVP";
+
+                    }
 
                 }
 
             }
+        );
 
-        }
-
-    );
-
-});
+    }
+);
 
 </script>
 
@@ -4993,15 +6583,20 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+
         const nav =
-            document.getElementById("nav");
+            document.getElementById(
+                "nav"
+            );
 
 
         if (!nav) {
 
+
             console.error(
                 "Navigation #nav not found."
             );
+
 
             return;
 
@@ -5019,6 +6614,7 @@ document.addEventListener(
 
         function updateNavigation() {
 
+
             const currentScroll =
                 window.scrollY ||
                 document.documentElement.scrollTop;
@@ -5031,6 +6627,7 @@ document.addEventListener(
             if (
                 currentScroll <= 30
             ) {
+
 
                 nav.classList.remove(
                     "nav-hidden"
@@ -5048,6 +6645,7 @@ document.addEventListener(
                 lastScrollTop + 5
             ) {
 
+
                 nav.classList.add(
                     "nav-hidden"
                 );
@@ -5063,6 +6661,7 @@ document.addEventListener(
                 currentScroll <
                 lastScrollTop - 5
             ) {
+
 
                 nav.classList.remove(
                     "nav-hidden"
@@ -5088,11 +6687,14 @@ document.addEventListener(
             "scroll",
             function () {
 
+
                 if (!ticking) {
+
 
                     window.requestAnimationFrame(
                         updateNavigation
                     );
+
 
                     ticking =
                         true;
