@@ -3233,16 +3233,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const findInvitationBtn =
         document.getElementById("findInvitationBtn");
 
-    const phone = rsvpPhone.value.trim();
-
-if (!/^\d{10}$/.test(phone)) {
-    showRsvpError(
-        "Please enter a valid 10-digit phone number."
-    );
-    rsvpPhone.focus();
-    return;
-}
-
 
     /* =========================================
        CHECK ELEMENTS
