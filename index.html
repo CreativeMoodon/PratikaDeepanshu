@@ -5471,473 +5471,590 @@ document.addEventListener(
 
         resetRsvpFields();
 
+/* =========================================
+   FIND INVITATION
+   CORRECTED VERSION
+========================================= */
+
+guestForm.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+        showError("");
+        showRsvpError("");
+        showRsvpStatus("");
+
+        guestResult.style.display = "none";
+
+        resetRsvpFields();
+
 
         /* =========================================
-           FIND INVITATION
+           GET NAME
         ========================================= */
 
-        guestForm.addEventListener(
-            "submit",
-            async function (event) {
+        const firstName =
+            cleanName(
+                firstNameInput.value
+            );
+
+        const lastName =
+            cleanName(
+                lastNameInput.value
+            );
 
 
-                event.preventDefault();
+        /* =========================================
+           VALIDATE NAME
+        ========================================= */
+
+        if (
+            !firstName ||
+            !lastName
+        ) {
+
+            showError(
+                "Please enter your first and last name."
+            );
+
+            return;
+        }
 
 
-                showError("");
+        /* =========================================
+           DISABLE BUTTON
+        ========================================= */
 
-                showRsvpError("");
+        if (findInvitationBtn) {
 
-                showRsvpStatus("");
+            findInvitationBtn.disabled =
+                true;
 
-
-                guestResult.style.display =
-                    "none";
-
-
-                resetRsvpFields();
+            findInvitationBtn.textContent =
+                "Finding Invitation…";
+        }
 
 
-                const firstName =
-                    normalize(
-                        firstNameInput.value
+        try {
+
+            /* =========================================
+               CREATE LOOKUP URL
+            ========================================= */
+
+            const url =
+                RSVP_API_URL +
+                "?action=lookup" +
+                "&firstName=" +
+                encodeURIComponent(
+                    firstName
+                ) +
+                "&lastName=" +
+                encodeURIComponent(
+                    lastName
+                );
+
+
+            console.log(
+                "LOOKUP URL:",
+                url
+            );
+
+
+            /* =========================================
+               CALL GOOGLE APPS SCRIPT
+            ========================================= */
+
+            const response =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        cache: "no-store"
+                    }
+                );
+
+
+            const responseText =
+                await response.text();
+
+
+            console.log(
+                "LOOKUP HTTP STATUS:",
+                response.status
+            );
+
+
+            console.log(
+                "LOOKUP RAW RESPONSE:",
+                responseText
+            );
+
+
+            /* =========================================
+               PARSE JSON
+            ========================================= */
+
+            let data;
+
+            try {
+
+                data =
+                    JSON.parse(
+                        responseText.trim()
                     );
 
+            } catch (jsonError) {
 
-                const lastName =
-                    normalize(
-                        lastNameInput.value
-                    );
+                console.error(
+                    "LOOKUP JSON ERROR:",
+                    jsonError
+                );
 
-
-                if (
-                    !firstName ||
-                    !lastName
-                ) {
-
-
-                    showError(
-                        "Please enter your first and last name."
-                    );
+                throw new Error(
+                    "Invalid response from invitation database."
+                );
+            }
 
 
-                    return;
-
-                }
-
-
-                if (findInvitationBtn) {
+            console.log(
+                "LOOKUP DATA:",
+                data
+            );
 
 
-                    findInvitationBtn.disabled =
-                        true;
+            /* =========================================
+               CHECK SERVER RESPONSE
+            ========================================= */
+
+            if (
+                !data ||
+                !data.success ||
+                !data.guest
+            ) {
+
+                showError(
+                    data && data.message
+                        ? data.message
+                        : "We couldn't find your invitation. Please check the spelling of your name and try again."
+                );
+
+                return;
+            }
 
 
-                    findInvitationBtn.textContent =
-                        "Finding Invitation…";
+            /* =========================================
+               SAVE CURRENT GUEST
+            ========================================= */
 
-                }
-
-
-                try {
-
-
-                    const url =
-                        RSVP_API_URL +
-                        "?action=lookup" +
-                        "&firstName=" +
-                        encodeURIComponent(
-                            firstName
-                        ) +
-                        "&lastName=" +
-                        encodeURIComponent(
-                            lastName
-                        );
+            currentGuest =
+                data.guest;
 
 
-                    console.log(
-                        "LOOKUP URL:",
-                        url
-                    );
+            console.log(
+                "CURRENT GUEST:",
+                currentGuest
+            );
 
 
-                    const response =
-                        await fetch(
-                            url,
-                            {
-                                method:"GET",
-                                cache:"no-store"
+            /* =========================================
+               LOAD FAMILY MEMBERS
+            ========================================= */
+
+            let familyMembers = [];
+
+
+            if (
+                Array.isArray(
+                    currentGuest.familyMembers
+                )
+            ) {
+
+                familyMembers =
+                    currentGuest.familyMembers
+                        .map(
+                            function (name) {
+
+                                return cleanName(
+                                    name
+                                );
+
                             }
-                        );
-
-
-                    const responseText =
-                        await response.text();
-
-
-                    console.log(
-                        "LOOKUP RAW RESPONSE:",
-                        responseText
-                    );
-
-
-                    let data;
-
-
-                    try {
-
-
-                        data =
-                            JSON.parse(
-                                responseText
-                            );
-
-
-                    } catch (jsonError) {
-
-
-                        console.error(
-                            "LOOKUP JSON ERROR:",
-                            jsonError
-                        );
-
-
-                        throw new Error(
-                            "Invalid response from invitation database."
-                        );
-
-                    }
-
-
-                    console.log(
-                        "LOOKUP DATA:",
-                        data
-                    );
-
-
-                    if (
-                        !data.success ||
-                        !data.guest
-                    ) {
-
-
-                        showError(
-                            data.message ||
-                            "We couldn't find your invitation. Please check your name or ask the host."
-                        );
-
-
-                        return;
-
-                    }
-
-
-                    /* =========================================
-                       SAVE GUEST
-                    ========================================= */
-
-                    currentGuest =
-                        data.guest;
-
-
-                    /* =========================================
-                       CLEAN FAMILY MEMBERS
-                    ========================================= */
-
-                    if (
-                        !Array.isArray(
-                            currentGuest.familyMembers
                         )
+                        .filter(Boolean);
+
+            }
+
+
+            /* =========================================
+               REMOVE DUPLICATE FAMILY MEMBERS
+            ========================================= */
+
+            familyMembers =
+                familyMembers.filter(
+                    function (
+                        name,
+                        index,
+                        array
                     ) {
 
-
-                        currentGuest.familyMembers =
-                            [];
-
-                    }
-
-
-                    currentGuest.familyMembers =
-                        currentGuest
-                            .familyMembers
-                            .map(cleanName)
-                            .filter(Boolean)
-                            .filter(
-                                function (
-                                    name,
-                                    index,
-                                    array
-                                ) {
-
+                        return (
+                            array.findIndex(
+                                function (item) {
 
                                     return (
-                                        array.findIndex(
-                                            function (item) {
-
-
-                                                return (
-                                                    normalize(
-                                                        item
-                                                    ) ===
-                                                    normalize(
-                                                        name
-                                                    )
-                                                );
-
-                                            }
-                                        ) ===
-                                        index
+                                        normalize(item) ===
+                                        normalize(name)
                                     );
 
                                 }
-                            );
-
-
-                    if (
-                        currentGuest.familyMembers.length <
-                        1
-                    ) {
-
-
-                        showError(
-                            "Your invitation was found, but no invited family members could be loaded. Please ask the host."
+                            ) === index
                         );
-
-
-                        return;
 
                     }
+                );
 
 
-                    /* =========================================
-                       DERIVE MAX GUESTS
-                    ========================================= */
-
-                    const familyCount =
-                        currentGuest
-                            .familyMembers
-                            .length;
+            console.log(
+                "FAMILY MEMBERS FROM SERVER:",
+                familyMembers
+            );
 
 
-                    let serverMax =
-                        parseInt(
-                            currentGuest.maxGuests,
-                            10
-                        );
+            /* =========================================
+               IMPORTANT FALLBACK
+               
+               If Apps Script returns the invitation
+               but familyMembers is empty, use the
+               searched guest as the only invited guest.
+            ========================================= */
 
+            if (
+                familyMembers.length === 0
+            ) {
 
-                    if (
-                        isNaN(serverMax) ||
-                        serverMax < 1
-                    ) {
+                const matchedFirstName =
+                    cleanName(
+                        currentGuest.firstName
+                    );
 
-
-                        serverMax =
-                            familyCount;
-
-                    }
-
-
-                    const safeMaxGuests =
-                        Math.min(
-                            serverMax,
-                            familyCount,
-                            4
-                        );
-
-
-                    currentGuest.maxGuests =
-                        safeMaxGuests;
-
-
-                    console.log(
-                        "SAFE MAX GUESTS:",
-                        safeMaxGuests
+                const matchedLastName =
+                    cleanName(
+                        currentGuest.lastName
                     );
 
 
-                    /* =========================================
-                       NAME
-                    ========================================= */
-
-                    const fullName =
-                        (
-                            cleanName(
-                                currentGuest.firstName
-                            ) +
-                            " " +
-                            cleanName(
-                                currentGuest.lastName
-                            )
-                        ).trim();
+                let matchedFullName = "";
 
 
-                    guestFullName.textContent =
-                        fullName;
+                if (
+                    matchedFirstName &&
+                    matchedLastName
+                ) {
+
+                    matchedFullName =
+                        matchedFirstName +
+                        " " +
+                        matchedLastName;
+
+                } else {
+
+                    matchedFullName =
+                        matchedFirstName ||
+                        matchedLastName;
+
+                }
 
 
-                    /* =========================================
-                       HIDDEN RSVP VALUES
-                    ========================================= */
+                if (
+                    matchedFullName
+                ) {
 
-                    rsvpGuestId.value =
-                        currentGuest.guestId || "";
-
-
-                    rsvpGuestName.value =
-                        fullName;
-
-
-                    /* =========================================
-                       BUILD GUEST COUNT
-                    ========================================= */
-
-                    buildGuestCount(
-                        safeMaxGuests
+                    familyMembers.push(
+                        matchedFullName
                     );
-
-
-                    /* =========================================
-                       BUILD ATTENDEE LIST
-                    ========================================= */
-
-                    buildAttendeeList();
-
-
-                    /* =========================================
-                       EVENT PERMISSIONS
-                    ========================================= */
-
-                    const sangeetAllowed =
-                        isAllowed(
-                            currentGuest.sangeet
-                        );
-
-
-                    const weddingAllowed =
-                        isAllowed(
-                            currentGuest.wedding
-                        );
-
-
-                    lookupEventCheckboxes.forEach(
-                        function (checkbox) {
-
-
-                            let allowed =
-                                false;
-
-
-                            if (
-                                checkbox.value ===
-                                "Sangeet"
-                            ) {
-
-
-                                allowed =
-                                    sangeetAllowed;
-
-                            }
-
-
-                            if (
-                                checkbox.value ===
-                                "Wedding"
-                            ) {
-
-
-                                allowed =
-                                    weddingAllowed;
-
-                            }
-
-
-                            checkbox.checked =
-                                allowed;
-
-
-                            checkbox.disabled =
-                                !allowed;
-
-                        }
-                    );
-
-
-                    /* =========================================
-                       DEFAULT EVENT VALUES
-                    ========================================= */
-
-                    rsvpSangeet.value =
-                        sangeetAllowed
-                            ? "YES"
-                            : "NO";
-
-
-                    rsvpWedding.value =
-                        weddingAllowed
-                            ? "YES"
-                            : "NO";
-
-
-                    /* =========================================
-                       SHOW RESULT
-                    ========================================= */
-
-                    guestResult.style.display =
-                        "block";
-
-
-                    setTimeout(
-                        function () {
-
-
-                            guestResult.scrollIntoView({
-                                behavior:"smooth",
-                                block:"nearest"
-                            });
-
-
-                        },
-                        100
-                    );
-
-
-                } catch (error) {
-
-
-                    console.error(
-                        "Guest lookup error:",
-                        error
-                    );
-
-
-                    showError(
-                        error.message ||
-                        "We couldn't connect to the invitation database. Please try again."
-                    );
-
-
-                } finally {
-
-
-                    if (findInvitationBtn) {
-
-
-                        findInvitationBtn.disabled =
-                            false;
-
-
-                        findInvitationBtn.textContent =
-                            "Find Invitation";
-
-                    }
 
                 }
 
             }
-        );
 
 
+            /* =========================================
+               FINAL FAMILY MEMBER CHECK
+            ========================================= */
+
+            if (
+                familyMembers.length === 0
+            ) {
+
+                console.error(
+                    "INVITATION FOUND BUT NO FAMILY MEMBERS:",
+                    data
+                );
+
+                showError(
+                    "Your invitation was found, but the invited guest details could not be loaded. Please ask the host."
+                );
+
+                return;
+            }
+
+
+            /* =========================================
+               SAVE CLEAN FAMILY MEMBERS
+            ========================================= */
+
+            currentGuest.familyMembers =
+                familyMembers;
+
+
+            console.log(
+                "FINAL INVITED FAMILY MEMBERS:",
+                currentGuest.familyMembers
+            );
+
+
+            /* =========================================
+               CALCULATE MAXIMUM GUESTS
+            ========================================= */
+
+            const familyCount =
+                currentGuest
+                    .familyMembers
+                    .length;
+
+
+            let serverMax =
+                parseInt(
+                    currentGuest.maxGuests,
+                    10
+                );
+
+
+            if (
+                isNaN(serverMax) ||
+                serverMax < 1
+            ) {
+
+                serverMax =
+                    familyCount;
+
+            }
+
+
+            const safeMaxGuests =
+                Math.min(
+                    serverMax,
+                    familyCount,
+                    4
+                );
+
+
+            currentGuest.maxGuests =
+                safeMaxGuests;
+
+
+            console.log(
+                "FAMILY COUNT:",
+                familyCount
+            );
+
+
+            console.log(
+                "SERVER MAX GUESTS:",
+                serverMax
+            );
+
+
+            console.log(
+                "SAFE MAX GUESTS:",
+                safeMaxGuests
+            );
+
+
+            /* =========================================
+               DISPLAY GUEST NAME
+            ========================================= */
+
+            const displayFirstName =
+                cleanName(
+                    currentGuest.firstName
+                );
+
+
+            const displayLastName =
+                cleanName(
+                    currentGuest.lastName
+                );
+
+
+            const fullName =
+                (
+                    displayFirstName +
+                    " " +
+                    displayLastName
+                ).trim();
+
+
+            guestFullName.textContent =
+                fullName;
+
+
+            /* =========================================
+               HIDDEN RSVP VALUES
+            ========================================= */
+
+            rsvpGuestId.value =
+                cleanName(
+                    currentGuest.guestId
+                );
+
+
+            rsvpGuestName.value =
+                fullName;
+
+
+            /* =========================================
+               BUILD GUEST COUNT
+            ========================================= */
+
+            buildGuestCount(
+                safeMaxGuests
+            );
+
+
+            /* =========================================
+               BUILD ATTENDEE LIST
+            ========================================= */
+
+            buildAttendeeList();
+
+
+            /* =========================================
+               EVENT PERMISSIONS
+            ========================================= */
+
+            const sangeetAllowed =
+                isAllowed(
+                    currentGuest.sangeet
+                );
+
+
+            const weddingAllowed =
+                isAllowed(
+                    currentGuest.wedding
+                );
+
+
+            lookupEventCheckboxes.forEach(
+                function (checkbox) {
+
+                    let allowed =
+                        false;
+
+
+                    if (
+                        checkbox.value ===
+                        "Sangeet"
+                    ) {
+
+                        allowed =
+                            sangeetAllowed;
+
+                    }
+
+
+                    if (
+                        checkbox.value ===
+                        "Wedding"
+                    ) {
+
+                        allowed =
+                            weddingAllowed;
+
+                    }
+
+
+                    checkbox.checked =
+                        allowed;
+
+
+                    checkbox.disabled =
+                        !allowed;
+
+                }
+            );
+
+
+            /* =========================================
+               DEFAULT EVENT VALUES
+            ========================================= */
+
+            rsvpSangeet.value =
+                sangeetAllowed
+                    ? "YES"
+                    : "NO";
+
+
+            rsvpWedding.value =
+                weddingAllowed
+                    ? "YES"
+                    : "NO";
+
+
+            /* =========================================
+               SHOW INVITATION RESULT
+            ========================================= */
+
+            guestResult.style.display =
+                "block";
+
+
+            setTimeout(
+                function () {
+
+                    guestResult.scrollIntoView({
+                        behavior: "smooth",
+                        block: "nearest"
+                    });
+
+                },
+                100
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Guest lookup error:",
+                error
+            );
+
+
+            showError(
+                error.message ||
+                "We couldn't connect to the invitation database. Please try again."
+            );
+
+
+        } finally {
+
+            if (findInvitationBtn) {
+
+                findInvitationBtn.disabled =
+                    false;
+
+                findInvitationBtn.textContent =
+                    "Find Invitation";
+
+            }
+
+        }
+
+    }
+);
+       
         /* =========================================
            GUEST COUNT CHANGE
         ========================================= */
