@@ -6136,40 +6136,90 @@ document.addEventListener(
                 );
 
 
-                /* =========================================
-                   SAFE MAXIMUM
-                ========================================= */
+/* =========================================
+   SAFE MAXIMUM
+========================================= */
 
-                const familyCount =
-                    Array.isArray(
-                        currentGuest.familyMembers
-                    )
-                        ? currentGuest.familyMembers.length
-                        : 0;
+const familyCount =
+    Array.isArray(currentGuest.familyMembers)
+        ? currentGuest.familyMembers.length
+        : 0;
+
+const invitationMax =
+    Number(currentGuest.maxGuests);
+
+/*
+ * Maximum people allowed from this invitation.
+ *
+ * Use the invitation's family size as the base,
+ * but never allow more than 4.
+ *
+ * IMPORTANT:
+ * maxGuests = 0 must NOT mean "zero people allowed".
+ * Zero is only a valid RSVP selection.
+ */
+
+let maxAllowedGuests;
+
+if (familyCount > 0) {
+
+    maxAllowedGuests =
+        Math.min(
+            familyCount,
+            4
+        );
+
+} else if (invitationMax > 0) {
+
+    maxAllowedGuests =
+        Math.min(
+            invitationMax,
+            4
+        );
+
+} else {
+
+    maxAllowedGuests = 0;
+
+}
+
+console.log(
+    "FAMILY COUNT:",
+    familyCount
+);
+
+console.log(
+    "SERVER MAX GUESTS:",
+    invitationMax
+);
+
+console.log(
+    "MAX ALLOWED GUESTS:",
+    maxAllowedGuests
+);
+
+console.log(
+    "SELECTED GUESTS:",
+    selectedGuests.length
+);
 
 
-                const invitationMax =
-                    Number(
-                        currentGuest.maxGuests
-                    );
+/* =========================================
+   VALIDATE NUMBER OF GUESTS
+========================================= */
 
+if (
+    selectedGuests.length >
+    maxAllowedGuests
+) {
 
-                const maxAllowedGuests =
-                    Math.min(
-                        invitationMax >= 0
-                            ? invitationMax
-                            : familyCount,
+    showRsvpError(
+        "You cannot select more guests than are included in your invitation."
+    );
 
-                        familyCount || 4,
+    return;
 
-                        4
-                    );
-
-
-                console.log(
-                    "MAX ALLOWED GUESTS:",
-                    maxAllowedGuests
-                );
+}
 
 
                 /* =========================================
