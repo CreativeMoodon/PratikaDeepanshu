@@ -3303,13 +3303,12 @@ footer p {
 
 
                     <label
-                        class="detail-label"
-                        for="guestCount">
+    class="detail-label"
+    for="guestCount">
 
-                        Number of guests attending
+    Number of People Attending
 
-                    </label>
-
+</label>
 
                     <select
     id="guestCount"
@@ -3332,9 +3331,9 @@ footer p {
 
                     <span class="detail-label">
 
-                        Who is attending?
+    Who Will Be Attending?
 
-                    </span>
+</span>
 
 
                     <div
@@ -4614,11 +4613,18 @@ document.addEventListener(
 
 <!-- =========================================
      GUEST LOOKUP + RSVP
-     FINAL CORRECTED VERSION
+     PRIMARY GUEST + MAX 3 ADDITIONAL GUESTS
      
-     0–4 accompanying guests allowed.
-     Primary guest always remains the
-     invitation holder.
+     MAXIMUM TOTAL PEOPLE = 4
+
+     0 = Not attending
+     1 = Primary Guest
+     2 = Primary + Guest 1
+     3 = Primary + Guest 1 + Guest 2
+     4 = Primary + Guest 1 + Guest 2 + Guest 3
+
+     ONLY THE PRIMARY GUEST CAN SEARCH
+     FOR THE INVITATION.
 ========================================= -->
 
 <script>
@@ -4633,6 +4639,13 @@ document.addEventListener(
 
         const RSVP_API_URL =
             "https://script.google.com/macros/s/AKfycby1X-76kpX9Sp7TUPzbF5N1MDDo7F2oBaCdA62FAaIp2CpsKDXUDL-Tim-Uz4VDSRhf/exec";
+
+
+        /* =========================================
+           CONSTANTS
+        ========================================= */
+
+        const MAX_TOTAL_GUESTS = 4;
 
 
         /* =========================================
@@ -4709,7 +4722,7 @@ document.addEventListener(
 
 
         /* =========================================
-           CHECK ELEMENTS
+           ELEMENT CHECK
         ========================================= */
 
         if (!guestForm) {
@@ -4742,7 +4755,7 @@ document.addEventListener(
 
 
         /* =========================================
-           CURRENT GUEST
+           CURRENT INVITATION
         ========================================= */
 
         let currentGuest = null;
@@ -4763,7 +4776,7 @@ document.addEventListener(
 
 
         /* =========================================
-           YES / TRUE / 1 CHECK
+           YES / TRUE / 1
         ========================================= */
 
         function isAllowed(value) {
@@ -4800,7 +4813,7 @@ document.addEventListener(
 
 
         /* =========================================
-           ERROR MESSAGE
+           ERROR
         ========================================= */
 
         function showError(message) {
@@ -4860,14 +4873,10 @@ document.addEventListener(
             attendeeList.innerHTML = "";
 
             guestCount.innerHTML =
-                '<option value="0">0 Guests</option>';
+                '<option value="0">0 Guests — Not Attending</option>';
 
             guestCount.value = "0";
 
-            /*
-             * Keep disabled until a valid invitation
-             * has been found.
-             */
             guestCount.disabled = true;
 
 
@@ -4884,7 +4893,7 @@ document.addEventListener(
             if (attendeeHint) {
 
                 attendeeHint.textContent =
-                    "Select the guests who are attending, or choose 0 if you are not bringing any accompanying guests.";
+                    "Choose 0 if you cannot attend. If you are attending, the Primary Guest must be included.";
 
             }
 
@@ -4898,17 +4907,17 @@ document.addEventListener(
         /* =========================================
            BUILD GUEST COUNT
            
-           OPTIONS:
-           0 Guests
-           1 Guest
-           2 Guests
-           3 Guests
-           4 Guests
+           0 = Not attending
+           1 = Primary Guest
+           2 = Primary + Guest 1
+           3 = Primary + Guest 1 + Guest 2
+           4 = Primary + Guest 1 + Guest 2 + Guest 3
         ========================================= */
 
         function buildGuestCount(maxGuests) {
 
             guestCount.innerHTML = "";
+
 
             let limit =
                 parseInt(
@@ -4922,43 +4931,38 @@ document.addEventListener(
                 limit < 0
             ) {
 
-                if (
+                limit =
                     currentGuest &&
                     Array.isArray(
                         currentGuest.familyMembers
                     )
-                ) {
-
-                    limit =
-                        currentGuest
-                            .familyMembers
-                            .length;
-
-                } else {
-
-                    limit = 4;
-
-                }
+                        ? currentGuest.familyMembers.length
+                        : MAX_TOTAL_GUESTS;
 
             }
 
 
             limit =
                 Math.min(
-                    Math.max(limit, 0),
-                    4
+                    Math.max(
+                        limit,
+                        0
+                    ),
+                    MAX_TOTAL_GUESTS
                 );
 
 
             /* =========================================
-               ALWAYS ADD ZERO
+               ZERO
             ========================================= */
 
             const zeroOption =
                 document.createElement("option");
 
             zeroOption.value = "0";
-            zeroOption.textContent = "0 Guests";
+
+            zeroOption.textContent =
+                "0 Guests — Not Attending";
 
             guestCount.appendChild(
                 zeroOption
@@ -4966,7 +4970,7 @@ document.addEventListener(
 
 
             /* =========================================
-               ADD 1–4
+               1–4 TOTAL
             ========================================= */
 
             for (
@@ -4981,10 +4985,20 @@ document.addEventListener(
                 option.value =
                     String(i);
 
-                option.textContent =
-                    i === 1
-                        ? "1 Guest"
-                        : i + " Guests";
+
+                if (i === 1) {
+
+                    option.textContent =
+                        "1 Guest — Primary Guest";
+
+                } else {
+
+                    option.textContent =
+                        i +
+                        " Guests — Total";
+
+                }
+
 
                 guestCount.appendChild(
                     option
@@ -4993,17 +5007,13 @@ document.addEventListener(
             }
 
 
-            /*
-             * IMPORTANT:
-             * Dropdown must be enabled.
-             */
             guestCount.disabled = false;
 
             guestCount.value = "0";
 
 
             console.log(
-                "Guest count maximum:",
+                "Maximum TOTAL guests:",
                 limit
             );
 
@@ -5012,6 +5022,12 @@ document.addEventListener(
 
         /* =========================================
            BUILD ATTENDEE LIST
+           
+           familyMembers from Apps Script are:
+           
+           [Primary Guest, Guest 1, Guest 2, Guest 3]
+
+           Guest 4 is intentionally not included.
         ========================================= */
 
         function buildAttendeeList() {
@@ -5075,17 +5091,28 @@ document.addEventListener(
             );
 
 
+            /*
+             * Never allow more than 4 people
+             * in the frontend.
+             */
+            const finalMembers =
+                uniqueMembers.slice(
+                    0,
+                    MAX_TOTAL_GUESTS
+                );
+
+
             currentGuest.familyMembers =
-                uniqueMembers;
+                finalMembers;
 
 
             console.log(
-                "Invited family members:",
-                uniqueMembers
+                "FINAL INVITED FAMILY:",
+                finalMembers
             );
 
 
-            uniqueMembers.forEach(
+            finalMembers.forEach(
                 function (name, index) {
 
                     const label =
@@ -5115,13 +5142,36 @@ document.addEventListener(
                         String(index);
 
 
+                    /*
+                     * First person is ALWAYS
+                     * the Primary Guest.
+                     */
+                    if (index === 0) {
+
+                        checkbox.dataset.primary =
+                            "true";
+
+                    }
+
+
                     const span =
                         document.createElement(
                             "span"
                         );
 
-                    span.textContent =
-                        name;
+
+                    if (index === 0) {
+
+                        span.textContent =
+                            name +
+                            " (Primary Guest)";
+
+                    } else {
+
+                        span.textContent =
+                            name;
+
+                    }
 
 
                     label.appendChild(
@@ -5146,21 +5196,27 @@ document.addEventListener(
                                 getSelectedGuests();
 
 
-                            /*
-                             * Hard safety limit of 4.
-                             */
                             if (
-                                selected.length > 4
+                                selected.length >
+                                MAX_TOTAL_GUESTS
                             ) {
 
                                 checkbox.checked =
                                     false;
 
                                 showRsvpError(
-                                    "You can select a maximum of 4 guests."
+                                    "You can select a maximum of 4 people in total, including the Primary Guest."
                                 );
 
                             }
+
+
+                            /*
+                             * If someone other than
+                             * Primary is selected,
+                             * Primary must also be selected.
+                             */
+                            enforcePrimaryGuest();
 
 
                             syncAttendeeSelection();
@@ -5175,7 +5231,7 @@ document.addEventListener(
             if (attendeeHint) {
 
                 attendeeHint.textContent =
-                    "Select the guests who are attending, or choose 0 if you are not bringing any accompanying guests.";
+                    "The Primary Guest counts as 1. Maximum 4 people total. Choose 0 if you cannot attend.";
 
             }
 
@@ -5208,10 +5264,76 @@ document.addEventListener(
 
 
         /* =========================================
+           GET PRIMARY CHECKBOX
+        ========================================= */
+
+        function getPrimaryCheckbox() {
+
+            return attendeeList.querySelector(
+                'input[name="attendingGuest"][data-primary="true"]'
+            );
+
+        }
+
+
+        /* =========================================
+           PRIMARY GUEST MUST BE INCLUDED
+           
+           If any attendee is selected,
+           Primary Guest must be selected.
+        ========================================= */
+
+        function enforcePrimaryGuest() {
+
+            const checkboxes =
+                Array.from(
+                    attendeeList.querySelectorAll(
+                        'input[name="attendingGuest"]'
+                    )
+                );
+
+
+            const primaryCheckbox =
+                getPrimaryCheckbox();
+
+
+            if (!primaryCheckbox) {
+                return;
+            }
+
+
+            const anySelected =
+                checkboxes.some(
+                    function (checkbox) {
+
+                        return checkbox.checked;
+
+                    }
+                );
+
+
+            if (anySelected) {
+
+                primaryCheckbox.checked =
+                    true;
+
+            }
+
+        }
+
+
+        /* =========================================
            SYNC ATTENDEE SELECTION
+           
+           totalGuests = TOTAL people attending.
+           
+           0 is valid.
         ========================================= */
 
         function syncAttendeeSelection() {
+
+            enforcePrimaryGuest();
+
 
             const selectedGuests =
                 getSelectedGuests();
@@ -5243,17 +5365,7 @@ document.addEventListener(
 
 
             /*
-             * Save selected family members.
-             */
-            rsvpAttendingGuests.value =
-                JSON.stringify(
-                    uniqueGuests
-                );
-
-
-            /*
-             * This is the number of
-             * accompanying guests.
+             * TOTAL people attending.
              */
             rsvpGuests.value =
                 String(
@@ -5261,10 +5373,14 @@ document.addEventListener(
                 );
 
 
+            rsvpAttendingGuests.value =
+                JSON.stringify(
+                    uniqueGuests
+                );
+
+
             /*
-             * Update dropdown.
-             *
-             * ZERO IS A VALID VALUE.
+             * Keep dropdown synchronized.
              */
             guestCount.value =
                 String(
@@ -5279,19 +5395,20 @@ document.addEventListener(
                 ) {
 
                     attendeeHint.textContent =
-                        "0 accompanying guests selected.";
+                        "0 people selected — you are indicating that you cannot attend.";
+
+                } else if (
+                    uniqueGuests.length === 1
+                ) {
+
+                    attendeeHint.textContent =
+                        "1 person selected — the Primary Guest.";
 
                 } else {
 
                     attendeeHint.textContent =
                         uniqueGuests.length +
-                        " guest" +
-                        (
-                            uniqueGuests.length === 1
-                                ? ""
-                                : "s"
-                        ) +
-                        " selected.";
+                        " people selected, including the Primary Guest.";
 
                 }
 
@@ -5299,7 +5416,12 @@ document.addEventListener(
 
 
             console.log(
-                "Selected guests:",
+                "TOTAL SELECTED:",
+                uniqueGuests.length
+            );
+
+            console.log(
+                "SELECTED PEOPLE:",
                 uniqueGuests
             );
 
@@ -5309,10 +5431,11 @@ document.addEventListener(
         /* =========================================
            APPLY GUEST COUNT
            
-           0 = uncheck everyone
-           1 = check first person
-           2 = check first 2
-           etc.
+           0 = nobody attending
+           1 = Primary
+           2 = Primary + Guest 1
+           3 = Primary + Guest 1 + Guest 2
+           4 = Primary + Guest 1 + Guest 2 + Guest 3
         ========================================= */
 
         function applyGuestCount(count) {
@@ -5337,7 +5460,7 @@ document.addEventListener(
             requiredCount =
                 Math.min(
                     requiredCount,
-                    4
+                    MAX_TOTAL_GUESTS
                 );
 
 
@@ -5350,28 +5473,39 @@ document.addEventListener(
 
 
             /*
-             * First uncheck everyone.
+             * Uncheck everyone.
              */
             checkboxes.forEach(
                 function (checkbox) {
 
-                    checkbox.checked = false;
+                    checkbox.checked =
+                        false;
 
                 }
             );
 
 
             /*
-             * Then check first N.
+             * Select the first N people.
+             *
+             * Because the Primary Guest is
+             * always index 0, this guarantees:
+             *
+             * 1 = Primary
+             * 2 = Primary + Guest 1
+             * 3 = Primary + Guest 1 + Guest 2
+             * 4 = Primary + Guest 1 + Guest 2 + Guest 3
              */
             checkboxes.forEach(
                 function (checkbox, index) {
 
                     if (
-                        index < requiredCount
+                        index <
+                        requiredCount
                     ) {
 
-                        checkbox.checked = true;
+                        checkbox.checked =
+                            true;
 
                     }
 
@@ -5379,21 +5513,17 @@ document.addEventListener(
             );
 
 
-            /*
-             * Keep dropdown value correct.
-             */
             guestCount.value =
-                String(requiredCount);
+                String(
+                    requiredCount
+                );
 
 
-            /*
-             * Sync hidden RSVP values.
-             */
             syncAttendeeSelection();
 
 
             console.log(
-                "Applied guest count:",
+                "Applied TOTAL guest count:",
                 requiredCount
             );
 
@@ -5404,7 +5534,8 @@ document.addEventListener(
            INITIAL STATE
         ========================================= */
 
-        guestResult.style.display = "none";
+        guestResult.style.display =
+            "none";
 
         showError("");
 
@@ -5413,6 +5544,11 @@ document.addEventListener(
 
         /* =========================================
            FIND INVITATION
+           
+           ONLY FIRST NAME + LAST NAME
+           
+           The Apps Script determines whether
+           this name is the Primary Guest.
         ========================================= */
 
         guestForm.addEventListener(
@@ -5431,10 +5567,6 @@ document.addEventListener(
                 resetRsvpFields();
 
 
-                /* =========================================
-                   GET NAME
-                ========================================= */
-
                 const firstName =
                     cleanName(
                         firstNameInput.value
@@ -5446,27 +5578,19 @@ document.addEventListener(
                     );
 
 
-                /* =========================================
-                   VALIDATE NAME
-                ========================================= */
-
                 if (
                     !firstName ||
                     !lastName
                 ) {
 
                     showError(
-                        "Please enter your first and last name."
+                        "Please enter the First Name and Last Name of the Primary Guest."
                     );
 
                     return;
 
                 }
 
-
-                /* =========================================
-                   DISABLE BUTTON
-                ========================================= */
 
                 if (findInvitationBtn) {
 
@@ -5480,10 +5604,6 @@ document.addEventListener(
 
 
                 try {
-
-                    /* =========================================
-                       LOOKUP URL
-                    ========================================= */
 
                     const url =
                         RSVP_API_URL +
@@ -5503,10 +5623,6 @@ document.addEventListener(
                         url
                     );
 
-
-                    /* =========================================
-                       CALL APPS SCRIPT
-                    ========================================= */
 
                     const response =
                         await fetch(
@@ -5534,10 +5650,6 @@ document.addEventListener(
                     );
 
 
-                    /* =========================================
-                       PARSE JSON
-                    ========================================= */
-
                     let data;
 
 
@@ -5562,16 +5674,6 @@ document.addEventListener(
                     }
 
 
-                    console.log(
-                        "LOOKUP DATA:",
-                        data
-                    );
-
-
-                    /* =========================================
-                       CHECK SERVER RESPONSE
-                    ========================================= */
-
                     if (
                         !data ||
                         !data.success ||
@@ -5581,7 +5683,7 @@ document.addEventListener(
                         showError(
                             data && data.message
                                 ? data.message
-                                : "We couldn't find your invitation. Please check the spelling of your name and try again."
+                                : "We couldn't find your invitation. Please check the spelling of the Primary Guest's name and try again."
                         );
 
                         return;
@@ -5590,21 +5692,15 @@ document.addEventListener(
 
 
                     /* =========================================
-                       SAVE CURRENT GUEST
+                       SAVE INVITATION
                     ========================================= */
 
                     currentGuest =
                         data.guest;
 
 
-                    console.log(
-                        "CURRENT GUEST:",
-                        currentGuest
-                    );
-
-
                     /* =========================================
-                       LOAD FAMILY MEMBERS
+                       CLEAN FAMILY
                     ========================================= */
 
                     let familyMembers = [];
@@ -5632,10 +5728,9 @@ document.addEventListener(
                     }
 
 
-                    /* =========================================
-                       REMOVE DUPLICATES
-                    ========================================= */
-
+                    /*
+                     * Remove duplicate names.
+                     */
                     familyMembers =
                         familyMembers.filter(
                             function (
@@ -5661,14 +5756,19 @@ document.addEventListener(
                         );
 
 
-                    console.log(
-                        "FAMILY MEMBERS FROM SERVER:",
-                        familyMembers
-                    );
+                    /*
+                     * Hard limit:
+                     * Primary + Guest 1 + Guest 2 + Guest 3
+                     */
+                    familyMembers =
+                        familyMembers.slice(
+                            0,
+                            MAX_TOTAL_GUESTS
+                        );
 
 
                     /* =========================================
-                       FALLBACK
+                       FALLBACK PRIMARY
                     ========================================= */
 
                     if (
@@ -5686,26 +5786,12 @@ document.addEventListener(
                             );
 
 
-                        let matchedFullName = "";
-
-
-                        if (
-                            matchedFirstName &&
-                            matchedLastName
-                        ) {
-
-                            matchedFullName =
+                        const matchedFullName =
+                            (
                                 matchedFirstName +
                                 " " +
-                                matchedLastName;
-
-                        } else {
-
-                            matchedFullName =
-                                matchedFirstName ||
-                                matchedLastName;
-
-                        }
+                                matchedLastName
+                            ).trim();
 
 
                         if (
@@ -5721,21 +5807,12 @@ document.addEventListener(
                     }
 
 
-                    /* =========================================
-                       FINAL FAMILY MEMBER CHECK
-                    ========================================= */
-
                     if (
                         familyMembers.length === 0
                     ) {
 
-                        console.error(
-                            "INVITATION FOUND BUT NO FAMILY MEMBERS:",
-                            data
-                        );
-
                         showError(
-                            "Your invitation was found, but the invited guest details could not be loaded. Please ask the host."
+                            "Your invitation was found, but the Primary Guest details could not be loaded. Please ask the host."
                         );
 
                         return;
@@ -5743,22 +5820,71 @@ document.addEventListener(
                     }
 
 
-                    /* =========================================
-                       SAVE FAMILY MEMBERS
-                    ========================================= */
-
                     currentGuest.familyMembers =
                         familyMembers;
 
 
-                    console.log(
-                        "FINAL INVITED FAMILY MEMBERS:",
-                        currentGuest.familyMembers
-                    );
+                    /* =========================================
+                       PRIMARY GUEST
+                       
+                       MUST BE THE FIRST PERSON.
+                    ========================================= */
+
+                    const primaryGuest =
+                        cleanName(
+                            currentGuest.primaryGuest ||
+                            (
+                                cleanName(
+                                    currentGuest.firstName
+                                ) +
+                                " " +
+                                cleanName(
+                                    currentGuest.lastName
+                                )
+                            )
+                        );
+
+
+                    if (!primaryGuest) {
+
+                        showError(
+                            "The Primary Guest could not be identified."
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Make absolutely sure Primary Guest
+                     * is first in the family list.
+                     */
+                    const withoutPrimary =
+                        familyMembers.filter(
+                            function (name) {
+
+                                return (
+                                    normalize(name) !==
+                                    normalize(primaryGuest)
+                                );
+
+                            }
+                        );
+
+
+                    currentGuest.familyMembers =
+                        [
+                            primaryGuest,
+                            ...withoutPrimary
+                        ].slice(
+                            0,
+                            MAX_TOTAL_GUESTS
+                        );
 
 
                     /* =========================================
-                       CALCULATE MAXIMUM
+                       MAXIMUM
                     ========================================= */
 
                     const familyCount =
@@ -5767,29 +5893,10 @@ document.addEventListener(
                             .length;
 
 
-                    let serverMax =
-                        parseInt(
-                            currentGuest.maxGuests,
-                            10
-                        );
-
-
-                    if (
-                        isNaN(serverMax) ||
-                        serverMax < 0
-                    ) {
-
-                        serverMax =
-                            familyCount;
-
-                    }
-
-
                     const safeMaxGuests =
                         Math.min(
-                            serverMax,
                             familyCount,
-                            4
+                            MAX_TOTAL_GUESTS
                         );
 
 
@@ -5798,48 +5905,27 @@ document.addEventListener(
 
 
                     console.log(
-                        "FAMILY COUNT:",
-                        familyCount
+                        "PRIMARY GUEST:",
+                        primaryGuest
                     );
 
-
                     console.log(
-                        "SERVER MAX GUESTS:",
-                        serverMax
+                        "INVITED FAMILY:",
+                        currentGuest.familyMembers
                     );
 
-
                     console.log(
-                        "SAFE MAX GUESTS:",
+                        "MAX TOTAL:",
                         safeMaxGuests
                     );
 
 
                     /* =========================================
-                       DISPLAY NAME
+                       DISPLAY PRIMARY GUEST
                     ========================================= */
 
-                    const displayFirstName =
-                        cleanName(
-                            currentGuest.firstName
-                        );
-
-                    const displayLastName =
-                        cleanName(
-                            currentGuest.lastName
-                        );
-
-
-                    const fullName =
-                        (
-                            displayFirstName +
-                            " " +
-                            displayLastName
-                        ).trim();
-
-
                     guestFullName.textContent =
-                        fullName;
+                        primaryGuest;
 
 
                     /* =========================================
@@ -5851,18 +5937,12 @@ document.addEventListener(
                             currentGuest.guestId
                         );
 
-
-                    /*
-                     * IMPORTANT:
-                     * The invitation holder is ALWAYS
-                     * the primary guest.
-                     */
                     rsvpGuestName.value =
-                        fullName;
+                        primaryGuest;
 
 
                     /* =========================================
-                       BUILD DROPDOWN
+                       BUILD COUNT
                     ========================================= */
 
                     buildGuestCount(
@@ -5871,15 +5951,14 @@ document.addEventListener(
 
 
                     /* =========================================
-                       BUILD ATTENDEE LIST
+                       BUILD ATTENDEE CHECKBOXES
                     ========================================= */
 
                     buildAttendeeList();
 
 
                     /*
-                     * Start with ZERO accompanying
-                     * guests selected.
+                     * Start with nobody attending.
                      */
                     applyGuestCount(0);
 
@@ -5937,10 +6016,6 @@ document.addEventListener(
                         }
                     );
 
-
-                    /* =========================================
-                       DEFAULT EVENT VALUES
-                    ========================================= */
 
                     rsvpSangeet.value =
                         sangeetAllowed
@@ -6008,7 +6083,7 @@ document.addEventListener(
 
 
         /* =========================================
-           GUEST COUNT DROPDOWN CHANGE
+           GUEST COUNT CHANGE
         ========================================= */
 
         guestCount.addEventListener(
@@ -6082,10 +6157,6 @@ document.addEventListener(
 
         /* =========================================
            RSVP SUBMIT
-           
-           0 ACCOMPANYING GUESTS IS VALID.
-           
-           PRIMARY GUEST = INVITATION HOLDER.
         ========================================= */
 
         rsvpForm.addEventListener(
@@ -6099,7 +6170,7 @@ document.addEventListener(
 
 
                 /* =========================================
-                   CHECK INVITATION
+                   INVITATION CHECK
                 ========================================= */
 
                 if (
@@ -6117,7 +6188,7 @@ document.addEventListener(
 
 
                 /* =========================================
-                   GET SELECTED GUESTS
+                   SELECTED PEOPLE
                 ========================================= */
 
                 const selectedGuests =
@@ -6125,106 +6196,100 @@ document.addEventListener(
 
 
                 console.log(
-                    "FINAL SELECTED GUESTS:",
+                    "FINAL SELECTED PEOPLE:",
                     selectedGuests
                 );
 
 
-                console.log(
-                    "INVITED FAMILY:",
-                    currentGuest.familyMembers
-                );
+                /* =========================================
+                   TOTAL GUEST LIMIT
+                   
+                   0–4 is valid.
+                ========================================= */
 
+                if (
+                    selectedGuests.length >
+                    MAX_TOTAL_GUESTS
+                ) {
 
-/* =========================================
-   SAFE MAXIMUM
-========================================= */
+                    showRsvpError(
+                        "You can select a maximum of 4 people in total, including the Primary Guest."
+                    );
 
-const familyCount =
-    Array.isArray(currentGuest.familyMembers)
-        ? currentGuest.familyMembers.length
-        : 0;
+                    return;
 
-const invitationMax =
-    Number(currentGuest.maxGuests);
-
-/*
- * Maximum people allowed from this invitation.
- *
- * Use the invitation's family size as the base,
- * but never allow more than 4.
- *
- * IMPORTANT:
- * maxGuests = 0 must NOT mean "zero people allowed".
- * Zero is only a valid RSVP selection.
- */
-
-let maxAllowedGuests;
-
-if (familyCount > 0) {
-
-    maxAllowedGuests =
-        Math.min(
-            familyCount,
-            4
-        );
-
-} else if (invitationMax > 0) {
-
-    maxAllowedGuests =
-        Math.min(
-            invitationMax,
-            4
-        );
-
-} else {
-
-    maxAllowedGuests = 0;
-
-}
-
-console.log(
-    "FAMILY COUNT:",
-    familyCount
-);
-
-console.log(
-    "SERVER MAX GUESTS:",
-    invitationMax
-);
-
-console.log(
-    "MAX ALLOWED GUESTS:",
-    maxAllowedGuests
-);
-
-console.log(
-    "SELECTED GUESTS:",
-    selectedGuests.length
-);
-
-
-/* =========================================
-   VALIDATE NUMBER OF GUESTS
-========================================= */
-
-if (
-    selectedGuests.length >
-    maxAllowedGuests
-) {
-
-    showRsvpError(
-        "You cannot select more guests than are included in your invitation."
-    );
-
-    return;
-
-}
-
+                }
 
 
                 /* =========================================
-                   VALIDATE SELECTED FAMILY MEMBERS
+                   PRIMARY GUEST
+                ========================================= */
+
+                const primaryGuest =
+                    cleanName(
+                        currentGuest.primaryGuest ||
+                        (
+                            cleanName(
+                                currentGuest.firstName
+                            ) +
+                            " " +
+                            cleanName(
+                                currentGuest.lastName
+                            )
+                        )
+                    );
+
+
+                if (!primaryGuest) {
+
+                    showRsvpError(
+                        "The Primary Guest could not be identified."
+                    );
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   PRIMARY REQUIRED IF ATTENDING
+                   
+                   0 = allowed
+                   1–4 = Primary MUST be selected
+                ========================================= */
+
+                if (
+                    selectedGuests.length > 0
+                ) {
+
+                    const primarySelected =
+                        selectedGuests.some(
+                            function (name) {
+
+                                return (
+                                    normalize(name) ===
+                                    normalize(primaryGuest)
+                                );
+
+                            }
+                        );
+
+
+                    if (!primarySelected) {
+
+                        showRsvpError(
+                            "The Primary Guest must be included when submitting an attending RSVP."
+                        );
+
+                        return;
+
+                    }
+
+                }
+
+
+                /* =========================================
+                   VALIDATE INVITED FAMILY
                 ========================================= */
 
                 const allowedFamilyMembers =
@@ -6262,14 +6327,8 @@ if (
                     invalidGuests.length
                 ) {
 
-                    console.error(
-                        "INVALID SELECTED GUESTS:",
-                        invalidGuests
-                    );
-
-
                     showRsvpError(
-                        "One or more selected guests are not included in this invitation. Please select only the invited family members shown above."
+                        "One or more selected guests are not included in this invitation."
                     );
 
                     return;
@@ -6278,39 +6337,7 @@ if (
 
 
                 /* =========================================
-                   PRIMARY GUEST
-                   
-                   ALWAYS THE INVITATION HOLDER.
-                   
-                   EVEN WHEN:
-                   selectedGuests = []
-                ========================================= */
-
-                const primaryGuest =
-                    (
-                        cleanName(
-                            currentGuest.firstName
-                        ) +
-                        " " +
-                        cleanName(
-                            currentGuest.lastName
-                        )
-                    ).trim();
-
-
-                if (!primaryGuest) {
-
-                    showRsvpError(
-                        "The invitation holder's name could not be identified."
-                    );
-
-                    return;
-
-                }
-
-
-                /* =========================================
-                   CHECK EVENTS
+                   EVENTS
                 ========================================= */
 
                 const selectedEvents =
@@ -6336,10 +6363,6 @@ if (
                     );
 
 
-                /* =========================================
-                   REQUIRE AT LEAST ONE EVENT
-                ========================================= */
-
                 if (
                     selectedEvents.length === 0
                 ) {
@@ -6351,89 +6374,125 @@ if (
                     return;
 
                 }
-                
+
 
                 /* =========================================
-   SYNC HIDDEN FIELDS
-========================================= */
+                   SYNC HIDDEN FIELDS
+                ========================================= */
 
-rsvpAttendingGuests.value =
-    JSON.stringify(selectedGuests);
-
-rsvpGuests.value =
-    String(selectedGuests.length);
-
-rsvpGuestName.value =
-    primaryGuest;
-
-rsvpSangeet.value =
-    selectedEvents.indexOf("Sangeet") !== -1
-        ? "YES"
-        : "NO";
-
-rsvpWedding.value =
-    selectedEvents.indexOf("Wedding") !== -1
-        ? "YES"
-        : "NO";
+                rsvpAttendingGuests.value =
+                    JSON.stringify(
+                        selectedGuests
+                    );
 
 
-/* =========================================
-   PHONE VALIDATION
-========================================= */
-
-const phone =
-    String(rsvpPhone.value || "")
-        .replace(/[^0-9]/g, "");
-
-if (!/^\d{10,14}$/.test(phone)) {
-
-    showRsvpError(
-        "Please enter a valid phone number (10–14 digits)."
-    );
-
-    rsvpPhone.focus();
-
-    return;
-
-}
+                rsvpGuests.value =
+                    String(
+                        selectedGuests.length
+                    );
 
 
-/* =========================================
-   FINAL PAYLOAD
-========================================= */
+                rsvpGuestName.value =
+                    primaryGuest;
 
-const payload = {
 
-    guestId:
-        rsvpGuestId.value,
+                rsvpSangeet.value =
+                    selectedEvents.indexOf(
+                        "Sangeet"
+                    ) !== -1
+                        ? "YES"
+                        : "NO";
 
-    primaryGuest:
-        primaryGuest,
 
-    phone:
-        phone,
+                rsvpWedding.value =
+                    selectedEvents.indexOf(
+                        "Wedding"
+                    ) !== -1
+                        ? "YES"
+                        : "NO";
 
-    totalGuests:
-        selectedGuests.length,
 
-    numberOfGuests:
-        selectedGuests.length,
+                /* =========================================
+                   PHONE
+                ========================================= */
 
-    attendingGuests:
-        selectedGuests,
+                const phone =
+                    String(
+                        rsvpPhone.value || ""
+                    )
+                    .replace(
+                        /[^0-9]/g,
+                        ""
+                    );
 
-    sangeet:
-        rsvpSangeet.value === "YES",
 
-    wedding:
-        rsvpWedding.value === "YES",
+                if (
+                    !/^\d{10,14}$/.test(phone)
+                ) {
 
-    advice:
-        adviceInput
-            ? adviceInput.value.trim()
-            : ""
+                    showRsvpError(
+                        "Please enter a valid phone number (10–14 digits)."
+                    );
 
-};
+                    rsvpPhone.focus();
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   FINAL PAYLOAD
+                ========================================= */
+
+                const payload = {
+
+                    guestId:
+                        rsvpGuestId.value,
+
+                    primaryGuest:
+                        primaryGuest,
+
+                    phone:
+                        phone,
+
+                    /*
+                     * TOTAL people attending.
+                     *
+                     * 0 = not attending
+                     * 1 = primary only
+                     * 2 = primary + 1
+                     * 3 = primary + 2
+                     * 4 = primary + 3
+                     */
+                    totalGuests:
+                        selectedGuests.length,
+
+                    numberOfGuests:
+                        selectedGuests.length,
+
+                    attendingGuests:
+                        selectedGuests,
+
+                    sangeet:
+                        rsvpSangeet.value === "YES",
+
+                    wedding:
+                        rsvpWedding.value === "YES",
+
+                    advice:
+                        adviceInput
+                            ? adviceInput.value.trim()
+                            : ""
+
+                };
+
+
+                console.log(
+                    "FINAL RSVP PAYLOAD:",
+                    payload
+                );
+
 
                 /* =========================================
                    SUBMIT BUTTON
@@ -6457,7 +6516,7 @@ const payload = {
 
 
                 /* =========================================
-                   SEND TO GOOGLE APPS SCRIPT
+                   SEND TO APPS SCRIPT
                 ========================================= */
 
                 try {
@@ -6527,10 +6586,6 @@ const payload = {
                     );
 
 
-                    /* =========================================
-                       SERVER ERROR
-                    ========================================= */
-
                     if (
                         !data.success
                     ) {
@@ -6543,62 +6598,73 @@ const payload = {
                     }
 
 
-                   /* =========================================
-   SUCCESS
-========================================= */
+                    /* =========================================
+                       SUCCESS
+                    ========================================= */
 
-showRsvpError("");
+                    showRsvpError("");
 
-/*
- * Clear submitted RSVP fields.
- * Do NOT call resetRsvpFields() here because
- * it also clears the success message.
- */
-currentGuest = null;
 
-rsvpGuestId.value = "";
-rsvpGuestName.value = "";
-rsvpGuests.value = "";
-rsvpAttendingGuests.value = "";
-rsvpSangeet.value = "";
-rsvpWedding.value = "";
-rsvpPhone.value = "";
+                    currentGuest = null;
 
-if (adviceInput) {
-    adviceInput.value = "";
-}
+                    rsvpGuestId.value = "";
+                    rsvpGuestName.value = "";
+                    rsvpGuests.value = "";
+                    rsvpAttendingGuests.value = "";
+                    rsvpSangeet.value = "";
+                    rsvpWedding.value = "";
+                    rsvpPhone.value = "";
 
-attendeeList.innerHTML = "";
 
-guestCount.innerHTML =
-    '<option value="0">0 Guests</option>';
+                    if (adviceInput) {
 
-guestCount.value = "0";
-guestCount.disabled = true;
+                        adviceInput.value = "";
 
-lookupEventCheckboxes.forEach(
-    function (checkbox) {
+                    }
 
-        checkbox.checked = false;
-        checkbox.disabled = true;
 
-    }
-);
+                    attendeeList.innerHTML = "";
 
-showRsvpStatus(
-    data.message ||
-    "Thank you! Your RSVP has been received. ❤️"
-);
 
-/* Reset submit button */
-if (submitButton) {
+                    guestCount.innerHTML =
+                        '<option value="0">0 Guests — Not Attending</option>';
 
-    submitButton.disabled = false;
 
-    submitButton.textContent =
-        "Submit RSVP";
+                    guestCount.value =
+                        "0";
 
-}
+                    guestCount.disabled =
+                        true;
+
+
+                    lookupEventCheckboxes.forEach(
+                        function (checkbox) {
+
+                            checkbox.checked =
+                                false;
+
+                            checkbox.disabled =
+                                true;
+
+                        }
+                    );
+
+
+                    showRsvpStatus(
+                        data.message ||
+                        "Thank you! Your RSVP has been received. ❤️"
+                    );
+
+
+                    if (submitButton) {
+
+                        submitButton.disabled =
+                            false;
+
+                        submitButton.textContent =
+                            "Submit RSVP";
+
+                    }
 
 
                 } catch (error) {
