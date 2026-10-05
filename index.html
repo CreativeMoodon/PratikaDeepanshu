@@ -4891,17 +4891,21 @@ document.addEventListener(
            SHOW LOOKUP ERROR
         ========================================= */
 
-        function showError(message) {
+       function showError(message) {
 
-            guestError.textContent =
-                message || "";
+    if (!guestError) {
+        return;
+    }
 
-            guestError.style.display =
-                message
-                    ? "block"
-                    : "none";
+    guestError.textContent =
+        message || "";
 
-        }
+    guestError.style.display =
+        message
+            ? "block"
+            : "none";
+
+}
 
 
         /* =========================================
@@ -6251,26 +6255,7 @@ setTimeout(
     },
     100
 );
-                    /* =====================================
-                       SHOW SUCCESSFUL INVITATION
-                    ===================================== */
-
-                    guestResult.style.display =
-                        "block";
-
-
-                    setTimeout(
-                        function () {
-
-                            guestResult.scrollIntoView({
-                                behavior: "smooth",
-                                block: "nearest"
-                            });
-
-                        },
-                        100
-                    );
-
+                 
 
                 } catch (error) {
 
