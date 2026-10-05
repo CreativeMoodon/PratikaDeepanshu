@@ -3533,16 +3533,16 @@ footer p {
 
 
                 <input
-                    type="tel"
-                    id="rsvpPhone"
-                    name="phone"
-                    placeholder="Enter your phone number"
-                    autocomplete="tel"
-                    inputmode="numeric"
-                    pattern="[0-9]*"
-                    maxlength="10"
-                    required
-                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+    type="tel"
+    id="rsvpPhone"
+    name="phone"
+    placeholder="Enter your phone number"
+    autocomplete="tel"
+    inputmode="numeric"
+    pattern="[0-9]{10,14}"
+    maxlength="14"
+    required
+    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
             </div>
 
@@ -6411,9 +6411,13 @@ if (
                         : "NO";
 
 
-             const phone = String(
-    rsvpPhone.value || ""
-).replace(/\D/g, "");
+             const phone = String(phoneInput.value || "")
+    .replace(/[^0-9]/g, "");
+
+if (!/^\d{10,14}$/.test(phone)) {
+    showError("Please enter a valid phone number (10–14 digits).");
+    return;
+}
 
 
 /* =========================================
