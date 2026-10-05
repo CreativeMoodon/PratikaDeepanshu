@@ -6222,25 +6222,6 @@ if (
 }
 
 
-                /* =========================================
-                   VALIDATE NUMBER
-                   
-                   ZERO IS ALLOWED.
-                ========================================= */
-
-                if (
-                    selectedGuests.length >
-                    maxAllowedGuests
-                ) {
-
-                    showRsvpError(
-                        "You cannot select more guests than are included in your invitation."
-                    );
-
-                    return;
-
-                }
-
 
                 /* =========================================
                    VALIDATE SELECTED FAMILY MEMBERS
@@ -6373,50 +6354,47 @@ if (
                 
 
                 /* =========================================
-                   SYNC HIDDEN FIELDS
-                ========================================= */
+   SYNC HIDDEN FIELDS
+========================================= */
 
-                rsvpAttendingGuests.value =
-                    JSON.stringify(
-                        selectedGuests
-                    );
+rsvpAttendingGuests.value =
+    JSON.stringify(selectedGuests);
 
+rsvpGuests.value =
+    String(selectedGuests.length);
 
-                rsvpGuests.value =
-                    String(
-                        selectedGuests.length
-                    );
+rsvpGuestName.value =
+    primaryGuest;
 
+rsvpSangeet.value =
+    selectedEvents.indexOf("Sangeet") !== -1
+        ? "YES"
+        : "NO";
 
-                /*
-                 * Always save invitation holder.
-                 */
-                rsvpGuestName.value =
-                    primaryGuest;
-
-
-                rsvpSangeet.value =
-                    selectedEvents.indexOf(
-                        "Sangeet"
-                    ) !== -1
-                        ? "YES"
-                        : "NO";
+rsvpWedding.value =
+    selectedEvents.indexOf("Wedding") !== -1
+        ? "YES"
+        : "NO";
 
 
-                rsvpWedding.value =
-                    selectedEvents.indexOf(
-                        "Wedding"
-                    ) !== -1
-                        ? "YES"
-                        : "NO";
+/* =========================================
+   PHONE VALIDATION
+========================================= */
 
-
-             const phone = String(phoneInput.value || "")
-    .replace(/[^0-9]/g, "");
+const phone =
+    String(rsvpPhone.value || "")
+        .replace(/[^0-9]/g, "");
 
 if (!/^\d{10,14}$/.test(phone)) {
-    showError("Please enter a valid phone number (10–14 digits).");
+
+    showRsvpError(
+        "Please enter a valid phone number (10–14 digits)."
+    );
+
+    rsvpPhone.focus();
+
     return;
+
 }
 
 
@@ -6426,25 +6404,34 @@ if (!/^\d{10,14}$/.test(phone)) {
 
 const payload = {
 
-    guestId: rsvpGuestId.value,
+    guestId:
+        rsvpGuestId.value,
 
-    primaryGuest: primaryGuest,
+    primaryGuest:
+        primaryGuest,
 
-    phone: phone,
+    phone:
+        phone,
 
-    totalGuests: selectedGuests.length,
+    totalGuests:
+        selectedGuests.length,
 
-    numberOfGuests: selectedGuests.length,
+    numberOfGuests:
+        selectedGuests.length,
 
-    attendingGuests: selectedGuests,
+    attendingGuests:
+        selectedGuests,
 
-    sangeet: rsvpSangeet.value === "YES",
+    sangeet:
+        rsvpSangeet.value === "YES",
 
-    wedding: rsvpWedding.value === "YES",
+    wedding:
+        rsvpWedding.value === "YES",
 
-    advice: adviceInput
-        ? adviceInput.value.trim()
-        : ""
+    advice:
+        adviceInput
+            ? adviceInput.value.trim()
+            : ""
 
 };
 
@@ -6560,15 +6547,48 @@ const payload = {
    SUCCESS
 ========================================= */
 
+showRsvpError("");
+
+/*
+ * Clear submitted RSVP fields.
+ * Do NOT call resetRsvpFields() here because
+ * it also clears the success message.
+ */
+currentGuest = null;
+
+rsvpGuestId.value = "";
+rsvpGuestName.value = "";
+rsvpGuests.value = "";
+rsvpAttendingGuests.value = "";
+rsvpSangeet.value = "";
+rsvpWedding.value = "";
+rsvpPhone.value = "";
+
+if (adviceInput) {
+    adviceInput.value = "";
+}
+
+attendeeList.innerHTML = "";
+
+guestCount.innerHTML =
+    '<option value="0">0 Guests</option>';
+
+guestCount.value = "0";
+guestCount.disabled = true;
+
+lookupEventCheckboxes.forEach(
+    function (checkbox) {
+
+        checkbox.checked = false;
+        checkbox.disabled = true;
+
+    }
+);
+
 showRsvpStatus(
     data.message ||
     "Thank you! Your RSVP has been received. ❤️"
 );
-
-showRsvpError("");
-
-/* Clear all submitted RSVP information */
-resetRsvpFields();
 
 /* Reset submit button */
 if (submitButton) {
