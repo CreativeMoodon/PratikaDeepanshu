@@ -6377,26 +6377,28 @@ if (
                 ========================================= */
 
                 const phone =
-                    rsvpPhone.value.replace(
-                        /[^0-9]/g,
-                        ""
-                    );
+  String(
+    data.phone || ""
+  )
+    .replace(
+      /[^0-9]/g,
+      ""
+    );
 
+if (
+  !/^\d{10,14}$/.test(phone)
+) {
 
-                if (
-                    !/^\d{10}$/.test(phone)
-                ) {
+  return jsonResponse({
 
-                    showRsvpError(
-                        "Please enter a valid 10-digit phone number."
-                    );
+    success: false,
 
-                    rsvpPhone.focus();
+    message:
+      "Please enter a valid 14-digit phone number."
 
-                    return;
+  });
 
-                }
-
+}
 
                 /* =========================================
                    SYNC HIDDEN FIELDS
