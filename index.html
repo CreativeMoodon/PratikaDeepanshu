@@ -6370,35 +6370,7 @@ if (
                     return;
 
                 }
-
-
-                /* =========================================
-                   PHONE
-                ========================================= */
-
-                const phone =
-  String(
-    data.phone || ""
-  )
-    .replace(
-      /[^0-9]/g,
-      ""
-    );
-
-if (
-  !/^\d{10,14}$/.test(phone)
-) {
-
-  return jsonResponse({
-
-    success: false,
-
-    message:
-      "Please enter a valid 14-digit phone number."
-
-  });
-
-}
+                
 
                 /* =========================================
                    SYNC HIDDEN FIELDS
@@ -6439,58 +6411,38 @@ if (
                         : "NO";
 
 
-                /* =========================================
-                   FINAL PAYLOAD
-                ========================================= */
-
-                const payload = {
-
-                    guestId:
-                        rsvpGuestId.value,
-
-                    primaryGuest:
-                        primaryGuest,
-
-                    phone:
-                        phone,
-
-                    /*
-                     * Number of accompanying guests.
-                     *
-                     * 0 is valid.
-                     */
-                    totalGuests:
-                        selectedGuests.length,
-
-                    numberOfGuests:
-                        selectedGuests.length,
-
-                    attendingGuests:
-                        selectedGuests,
-
-                    sangeet:
-                        rsvpSangeet.value === "YES",
-
-                    wedding:
-                        rsvpWedding.value === "YES",
-
-                    advice:
-                        adviceInput
-                            ? adviceInput.value.trim()
-                            : ""
-
-                };
+             const phone = String(
+    rsvpPhone.value || ""
+).replace(/\D/g, "");
 
 
-                console.log(
-                    "FINAL RSVP PAYLOAD:",
-                    JSON.stringify(
-                        payload,
-                        null,
-                        2
-                    )
-                );
+/* =========================================
+   FINAL PAYLOAD
+========================================= */
 
+const payload = {
+
+    guestId: rsvpGuestId.value,
+
+    primaryGuest: primaryGuest,
+
+    phone: phone,
+
+    totalGuests: selectedGuests.length,
+
+    numberOfGuests: selectedGuests.length,
+
+    attendingGuests: selectedGuests,
+
+    sangeet: rsvpSangeet.value === "YES",
+
+    wedding: rsvpWedding.value === "YES",
+
+    advice: adviceInput
+        ? adviceInput.value.trim()
+        : ""
+
+};
 
                 /* =========================================
                    SUBMIT BUTTON
@@ -6600,28 +6552,29 @@ if (
                     }
 
 
-                    /* =========================================
-                       SUCCESS
-                    ========================================= */
+                   /* =========================================
+   SUCCESS
+========================================= */
 
-                    showRsvpStatus(
-                        data.message ||
-                        "Thank you! Your RSVP has been received. ❤️"
-                    );
+showRsvpStatus(
+    data.message ||
+    "Thank you! Your RSVP has been received. ❤️"
+);
 
+showRsvpError("");
 
-                    showRsvpError("");
+/* Clear all submitted RSVP information */
+resetRsvpFields();
 
+/* Reset submit button */
+if (submitButton) {
 
-                    if (submitButton) {
+    submitButton.disabled = false;
 
-                        submitButton.disabled =
-                            true;
+    submitButton.textContent =
+        "Submit RSVP";
 
-                        submitButton.textContent =
-                            "RSVP Submitted ✓";
-
-                    }
+}
 
 
                 } catch (error) {
