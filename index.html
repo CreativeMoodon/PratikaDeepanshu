@@ -3318,8 +3318,7 @@ document.addEventListener(
      Apps Script remains authoritative.
 ========================================================= -->
 
-<script>
-
+    <script>
 document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
@@ -3330,6 +3329,13 @@ document.addEventListener("DOMContentLoaded", function () {
         "https://script.google.com/macros/s/AKfycby1X-76kpX9Sp7TUPzbF5N1MDDo7F2oBaCdA62FAaIp2CpsKDXUDL-Tim-Uz4VDSRhf/exec";
 
     const MAX_TOTAL_GUESTS = 4;
+
+    const SESSION_TOKEN_KEY =
+        "pratika_deepanshu_rsvp_lookup_token";
+
+    const SESSION_GUEST_KEY =
+        "pratika_deepanshu_rsvp_guest";
+
 
     const NOT_FOUND_MESSAGE =
         "We couldn't find an invitation with that name. Please check the spelling or contact the host.";
@@ -3418,21 +3424,6 @@ document.addEventListener("DOMContentLoaded", function () {
        REQUIRED ELEMENT CHECK
     ===================================================== */
 
-    console.log(
-        "Wedding RSVP element check:",
-        {
-            guestForm: !!guestForm,
-            firstName: !!firstNameInput,
-            lastName: !!lastNameInput,
-            findButton: !!findInvitationBtn,
-            guestResult: !!guestResult,
-            guestError: !!guestError,
-            attendeeList: !!attendeeList,
-            rsvpForm: !!rsvpForm
-        }
-    );
-
-
     if (
         !guestForm ||
         !rsvpForm ||
@@ -3451,7 +3442,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       CURRENT INVITATION
+       CURRENT STATE
     ===================================================== */
 
     let currentGuest = null;
@@ -3459,6 +3450,112 @@ document.addEventListener("DOMContentLoaded", function () {
     let lookupInProgress = false;
 
     let rsvpSubmitting = false;
+
+
+    /* =====================================================
+       SESSION STORAGE HELPERS
+    ===================================================== */
+
+    function saveSecureSession(
+        token,
+        guest
+    ) {
+
+        try {
+
+            if (!token) {
+                return false;
+            }
+
+            sessionStorage.setItem(
+                SESSION_TOKEN_KEY,
+                String(token)
+            );
+
+            /*
+             * Store the invitation information only for
+             * page continuity. The server token remains
+             * authoritative.
+             */
+
+            if (guest) {
+
+                sessionStorage.setItem(
+                    SESSION_GUEST_KEY,
+                    JSON.stringify({
+                        guestId:
+                            guest.guestId || "",
+
+                        firstName:
+                            guest.firstName || "",
+
+                        lastName:
+                            guest.lastName || "",
+
+                        primaryGuest:
+                            guest.primaryGuest || ""
+                    })
+                );
+
+            }
+
+            return true;
+
+        } catch (error) {
+
+            console.error(
+                "Unable to save RSVP session:",
+                error
+            );
+
+            return false;
+
+        }
+
+    }
+
+
+    function getSavedToken() {
+
+        try {
+
+            return String(
+                sessionStorage.getItem(
+                    SESSION_TOKEN_KEY
+                ) || ""
+            ).trim();
+
+        } catch (error) {
+
+            return "";
+
+        }
+
+    }
+
+
+    function clearSavedSession() {
+
+        try {
+
+            sessionStorage.removeItem(
+                SESSION_TOKEN_KEY
+            );
+
+            sessionStorage.removeItem(
+                SESSION_GUEST_KEY
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Unable to clear RSVP session.",
+                error
+            );
+
+        }
+
+    }
 
 
     /* =====================================================
@@ -3571,9 +3668,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ).trim();
 
 
-        if (
-            !text
-        ) {
+        if (!text) {
 
             throw new Error(
                 context +
@@ -3653,9 +3748,18 @@ document.addEventListener("DOMContentLoaded", function () {
        CLEAR INVITATION
     ===================================================== */
 
-    function clearInvitation() {
+    function clearInvitation(
+        clearSession
+    ) {
 
         currentGuest = null;
+
+
+        if (clearSession === true) {
+
+            clearSavedSession();
+
+        }
 
 
         if (guestResult) {
@@ -3775,7 +3879,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FIND MEMBER BY SERVER INDEX
+       FIND MEMBER
     ===================================================== */
 
     function findMemberByServerIndex(
@@ -3817,7 +3921,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       GET SELECTED GUEST OBJECTS
+       SELECTED GUESTS
     ===================================================== */
 
     function getSelectedGuestObjects() {
@@ -3879,10 +3983,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =====================================================
-       PRIMARY CHECKBOX
-    ===================================================== */
-
     function getPrimaryCheckbox() {
 
         return attendeeList.querySelector(
@@ -3891,10 +3991,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
-    /* =====================================================
-       ENFORCE PRIMARY
-    ===================================================== */
 
     function enforcePrimaryGuest() {
 
@@ -4267,11 +4363,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-        /*
-         * Primary is always server index 0.
-         * Secondary fallback is the primary flag.
-         */
-
         let primaryPosition =
             members.findIndex(
                 function (member) {
@@ -4321,13 +4412,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
-
-        /*
-         * If server did not return index 0,
-         * create the primary visually.
-         *
-         * The server remains authoritative.
-         */
 
         if (
             primaryPosition === -1
@@ -4392,10 +4476,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-        /* =================================================
-           CREATE CHECKBOXES
-        ================================================= */
-
         currentGuest.familyMembers.forEach(
             function (
                 member,
@@ -4429,10 +4509,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 checkbox.value =
                     member.name;
 
-
-                /*
-                 * ORIGINAL APPS SCRIPT INDEX
-                 */
 
                 checkbox.dataset.index =
                     String(
@@ -4484,9 +4560,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         showRsvpError("");
 
-
                         enforcePrimaryGuest();
-
 
                         const selected =
                             getSelectedGuestObjects();
@@ -4697,19 +4771,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       RESET
+       INITIAL RESET
     ===================================================== */
 
-    clearInvitation();
+    clearInvitation(false);
 
 
     /* =====================================================
        FIND INVITATION
-       
-       THIS IS THE MAIN FIX.
-       
-       The lookup is now a separate function and the
-       button has BOTH submit and click protection.
     ===================================================== */
 
     async function performGuestLookup() {
@@ -4768,24 +4837,7 @@ document.addEventListener("DOMContentLoaded", function () {
             true;
 
 
-        currentGuest =
-            null;
-
-
-        if (guestResult) {
-
-            guestResult.style.display =
-                "none";
-
-        }
-
-
-        if (rsvpSection) {
-
-            rsvpSection.style.display =
-                "none";
-
-        }
+        clearInvitation(true);
 
 
         findInvitationBtn.disabled =
@@ -4797,18 +4849,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         try {
-
-            /*
-             * Start clean.
-             */
-
-            clearInvitation();
-
-
-            /*
-             * Re-read the names because clearInvitation()
-             * does not touch the input fields.
-             */
 
             const lookupFirstName =
                 cleanName(
@@ -4838,26 +4878,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             console.log(
-                "======================================"
-            );
-
-            console.log(
-                "FIND INVITATION REQUEST"
-            );
-
-            console.log(
-                "First Name:",
-                lookupFirstName
-            );
-
-            console.log(
-                "Last Name:",
+                "FIND INVITATION:",
+                lookupFirstName,
                 lookupLastName
-            );
-
-            console.log(
-                "URL:",
-                url
             );
 
 
@@ -4872,20 +4895,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            console.log(
-                "HTTP STATUS:",
-                response.status
-            );
-
-
             const responseText =
                 await response.text();
-
-
-            console.log(
-                "RAW SERVER RESPONSE:",
-                responseText
-            );
 
 
             const data =
@@ -4897,7 +4908,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             console.log(
-                "PARSED SERVER RESPONSE:",
+                "LOOKUP RESPONSE:",
                 data
             );
 
@@ -4919,23 +4930,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            const guest =
-                data.guest;
+            /* =============================================
+               SECURE TOKEN
+            ============================================= */
+
+            const lookupToken =
+                cleanName(
+                    data.lookupToken
+                );
+
+
+            if (!lookupToken) {
+
+                throw new Error(
+                    "Your invitation was found, but the secure invitation session is missing. Please try again."
+                );
+
+            }
 
 
             /* =============================================
-               VERIFY RETURNED NAME
+               RETURNED NAME
             ============================================= */
 
             const returnedFirstName =
                 cleanName(
-                    guest.firstName
+                    data.guest.firstName
                 );
 
 
             const returnedLastName =
                 cleanName(
-                    guest.lastName
+                    data.guest.lastName
                 );
 
 
@@ -4962,12 +4988,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =============================================
-               VERIFY GUEST ID
+               GUEST ID
             ============================================= */
 
             const guestId =
                 cleanName(
-                    guest.guestId
+                    data.guest.guestId
                 );
 
 
@@ -4981,33 +5007,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =============================================
-               VERIFY LOOKUP TOKEN
-            ============================================= */
-
-            const lookupToken =
-                cleanName(
-                    data.lookupToken
-                );
-
-
-            if (!lookupToken) {
-
-                throw new Error(
-                    "Your invitation was found, but the secure invitation session is missing. Please try again."
-                );
-
-            }
-
-
-            /* =============================================
                FAMILY MEMBERS
             ============================================= */
 
             let familyMembers =
                 Array.isArray(
-                    guest.familyMembers
+                    data.guest.familyMembers
                 )
-                    ? guest.familyMembers
+                    ? data.guest.familyMembers
                         .map(
                             function (
                                 member,
@@ -5101,12 +5108,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     function (member) {
 
                         return (
-                            normalize(
-                                member.name
-                            ) ===
-                            normalize(
-                                primaryGuest
-                            )
+                            Number(
+                                member.index
+                            ) === 0
                         );
 
                     }
@@ -5122,9 +5126,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         function (member) {
 
                             return (
-                                Number(
-                                    member.index
-                                ) === 0
+                                normalize(
+                                    member.name
+                                ) ===
+                                normalize(
+                                    primaryGuest
+                                )
                             );
 
                         }
@@ -5212,41 +5219,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            if (
-                familyMembers.length === 0
-            ) {
-
-                throw new Error(
-                    "Your invitation was found, but no invited family members could be loaded."
-                );
-
-            }
-
-
             /* =============================================
-               MAX GUESTS
+               MAXIMUM
             ============================================= */
 
-            const serverMax =
+            let maxGuests =
                 Number(
-                    guest.maxGuests
+                    data.guest.maxGuests
                 );
 
 
-            let maxGuests;
-
-
             if (
-                Number.isFinite(
-                    serverMax
-                ) &&
-                serverMax >= 0
+                !Number.isFinite(
+                    maxGuests
+                ) ||
+                maxGuests < 0
             ) {
-
-                maxGuests =
-                    serverMax;
-
-            } else {
 
                 maxGuests =
                     familyMembers.length;
@@ -5265,19 +5253,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            if (
-                familyMembers.length > 0 &&
-                maxGuests === 0
-            ) {
-
-                maxGuests =
-                    1;
-
-            }
-
-
             /* =============================================
-               CREATE VERIFIED INVITATION
+               CREATE CURRENT GUEST
             ============================================= */
 
             currentGuest = {
@@ -5305,32 +5282,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 sangeet:
                     isAllowed(
-                        guest.sangeet
+                        data.guest.sangeet
                     ),
 
                 wedding:
                     isAllowed(
-                        guest.wedding
+                        data.guest.wedding
                     )
 
             };
 
 
-            console.log(
-                "VERIFIED INVITATION:",
-                currentGuest
-            );
+            /* =============================================
+               IMPORTANT:
+               SAVE THE TOKEN IMMEDIATELY
+            ============================================= */
+
+            const sessionSaved =
+                saveSecureSession(
+                    lookupToken,
+                    currentGuest
+                );
 
 
-            /*
-             * Make it available to other website code too.
-             */
+            if (!sessionSaved) {
+
+                throw new Error(
+                    "Your invitation was found, but your browser could not create the secure invitation session. Please enable browser storage and try again."
+                );
+
+            }
+
 
             window.currentWeddingGuest =
                 currentGuest;
 
             window.currentLookupToken =
                 lookupToken;
+
+
+            console.log(
+                "SECURE RSVP SESSION CREATED."
+            );
 
 
             /* =============================================
@@ -5361,10 +5354,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* =============================================
-               BUILD RSVP
-            ============================================= */
-
             buildGuestCount(
                 currentGuest.maxGuests
             );
@@ -5378,10 +5367,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             applyEventPermissions();
 
-
-            /* =============================================
-               SHOW RESULT
-            ============================================= */
 
             if (guestResult) {
 
@@ -5405,11 +5390,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             showRsvpStatus("");
 
-
-            /*
-             * Optional callback if other website code
-             * uses it.
-             */
 
             if (
                 typeof window.onInvitationFound ===
@@ -5457,6 +5437,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 null;
 
 
+            clearSavedSession();
+
+
             if (guestResult) {
 
                 guestResult.style.display =
@@ -5500,7 +5483,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       FORM SUBMIT
+       LOOKUP FORM
     ===================================================== */
 
     guestForm.addEventListener(
@@ -5517,27 +5500,16 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =====================================================
-       BUTTON CLICK
-       
-       Supports both:
-       
-       type="submit"
-       
-       AND accidentally:
-       
-       type="button"
-    ===================================================== */
-
     findInvitationBtn.addEventListener(
         "click",
         function (event) {
 
             const buttonType =
                 String(
-                    findInvitationBtn.getAttribute("type") || ""
-                )
-                .toLowerCase();
+                    findInvitationBtn.getAttribute(
+                        "type"
+                    ) || ""
+                ).toLowerCase();
 
 
             if (
@@ -5557,7 +5529,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       ENTER KEY — FIRST NAME
+       ENTER
     ===================================================== */
 
     firstNameInput.addEventListener(
@@ -5578,10 +5550,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =====================================================
-       ENTER KEY — LAST NAME
-    ===================================================== */
-
     lastNameInput.addEventListener(
         "keydown",
         function (event) {
@@ -5601,7 +5569,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       GUEST COUNT CHANGE
+       GUEST COUNT
     ===================================================== */
 
     if (guestCount) {
@@ -5626,7 +5594,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       EVENT CHECKBOXES
+       EVENTS
     ===================================================== */
 
     lookupEventCheckboxes.forEach(
@@ -5698,7 +5666,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       PHONE CLEANING
+       PHONE
     ===================================================== */
 
     if (rsvpPhone) {
@@ -5747,7 +5715,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =============================================
-               VERIFY INVITATION
+               SECURE SESSION
+            ============================================= */
+
+            let lookupToken =
+                currentGuest &&
+                currentGuest.lookupToken
+                    ? String(
+                        currentGuest.lookupToken
+                    ).trim()
+                    : "";
+
+
+            /*
+             * If JavaScript state disappeared, recover
+             * the token from sessionStorage.
+             */
+
+            if (!lookupToken) {
+
+                lookupToken =
+                    getSavedToken();
+
+            }
+
+
+            if (!lookupToken) {
+
+                showRsvpError(
+                    "Your invitation session is missing. Please find your invitation again."
+                );
+
+
+                rsvpSubmitting =
+                    false;
+
+
+                return;
+
+            }
+
+
+            /* =============================================
+               INVITATION
             ============================================= */
 
             if (
@@ -5769,22 +5779,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            if (
-                !currentGuest.lookupToken
-            ) {
+            /*
+             * Reconnect the token to current state.
+             */
 
-                showRsvpError(
-                    "Your invitation session is missing. Please find your invitation again."
-                );
-
-
-                rsvpSubmitting =
-                    false;
-
-
-                return;
-
-            }
+            currentGuest.lookupToken =
+                lookupToken;
 
 
             /* =============================================
@@ -5819,18 +5819,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const totalGuests =
                 selectedGuestObjects.length;
-
-
-            console.log(
-                "SELECTED GUEST OBJECTS:",
-                selectedGuestObjects
-            );
-
-
-            console.log(
-                "ATTENDING GUEST INDEXES:",
-                selectedGuestIndexes
-            );
 
 
             /* =============================================
@@ -5903,7 +5891,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =============================================
-               EVENT SELECTION
+               EVENTS
             ============================================= */
 
             const attendingSangeet =
@@ -5966,10 +5954,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
 
-
-            /* =============================================
-               EVENT PERMISSION
-            ============================================= */
 
             if (
                 attendingSangeet &&
@@ -6068,8 +6052,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const payload = {
 
+                /*
+                 * THIS IS THE IMPORTANT VALUE.
+                 */
+
                 lookupToken:
-                    currentGuest.lookupToken,
+                    lookupToken,
+
+                /*
+                 * These are informational only.
+                 * Apps Script does NOT trust them for security.
+                 */
 
                 guestId:
                     currentGuest.guestId,
@@ -6113,10 +6106,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 )
             );
 
-
-            /* =============================================
-               SUBMIT BUTTON
-            ============================================= */
 
             const submitButton =
                 rsvpForm.querySelector(
@@ -6244,7 +6233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         checkbox.disabled =
                             true;
 
-                    }
+                        }
                 );
 
 
@@ -6302,17 +6291,13 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =====================================================
-       DEBUG MESSAGE
-    ===================================================== */
-
     console.log(
         "Wedding RSVP system initialized successfully."
     );
 
 });
-
 </script>
+
 
 
 
