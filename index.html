@@ -3298,26 +3298,6 @@ document.addEventListener(
 
 </script>
 
-
-<!-- =========================================================
-     GUEST LOOKUP + RSVP
-     
-     COMPLETE REPLACEMENT SCRIPT
-
-     Guest indexes:
-     0 = Primary Guest
-     1 = Guest 1
-     2 = Guest 2
-     3 = Guest 3
-
-     Guest 4 is intentionally ignored.
-
-     0 selected = Not attending.
-     1–4 selected = Primary Guest required.
-
-     Apps Script remains authoritative.
-========================================================= -->
-
     <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -3473,7 +3453,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             /*
-             * Store the invitation information only for
+             * Store invitation information only for
              * page continuity. The server token remains
              * authoritative.
              */
@@ -5294,8 +5274,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             /* =============================================
-               IMPORTANT:
-               SAVE THE TOKEN IMMEDIATELY
+               SAVE TOKEN IMMEDIATELY
             ============================================= */
 
             const sessionSaved =
@@ -5685,129 +5664,211 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
     }
-    
-/* =====================================================
-   RESET RSVP AFTER SUCCESS
-===================================================== */
 
-function resetRsvpAfterSuccess() {
 
-    // Clear the secure invitation session
-    clearSavedSession();
+    /* =====================================================
+       RESET RSVP AFTER SUCCESS
+    ===================================================== */
 
-    // Clear current invitation state
-    currentGuest = null;
+    function resetRsvpAfterSuccess() {
 
-    window.currentWeddingGuest = null;
-    window.currentLookupToken = null;
+        /* -----------------------------------------
+           CLEAR SECURE SESSION
+        ----------------------------------------- */
 
-    // Clear displayed invitation
-    if (guestFullName) {
-        guestFullName.textContent = "";
-    }
+        clearSavedSession();
 
-    if (attendeeList) {
-        attendeeList.innerHTML = "";
-    }
 
-    // Reset guest count
-    if (guestCount) {
-        guestCount.innerHTML =
-            '<option value="0">0 Guests — Not Attending</option>';
+        /* -----------------------------------------
+           CLEAR CURRENT INVITATION STATE
+        ----------------------------------------- */
 
-        guestCount.value = "0";
-        guestCount.disabled = true;
-    }
+        currentGuest = null;
 
-    // Clear hidden RSVP fields
-    if (rsvpGuestId) {
-        rsvpGuestId.value = "";
-    }
+        window.currentWeddingGuest = null;
+        window.currentLookupToken = null;
 
-    if (rsvpGuestName) {
-        rsvpGuestName.value = "";
-    }
 
-    if (rsvpGuests) {
-        rsvpGuests.value = "0";
-    }
+        /* -----------------------------------------
+           CLEAR DISPLAYED INVITATION
+        ----------------------------------------- */
 
-    if (rsvpAttendingGuests) {
-        rsvpAttendingGuests.value = "[]";
-    }
+        if (guestFullName) {
+            guestFullName.textContent = "";
+        }
 
-    if (rsvpSangeet) {
-        rsvpSangeet.value = "";
-    }
+        if (attendeeList) {
+            attendeeList.innerHTML = "";
+        }
 
-    if (rsvpWedding) {
-        rsvpWedding.value = "";
-    }
 
-    // Clear phone
-    if (rsvpPhone) {
-        rsvpPhone.value = "";
-    }
+        /* -----------------------------------------
+           RESET GUEST COUNT
+        ----------------------------------------- */
 
-    // Clear advice
-    if (adviceInput) {
-        adviceInput.value = "";
-    }
+        if (guestCount) {
 
-    // Uncheck and disable event choices
-    lookupEventCheckboxes.forEach(
-        function (checkbox) {
+            guestCount.innerHTML =
+                '<option value="0">0 Guests — Not Attending</option>';
 
-            checkbox.checked = false;
-            checkbox.disabled = true;
+            guestCount.value = "0";
+
+            guestCount.disabled = true;
 
         }
-    );
 
-    // Hide invitation result
-    if (guestResult) {
-        guestResult.style.display = "none";
-    }
 
-    // Hide RSVP section
-    if (rsvpSection) {
-        rsvpSection.style.display = "none";
-    }
+        /* -----------------------------------------
+           CLEAR HIDDEN RSVP FIELDS
+        ----------------------------------------- */
 
-    // Clear messages
-    showRsvpError("");
-    showRsvpStatus("");
+        if (rsvpGuestId) {
+            rsvpGuestId.value = "";
+        }
 
-    // Clear the Find Invitation fields
-    if (firstNameInput) {
-        firstNameInput.value = "";
-    }
+        if (rsvpGuestName) {
+            rsvpGuestName.value = "";
+        }
 
-    if (lastNameInput) {
-        lastNameInput.value = "";
-    }
+        if (rsvpGuests) {
+            rsvpGuests.value = "0";
+        }
 
-    // Reset Find Invitation button
-    if (findInvitationBtn) {
-        findInvitationBtn.disabled = false;
-        findInvitationBtn.textContent = "Find Invitation";
-    }
+        if (rsvpAttendingGuests) {
+            rsvpAttendingGuests.value = "[]";
+        }
 
-    // Reset submitting state
-    rsvpSubmitting = false;
-    lookupInProgress = false;
+        if (rsvpSangeet) {
+            rsvpSangeet.value = "";
+        }
 
-    // Put cursor back in First Name
-    if (firstNameInput) {
+        if (rsvpWedding) {
+            rsvpWedding.value = "";
+        }
+
+
+        /* -----------------------------------------
+           CLEAR PHONE
+        ----------------------------------------- */
+
+        if (rsvpPhone) {
+            rsvpPhone.value = "";
+        }
+
+
+        /* -----------------------------------------
+           CLEAR ADVICE
+        ----------------------------------------- */
+
+        if (adviceInput) {
+            adviceInput.value = "";
+        }
+
+
+        /* -----------------------------------------
+           RESET EVENT CHECKBOXES
+        ----------------------------------------- */
+
+        lookupEventCheckboxes.forEach(
+            function (checkbox) {
+
+                checkbox.checked = false;
+                checkbox.disabled = true;
+
+            }
+        );
+
+
+        /* -----------------------------------------
+           RESET ATTENDEE HINT
+        ----------------------------------------- */
+
+        if (attendeeHint) {
+
+            attendeeHint.textContent =
+                "Choose 0 if you cannot attend. If attending, the Primary Guest is included automatically.";
+
+        }
+
+
+        /* -----------------------------------------
+           HIDE INVITATION RESULT
+        ----------------------------------------- */
+
+        if (guestResult) {
+            guestResult.style.display = "none";
+        }
+
+
+        /* -----------------------------------------
+           HIDE RSVP SECTION
+        ----------------------------------------- */
+
+        if (rsvpSection) {
+            rsvpSection.style.display = "none";
+        }
+
+
+        /* -----------------------------------------
+           CLEAR ALL MESSAGES
+        ----------------------------------------- */
+
+        showError("");
+        showRsvpError("");
+        showRsvpStatus("");
+
+
+        /* -----------------------------------------
+           CLEAR FIND INVITATION FORM
+        ----------------------------------------- */
+
+        if (firstNameInput) {
+            firstNameInput.value = "";
+        }
+
+        if (lastNameInput) {
+            lastNameInput.value = "";
+        }
+
+
+        /* -----------------------------------------
+           RESET FIND INVITATION BUTTON
+        ----------------------------------------- */
+
+        if (findInvitationBtn) {
+
+            findInvitationBtn.disabled = false;
+
+            findInvitationBtn.textContent =
+                "Find Invitation";
+
+        }
+
+
+        /* -----------------------------------------
+           RESET STATE
+        ----------------------------------------- */
+
+        rsvpSubmitting = false;
+        lookupInProgress = false;
+
+
+        /* -----------------------------------------
+           RETURN TO FIRST NAME FIELD
+        ----------------------------------------- */
+
         setTimeout(
             function () {
-                firstNameInput.focus();
+
+                if (firstNameInput) {
+                    firstNameInput.focus();
+                }
+
             },
             100
         );
-    }
 
-}
+    }
 
 
     /* =====================================================
@@ -5823,17 +5884,18 @@ function resetRsvpAfterSuccess() {
             event.stopPropagation();
 
 
+            /* -----------------------------------------
+               PREVENT DOUBLE SUBMISSION
+            ----------------------------------------- */
+
             if (rsvpSubmitting) {
                 return;
             }
 
 
-            rsvpSubmitting =
-                true;
-
+            rsvpSubmitting = true;
 
             showRsvpError("");
-
             showRsvpStatus("");
 
 
@@ -5851,8 +5913,8 @@ function resetRsvpAfterSuccess() {
 
 
             /*
-             * If JavaScript state disappeared, recover
-             * the token from sessionStorage.
+             * If JavaScript state disappeared,
+             * recover the token from sessionStorage.
              */
 
             if (!lookupToken) {
@@ -5869,10 +5931,7 @@ function resetRsvpAfterSuccess() {
                     "Your invitation session is missing. Please find your invitation again."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -5892,10 +5951,7 @@ function resetRsvpAfterSuccess() {
                     "Please find your invitation first."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -5903,7 +5959,7 @@ function resetRsvpAfterSuccess() {
 
 
             /*
-             * Reconnect the token to current state.
+             * Reconnect token to current state.
              */
 
             currentGuest.lookupToken =
@@ -5945,7 +6001,7 @@ function resetRsvpAfterSuccess() {
 
 
             /* =============================================
-               MAXIMUM
+               MAXIMUM INVITATION GUESTS
             ============================================= */
 
             if (
@@ -5961,15 +6017,16 @@ function resetRsvpAfterSuccess() {
                     " people for this invitation."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
             }
 
+
+            /* =============================================
+               ABSOLUTE MAXIMUM
+            ============================================= */
 
             if (
                 totalGuests >
@@ -5980,10 +6037,7 @@ function resetRsvpAfterSuccess() {
                     "You can select a maximum of 4 people."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -5991,7 +6045,7 @@ function resetRsvpAfterSuccess() {
 
 
             /* =============================================
-               PRIMARY
+               PRIMARY GUEST
             ============================================= */
 
             if (
@@ -6003,10 +6057,7 @@ function resetRsvpAfterSuccess() {
                     "The Primary Guest must be included when attending."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -6068,15 +6119,16 @@ function resetRsvpAfterSuccess() {
                     "Please select at least one event."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
             }
 
+
+            /* =============================================
+               EVENT PERMISSION CHECK
+            ============================================= */
 
             if (
                 attendingSangeet &&
@@ -6087,10 +6139,7 @@ function resetRsvpAfterSuccess() {
                     "Sangeet is not included in this invitation."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -6106,10 +6155,7 @@ function resetRsvpAfterSuccess() {
                     "Wedding is not included in this invitation."
                 );
 
-
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -6148,9 +6194,7 @@ function resetRsvpAfterSuccess() {
                 }
 
 
-                rsvpSubmitting =
-                    false;
-
+                rsvpSubmitting = false;
 
                 return;
 
@@ -6175,17 +6219,8 @@ function resetRsvpAfterSuccess() {
 
             const payload = {
 
-                /*
-                 * THIS IS THE IMPORTANT VALUE.
-                 */
-
                 lookupToken:
                     lookupToken,
-
-                /*
-                 * These are informational only.
-                 * Apps Script does NOT trust them for security.
-                 */
 
                 guestId:
                     currentGuest.guestId,
@@ -6230,6 +6265,10 @@ function resetRsvpAfterSuccess() {
             );
 
 
+            /* =============================================
+               SUBMIT BUTTON
+            ============================================= */
+
             const submitButton =
                 rsvpForm.querySelector(
                     'button[type="submit"]'
@@ -6238,14 +6277,17 @@ function resetRsvpAfterSuccess() {
 
             if (submitButton) {
 
-                submitButton.disabled =
-                    true;
+                submitButton.disabled = true;
 
                 submitButton.textContent =
                     "Sending RSVP…";
 
             }
 
+
+            /* =============================================
+               SEND TO GOOGLE APPS SCRIPT
+            ============================================= */
 
             try {
 
@@ -6288,6 +6330,10 @@ function resetRsvpAfterSuccess() {
                     );
 
 
+                /* =========================================
+                   SERVER RESULT
+                ========================================= */
+
                 if (
                     !response.ok ||
                     !result ||
@@ -6304,314 +6350,158 @@ function resetRsvpAfterSuccess() {
                 }
 
 
-            /* =========================================
-   SUCCESS
-========================================= */
+                /* =========================================
+                   SUCCESS
+                ========================================= */
 
-showRsvpError("");
+                showRsvpError("");
 
-showRsvpStatus(
-    result.message ||
-    "Thank you! Your RSVP has been received."
-);
-
-
-/* -----------------------------------------
-   SHOW SUBMITTED STATE
------------------------------------------ */
-
-if (submitButton) {
-
-    submitButton.textContent =
-        "RSVP Submitted ✓";
-
-    submitButton.disabled =
-        true;
-
-}
+                showRsvpStatus(
+                    result.message ||
+                    "Thank you! Your RSVP has been received."
+                );
 
 
-if (guestCount) {
+                /* -----------------------------------------
+                   SUBMITTED BUTTON
+                ----------------------------------------- */
 
-    guestCount.disabled =
-        true;
+                if (submitButton) {
 
-}
+                    submitButton.textContent =
+                        "RSVP Submitted ✓";
+
+                    submitButton.disabled =
+                        true;
+
+                }
 
 
-attendeeList
-    .querySelectorAll(
-        'input[name="attendingGuest"]'
-    )
-    .forEach(
-        function (checkbox) {
+                /* -----------------------------------------
+                   DISABLE GUEST COUNT
+                ----------------------------------------- */
 
-            checkbox.disabled =
-                true;
+                if (guestCount) {
+
+                    guestCount.disabled =
+                        true;
+
+                }
+
+
+                /* -----------------------------------------
+                   DISABLE ATTENDEE CHECKBOXES
+                ----------------------------------------- */
+
+                attendeeList
+                    .querySelectorAll(
+                        'input[name="attendingGuest"]'
+                    )
+                    .forEach(
+                        function (checkbox) {
+
+                            checkbox.disabled =
+                                true;
+
+                        }
+                    );
+
+
+                /* -----------------------------------------
+                   DISABLE EVENT CHECKBOXES
+                ----------------------------------------- */
+
+                lookupEventCheckboxes.forEach(
+                    function (checkbox) {
+
+                        checkbox.disabled =
+                            true;
+
+                    }
+                );
+
+
+                /* -----------------------------------------
+                   SCROLL TO THANK YOU MESSAGE
+                ----------------------------------------- */
+
+                if (
+                    rsvpStatus &&
+                    typeof rsvpStatus.scrollIntoView ===
+                    "function"
+                ) {
+
+                    rsvpStatus.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }
+
+
+                /* -----------------------------------------
+                   RETURN TO BLANK FIND INVITATION
+                   AFTER 2.5 SECONDS
+                ----------------------------------------- */
+
+                setTimeout(
+                    function () {
+
+                        resetRsvpAfterSuccess();
+
+                    },
+                    2500
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "RSVP submission error:",
+                    error
+                );
+
+
+                /* -----------------------------------------
+                   SHOW ERROR
+                ----------------------------------------- */
+
+                showRsvpStatus("");
+
+
+                showRsvpError(
+                    error &&
+                    error.message
+                        ? error.message
+                        : "Unable to submit your RSVP. Please try again."
+                );
+
+
+                /* -----------------------------------------
+                   RE-ENABLE SUBMIT BUTTON
+                ----------------------------------------- */
+
+                if (submitButton) {
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "Submit RSVP";
+
+                }
+
+
+            } finally {
+
+                rsvpSubmitting =
+                    false;
+
+            }
 
         }
     );
 
-
-lookupEventCheckboxes.forEach(
-    function (checkbox) {
-
-        checkbox.disabled =
-            true;
-
-    }
-);
-
-
-/* -----------------------------------------
-   SCROLL TO SUCCESS MESSAGE
------------------------------------------ */
-
-if (
-    rsvpStatus &&
-    typeof rsvpStatus.scrollIntoView ===
-    "function"
-) {
-
-    rsvpStatus.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-
-}
-
-
-/* -----------------------------------------
-   RETURN TO BLANK FIND INVITATION
-   AFTER SUCCESS MESSAGE
------------------------------------------ */
-
-setTimeout(
-    function () {
-
-        /* Clear saved lookup/session */
-        clearSavedSession();
-
-
-        /* Clear current guest data */
-        currentGuest = null;
-
-        window.currentWeddingGuest =
-            null;
-
-        window.currentLookupToken =
-            null;
-
-
-        /* Clear Find Invitation fields */
-        if (guestFullName) {
-
-            guestFullName.value =
-                "";
-
-        }
-
-
-        if (firstName) {
-
-            firstName.value =
-                "";
-
-        }
-
-
-        if (lastName) {
-
-            lastName.value =
-                "";
-
-        }
-
-
-        /* Clear attendee list */
-        if (attendeeList) {
-
-            attendeeList.innerHTML =
-                "";
-
-        }
-
-
-        /* Reset guest count */
-        if (guestCount) {
-
-            guestCount.value =
-                "0 Guests — Not Attending";
-
-            guestCount.disabled =
-                true;
-
-        }
-
-
-        /* Clear hidden RSVP fields */
-        if (rsvpGuestId) {
-
-            rsvpGuestId.value =
-                "";
-
-        }
-
-
-        if (rsvpGuestNameDisplay) {
-
-            rsvpGuestNameDisplay.value =
-                "";
-
-        }
-
-
-        if (rsvpGuests1) {
-
-            rsvpGuests1.value =
-                "";
-
-        }
-
-
-        if (rsvpAttendingGuests) {
-
-            rsvpAttendingGuests.value =
-                "";
-
-        }
-
-
-        if (rsvpSangeet) {
-
-            rsvpSangeet.value =
-                "";
-
-        }
-
-
-        if (rsvpWedding) {
-
-            rsvpWedding.value =
-                "";
-
-        }
-
-
-        /* Clear phone */
-        if (rsvpPhone) {
-
-            rsvpPhone.value =
-                "";
-
-        }
-
-
-        /* Clear advice */
-        if (advice) {
-
-            advice.value =
-                "";
-
-        }
-
-
-        /* Reset event checkboxes */
-        lookupEventCheckboxes.forEach(
-            function (checkbox) {
-
-                checkbox.checked =
-                    false;
-
-                checkbox.disabled =
-                    true;
-
-            }
-        );
-
-
-        /* Hide guest result */
-        if (guestResult) {
-
-            guestResult.style.display =
-                "none";
-
-        }
-
-
-        /* Hide RSVP section */
-        if (rsvpSection) {
-
-            rsvpSection.style.display =
-                "none";
-
-        }
-
-
-        /* Clear messages */
-        showRsvpStatus("");
-
-        showRsvpError("");
-
-        if (guestError) {
-
-            guestError.textContent =
-                "";
-
-        }
-
-
-        /* Reset Find Invitation button */
-        if (findInvitationBtn) {
-
-            findInvitationBtn.disabled =
-                false;
-
-            findInvitationBtn.textContent =
-                "Find Invitation";
-
-        }
-
-
-        /* Reset submit button */
-        if (submitButton) {
-
-            submitButton.disabled =
-                false;
-
-            submitButton.textContent =
-                "Submit RSVP";
-
-        }
-
-
-        /* Reset state */
-        rsvpSubmitting =
-            false;
-
-        lookupInProgress =
-            false;
-
-
-        /* Put cursor back in Find Invitation */
-        setTimeout(
-            function () {
-
-                if (firstName) {
-
-                    firstName.focus();
-
-                }
-
-            },
-            100
-        );
-
-
-    },
-    2500
-);
-                
 });
 </script>
 
