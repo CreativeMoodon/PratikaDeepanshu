@@ -5685,6 +5685,129 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
     }
+    
+/* =====================================================
+   RESET RSVP AFTER SUCCESS
+===================================================== */
+
+function resetRsvpAfterSuccess() {
+
+    // Clear the secure invitation session
+    clearSavedSession();
+
+    // Clear current invitation state
+    currentGuest = null;
+
+    window.currentWeddingGuest = null;
+    window.currentLookupToken = null;
+
+    // Clear displayed invitation
+    if (guestFullName) {
+        guestFullName.textContent = "";
+    }
+
+    if (attendeeList) {
+        attendeeList.innerHTML = "";
+    }
+
+    // Reset guest count
+    if (guestCount) {
+        guestCount.innerHTML =
+            '<option value="0">0 Guests — Not Attending</option>';
+
+        guestCount.value = "0";
+        guestCount.disabled = true;
+    }
+
+    // Clear hidden RSVP fields
+    if (rsvpGuestId) {
+        rsvpGuestId.value = "";
+    }
+
+    if (rsvpGuestName) {
+        rsvpGuestName.value = "";
+    }
+
+    if (rsvpGuests) {
+        rsvpGuests.value = "0";
+    }
+
+    if (rsvpAttendingGuests) {
+        rsvpAttendingGuests.value = "[]";
+    }
+
+    if (rsvpSangeet) {
+        rsvpSangeet.value = "";
+    }
+
+    if (rsvpWedding) {
+        rsvpWedding.value = "";
+    }
+
+    // Clear phone
+    if (rsvpPhone) {
+        rsvpPhone.value = "";
+    }
+
+    // Clear advice
+    if (adviceInput) {
+        adviceInput.value = "";
+    }
+
+    // Uncheck and disable event choices
+    lookupEventCheckboxes.forEach(
+        function (checkbox) {
+
+            checkbox.checked = false;
+            checkbox.disabled = true;
+
+        }
+    );
+
+    // Hide invitation result
+    if (guestResult) {
+        guestResult.style.display = "none";
+    }
+
+    // Hide RSVP section
+    if (rsvpSection) {
+        rsvpSection.style.display = "none";
+    }
+
+    // Clear messages
+    showRsvpError("");
+    showRsvpStatus("");
+
+    // Clear the Find Invitation fields
+    if (firstNameInput) {
+        firstNameInput.value = "";
+    }
+
+    if (lastNameInput) {
+        lastNameInput.value = "";
+    }
+
+    // Reset Find Invitation button
+    if (findInvitationBtn) {
+        findInvitationBtn.disabled = false;
+        findInvitationBtn.textContent = "Find Invitation";
+    }
+
+    // Reset submitting state
+    rsvpSubmitting = false;
+    lookupInProgress = false;
+
+    // Put cursor back in First Name
+    if (firstNameInput) {
+        setTimeout(
+            function () {
+                firstNameInput.focus();
+            },
+            100
+        );
+    }
+
+}
 
 
     /* =====================================================
@@ -6181,120 +6304,314 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
 
-                /* =========================================
-                   SUCCESS
-                ========================================= */
+            /* =========================================
+   SUCCESS
+========================================= */
 
-                showRsvpError("");
+showRsvpError("");
 
-
-                showRsvpStatus(
-                    result.message ||
-                    "Thank you! Your RSVP has been received."
-                );
-
-
-                if (submitButton) {
-
-                    submitButton.textContent =
-                        "RSVP Submitted ✓";
-
-                    submitButton.disabled =
-                        true;
-
-                }
+showRsvpStatus(
+    result.message ||
+    "Thank you! Your RSVP has been received."
+);
 
 
-                if (guestCount) {
+/* -----------------------------------------
+   SHOW SUBMITTED STATE
+----------------------------------------- */
 
-                    guestCount.disabled =
-                        true;
+if (submitButton) {
 
-                }
+    submitButton.textContent =
+        "RSVP Submitted ✓";
 
+    submitButton.disabled =
+        true;
 
-                attendeeList
-                    .querySelectorAll(
-                        'input[name="attendingGuest"]'
-                    )
-                    .forEach(
-                        function (checkbox) {
-
-                            checkbox.disabled =
-                                true;
-
-                        }
-                    );
+}
 
 
-                lookupEventCheckboxes.forEach(
-                    function (checkbox) {
+if (guestCount) {
 
-                        checkbox.disabled =
-                            true;
+    guestCount.disabled =
+        true;
 
-                        }
-                );
+}
 
 
-                if (
-                    rsvpStatus &&
-                    typeof rsvpStatus.scrollIntoView ===
-                    "function"
-                ) {
+attendeeList
+    .querySelectorAll(
+        'input[name="attendingGuest"]'
+    )
+    .forEach(
+        function (checkbox) {
 
-                    rsvpStatus.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "RSVP submission error:",
-                    error
-                );
-
-
-                showRsvpStatus("");
-
-
-                showRsvpError(
-                    error &&
-                    error.message
-                        ? error.message
-                        : "Unable to submit your RSVP. Please try again."
-                );
-
-
-                if (submitButton) {
-
-                    submitButton.disabled =
-                        false;
-
-                    submitButton.textContent =
-                        "Submit RSVP";
-
-                }
-
-            } finally {
-
-                rsvpSubmitting =
-                    false;
-
-            }
+            checkbox.disabled =
+                true;
 
         }
     );
 
 
-    console.log(
-        "Wedding RSVP system initialized successfully."
-    );
+lookupEventCheckboxes.forEach(
+    function (checkbox) {
 
+        checkbox.disabled =
+            true;
+
+    }
+);
+
+
+/* -----------------------------------------
+   SCROLL TO SUCCESS MESSAGE
+----------------------------------------- */
+
+if (
+    rsvpStatus &&
+    typeof rsvpStatus.scrollIntoView ===
+    "function"
+) {
+
+    rsvpStatus.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* -----------------------------------------
+   RETURN TO BLANK FIND INVITATION
+   AFTER SUCCESS MESSAGE
+----------------------------------------- */
+
+setTimeout(
+    function () {
+
+        /* Clear saved lookup/session */
+        clearSavedSession();
+
+
+        /* Clear current guest data */
+        currentGuest = null;
+
+        window.currentWeddingGuest =
+            null;
+
+        window.currentLookupToken =
+            null;
+
+
+        /* Clear Find Invitation fields */
+        if (guestFullName) {
+
+            guestFullName.value =
+                "";
+
+        }
+
+
+        if (firstName) {
+
+            firstName.value =
+                "";
+
+        }
+
+
+        if (lastName) {
+
+            lastName.value =
+                "";
+
+        }
+
+
+        /* Clear attendee list */
+        if (attendeeList) {
+
+            attendeeList.innerHTML =
+                "";
+
+        }
+
+
+        /* Reset guest count */
+        if (guestCount) {
+
+            guestCount.value =
+                "0 Guests — Not Attending";
+
+            guestCount.disabled =
+                true;
+
+        }
+
+
+        /* Clear hidden RSVP fields */
+        if (rsvpGuestId) {
+
+            rsvpGuestId.value =
+                "";
+
+        }
+
+
+        if (rsvpGuestNameDisplay) {
+
+            rsvpGuestNameDisplay.value =
+                "";
+
+        }
+
+
+        if (rsvpGuests1) {
+
+            rsvpGuests1.value =
+                "";
+
+        }
+
+
+        if (rsvpAttendingGuests) {
+
+            rsvpAttendingGuests.value =
+                "";
+
+        }
+
+
+        if (rsvpSangeet) {
+
+            rsvpSangeet.value =
+                "";
+
+        }
+
+
+        if (rsvpWedding) {
+
+            rsvpWedding.value =
+                "";
+
+        }
+
+
+        /* Clear phone */
+        if (rsvpPhone) {
+
+            rsvpPhone.value =
+                "";
+
+        }
+
+
+        /* Clear advice */
+        if (advice) {
+
+            advice.value =
+                "";
+
+        }
+
+
+        /* Reset event checkboxes */
+        lookupEventCheckboxes.forEach(
+            function (checkbox) {
+
+                checkbox.checked =
+                    false;
+
+                checkbox.disabled =
+                    true;
+
+            }
+        );
+
+
+        /* Hide guest result */
+        if (guestResult) {
+
+            guestResult.style.display =
+                "none";
+
+        }
+
+
+        /* Hide RSVP section */
+        if (rsvpSection) {
+
+            rsvpSection.style.display =
+                "none";
+
+        }
+
+
+        /* Clear messages */
+        showRsvpStatus("");
+
+        showRsvpError("");
+
+        if (guestError) {
+
+            guestError.textContent =
+                "";
+
+        }
+
+
+        /* Reset Find Invitation button */
+        if (findInvitationBtn) {
+
+            findInvitationBtn.disabled =
+                false;
+
+            findInvitationBtn.textContent =
+                "Find Invitation";
+
+        }
+
+
+        /* Reset submit button */
+        if (submitButton) {
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "Submit RSVP";
+
+        }
+
+
+        /* Reset state */
+        rsvpSubmitting =
+            false;
+
+        lookupInProgress =
+            false;
+
+
+        /* Put cursor back in Find Invitation */
+        setTimeout(
+            function () {
+
+                if (firstName) {
+
+                    firstName.focus();
+
+                }
+
+            },
+            100
+        );
+
+
+    },
+    2500
+);
+                
 });
 </script>
 
