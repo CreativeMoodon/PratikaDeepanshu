@@ -6343,19 +6343,14 @@ const selectedGuestCount = selectedGuestIndexes.length;
 // Zero selected guests means Not Attending.
 const isNotAttending = selectedGuestCount === 0;
 
-// Require an event only when at least one guest is attending.
-if (
-    !isNotAttending &&
-    !attendingSangeet &&
-    !attendingWedding
-) {
-    showRsvpError(
-        "Please select at least one event."
-    );
 
-    rsvpSubmitting = false;
-    return;
+// Require an event only when guests are attending.
+if (selectedGuestCount > 0 && !attendingSangeet && !attendingWedding) {
+  showRsvpError("Please select at least one event.");
+  rsvpSubmitting = false;
+  return;
 }
+
 
 // Synchronize all attendance fields before submission.
 if (isNotAttending) {
@@ -6402,10 +6397,11 @@ if (!isNotAttending) {
 } else {
 
     // Not Attending: ensure both events and guest count are zero.
-    if (rsvpSangeet) rsvpSangeet.value = "NO";
-    if (rsvpWedding) rsvpWedding.value = "NO";
-    if (rsvpGuests) rsvpGuests.value = "0";
-    if (rsvpAttendingGuests) rsvpAttendingGuests.value = "[]";
+    if (isNotAttending) {
+  rsvpSangeet.value = "NO";
+  rsvpWedding.value = "NO";
+  rsvpGuests.value = "0";
+  rsvpAttendingGuests.value = "[]";
 
 }
 
