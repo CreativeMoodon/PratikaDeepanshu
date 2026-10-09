@@ -4121,7 +4121,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .toLowerCase();
 
             if (eventName === "sangeet") {
-                const allowed = currentGuest.sangeet === true;
+                const allowed = isAllowed(currentGuest.sangeet);
 
                 checkbox.disabled = !allowed;
                 checkbox.checked = allowed;
@@ -4132,7 +4132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (eventName === "wedding") {
-                const allowed = currentGuest.wedding === true;
+                const allowed = isAllowed(currentGuest.wedding);
 
                 checkbox.disabled = !allowed;
                 checkbox.checked = allowed;
@@ -4830,76 +4830,80 @@ console.log("TOTAL GUESTS:", totalGuests);
                EVENTS
             ============================================= */
 
-            const attendingSangeet =
-                Array.from(lookupEventCheckboxes).some(
-                    function (checkbox) {
-                        return (
-                            String(checkbox.value || "")
-                                .trim()
-                                .toLowerCase() === "sangeet" &&
-                            checkbox.checked &&
-                            !checkbox.disabled
-                        );
-                    }
-                );
+            // Read the actual event controls by value, rather than relying
+            // on their position or capitalization in the HTML.
+            const sangeetCheckbox = Array.from(lookupEventCheckboxes).find(
+                function (checkbox) {
+                    return String(checkbox.value || "").trim().toLowerCase() === "sangeet";
+                }
+            );
 
-            const attendingWedding =
-                Array.from(lookupEventCheckboxes).some(
-                    function (checkbox) {
-                        return (
-                            String(checkbox.value || "")
-                                .trim()
-                                .toLowerCase() === "wedding" &&
-                            checkbox.checked &&
-                            !checkbox.disabled
-                        );
-                    }
-                );
+            const weddingCheckbox = Array.from(lookupEventCheckboxes).find(
+                function (checkbox) {
+                    return String(checkbox.value || "").trim().toLowerCase() === "wedding";
+                }
+            );
 
+            const attendingSangeet = Boolean(
+                currentGuest.sangeet &&
+                sangeetCheckbox &&
+                sangeetCheckbox.checked &&
+                !sangeetCheckbox.disabled
+            );
 
-            /* =============================================
-               ATTENDANCE STATUS — CORRECTED
-            ============================================= */
+            const attendingWedding = Boolean(
+                currentGuest.wedding &&
+                weddingCheckbox &&
+                weddingCheckbox.checked &&
+                !weddingCheckbox.disabled
+            );
 
-const selectedGuestCount = selectedGuestIndexes.length;
-const isNotAttending = selectedGuestCount === 0;
+            const selectedGuestCount = selectedGuestIndexes.length;
+            const isNotAttending = selectedGuestCount === 0;
 
-// Guests who are not attending can submit with both
-// events unchecked. Attending guests must select an event.
-if (
-    !isNotAttending &&
-    !attendingSangeet &&
-    !attendingWedding
-) {
-    showRsvpError("Please select at least one event.");
-    rsvpSubmitting = false;
-    return;
-}
+            console.log("RSVP EVENT CHECK:", {
+                guestId: currentGuest.guestId,
+                allowedSangeet: currentGuest.sangeet,
+                allowedWedding: currentGuest.wedding,
+                sangeetChecked: sangeetCheckbox ? sangeetCheckbox.checked : null,
+                sangeetDisabled: sangeetCheckbox ? sangeetCheckbox.disabled : null,
+                weddingChecked: weddingCheckbox ? weddingCheckbox.checked : null,
+                weddingDisabled: weddingCheckbox ? weddingCheckbox.disabled : null,
+                attendingSangeet: attendingSangeet,
+                attendingWedding: attendingWedding
+            });
 
-// Save a consistent decline response.
-if (isNotAttending) {
-    rsvpSangeet.value = "NO";
-    rsvpWedding.value = "NO";
-    rsvpGuests.value = "0";
-    rsvpAttendingGuests.value = "[]";
-} else {
-    rsvpGuests.value = String(selectedGuestCount);
-}
+            // A decline is valid with zero guests and no events selected.
+            // If guests are attending, at least one permitted event is required.
+            if (
+                !isNotAttending &&
+                !attendingSangeet &&
+                !attendingWedding
+            ) {
+                if (!currentGuest.sangeet && !currentGuest.wedding) {
+                    showRsvpError(
+                        "This invitation is not marked for Sangeet or Wedding. Please contact the host to confirm your event permissions."
+                    );
+                } else {
+                    showRsvpError(
+                        "Please select at least one event from your invitation schedule."
+                    );
+                }
+                return;
+            }
 
-            
-            /* =============================================
-               SYNCHRONIZE ATTENDANCE FIELDS
-            ============================================= */
-
-            if (isNotAttending) {
-                rsvpSangeet.value = "NO";
-                rsvpWedding.value = "NO";
-                rsvpGuests.value = "0";
-                rsvpAttendingGuests.value = "[]";
-
-            } else {
-                rsvpGuests.value =
-                    String(selectedGuestCount);
+            // Keep hidden fields synchronized with the exact values sent to the server.
+            if (rsvpSangeet) {
+                rsvpSangeet.value = attendingSangeet ? "YES" : "NO";
+            }
+            if (rsvpWedding) {
+                rsvpWedding.value = attendingWedding ? "YES" : "NO";
+            }
+            if (rsvpGuests) {
+                rsvpGuests.value = String(selectedGuestCount);
+            }
+            if (rsvpAttendingGuests) {
+                rsvpAttendingGuests.value = JSON.stringify(selectedGuests);
             }
 
 
