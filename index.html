@@ -6401,12 +6401,11 @@ if (!isNotAttending) {
 
 } else {
 
-    // A non-attendance RSVP must include no events.
-    // Ensure the values sent to the server are NO.
-    rsvpSangeet.value = "NO";
-    rsvpWedding.value = "NO";
-    rsvpGuests1.value = "0";
-    rsvpAttendingGuests.value = "[]";
+    // Not Attending: ensure both events and guest count are zero.
+    if (rsvpSangeet) rsvpSangeet.value = "NO";
+    if (rsvpWedding) rsvpWedding.value = "NO";
+    if (rsvpGuests) rsvpGuests.value = "0";
+    if (rsvpAttendingGuests) rsvpAttendingGuests.value = "[]";
 
 }
 
