@@ -6333,37 +6333,17 @@ const attendingWedding =
 
 
 /* =============================================
-   ATTENDANCE STATUS
+   ATTENDANCE STATUS — FIXED
 ============================================= */
 
-// Read the selected guest count.
-const selectedGuestCount = Number(
-    guestCount.value
-);
+// Use the actual selected checkbox indexes.
+// Do not use rsvpAttendingGuests here because it stores names.
+const selectedGuestCount = selectedGuestIndexes.length;
 
-// Read the actual selected guest indexes.
-let selectedIndexes = [];
+// Zero selected guests means Not Attending.
+const isNotAttending = selectedGuestCount === 0;
 
-try {
-    selectedIndexes = JSON.parse(
-        rsvpAttendingGuests.value || "[]"
-    );
-} catch (error) {
-    showRsvpError(
-        "Unable to verify your guest selection. Please try again."
-    );
-
-    rsvpSubmitting = false;
-    return;
-}
-
-// Treat the RSVP as Not Attending only when
-// both the count is zero and no guests are selected.
-const isNotAttending =
-    selectedGuestCount === 0 &&
-    selectedIndexes.length === 0;
-
-// Require an event only when guests are attending.
+// Require an event only when at least one guest is attending.
 if (
     !isNotAttending &&
     !attendingSangeet &&
@@ -6377,12 +6357,14 @@ if (
     return;
 }
 
-// Normalize the submitted values for Not Attending.
+// Synchronize all attendance fields before submission.
 if (isNotAttending) {
     rsvpSangeet.value = "NO";
     rsvpWedding.value = "NO";
-    rsvpGuests1.value = "0";
+    rsvpGuests.value = "0";
     rsvpAttendingGuests.value = "[]";
+} else {
+    rsvpGuests.value = String(selectedGuestCount);
 }
 
 
@@ -6515,10 +6497,10 @@ if (!isNotAttending) {
                     selectedGuestIndexes,
 
                 sangeet:
-                    attendingSangeet,
+isNotAttending ? false : attendingSangeet,
 
                 wedding:
-                    attendingWedding,
+                   isNotAttending ? false : attendingWedding,
 
                 advice:
                     advice
