@@ -4749,33 +4749,45 @@ document.addEventListener("DOMContentLoaded", function () {
             currentGuest.lookupToken = lookupToken;
 
 
-            /* =============================================
-               SELECTED GUESTS
-            ============================================= */
+            
+/* =============================================
+   SELECTED GUESTS
+============================================= */
 
-            const selectedGuestObjects =
-                getSelectedGuestObjects();
+// Treat the explicit zero-guest dropdown choice
+// as the source of truth for a decline response.
+const zeroGuestsSelected =
+    guestCount &&
+    String(guestCount.value).trim() === "0";
 
-            const selectedGuests =
-                selectedGuestObjects.map(function (guest) {
-                    return guest.name;
-                });
+const selectedGuestObjects = zeroGuestsSelected
+    ? []
+    : getSelectedGuestObjects();
 
-            const selectedGuestIndexes =
-                selectedGuestObjects.map(function (guest) {
-                    return Number(guest.index);
-                });
+const selectedGuests =
+    selectedGuestObjects.map(function (guest) {
+        return guest.name;
+    });
 
-            const totalGuests =
-                selectedGuestObjects.length;
+const selectedGuestIndexes =
+    selectedGuestObjects.map(function (guest) {
+        return Number(guest.index);
+    });
 
-            console.log("SELECTED GUESTS:", selectedGuests);
+const totalGuests =
+    selectedGuestObjects.length;
 
-            console.log(
-                "SELECTED SERVER INDEXES:",
-                selectedGuestIndexes
-            );
+console.log("ZERO GUESTS SELECTED:", zeroGuestsSelected);
+console.log("SELECTED GUESTS:", selectedGuests);
 
+console.log(
+    "SELECTED SERVER INDEXES:",
+    selectedGuestIndexes
+);
+
+console.log("TOTAL GUESTS:", totalGuests);
+
+            
 
             /* =============================================
                MAXIMUM INVITATION GUESTS
@@ -4854,32 +4866,32 @@ document.addEventListener("DOMContentLoaded", function () {
                ATTENDANCE STATUS — CORRECTED
             ============================================= */
 
-            const selectedGuestCount =
-                selectedGuestIndexes.length;
+const selectedGuestCount = selectedGuestIndexes.length;
+const isNotAttending = selectedGuestCount === 0;
 
-            const isNotAttending =
-                selectedGuestCount === 0;
+// Guests who are not attending can submit with both
+// events unchecked. Attending guests must select an event.
+if (
+    !isNotAttending &&
+    !attendingSangeet &&
+    !attendingWedding
+) {
+    showRsvpError("Please select at least one event.");
+    rsvpSubmitting = false;
+    return;
+}
 
-            /*
-             * IMPORTANT:
-             * Only require an event if at least one guest
-             * is attending. Zero guests is a valid response.
-             */
+// Save a consistent decline response.
+if (isNotAttending) {
+    rsvpSangeet.value = "NO";
+    rsvpWedding.value = "NO";
+    rsvpGuests.value = "0";
+    rsvpAttendingGuests.value = "[]";
+} else {
+    rsvpGuests.value = String(selectedGuestCount);
+}
 
-            if (
-                !isNotAttending &&
-                !attendingSangeet &&
-                !attendingWedding
-            ) {
-                showRsvpError(
-                    "Please select at least one event."
-                );
-
-                rsvpSubmitting = false;
-                return;
-            }
-
-
+            
             /* =============================================
                SYNCHRONIZE ATTENDANCE FIELDS
             ============================================= */
