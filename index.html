@@ -6300,109 +6300,104 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* =============================================
-               EVENTS
-            ============================================= */
+          
+/* =============================================
+   EVENTS
+============================================= */
 
-            const attendingSangeet =
-                Array.from(
-                    lookupEventCheckboxes
-                ).some(
-                    function (checkbox) {
+const attendingSangeet =
+    Array.from(lookupEventCheckboxes).some(
+        function (checkbox) {
+            return (
+                String(checkbox.value || "")
+                    .trim()
+                    .toLowerCase() === "sangeet" &&
+                checkbox.checked &&
+                !checkbox.disabled
+            );
+        }
+    );
 
-                        return (
-                            String(
-                                checkbox.value || ""
-                            )
-                            .trim()
-                            .toLowerCase() ===
-                            "sangeet" &&
+const attendingWedding =
+    Array.from(lookupEventCheckboxes).some(
+        function (checkbox) {
+            return (
+                String(checkbox.value || "")
+                    .trim()
+                    .toLowerCase() === "wedding" &&
+                checkbox.checked &&
+                !checkbox.disabled
+            );
+        }
+    );
 
-                            checkbox.checked &&
+/* =============================================
+   ATTENDANCE STATUS
+============================================= */
 
-                            !checkbox.disabled
-                        );
+// Use the selected guest count to identify
+// a "Not Attending" response.
+const selectedGuestCount = Number(guestCount.value);
 
-                    }
-                );
+const isNotAttending =
+    selectedGuestCount === 0;
 
+// Require an event only when guests are attending.
+if (
+    !isNotAttending &&
+    !attendingSangeet &&
+    !attendingWedding
+) {
+    showRsvpError(
+        "Please select at least one event."
+    );
 
-            const attendingWedding =
-                Array.from(
-                    lookupEventCheckboxes
-                ).some(
-                    function (checkbox) {
+    rsvpSubmitting = false;
+    return;
+}
 
-                        return (
-                            String(
-                                checkbox.value || ""
-                            )
-                            .trim()
-                            .toLowerCase() ===
-                            "wedding" &&
+/* =============================================
+   EVENT PERMISSIONS
+============================================= */
 
-                            checkbox.checked &&
+// Only validate event permissions when attending.
+if (!isNotAttending) {
 
-                            !checkbox.disabled
-                        );
+    if (
+        attendingSangeet &&
+        !currentGuest.sangeet
+    ) {
+        showRsvpError(
+            "Sangeet is not included in this invitation."
+        );
 
-                    }
-                );
+        rsvpSubmitting = false;
+        return;
+    }
 
+    if (
+        attendingWedding &&
+        !currentGuest.wedding
+    ) {
+        showRsvpError(
+            "Wedding is not included in this invitation."
+        );
 
-            if (
-                !attendingSangeet &&
-                !attendingWedding
-            ) {
+        rsvpSubmitting = false;
+        return;
+    }
 
-                showRsvpError(
-                    "Please select at least one event."
-                );
+} else {
 
-                rsvpSubmitting =
-                    false;
+    // A non-attendance RSVP must include no events.
+    // Ensure the values sent to the server are NO.
+    rsvpSangeet.value = "NO";
+    rsvpWedding.value = "NO";
+    rsvpGuests1.value = "0";
+    rsvpAttendingGuests.value = "[]";
 
-                return;
+}
 
-            }
-
-
-            /* =============================================
-               EVENT PERMISSIONS
-            ============================================= */
-
-            if (
-                attendingSangeet &&
-                !currentGuest.sangeet
-            ) {
-
-                showRsvpError(
-                    "Sangeet is not included in this invitation."
-                );
-
-                rsvpSubmitting =
-                    false;
-
-                return;
-
-            }
-
-
-            if (
-                attendingWedding &&
-                !currentGuest.wedding
-            ) {
-
-                showRsvpError(
-                    "Wedding is not included in this invitation."
-                );
-
-                rsvpSubmitting =
-                    false;
-
-                return;
-
-            }
 
 
             /* =============================================
