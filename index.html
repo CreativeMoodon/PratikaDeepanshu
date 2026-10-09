@@ -4751,12 +4751,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             
 
+
 /* =============================================
    SELECTED GUESTS
 ============================================= */
 
-// Treat the explicit zero-guest dropdown choice
-// as the source of truth for a decline response.
+// The 0 Guests option means nobody is attending.
 const zeroGuestsSelected =
     guestCount &&
     String(guestCount.value).trim() === "0";
@@ -4775,17 +4775,11 @@ const selectedGuestIndexes =
         return Number(guest.index);
     });
 
-const totalGuests =
-    selectedGuestObjects.length;
+const totalGuests = selectedGuestObjects.length;
 
 console.log("ZERO GUESTS SELECTED:", zeroGuestsSelected);
 console.log("SELECTED GUESTS:", selectedGuests);
-
-console.log(
-    "SELECTED SERVER INDEXES:",
-    selectedGuestIndexes
-);
-
+console.log("SELECTED SERVER INDEXES:", selectedGuestIndexes);
 console.log("TOTAL GUESTS:", totalGuests);
 
             
