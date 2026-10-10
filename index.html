@@ -4241,303 +4241,328 @@ function isNoneOfTheAboveChecked() {
     }
 
 
-    /* =====================================================
-       CLEAR FORM AFTER SUCCESSFUL RSVP
+  
+/* =====================================================
+   CLEAR FORM AFTER SUCCESSFUL RSVP
 
-       Keep the success message visible while clearing:
-       - First Name
-       - Last Name
-       - Phone Number
-       - Guest selections
-       - Event selections
-       - Invitation token and guest details
-    ===================================================== */
+   After a successful submission:
+   - Clear guest and invitation details.
+   - Hide the RSVP form.
+   - Keep the success message visible.
+===================================================== */
 
-    function clearAfterSuccessfulSubmit(successMessage) {
-        currentGuest = null;
+function clearAfterSuccessfulSubmit(successMessage) {
+    currentGuest = null;
 
-        window.currentWeddingGuest = null;
-        window.currentLookupToken = null;
+    window.currentWeddingGuest = null;
+    window.currentLookupToken = null;
 
-        firstNameInput.value = "";
-        lastNameInput.value = "";
+    firstNameInput.value = "";
+    lastNameInput.value = "";
 
-        if (rsvpPhone) rsvpPhone.value = "";
-        if (adviceInput) adviceInput.value = "";
+    if (rsvpPhone) rsvpPhone.value = "";
+    if (adviceInput) adviceInput.value = "";
 
-        if (guestFullName) guestFullName.textContent = "";
-        if (rsvpGuestId) rsvpGuestId.value = "";
-        if (rsvpGuestName) rsvpGuestName.value = "";
-        if (rsvpGuests) rsvpGuests.value = "0";
-        if (rsvpAttendingGuests) rsvpAttendingGuests.value = "[]";
-        if (rsvpSangeet) rsvpSangeet.value = "NO";
-        if (rsvpWedding) rsvpWedding.value = "NO";
+    if (guestFullName) guestFullName.textContent = "";
+    if (rsvpGuestId) rsvpGuestId.value = "";
+    if (rsvpGuestName) rsvpGuestName.value = "";
 
-        if (guestCount) {
-            guestCount.innerHTML =
-                '<option value="0">0 Guests — Not Attending</option>';
-            guestCount.value = "0";
-            guestCount.disabled = true;
-        }
-
-        attendeeList.innerHTML = "";
-        clearEventSelections();
-
-        if (guestResult) {
-            guestResult.style.display = "none";
-        }
-
-        // Keep the RSVP section visible so the success message
-        // can still be read. The invitation itself is cleared.
-        if (rsvpSection) {
-            rsvpSection.style.display = "block";
-        }
-
-        showError("");
-        showRsvpError("");
-        showRsvpStatus(successMessage);
-
-        if (findInvitationBtn) {
-            findInvitationBtn.disabled = false;
-            findInvitationBtn.textContent = "Find Invitation";
-        }
+    if (rsvpGuests) rsvpGuests.value = "0";
+    if (rsvpAttendingGuests) {
+        rsvpAttendingGuests.value = "[]";
     }
 
+    if (rsvpSangeet) rsvpSangeet.value = "NO";
+    if (rsvpWedding) rsvpWedding.value = "NO";
 
-    /* =====================================================
-       SUBMIT RSVP
-    ===================================================== */
+    if (guestCount) {
+        guestCount.innerHTML =
+            '<option value="0">0 Guests — Not Attending</option>';
 
-    rsvpForm.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        event.stopPropagation();
+        guestCount.value = "0";
+        guestCount.disabled = true;
+    }
 
-        if (rsvpSubmitting) return;
+    if (attendeeList) {
+        attendeeList.innerHTML = "";
+    }
 
-        rsvpSubmitting = true;
+    clearEventSelections();
 
-        showRsvpError("");
-        showRsvpStatus("");
+    if (guestResult) {
+        guestResult.style.display = "none";
+    }
 
-        try {
-            if (!currentGuest || !currentGuest.guestId) {
-                throw new Error("Please find your invitation first.");
-            }
+    /*
+     * Hide the RSVP form after a successful submission.
+     * The confirmation must be displayed outside the form
+     * so it remains visible.
+     */
+    if (rsvpForm) {
+        rsvpForm.style.display = "none";
+    }
 
-            if (!currentGuest.lookupToken) {
-                throw new Error(
-                    "Your invitation session is missing. Please find your invitation again."
-                );
-            }
+    if (rsvpSection) {
+        rsvpSection.style.display = "block";
+    }
 
-            const selectedGuestObjects = getSelectedGuestObjects();
+    showError("");
+    showRsvpError("");
+    showRsvpStatus(successMessage);
 
-            const selectedGuests = selectedGuestObjects.map(function (guest) {
+    if (findInvitationBtn) {
+        findInvitationBtn.disabled = false;
+        findInvitationBtn.textContent = "Find Invitation";
+    }
+}
+
+
+/* =====================================================
+   SUBMIT RSVP
+===================================================== */
+
+rsvpForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (rsvpSubmitting) return;
+
+    rsvpSubmitting = true;
+
+    showRsvpError("");
+    showRsvpStatus("");
+
+    const submitButton = rsvpForm.querySelector(
+        'button[type="submit"]'
+    );
+
+    try {
+        if (!currentGuest || !currentGuest.guestId) {
+            throw new Error(
+                "Please find your invitation first."
+            );
+        }
+
+        if (!currentGuest.lookupToken) {
+            throw new Error(
+                "Your invitation session is missing. Please find your invitation again."
+            );
+        }
+
+        const selectedGuestObjects =
+            getSelectedGuestObjects();
+
+        const selectedGuests =
+            selectedGuestObjects.map(function (guest) {
                 return guest.name;
             });
 
-            const selectedGuestIndexes = selectedGuestObjects.map(function (guest) {
+        const selectedGuestIndexes =
+            selectedGuestObjects.map(function (guest) {
                 return Number(guest.index);
             });
 
-            const totalGuests = selectedGuestObjects.length;
+        const totalGuests = selectedGuestObjects.length;
 
-            if (totalGuests > currentGuest.maxGuests) {
-                throw new Error(
-                    "You can select a maximum of " +
-                    currentGuest.maxGuests +
-                    " people for this invitation."
-                );
-            }
-
-            if (totalGuests > MAX_TOTAL_GUESTS) {
-                throw new Error("You can select a maximum of 4 people.");
-            }
-
-            if (
-                totalGuests > 0 &&
-                !selectedGuestIndexes.includes(0)
-            ) {
-                throw new Error(
-                    "The Primary Guest must be included when attending."
-                );
-            }
-
-            const attendingSangeet = isEventChecked("sangeet");
-            const attendingWedding = isEventChecked("wedding");
-
-            const noneOfTheAbove = Boolean(
-                noneOfTheAboveCheckbox &&
-                noneOfTheAboveCheckbox.checked
+        if (totalGuests > currentGuest.maxGuests) {
+            throw new Error(
+                "You can select a maximum of " +
+                currentGuest.maxGuests +
+                " people for this invitation."
             );
-
-            /*
-             * IMPORTANT:
-             * No events selected is valid only when the guest
-             * explicitly selects "None of the above".
-             */
-
-            if (
-                !attendingSangeet &&
-                !attendingWedding &&
-                !noneOfTheAbove
-            ) {
-                throw new Error(
-                    "Please select an event or choose 'None of the above'."
-                );
-            }
-
-            if (
-                noneOfTheAbove &&
-                (attendingSangeet || attendingWedding)
-            ) {
-                throw new Error(
-                    "Please select either an event or 'None of the above', not both."
-                );
-            }
-
-            if (noneOfTheAbove && totalGuests > 0) {
-                throw new Error(
-                    "For 'None of the above', please select 0 guests attending."
-                );
-            }
-
-            if (
-                attendingSangeet &&
-                !currentGuest.sangeet
-            ) {
-                throw new Error(
-                    "Sangeet is not included in this invitation."
-                );
-            }
-
-            if (
-                attendingWedding &&
-                !currentGuest.wedding
-            ) {
-                throw new Error(
-                    "Wedding is not included in this invitation."
-                );
-            }
-
-            const phone = String(
-                rsvpPhone ? rsvpPhone.value : ""
-            ).replace(/\D/g, "");
-
-            if (!/^\d{10,14}$/.test(phone)) {
-                if (rsvpPhone) rsvpPhone.focus();
-
-                throw new Error(
-                    "Please enter a valid phone number (10–14 digits)."
-                );
-            }
-
-            const advice = adviceInput
-                ? String(adviceInput.value || "").trim()
-                : "";
-
-            const payload = {
-                lookupToken: currentGuest.lookupToken,
-                guestId: currentGuest.guestId,
-                primaryGuest: currentGuest.primaryGuest,
-                phone: phone,
-                totalGuests: totalGuests,
-                numberOfGuests: totalGuests,
-                attendingGuests: selectedGuests,
-                attendingGuestIndexes: selectedGuestIndexes,
-                sangeet: attendingSangeet,
-                wedding: attendingWedding,
-                noneOfTheAbove: noneOfTheAbove,
-                advice: advice
-            };
-
-            console.log(
-                "RSVP payload:",
-                JSON.stringify(payload, null, 2)
-            );
-
-            const submitButton = rsvpForm.querySelector(
-                'button[type="submit"]'
-            );
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.textContent = "Sending RSVP…";
-            }
-
-            const response = await fetch(RSVP_API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
-                body: JSON.stringify(payload)
-            });
-
-            const responseText = await response.text();
-
-            console.log("RSVP server response:", responseText);
-
-            const result = parseJsonResponse(
-                response,
-                responseText,
-                "RSVP submission"
-            );
-
-            if (
-                !response.ok ||
-                !result ||
-                result.success !== true
-            ) {
-                throw new Error(
-                    result && result.message
-                        ? result.message
-                        : "Unable to submit your RSVP."
-                );
-            }
-
-            const successMessage = result.message ||
-                "Thank you! Your RSVP has been received.";
-
-            clearAfterSuccessfulSubmit(successMessage);
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.textContent = "RSVP Submitted ✓";
-            }
-
-            if (rsvpStatus && rsvpStatus.scrollIntoView) {
-                rsvpStatus.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
-                });
-            }
-
-        } catch (error) {
-            console.error("RSVP submission error:", error);
-
-            showRsvpStatus("");
-
-            showRsvpError(
-                error && error.message
-                    ? error.message
-                    : "Unable to submit your RSVP. Please try again."
-            );
-
-            const submitButton = rsvpForm.querySelector(
-                'button[type="submit"]'
-            );
-
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = "Submit RSVP";
-            }
-
-        } finally {
-            rsvpSubmitting = false;
         }
-    });
 
+        if (totalGuests > MAX_TOTAL_GUESTS) {
+            throw new Error(
+                "You can select a maximum of 4 people."
+            );
+        }
 
+        if (
+            totalGuests > 0 &&
+            !selectedGuestIndexes.includes(0)
+        ) {
+            throw new Error(
+                "The Primary Guest must be included when attending."
+            );
+        }
+
+        const attendingSangeet =
+            isEventChecked("sangeet");
+
+        const attendingWedding =
+            isEventChecked("wedding");
+
+        const noneOfTheAbove = Boolean(
+            noneOfTheAboveCheckbox &&
+            noneOfTheAboveCheckbox.checked
+        );
+
+        /*
+         * Guests must select an event or explicitly choose
+         * "None of the above".
+         */
+        if (
+            !attendingSangeet &&
+            !attendingWedding &&
+            !noneOfTheAbove
+        ) {
+            throw new Error(
+                "Please select an event or choose 'None of the above'."
+            );
+        }
+
+        if (
+            noneOfTheAbove &&
+            (attendingSangeet || attendingWedding)
+        ) {
+            throw new Error(
+                "Please select either an event or 'None of the above', not both."
+            );
+        }
+
+        if (noneOfTheAbove && totalGuests > 0) {
+            throw new Error(
+                "For 'None of the above', please select 0 guests attending."
+            );
+        }
+
+        if (
+            attendingSangeet &&
+            !currentGuest.sangeet
+        ) {
+            throw new Error(
+                "Sangeet is not included in this invitation."
+            );
+        }
+
+        if (
+            attendingWedding &&
+            !currentGuest.wedding
+        ) {
+            throw new Error(
+                "Wedding is not included in this invitation."
+            );
+        }
+
+        const phone = String(
+            rsvpPhone ? rsvpPhone.value : ""
+        ).replace(/\D/g, "");
+
+        if (!/^\d{10,14}$/.test(phone)) {
+            if (rsvpPhone) rsvpPhone.focus();
+
+            throw new Error(
+                "Please enter a valid phone number (10–14 digits)."
+            );
+        }
+
+        const advice = adviceInput
+            ? String(adviceInput.value || "").trim()
+            : "";
+
+        const payload = {
+            lookupToken: currentGuest.lookupToken,
+            guestId: currentGuest.guestId,
+            primaryGuest: currentGuest.primaryGuest,
+            phone: phone,
+            totalGuests: totalGuests,
+            numberOfGuests: totalGuests,
+            attendingGuests: selectedGuests,
+            attendingGuestIndexes: selectedGuestIndexes,
+            sangeet: attendingSangeet,
+            wedding: attendingWedding,
+            noneOfTheAbove: noneOfTheAbove,
+            advice: advice
+        };
+
+        console.log(
+            "RSVP payload:",
+            JSON.stringify(payload, null, 2)
+        );
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending RSVP…";
+        }
+
+        const response = await fetch(RSVP_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const responseText = await response.text();
+
+        console.log(
+            "RSVP server response:",
+            responseText
+        );
+
+        const result = parseJsonResponse(
+            response,
+            responseText,
+            "RSVP submission"
+        );
+
+        if (
+            !response.ok ||
+            !result ||
+            result.success !== true
+        ) {
+            throw new Error(
+                result && result.message
+                    ? result.message
+                    : "Unable to submit your RSVP."
+            );
+        }
+
+        const successMessage = result.message ||
+            "Thank you! Your RSVP has been received.";
+
+        // Clear the invitation and hide the form.
+        clearAfterSuccessfulSubmit(successMessage);
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "RSVP Submitted ✓";
+        }
+
+        if (
+            rsvpStatus &&
+            rsvpStatus.scrollIntoView
+        ) {
+            rsvpStatus.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+    } catch (error) {
+        console.error(
+            "RSVP submission error:",
+            error
+        );
+
+        showRsvpStatus("");
+
+        showRsvpError(
+            error && error.message
+                ? error.message
+                : "Unable to submit your RSVP. Please try again."
+        );
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit RSVP";
+        }
+
+    } finally {
+        rsvpSubmitting = false;
+    }
+});
     /* =====================================================
        INITIALIZE
     ===================================================== */
