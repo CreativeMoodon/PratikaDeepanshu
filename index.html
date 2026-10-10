@@ -2514,7 +2514,7 @@ footer p {
      ROSE PETALS
 ========================================= -->
 
-<script>
+
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -3326,28 +3326,10 @@ document.addEventListener(
 </script>
 
 
-<!-- =========================================================
-     GUEST LOOKUP + RSVP
-     
-     COMPLETE REPLACEMENT SCRIPT
-
-     Guest indexes:
-     0 = Primary Guest
-     1 = Guest 1
-     2 = Guest 2
-     3 = Guest 3
-
-     Guest 4 is intentionally ignored.
-
-     0 selected = Not attending.
-     1–4 selected = Primary Guest required.
-
-     Apps Script remains authoritative.
-========================================================= -->
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+    "use strict";
 
     /* =====================================================
        GOOGLE APPS SCRIPT
@@ -3364,80 +3346,77 @@ document.addEventListener("DOMContentLoaded", function () {
     const SERVER_ERROR_MESSAGE =
         "The invitation service is currently unavailable. Please try again in a moment or contact the host.";
 
-
     /* =====================================================
-       HTML ELEMENTS
+       ELEMENTS
     ===================================================== */
 
-    const guestForm = document.getElementById("guestLookupForm");
-    const guestResult = document.getElementById("guestResult");
-    const guestError = document.getElementById("guestError");
-    const guestSuccess = document.getElementById("guestSuccess");
-    const guestFullName = document.getElementById("guestFullName");
+    const $ = id => document.getElementById(id);
 
-    const firstNameInput = document.getElementById("firstName");
-    const lastNameInput = document.getElementById("lastName");
-    const findInvitationBtn = document.getElementById("findInvitationBtn");
+    const guestForm = $("guestLookupForm");
+    const guestResult = $("guestResult");
+    const guestError = $("guestError");
+    const guestSuccess = $("guestSuccess");
+    const guestFullName = $("guestFullName");
+    const firstNameInput = $("firstName");
+    const lastNameInput = $("lastName");
+    const findButton = $("findInvitationBtn");
 
-    const guestCount = document.getElementById("guestCount");
-    const attendeeList = document.getElementById("attendeeList");
-    const attendeeHint = document.getElementById("attendeeHint");
+    const guestCount = $("guestCount");
+    const attendeeList = $("attendeeList");
+    const attendeeHint = $("attendeeHint");
 
-    const lookupEventCheckboxes = Array.from(
+    const eventCheckboxes = Array.from(
         document.querySelectorAll('input[name="lookupEvents"]')
     );
 
-    const noneOfTheAboveCheckbox =
-        document.getElementById("noneOfTheAbove");
+    const noneCheckbox = $("noneOfTheAbove");
 
-    const rsvpForm = document.getElementById("rsvpForm");
-    const rsvpSection = document.getElementById("rsvp");
-    const rsvpGuestId = document.getElementById("rsvpGuestId");
-    const rsvpGuestName = document.getElementById("rsvpGuestNameDisplay");
-    const rsvpGuests = document.getElementById("rsvpGuests1");
-    const rsvpAttendingGuests = document.getElementById("rsvpAttendingGuests");
-    const rsvpSangeet = document.getElementById("rsvpSangeet");
-    const rsvpWedding = document.getElementById("rsvpWedding");
-    const rsvpPhone = document.getElementById("rsvpPhone");
-    const rsvpStatus = document.getElementById("rsvpStatus");
-    const rsvpError = document.getElementById("rsvpError");
-    const adviceInput = document.getElementById("advice");
-
-
-    /* =====================================================
-       VERIFY REQUIRED ELEMENTS
-    ===================================================== */
+    const rsvpForm = $("rsvpForm");
+    const rsvpSection = $("rsvp");
+    const rsvpGuestId = $("rsvpGuestId");
+    const rsvpGuestName = $("rsvpGuestNameDisplay");
+    const rsvpGuests = $("rsvpGuests1");
+    const rsvpAttendingGuests = $("rsvpAttendingGuests");
+    const rsvpSangeet = $("rsvpSangeet");
+    const rsvpWedding = $("rsvpWedding");
+    const rsvpPhone = $("rsvpPhone");
+    const rsvpStatus = $("rsvpStatus");
+    const rsvpError = $("rsvpError");
+    const adviceInput = $("advice");
 
     if (
-        !guestForm ||
-        !rsvpForm ||
-        !attendeeList ||
-        !firstNameInput ||
-        !lastNameInput ||
-        !findInvitationBtn
+        !guestForm || !guestResult || !guestError ||
+        !firstNameInput || !lastNameInput || !findButton ||
+        !guestCount || !attendeeList || !rsvpForm ||
+        !rsvpSection || !rsvpGuestId || !rsvpGuestName ||
+        !rsvpGuests || !rsvpAttendingGuests ||
+        !rsvpSangeet || !rsvpWedding || !rsvpPhone ||
+        !rsvpStatus || !rsvpError || !noneCheckbox
     ) {
         console.error(
-            "RSVP error: One or more required HTML elements are missing."
+            "RSVP initialization failed: a required HTML element is missing."
         );
         return;
     }
 
-
     /* =====================================================
-       CURRENT STATE
+       STATE
+
+       The lookup token comes from Apps Script and must be
+       sent back unchanged when the guest submits the RSVP.
     ===================================================== */
 
     let currentGuest = null;
+    let currentLookupToken = "";
     let lookupInProgress = false;
     let rsvpSubmitting = false;
 
-
     /* =====================================================
-       GENERAL HELPERS
+       HELPERS
     ===================================================== */
 
     function cleanName(value) {
-        return String(value || "")
+        return String(value == null ? "" : value)
             .trim()
             .replace(/\s+/g, " ");
     }
@@ -3447,44 +3426,37 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function isAllowed(value) {
-        return (
-            value === true ||
+        return value === true ||
             ["YES", "TRUE", "1"].includes(
-                String(value || "").trim().toUpperCase()
-            )
-        );
+                String(value == null ? "" : value)
+                    .trim()
+                    .toUpperCase()
+            );
     }
 
-    function showError(message) {
-        if (!guestError) return;
+    function setMessage(element, message, display) {
+        element.textContent = message || "";
+        element.style.display = message ? (display || "block") : "none";
+    }
 
-        guestError.textContent = message || "";
-        guestError.style.display = message ? "block" : "none";
+    function showGuestError(message) {
+        setMessage(guestError, message);
     }
 
     function showGuestSuccess(message) {
-        if (!guestSuccess) return;
-
-        guestSuccess.textContent = message || "";
-        guestSuccess.style.display = message ? "block" : "none";
+        setMessage(guestSuccess, message);
     }
 
     function showRsvpError(message) {
-        if (!rsvpError) return;
-
-        rsvpError.textContent = message || "";
-        rsvpError.style.display = message ? "block" : "none";
+        setMessage(rsvpError, message);
     }
 
     function showRsvpStatus(message) {
-        if (!rsvpStatus) return;
-
-        rsvpStatus.textContent = message || "";
-        rsvpStatus.style.display = message ? "block" : "none";
+        setMessage(rsvpStatus, message);
     }
 
-    function parseJsonResponse(response, responseText, context) {
-        const text = String(responseText || "").trim();
+    async function readJsonResponse(response, context) {
+        const text = (await response.text()).trim();
 
         if (!text) {
             throw new Error(
@@ -3492,8 +3464,10 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
 
+        let data;
+
         try {
-            return JSON.parse(text);
+            data = JSON.parse(text);
         } catch (error) {
             console.error(context + " returned non-JSON:", text);
 
@@ -3502,28 +3476,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 text.toLowerCase().includes("<!doctype")
             ) {
                 throw new Error(
-                    "The RSVP service returned a web page instead of RSVP data. Please contact the host."
+                    "The RSVP service returned a web page instead of RSVP data. Check that the Apps Script web app is deployed correctly."
                 );
             }
 
-            if (response && !response.ok) {
-                throw new Error(
-                    context + " returned HTTP " + response.status + "."
-                );
-            }
-
-            throw new Error(SERVER_ERROR_MESSAGE);
+            throw new Error(
+                response.ok ? SERVER_ERROR_MESSAGE :
+                    context + " failed with HTTP " + response.status + "."
+            );
         }
+
+        if (!response.ok) {
+            throw new Error(
+                data && data.message
+                    ? data.message
+                    : context + " failed with HTTP " + response.status + "."
+            );
+        }
+
+        return data;
     }
-
-
-    /* =====================================================
-       EVENT CHECKBOX HELPERS
-    ===================================================== */
 
     function getEventType(checkbox) {
         if (
-            checkbox === noneOfTheAboveCheckbox ||
+            checkbox === noneCheckbox ||
             checkbox.id === "noneOfTheAbove"
         ) {
             return "none";
@@ -3540,54 +3516,36 @@ document.addEventListener("DOMContentLoaded", function () {
         return "other";
     }
 
-    function isEventChecked(eventType) {
-    return lookupEventCheckboxes.some(function (checkbox) {
-        return (
-            getEventType(checkbox) === eventType &&
-            checkbox.checked &&
-            !checkbox.disabled
-        );
-    });
-}
+    function isEventChecked(type) {
+        return eventCheckboxes.some(function (checkbox) {
+            return getEventType(checkbox) === type &&
+                checkbox.checked &&
+                !checkbox.disabled;
+        });
+    }
 
-function isNoneOfTheAboveChecked() {
-    return !!(
-        noneOfTheAboveCheckbox &&
-        !noneOfTheAboveCheckbox.disabled &&
-        noneOfTheAboveCheckbox.checked
-    );
-}
-    function setEventValue(eventType, value) {
-        if (eventType === "sangeet" && rsvpSangeet) {
-            rsvpSangeet.value = value ? "YES" : "NO";
-        }
-
-        if (eventType === "wedding" && rsvpWedding) {
-            rsvpWedding.value = value ? "YES" : "NO";
-        }
+    function setHiddenEventValues(sangeet, wedding) {
+        rsvpSangeet.value = sangeet ? "YES" : "NO";
+        rsvpWedding.value = wedding ? "YES" : "NO";
     }
 
     function clearEventSelections() {
-        lookupEventCheckboxes.forEach(function (checkbox) {
+        eventCheckboxes.forEach(function (checkbox) {
             checkbox.checked = false;
             checkbox.disabled = true;
         });
 
-        if (rsvpSangeet) rsvpSangeet.value = "NO";
-        if (rsvpWedding) rsvpWedding.value = "NO";
+        rsvpSangeet.value = "NO";
+        rsvpWedding.value = "NO";
     }
 
-
     /* =====================================================
-       CLEAR INVITATION
-
-       keepSearchFields = true preserves the names while
-       searching. After a successful submission, the names,
-       phone and RSVP fields are cleared.
+       RESET FORM
     ===================================================== */
 
     function clearInvitation(keepSearchFields) {
         currentGuest = null;
+        currentLookupToken = "";
 
         window.currentWeddingGuest = null;
         window.currentLookupToken = null;
@@ -3597,75 +3555,87 @@ function isNoneOfTheAboveChecked() {
             lastNameInput.value = "";
         }
 
-        if (guestResult) guestResult.style.display = "none";
-        if (rsvpSection) rsvpSection.style.display = "none";
-        if (rsvpForm) rsvpForm.style.display = "block";
+        guestResult.style.display = "none";
+        rsvpSection.style.display = "none";
+        guestFullName.textContent = "";
+        attendeeList.innerHTML = "";
 
-        const submitButton = rsvpForm
-            ? rsvpForm.querySelector('button[type="submit"]')
-            : null;
+        guestCount.innerHTML =
+            '<option value="0">0 Guests — Not Attending</option>';
+        guestCount.value = "0";
+        guestCount.disabled = true;
+
+        rsvpGuestId.value = "";
+        rsvpGuestName.value = "";
+        rsvpGuests.value = "0";
+        rsvpAttendingGuests.value = "[]";
+        rsvpPhone.value = "";
+
+        if (adviceInput) adviceInput.value = "";
+
+        clearEventSelections();
+
+        const submitButton = rsvpForm.querySelector(
+            'button[type="submit"]'
+        );
 
         if (submitButton) {
             submitButton.disabled = false;
             submitButton.textContent = "Submit RSVP";
         }
 
-        if (guestFullName) guestFullName.textContent = "";
-
-        attendeeList.innerHTML = "";
-
-        if (guestCount) {
-            guestCount.innerHTML =
-                '<option value="0">0 Guests — Not Attending</option>';
-            guestCount.value = "0";
-            guestCount.disabled = true;
-        }
-
-        if (rsvpGuestId) rsvpGuestId.value = "";
-        if (rsvpGuestName) rsvpGuestName.value = "";
-        if (rsvpGuests) rsvpGuests.value = "0";
-        if (rsvpAttendingGuests) rsvpAttendingGuests.value = "[]";
-        if (rsvpSangeet) rsvpSangeet.value = "NO";
-        if (rsvpWedding) rsvpWedding.value = "NO";
-        if (rsvpPhone) rsvpPhone.value = "";
-        if (adviceInput) adviceInput.value = "";
-
-        clearEventSelections();
+        showGuestError("");
+        showGuestSuccess("");
+        showRsvpError("");
+        showRsvpStatus("");
 
         if (attendeeHint) {
             attendeeHint.textContent =
                 "Choose 0 if you cannot attend. If attending, the Primary Guest is included automatically.";
         }
-
-        showError("");
-        showGuestSuccess("");
-        showRsvpError("");
-        showRsvpStatus("");
     }
 
-
     /* =====================================================
-       GET SELECTED GUESTS
+       ATTENDEE SELECTION
+
+       Preserve the server's index:
+       0 = Primary Guest
+       1 = Guest 1
+       2 = Guest 2
+       3 = Guest 3
+
+       Never renumber a guest just because the UI order
+       changes. The backend validates these indexes.
     ===================================================== */
 
-    function getSelectedGuestObjects() {
+    function getAttendeeCheckboxes() {
         return Array.from(
             attendeeList.querySelectorAll(
-                'input[name="attendingGuest"]:checked'
+                'input[name="attendingGuest"]'
             )
-        ).map(function (checkbox) {
-            return {
-                index: Number(checkbox.dataset.index),
-                name: cleanName(checkbox.value)
-            };
-        }).filter(function (guest) {
-            return Number.isInteger(guest.index) && !!guest.name;
-        });
+        );
+    }
+
+    function getSelectedGuestObjects() {
+        return getAttendeeCheckboxes()
+            .filter(checkbox => checkbox.checked)
+            .map(function (checkbox) {
+                return {
+                    index: Number(checkbox.dataset.index),
+                    name: cleanName(checkbox.value)
+                };
+            })
+            .filter(function (guest) {
+                return Number.isInteger(guest.index) &&
+                    guest.index >= 0 &&
+                    guest.index < MAX_TOTAL_GUESTS &&
+                    !!guest.name;
+            });
     }
 
     function getPrimaryCheckbox() {
         return attendeeList.querySelector(
-            'input[name="attendingGuest"][data-primary="true"]'
+            'input[name="attendingGuest"][data-index="0"]'
         );
     }
 
@@ -3681,26 +3651,18 @@ function isNoneOfTheAboveChecked() {
     function syncAttendeeSelection() {
         const selected = getSelectedGuestObjects();
 
-        if (rsvpGuests) {
-            rsvpGuests.value = String(selected.length);
-        }
+        rsvpGuests.value = String(selected.length);
 
-        if (rsvpAttendingGuests) {
-            rsvpAttendingGuests.value = JSON.stringify(
-                selected.map(function (guest) {
-                    return guest.name;
-                })
-            );
-        }
+        rsvpAttendingGuests.value = JSON.stringify(
+            selected.map(guest => guest.name)
+        );
 
-        if (guestCount) {
-            guestCount.value = String(selected.length);
-        }
+        guestCount.value = String(selected.length);
 
         if (attendeeHint) {
             if (selected.length === 0) {
                 attendeeHint.textContent =
-                    "0 people selected — choose 'None of the above' if you cannot attend.";
+                    "0 people selected. Choose 'None of the above' if you cannot attend.";
             } else if (selected.length === 1) {
                 attendeeHint.textContent =
                     "1 person selected — the Primary Guest.";
@@ -3710,16 +3672,13 @@ function isNoneOfTheAboveChecked() {
                     " people selected, including the Primary Guest.";
             }
         }
+
+        if (selected.length > 0 && noneCheckbox.checked) {
+            noneCheckbox.checked = false;
+        }
     }
 
-
-    /* =====================================================
-       BUILD GUEST COUNT
-    ===================================================== */
-
     function buildGuestCount(maxGuests) {
-        if (!guestCount) return;
-
         const limit = Math.min(
             Math.max(Number(maxGuests) || 0, 0),
             MAX_TOTAL_GUESTS
@@ -3727,17 +3686,17 @@ function isNoneOfTheAboveChecked() {
 
         guestCount.innerHTML = "";
 
-        const zeroOption = document.createElement("option");
-        zeroOption.value = "0";
-        zeroOption.textContent = "0 Guests — Not Attending";
-        guestCount.appendChild(zeroOption);
-
-        for (let i = 1; i <= limit; i++) {
+        for (let i = 0; i <= limit; i++) {
             const option = document.createElement("option");
             option.value = String(i);
-            option.textContent = i === 1
-                ? "1 Guest — Primary Guest"
-                : i + " Guests — Total";
+
+            if (i === 0) {
+                option.textContent = "0 Guests — Not Attending";
+            } else if (i === 1) {
+                option.textContent = "1 Guest — Primary Guest";
+            } else {
+                option.textContent = i + " Guests — Total";
+            }
 
             guestCount.appendChild(option);
         }
@@ -3746,22 +3705,14 @@ function isNoneOfTheAboveChecked() {
         guestCount.value = "0";
     }
 
-
-    /* =====================================================
-       BUILD ATTENDEE LIST
-    ===================================================== */
-
     function buildAttendeeList() {
         attendeeList.innerHTML = "";
 
-        if (
-            !currentGuest ||
-            !Array.isArray(currentGuest.familyMembers)
-        ) {
+        if (!currentGuest || !Array.isArray(currentGuest.familyMembers)) {
             return;
         }
 
-        currentGuest.familyMembers.forEach(function (member, index) {
+        currentGuest.familyMembers.forEach(function (member) {
             const label = document.createElement("label");
             label.className = "attendee-option";
 
@@ -3771,12 +3722,8 @@ function isNoneOfTheAboveChecked() {
             checkbox.value = member.name;
             checkbox.dataset.index = String(member.index);
 
-            if (index === 0) {
-                checkbox.dataset.primary = "true";
-            }
-
             const span = document.createElement("span");
-            span.textContent = index === 0
+            span.textContent = member.index === 0
                 ? member.name + " (Primary Guest)"
                 : member.name;
 
@@ -3787,12 +3734,13 @@ function isNoneOfTheAboveChecked() {
             checkbox.addEventListener("change", function () {
                 showRsvpError("");
 
+                if (checkbox.checked && noneCheckbox.checked) {
+                    noneCheckbox.checked = false;
+                }
+
                 enforcePrimaryGuest();
 
-                if (
-                    getSelectedGuestObjects().length >
-                    MAX_TOTAL_GUESTS
-                ) {
+                if (getSelectedGuestObjects().length > MAX_TOTAL_GUESTS) {
                     checkbox.checked = false;
 
                     showRsvpError(
@@ -3807,93 +3755,158 @@ function isNoneOfTheAboveChecked() {
         });
     }
 
-
-    /* =====================================================
-       SELECT A NUMBER OF GUESTS
-    ===================================================== */
-
-    function applyGuestCount(count) {
+    function applyGuestCount(value) {
         if (!currentGuest) return;
 
-        let requiredCount = parseInt(count, 10);
+        let count = Number.parseInt(value, 10);
 
-        if (!Number.isFinite(requiredCount) || requiredCount < 0) {
-            requiredCount = 0;
-        }
+        if (!Number.isFinite(count) || count < 0) count = 0;
 
-        requiredCount = Math.min(
-            requiredCount,
-            MAX_TOTAL_GUESTS,
-            currentGuest.familyMembers.length
+        count = Math.min(
+            count,
+            currentGuest.maxGuests,
+            MAX_TOTAL_GUESTS
         );
 
-        const checkboxes = Array.from(
-            attendeeList.querySelectorAll(
-                'input[name="attendingGuest"]'
-            )
-        );
+        const checkboxes = getAttendeeCheckboxes();
 
-        checkboxes.forEach(function (checkbox, index) {
-            checkbox.checked = index < requiredCount;
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = false;
         });
+
+        if (count > 0) {
+            const primary = getPrimaryCheckbox();
+
+            if (!primary) {
+                showRsvpError(
+                    "The Primary Guest is missing from this invitation. Please contact the host."
+                );
+                syncAttendeeSelection();
+                return;
+            }
+
+            primary.checked = true;
+
+            let selectedCount = 1;
+
+            checkboxes.forEach(function (checkbox) {
+                if (
+                    checkbox !== primary &&
+                    selectedCount < count
+                ) {
+                    checkbox.checked = true;
+                    selectedCount++;
+                }
+            });
+        }
 
         enforcePrimaryGuest();
         syncAttendeeSelection();
     }
 
+    /* =====================================================
+       NORMALIZE SERVER GUEST DATA
+
+       Keep original server indexes. If the primary guest
+       cannot be found at index 0, stop instead of silently
+       sending incorrect indexes to Apps Script.
+    ===================================================== */
+
+    function normalizeFamilyMembers(guest, primaryName) {
+        if (!Array.isArray(guest.familyMembers)) {
+            throw new Error(
+                "Your invitation was found, but the invited family members could not be loaded. Please contact the host."
+            );
+        }
+
+        const members = guest.familyMembers
+            .map(function (member, arrayIndex) {
+                if (typeof member === "string") {
+                    return {
+                        index: arrayIndex,
+                        name: cleanName(member)
+                    };
+                }
+
+                const rawIndex = member && member.index != null
+                    ? Number(member.index)
+                    : arrayIndex;
+
+                return {
+                    index: rawIndex,
+                    name: cleanName(member && member.name)
+                };
+            })
+            .filter(function (member) {
+                return Number.isInteger(member.index) &&
+                    member.index >= 0 &&
+                    member.index < MAX_TOTAL_GUESTS &&
+                    !!member.name;
+            })
+            .sort((a, b) => a.index - b.index);
+
+        const uniqueIndexes = new Set();
+
+        for (const member of members) {
+            if (uniqueIndexes.has(member.index)) {
+                throw new Error(
+                    "The invitation contains duplicate guest indexes. Please contact the host."
+                );
+            }
+            uniqueIndexes.add(member.index);
+        }
+
+        const primary = members.find(member => member.index === 0);
+
+        if (!primary || normalize(primary.name) !== normalize(primaryName)) {
+            throw new Error(
+                "The Primary Guest index returned by the invitation service is inconsistent. Please check the Apps Script guest list and try again."
+            );
+        }
+
+        return members;
+    }
 
     /* =====================================================
-       APPLY EVENT PERMISSIONS
-
-       IMPORTANT:
-       "None of the above" remains ENABLED after lookup.
-       Only unavailable events are disabled.
+       EVENT PERMISSIONS
     ===================================================== */
 
     function applyEventPermissions() {
-        lookupEventCheckboxes.forEach(function (checkbox) {
-            const eventType = getEventType(checkbox);
+        eventCheckboxes.forEach(function (checkbox) {
+            const type = getEventType(checkbox);
 
-            if (eventType === "none") {
+            if (type === "none") {
                 checkbox.disabled = false;
                 checkbox.checked = false;
                 return;
             }
 
-            if (eventType === "sangeet") {
-                const allowed = currentGuest.sangeet;
-
-                checkbox.disabled = !allowed;
-                checkbox.checked = allowed;
-
-                setEventValue("sangeet", allowed);
-            }
-
-            if (eventType === "wedding") {
-                const allowed = currentGuest.wedding;
-
-                checkbox.disabled = !allowed;
-                checkbox.checked = allowed;
-
-                setEventValue("wedding", allowed);
+            if (type === "sangeet") {
+                checkbox.disabled = !currentGuest.sangeet;
+                checkbox.checked = currentGuest.sangeet;
+            } else if (type === "wedding") {
+                checkbox.disabled = !currentGuest.wedding;
+                checkbox.checked = currentGuest.wedding;
+            } else {
+                checkbox.disabled = true;
+                checkbox.checked = false;
             }
         });
 
-        // Do not preselect "None of the above" just because
-        // an event is unavailable. It is an explicit choice.
-        if (noneOfTheAboveCheckbox) {
-            noneOfTheAboveCheckbox.disabled = false;
-            noneOfTheAboveCheckbox.checked = false;
-        }
-    }
+        noneCheckbox.disabled = false;
+        noneCheckbox.checked = false;
 
+        setHiddenEventValues(
+            isEventChecked("sangeet"),
+            isEventChecked("wedding")
+        );
+    }
 
     /* =====================================================
        INITIAL RESET
     ===================================================== */
 
     clearInvitation(true);
-
 
     /* =====================================================
        FIND INVITATION
@@ -3905,34 +3918,28 @@ function isNoneOfTheAboveChecked() {
         const firstName = cleanName(firstNameInput.value);
         const lastName = cleanName(lastNameInput.value);
 
-        showError("");
+        showGuestError("");
+        showGuestSuccess("");
         showRsvpError("");
         showRsvpStatus("");
 
         if (!firstName || !lastName) {
-            showError(
+            showGuestError(
                 "Please enter both the First Name and Last Name of the Primary Guest."
             );
 
-            if (!firstName) {
-                firstNameInput.focus();
-            } else {
-                lastNameInput.focus();
-            }
-
+            (!firstName ? firstNameInput : lastNameInput).focus();
             return;
         }
 
         lookupInProgress = true;
-
-        findInvitationBtn.disabled = true;
-        findInvitationBtn.textContent = "Finding Invitation…";
+        findButton.disabled = true;
+        findButton.textContent = "Finding Invitation…";
 
         try {
             clearInvitation(true);
 
-            const url =
-                RSVP_API_URL +
+            const url = RSVP_API_URL +
                 "?action=lookup" +
                 "&firstName=" + encodeURIComponent(firstName) +
                 "&lastName=" + encodeURIComponent(lastName) +
@@ -3944,22 +3951,12 @@ function isNoneOfTheAboveChecked() {
                 redirect: "follow"
             });
 
-            const responseText = await response.text();
-
-            console.log("Lookup response:", responseText);
-
-            const data = parseJsonResponse(
+            const data = await readJsonResponse(
                 response,
-                responseText,
                 "Invitation lookup"
             );
 
-            if (
-                !response.ok ||
-                !data ||
-                data.success !== true ||
-                !data.guest
-            ) {
+            if (data.success !== true || !data.guest) {
                 throw new Error(
                     data && data.message
                         ? data.message
@@ -3968,27 +3965,21 @@ function isNoneOfTheAboveChecked() {
             }
 
             const guest = data.guest;
-
-            const returnedFirstName = cleanName(guest.firstName);
-            const returnedLastName = cleanName(guest.lastName);
+            const returnedFirst = cleanName(guest.firstName);
+            const returnedLast = cleanName(guest.lastName);
 
             if (
-                normalize(returnedFirstName) !== normalize(firstName) ||
-                normalize(returnedLastName) !== normalize(lastName)
+                normalize(returnedFirst) !== normalize(firstName) ||
+                normalize(returnedLast) !== normalize(lastName)
             ) {
                 throw new Error(NOT_FOUND_MESSAGE);
             }
 
-            const lookupToken = cleanName(
-                data.lookupToken ||
-                guest.lookupToken ||
-                data.sessionToken ||
-                data.token
-            );
+            const token = cleanName(data.lookupToken);
 
-            if (!lookupToken) {
+            if (!token) {
                 throw new Error(
-                    "Your invitation was found, but the secure invitation session is missing. Please check the Apps Script deployment."
+                    "Your invitation was found, but the secure invitation session is missing. Check the deployed Apps Script version and its lookup response."
                 );
             }
 
@@ -4000,76 +3991,11 @@ function isNoneOfTheAboveChecked() {
                 );
             }
 
-            let familyMembers = Array.isArray(guest.familyMembers)
-                ? guest.familyMembers.map(function (member, index) {
-                    if (member && typeof member === "object") {
-                        const memberIndex = Number(member.index);
-
-                        return {
-                            index: Number.isInteger(memberIndex)
-                                ? memberIndex
-                                : index,
-                            name: cleanName(member.name),
-                            primary: member.primary === true
-                        };
-                    }
-
-                    return {
-                        index: index,
-                        name: cleanName(member),
-                        primary: index === 0
-                    };
-                }).filter(function (member) {
-                    return !!member.name;
-                })
-                : [];
-
-            familyMembers = familyMembers.slice(0, MAX_TOTAL_GUESTS);
-
-            const primaryGuest = cleanName(
-                returnedFirstName + " " + returnedLastName
+            const primaryName = returnedFirst + " " + returnedLast;
+            const familyMembers = normalizeFamilyMembers(
+                guest,
+                primaryName
             );
-
-            let primaryPosition = familyMembers.findIndex(function (member) {
-                return normalize(member.name) === normalize(primaryGuest);
-            });
-
-            if (primaryPosition === -1) {
-                primaryPosition = familyMembers.findIndex(function (member) {
-                    return Number(member.index) === 0;
-                });
-            }
-
-            if (primaryPosition > 0) {
-                const primary = familyMembers.splice(primaryPosition, 1)[0];
-                familyMembers.unshift(primary);
-            }
-
-            if (primaryPosition === -1) {
-                familyMembers.unshift({
-                    index: 0,
-                    name: primaryGuest,
-                    primary: true
-                });
-            }
-
-            familyMembers = familyMembers.slice(0, MAX_TOTAL_GUESTS);
-
-            familyMembers = familyMembers.map(function (member, index) {
-                return {
-                    index: Number.isInteger(Number(member.index))
-                        ? Number(member.index)
-                        : index,
-                    name: cleanName(member.name),
-                    primary: index === 0
-                };
-            });
-
-            if (familyMembers.length === 0) {
-                throw new Error(
-                    "Your invitation was found, but no invited family members could be loaded."
-                );
-            }
 
             let maxGuests = Number(guest.maxGuests);
 
@@ -4083,12 +4009,14 @@ function isNoneOfTheAboveChecked() {
                 MAX_TOTAL_GUESTS
             );
 
+            currentLookupToken = token;
+
             currentGuest = {
-                lookupToken: lookupToken,
                 guestId: guestId,
-                firstName: returnedFirstName,
-                lastName: returnedLastName,
-                primaryGuest: primaryGuest,
+                lookupToken: token,
+                firstName: returnedFirst,
+                lastName: returnedLast,
+                primaryGuest: primaryName,
                 familyMembers: familyMembers,
                 maxGuests: maxGuests,
                 sangeet: isAllowed(guest.sangeet),
@@ -4096,52 +4024,51 @@ function isNoneOfTheAboveChecked() {
             };
 
             window.currentWeddingGuest = currentGuest;
-            window.currentLookupToken = lookupToken;
+            window.currentLookupToken = token;
 
-            if (guestFullName) {
-                guestFullName.textContent = currentGuest.primaryGuest;
-            }
+            guestFullName.textContent = primaryName;
+            rsvpGuestId.value = guestId;
+            rsvpGuestName.value = primaryName;
 
-            if (rsvpGuestId) {
-                rsvpGuestId.value = currentGuest.guestId;
-            }
-
-            if (rsvpGuestName) {
-                rsvpGuestName.value = currentGuest.primaryGuest;
-            }
-
-            buildGuestCount(currentGuest.maxGuests);
+            buildGuestCount(maxGuests);
             buildAttendeeList();
             applyGuestCount(0);
             applyEventPermissions();
 
-            if (guestResult) guestResult.style.display = "block";
-            if (rsvpSection) rsvpSection.style.display = "block";
+            guestResult.style.display = "block";
+            rsvpSection.style.display = "block";
 
-            showError("");
+            showGuestError("");
             showRsvpError("");
             showRsvpStatus("");
 
-            if (typeof window.onInvitationFound === "function") {
-                window.onInvitationFound(currentGuest, lookupToken);
-            }
-
-            if (guestResult && guestResult.scrollIntoView) {
+            if (guestResult.scrollIntoView) {
                 guestResult.scrollIntoView({
                     behavior: "smooth",
                     block: "center"
                 });
             }
 
+            console.log("Invitation lookup successful.", {
+                guestId: guestId,
+                familyIndexes: familyMembers.map(member => member.index),
+                sangeet: currentGuest.sangeet,
+                wedding: currentGuest.wedding,
+                tokenReceived: true
+            });
+
         } catch (error) {
             console.error("Find invitation error:", error);
 
             currentGuest = null;
+            currentLookupToken = "";
+            window.currentWeddingGuest = null;
+            window.currentLookupToken = null;
 
-            if (guestResult) guestResult.style.display = "none";
-            if (rsvpSection) rsvpSection.style.display = "none";
+            guestResult.style.display = "none";
+            rsvpSection.style.display = "none";
 
-            showError(
+            showGuestError(
                 error && error.message
                     ? error.message
                     : SERVER_ERROR_MESSAGE
@@ -4149,74 +4076,44 @@ function isNoneOfTheAboveChecked() {
 
         } finally {
             lookupInProgress = false;
-            findInvitationBtn.disabled = false;
-            findInvitationBtn.textContent = "Find Invitation";
+            findButton.disabled = false;
+            findButton.textContent = "Find Invitation";
         }
     }
-
-
-    /* =====================================================
-       LOOKUP FORM EVENTS
-    ===================================================== */
 
     guestForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        event.stopPropagation();
         performGuestLookup();
     });
 
-    findInvitationBtn.addEventListener("click", function (event) {
-        const type = String(
-            findInvitationBtn.getAttribute("type") || ""
-        ).toLowerCase();
-
-        if (type !== "submit") {
-            event.preventDefault();
-            event.stopPropagation();
-            performGuestLookup();
-        }
-    });
-
-    [firstNameInput, lastNameInput].forEach(function (input) {
-        input.addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                performGuestLookup();
-            }
-        });
-    });
-
-
     /* =====================================================
-       GUEST COUNT CHANGE
+       GUEST COUNT CONTROL
     ===================================================== */
 
-    if (guestCount) {
-        guestCount.addEventListener("change", function () {
-            if (!currentGuest) return;
-            applyGuestCount(guestCount.value);
-        });
-    }
-
+    guestCount.addEventListener("change", function () {
+        if (!currentGuest) return;
+        applyGuestCount(guestCount.value);
+    });
 
     /* =====================================================
-       EVENT CHECKBOXES
+       EVENT SELECTION
 
-       "None of the above" is mutually exclusive with
-       Sangeet and Wedding.
+       None of the above is an explicit decline choice.
+       Do not automatically select it merely because the
+       user temporarily unchecks an event.
     ===================================================== */
 
-    lookupEventCheckboxes.forEach(function (checkbox) {
+    eventCheckboxes.forEach(function (checkbox) {
         checkbox.addEventListener("change", function () {
             if (!currentGuest) return;
 
             showRsvpError("");
 
-            const eventType = getEventType(checkbox);
+            const type = getEventType(checkbox);
 
-            if (eventType === "none") {
-                if (checkbox.checked) {
-                    lookupEventCheckboxes.forEach(function (other) {
+            if (type === "none") {
+                if (noneCheckbox.checked) {
+                    eventCheckboxes.forEach(function (other) {
                         const otherType = getEventType(other);
 
                         if (
@@ -4227,324 +4124,254 @@ function isNoneOfTheAboveChecked() {
                         }
                     });
 
-                    setEventValue("sangeet", false);
-                    setEventValue("wedding", false);
-
+                    setHiddenEventValues(false, false);
                     applyGuestCount(0);
                 }
-
                 return;
             }
 
-            if (
-                eventType === "sangeet" ||
-                eventType === "wedding"
-            ) {
-                if (checkbox.checked && noneOfTheAboveCheckbox) {
-                    noneOfTheAboveCheckbox.checked = false;
+            if (type === "sangeet" || type === "wedding") {
+                if (checkbox.checked) {
+                    noneCheckbox.checked = false;
                 }
 
-                setEventValue(eventType, checkbox.checked);
-
-                const anyEventChecked =
-                    isEventChecked("sangeet") ||
-                    isEventChecked("wedding");
-
-                if (!anyEventChecked && noneOfTheAboveCheckbox) {
-                    // Make the decline option explicit when both
-                    // available event checkboxes have been cleared.
-                    noneOfTheAboveCheckbox.checked = true;
-                    setEventValue("sangeet", false);
-                    setEventValue("wedding", false);
-                    applyGuestCount(0);
-                }
+                setHiddenEventValues(
+                    isEventChecked("sangeet"),
+                    isEventChecked("wedding")
+                );
             }
         });
     });
-
 
     /* =====================================================
        PHONE NUMBER CLEANING
     ===================================================== */
 
-    if (rsvpPhone) {
-        rsvpPhone.addEventListener("input", function () {
-            rsvpPhone.value = rsvpPhone.value.replace(/\D/g, "");
-        });
-    }
+    rsvpPhone.addEventListener("input", function () {
+        rsvpPhone.value = rsvpPhone.value.replace(/\D/g, "");
+    });
 
-
-  
-/* =====================================================
-   RESET TO THE BLANK INVITATION LOOKUP AFTER SUCCESS
-===================================================== */
-
-function clearAfterSuccessfulSubmit(successMessage) {
-    clearInvitation(false);
-    showRsvpError("");
-    showRsvpStatus("");
-    showGuestSuccess(successMessage);
-
-    if (rsvpForm) rsvpForm.style.display = "block";
-}
-
-
-/* =====================================================
-   SUBMIT RSVP
-===================================================== */
-
-rsvpForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (rsvpSubmitting) return;
-
-    rsvpSubmitting = true;
-
-    showRsvpError("");
-    showRsvpStatus("");
-
-    const submitButton = rsvpForm.querySelector(
-        'button[type="submit"]'
-    );
-
-    try {
-        if (!currentGuest || !currentGuest.guestId) {
-            throw new Error(
-                "Please find your invitation first."
-            );
-        }
-
-        if (!currentGuest.lookupToken) {
-            throw new Error(
-                "Your invitation session is missing. Please find your invitation again."
-            );
-        }
-
-        const selectedGuestObjects =
-            getSelectedGuestObjects();
-
-        const selectedGuests =
-            selectedGuestObjects.map(function (guest) {
-                return guest.name;
-            });
-
-        const selectedGuestIndexes =
-            selectedGuestObjects.map(function (guest) {
-                return Number(guest.index);
-            });
-
-        const totalGuests = selectedGuestObjects.length;
-
-        if (totalGuests > currentGuest.maxGuests) {
-            throw new Error(
-                "You can select a maximum of " +
-                currentGuest.maxGuests +
-                " people for this invitation."
-            );
-        }
-
-        if (totalGuests > MAX_TOTAL_GUESTS) {
-            throw new Error(
-                "You can select a maximum of 4 people."
-            );
-        }
-
-        if (
-            totalGuests > 0 &&
-            !selectedGuestIndexes.includes(0)
-        ) {
-            throw new Error(
-                "The Primary Guest must be included when attending."
-            );
-        }
-
-        const attendingSangeet =
-            isEventChecked("sangeet");
-
-        const attendingWedding =
-            isEventChecked("wedding");
-
-        const noneOfTheAbove = isNoneOfTheAboveChecked();
-
-        /*
-         * Guests must select an event or explicitly choose
-         * "None of the above".
-         */
-        if (
-            !attendingSangeet &&
-            !attendingWedding &&
-            !noneOfTheAbove
-        ) {
-            throw new Error(
-                "Please select an event or choose 'None of the above'."
-            );
-        }
-
-        if (
-            noneOfTheAbove &&
-            (attendingSangeet || attendingWedding)
-        ) {
-            throw new Error(
-                "Please select either an event or 'None of the above', not both."
-            );
-        }
-
-        if (noneOfTheAbove && totalGuests > 0) {
-            throw new Error(
-                "For 'None of the above', please select 0 guests attending."
-            );
-        }
-
-        if (
-            attendingSangeet &&
-            !currentGuest.sangeet
-        ) {
-            throw new Error(
-                "Sangeet is not included in this invitation."
-            );
-        }
-
-        if (
-            attendingWedding &&
-            !currentGuest.wedding
-        ) {
-            throw new Error(
-                "Wedding is not included in this invitation."
-            );
-        }
-
-        const phone = String(
-            rsvpPhone ? rsvpPhone.value : ""
-        ).replace(/\D/g, "");
-
-        if (
-            (totalGuests > 0 && !/^\d{10,14}$/.test(phone)) ||
-            (phone && !/^\d{10,14}$/.test(phone))
-        ) {
-            if (rsvpPhone) rsvpPhone.focus();
-
-            throw new Error(
-                totalGuests > 0
-                    ? "Please enter a valid phone number (10–14 digits)."
-                    : "If you provide a phone number, it must contain 10–14 digits."
-            );
-        }
-
-        const advice = adviceInput
-            ? String(adviceInput.value || "").trim()
-            : "";
-
-        const payload = {
-            lookupToken: currentGuest.lookupToken,
-            guestId: currentGuest.guestId,
-            primaryGuest: currentGuest.primaryGuest,
-            phone: phone,
-            totalGuests: totalGuests,
-            numberOfGuests: totalGuests,
-            attendingGuests: selectedGuests,
-            attendingGuestIndexes: selectedGuestIndexes,
-            sangeet: attendingSangeet,
-            wedding: attendingWedding,
-            noneOfTheAbove: noneOfTheAbove,
-            advice: advice
-        };
-
-        console.log(
-            "RSVP payload:",
-            JSON.stringify(payload, null, 2)
-        );
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = "Sending RSVP…";
-        }
-
-        const response = await fetch(RSVP_API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "text/plain;charset=utf-8"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        const responseText = await response.text();
-
-        console.log(
-            "RSVP server response:",
-            responseText
-        );
-
-        const result = parseJsonResponse(
-            response,
-            responseText,
-            "RSVP submission"
-        );
-
-        if (
-            !response.ok ||
-            !result ||
-            result.success !== true
-        ) {
-            throw new Error(
-                result && result.message
-                    ? result.message
-                    : "Unable to submit your RSVP."
-            );
-        }
-
-        const successMessage = result.message ||
-            "Thank you! Your RSVP has been received.";
-
-        // Clear the invitation and return to the blank lookup form.
-        clearAfterSuccessfulSubmit(successMessage);
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = "RSVP Submitted ✓";
-        }
-
-        if (
-            guestSuccess &&
-            guestSuccess.scrollIntoView
-        ) {
-            guestSuccess.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        }
-
-    } catch (error) {
-        console.error(
-            "RSVP submission error:",
-            error
-        );
-
-        showRsvpStatus("");
-
-        showRsvpError(
-            error && error.message
-                ? error.message
-                : "Unable to submit your RSVP. Please try again."
-        );
-
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = "Submit RSVP";
-        }
-
-    } finally {
-        rsvpSubmitting = false;
-    }
-});
     /* =====================================================
-       INITIALIZE
+       RSVP SUBMISSION
     ===================================================== */
 
-    console.log("Wedding RSVP system initialized successfully.");
+    rsvpForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
+        if (rsvpSubmitting) return;
+
+        showRsvpError("");
+        showRsvpStatus("");
+
+        const submitButton = rsvpForm.querySelector(
+            'button[type="submit"]'
+        );
+
+        rsvpSubmitting = true;
+
+        try {
+            if (!currentGuest || !currentGuest.guestId) {
+                throw new Error("Please find your invitation first.");
+            }
+
+            if (!currentLookupToken || !currentGuest.lookupToken) {
+                throw new Error(
+                    "Your secure invitation session is missing. Please find your invitation again."
+                );
+            }
+
+            if (currentLookupToken !== currentGuest.lookupToken) {
+                throw new Error(
+                    "Your secure invitation session does not match. Please find your invitation again."
+                );
+            }
+
+            const selected = getSelectedGuestObjects();
+            const indexes = selected.map(guest => guest.index);
+            const totalGuests = selected.length;
+
+            if (totalGuests > currentGuest.maxGuests) {
+                throw new Error(
+                    "You can select a maximum of " +
+                    currentGuest.maxGuests +
+                    " people for this invitation."
+                );
+            }
+
+            if (totalGuests > MAX_TOTAL_GUESTS) {
+                throw new Error("You can select a maximum of 4 people.");
+            }
+
+            if (totalGuests > 0 && !indexes.includes(0)) {
+                throw new Error(
+                    "The Primary Guest must be included when attending."
+                );
+            }
+
+            const attendingSangeet = isEventChecked("sangeet");
+            const attendingWedding = isEventChecked("wedding");
+            const noneOfTheAbove = noneCheckbox.checked;
+
+            if (
+                noneOfTheAbove &&
+                (attendingSangeet || attendingWedding)
+            ) {
+                throw new Error(
+                    "Please select either an event or 'None of the above', not both."
+                );
+            }
+
+            if (noneOfTheAbove && totalGuests !== 0) {
+                throw new Error(
+                    "For 'None of the above', please select 0 guests attending."
+                );
+            }
+
+            if (
+                !noneOfTheAbove &&
+                !attendingSangeet &&
+                !attendingWedding
+            ) {
+                throw new Error(
+                    "Please select an event or choose 'None of the above'."
+                );
+            }
+
+            if (!noneOfTheAbove && totalGuests === 0) {
+                throw new Error(
+                    "Please select at least one attendee, or choose 'None of the above' if you cannot attend."
+                );
+            }
+
+            if (attendingSangeet && !currentGuest.sangeet) {
+                throw new Error(
+                    "Sangeet is not included in this invitation."
+                );
+            }
+
+            if (attendingWedding && !currentGuest.wedding) {
+                throw new Error(
+                    "Wedding is not included in this invitation."
+                );
+            }
+
+            const phone = rsvpPhone.value.replace(/\D/g, "");
+
+            if (!noneOfTheAbove && !/^\d{10,14}$/.test(phone)) {
+                rsvpPhone.focus();
+                throw new Error(
+                    "Please enter a valid phone number containing 10–14 digits."
+                );
+            }
+
+            if (noneOfTheAbove && phone && !/^\d{10,14}$/.test(phone)) {
+                rsvpPhone.focus();
+                throw new Error(
+                    "If you provide a phone number, it must contain 10–14 digits."
+                );
+            }
+
+            const advice = adviceInput
+                ? String(adviceInput.value || "").trim()
+                : "";
+
+            /*
+             * Send server indexes, not display positions.
+             * Apps Script should derive attendee names from
+             * the invitation row rather than trusting names
+             * supplied by the browser.
+             */
+            const payload = {
+                lookupToken: currentLookupToken,
+                guestId: currentGuest.guestId,
+                primaryGuest: currentGuest.primaryGuest,
+                attendingGuestIndexes: indexes,
+                totalGuests: totalGuests,
+                sangeet: attendingSangeet,
+                wedding: attendingWedding,
+                noneOfTheAbove: noneOfTheAbove,
+                phone: phone,
+                advice: advice
+            };
+
+            console.log("Submitting RSVP:", {
+                guestId: payload.guestId,
+                attendingGuestIndexes: payload.attendingGuestIndexes,
+                totalGuests: payload.totalGuests,
+                sangeet: payload.sangeet,
+                wedding: payload.wedding,
+                noneOfTheAbove: payload.noneOfTheAbove,
+                tokenPresent: !!payload.lookupToken
+            });
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = "Sending RSVP…";
+            }
+
+            const response = await fetch(RSVP_API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await readJsonResponse(
+                response,
+                "RSVP submission"
+            );
+
+            if (result.success !== true) {
+                throw new Error(
+                    result && result.message
+                        ? result.message
+                        : "Unable to submit your RSVP. Please try again."
+                );
+            }
+
+            const successMessage = result.message ||
+                "Thank you! Your RSVP has been received.";
+
+            /*
+             * Clear the old token and guest data after success.
+             * Keep the success message visible and restore the
+             * submit button to its normal state.
+             */
+            clearInvitation(false);
+            showGuestSuccess(successMessage);
+
+            if (guestSuccess && guestSuccess.scrollIntoView) {
+                guestSuccess.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+
+        } catch (error) {
+            console.error("RSVP submission error:", error);
+
+            showRsvpStatus("");
+            showRsvpError(
+                error && error.message
+                    ? error.message
+                    : "Unable to submit your RSVP. Please try again."
+            );
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit RSVP";
+            }
+
+        } finally {
+            rsvpSubmitting = false;
+        }
+    });
+
+    console.log("Wedding RSVP system initialized.");
 });
 </script>
+
 
 
 
