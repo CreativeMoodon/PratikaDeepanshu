@@ -3519,15 +3519,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function isEventChecked(eventType) {
-        return lookupEventCheckboxes.some(function (checkbox) {
-            return (
-                getEventType(checkbox) === eventType &&
-                checkbox.checked &&
-                !checkbox.disabled
-            );
-        });
-    }
+    return lookupEventCheckboxes.some(function (checkbox) {
+        return (
+            getEventType(checkbox) === eventType &&
+            checkbox.checked &&
+            !checkbox.disabled
+        );
+    });
+}
 
+function isNoneOfTheAboveChecked() {
+    return !!(
+        noneOfTheAboveCheckbox &&
+        !noneOfTheAboveCheckbox.disabled &&
+        noneOfTheAboveCheckbox.checked
+    );
+}
     function setEventValue(eventType, value) {
         if (eventType === "sangeet" && rsvpSangeet) {
             rsvpSangeet.value = value ? "YES" : "NO";
