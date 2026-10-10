@@ -810,6 +810,14 @@ nav.nav-hidden {
     line-height:1.6;
 }
 
+.guest-success {
+    display:none;
+    margin-top:18px;
+    color:#567866;
+    font-size:14px;
+    line-height:1.6;
+}
+
 .guest-result {
     display:none;
     margin-top:35px;
@@ -2163,6 +2171,13 @@ footer p {
             aria-live="polite"
         ></div>
 
+        <div
+            class="guest-success"
+            id="guestSuccess"
+            role="status"
+            aria-live="polite"
+        ></div>
+
 
         <div
             class="guest-result"
@@ -2403,7 +2418,7 @@ footer p {
             <div class="rsvp-field">
 
                 <label for="rsvpPhone">
-                    Phone Number
+                    Phone Number (required if attending)
                 </label>
 
                 <input
@@ -2414,7 +2429,6 @@ footer p {
                     name="phone"
                     pattern="[0-9]{10,14}"
                     placeholder="Enter your phone number"
-                    required
                     type="tel"
                 >
 
@@ -3358,6 +3372,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const guestForm = document.getElementById("guestLookupForm");
     const guestResult = document.getElementById("guestResult");
     const guestError = document.getElementById("guestError");
+    const guestSuccess = document.getElementById("guestSuccess");
     const guestFullName = document.getElementById("guestFullName");
 
     const firstNameInput = document.getElementById("firstName");
@@ -3445,6 +3460,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         guestError.textContent = message || "";
         guestError.style.display = message ? "block" : "none";
+    }
+
+    function showGuestSuccess(message) {
+        if (!guestSuccess) return;
+
+        guestSuccess.textContent = message || "";
+        guestSuccess.style.display = message ? "block" : "none";
     }
 
     function showRsvpError(message) {
@@ -3577,6 +3599,16 @@ function isNoneOfTheAboveChecked() {
 
         if (guestResult) guestResult.style.display = "none";
         if (rsvpSection) rsvpSection.style.display = "none";
+        if (rsvpForm) rsvpForm.style.display = "block";
+
+        const submitButton = rsvpForm
+            ? rsvpForm.querySelector('button[type="submit"]')
+            : null;
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit RSVP";
+        }
 
         if (guestFullName) guestFullName.textContent = "";
 
@@ -3606,6 +3638,7 @@ function isNoneOfTheAboveChecked() {
         }
 
         showError("");
+        showGuestSuccess("");
         showRsvpError("");
         showRsvpStatus("");
     }
@@ -4243,77 +4276,16 @@ function isNoneOfTheAboveChecked() {
 
   
 /* =====================================================
-   CLEAR FORM AFTER SUCCESSFUL RSVP
-
-   After a successful submission:
-   - Clear guest and invitation details.
-   - Hide the RSVP form.
-   - Keep the success message visible.
+   RESET TO THE BLANK INVITATION LOOKUP AFTER SUCCESS
 ===================================================== */
 
 function clearAfterSuccessfulSubmit(successMessage) {
-    currentGuest = null;
-
-    window.currentWeddingGuest = null;
-    window.currentLookupToken = null;
-
-    firstNameInput.value = "";
-    lastNameInput.value = "";
-
-    if (rsvpPhone) rsvpPhone.value = "";
-    if (adviceInput) adviceInput.value = "";
-
-    if (guestFullName) guestFullName.textContent = "";
-    if (rsvpGuestId) rsvpGuestId.value = "";
-    if (rsvpGuestName) rsvpGuestName.value = "";
-
-    if (rsvpGuests) rsvpGuests.value = "0";
-    if (rsvpAttendingGuests) {
-        rsvpAttendingGuests.value = "[]";
-    }
-
-    if (rsvpSangeet) rsvpSangeet.value = "NO";
-    if (rsvpWedding) rsvpWedding.value = "NO";
-
-    if (guestCount) {
-        guestCount.innerHTML =
-            '<option value="0">0 Guests — Not Attending</option>';
-
-        guestCount.value = "0";
-        guestCount.disabled = true;
-    }
-
-    if (attendeeList) {
-        attendeeList.innerHTML = "";
-    }
-
-    clearEventSelections();
-
-    if (guestResult) {
-        guestResult.style.display = "none";
-    }
-
-    /*
-     * Hide the RSVP form after a successful submission.
-     * The confirmation must be displayed outside the form
-     * so it remains visible.
-     */
-    if (rsvpForm) {
-        rsvpForm.style.display = "none";
-    }
-
-    if (rsvpSection) {
-        rsvpSection.style.display = "block";
-    }
-
-    showError("");
+    clearInvitation(false);
     showRsvpError("");
-    showRsvpStatus(successMessage);
+    showRsvpStatus("");
+    showGuestSuccess(successMessage);
 
-    if (findInvitationBtn) {
-        findInvitationBtn.disabled = false;
-        findInvitationBtn.textContent = "Find Invitation";
-    }
+    if (rsvpForm) rsvpForm.style.display = "block";
 }
 
 
@@ -4393,10 +4365,7 @@ rsvpForm.addEventListener("submit", async function (event) {
         const attendingWedding =
             isEventChecked("wedding");
 
-        const noneOfTheAbove = Boolean(
-            noneOfTheAboveCheckbox &&
-            noneOfTheAboveCheckbox.checked
-        );
+        const noneOfTheAbove = isNoneOfTheAboveChecked();
 
         /*
          * Guests must select an event or explicitly choose
@@ -4449,11 +4418,16 @@ rsvpForm.addEventListener("submit", async function (event) {
             rsvpPhone ? rsvpPhone.value : ""
         ).replace(/\D/g, "");
 
-        if (!/^\d{10,14}$/.test(phone)) {
+        if (
+            (totalGuests > 0 && !/^\d{10,14}$/.test(phone)) ||
+            (phone && !/^\d{10,14}$/.test(phone))
+        ) {
             if (rsvpPhone) rsvpPhone.focus();
 
             throw new Error(
-                "Please enter a valid phone number (10–14 digits)."
+                totalGuests > 0
+                    ? "Please enter a valid phone number (10–14 digits)."
+                    : "If you provide a phone number, it must contain 10–14 digits."
             );
         }
 
@@ -4522,7 +4496,7 @@ rsvpForm.addEventListener("submit", async function (event) {
         const successMessage = result.message ||
             "Thank you! Your RSVP has been received.";
 
-        // Clear the invitation and hide the form.
+        // Clear the invitation and return to the blank lookup form.
         clearAfterSuccessfulSubmit(successMessage);
 
         if (submitButton) {
@@ -4531,10 +4505,10 @@ rsvpForm.addEventListener("submit", async function (event) {
         }
 
         if (
-            rsvpStatus &&
-            rsvpStatus.scrollIntoView
+            guestSuccess &&
+            guestSuccess.scrollIntoView
         ) {
-            rsvpStatus.scrollIntoView({
+            guestSuccess.scrollIntoView({
                 behavior: "smooth",
                 block: "center"
             });
